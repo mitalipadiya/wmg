@@ -1,0 +1,70 @@
+.signin-main {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 65px);
+    justify-content: space-between;
+}
+.signin-container {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 56px auto 0 auto;
+}
+
+.top-heading {
+    text-align: center;
+    font: normal normal bold 32px/44px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+    margin: 0;
+}
+
+.top-paragraph {
+    text-align: center;
+    font: normal normal normal 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #7D7D7F;
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+.signin-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signin-label {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font: normal normal 600 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+    margin-top: 24px;
+}
+
+.forgot-password {
+    margin-bottom: 40px;
+}
+.signin-p {
+    font: normal normal normal 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #7D7D7F;
+
+    span {
+        font: normal normal 600 16px/22px Manrope;
+        letter-spacing: 0px;
+        color: #F9B123;
+    }
+
+    a {
+        text-decoration: none;
+        cursor: pointer;
+        margin-left: 4px;
+    }
+}
+.signin-footer {
+    align-self: center;
+    margin-bottom: 46px;
+}

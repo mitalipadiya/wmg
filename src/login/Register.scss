@@ -1,0 +1,29 @@
+.register-form {
+    margin-bottom: 40px;
+}
+.name-div{
+    display:flex;
+    gap:24px ;
+}
+.email-div{
+    display: flex;
+    flex-direction: column;
+}
+.company-div{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.designation-div{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.company-desig-div{
+    display:flex;
+    gap:24px ;
+}
+.password-div{
+    display: flex;
+    flex-direction: column;
+}
