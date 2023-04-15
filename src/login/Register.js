@@ -2,8 +2,10 @@ import Button from "../UI/Button";
 import Input from "../UI/Input";
 import "./SignIn.scss";
 import './Register.scss';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { register } from "../actions/auth";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
 
@@ -13,6 +15,18 @@ const Register = () => {
     const [company, setCompany] = useState("");
     const [designation, setDesignation] = useState("");
     const [password, setPassword] = useState("");
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const onRegister = () => {
+        dispatch(register(firstName, lastName, email, company, designation, password))
+            .then(() => {
+                navigate("/");
+            })
+            .catch(() => {
+            });
+    }
 
     return (
         <div className="signin-main">
@@ -29,7 +43,7 @@ const Register = () => {
                     </div>
                     <div className="email-div">
                         <label className="signin-label" htmlFor="email">Your email</label>
-                        <Input placeholder="example@email.com" onChange={(event) => setEmail(event.target.value)}/>
+                        <Input placeholder="example@email.com" type="email" onChange={(event) => setEmail(event.target.value)}/>
                     </div>
                     <div className="company-desig-div">
                         <div className="company-div">
@@ -43,10 +57,10 @@ const Register = () => {
                     </div>
                     <div className="password-div">
                         <label className="signin-label" htmlFor="password">Create a password</label>
-                        <Input placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
+                        <Input placeholder="Password" type="password" onChange={(event) => setPassword(event.target.value)}/>
                     </div>
                 </div>
-                <Button value="Register" />
+                <Button value="Register" onClick={onRegister} />
             </div>
             <p className="signin-footer signin-p">
                 Already have an account?<Link to={'/'}><span>Sign in</span></Link>

@@ -1,7 +1,7 @@
 
 import axios from "axios";
 
-const API_URL = "http://localhost:4001/";
+const API_URL = "https://alive-cuff-links-eel.cyclic.app/";
 
 const register = (first_name, last_name, email, company, designation, password) => {
     return axios.post(API_URL + "register", {

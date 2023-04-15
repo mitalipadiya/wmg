@@ -5,11 +5,16 @@
     flex-direction: column;
     justify-content: center;
     padding: 0 20px;
+    color: #7D7D7F;
 }
 
 .options-para-1 {
     text-align: left;
     font: normal normal normal 16px/22px Manrope;
     letter-spacing: 0px;
-    color: #7D7D7F;
+    cursor: pointer;
+}
+.option-div-1.active {
+    background: #F9B123 0% 0% no-repeat padding-box;
+    color: #27272A;
 }

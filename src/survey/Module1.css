@@ -20,7 +20,7 @@
     letter-spacing: 0px;
     color: #27272A;
     opacity: 1;
-    margin-top: 48px;
+    margin-top: 32px;
 }
 
 .survey-para-1 {
@@ -52,6 +52,8 @@
     margin-left: 40px;
     margin-right: 40px;
     margin-top: 24px;
+    height: calc(100vh - 89px);
+    justify-content: space-between;
 }
 
 .survey-questions-options {
@@ -68,4 +70,30 @@
     background: #E9E9E9 0% 0% no-repeat padding-box;
     border: none;
     flex: 1;
+}
+.selected-cat {
+    background: #CAD401 0% 0% no-repeat padding-box;
+}
+.btn-nav {
+    padding: 0 32px;
+    height: 56px;
+    background: #F9B123 0% 0% no-repeat padding-box;
+    border: 1px solid #F9B123;
+    text-align: left;
+    font: normal normal 600 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+    cursor: pointer;
+}
+.btn-inactive {
+    background: #FEEFD3 0% 0% no-repeat padding-box;
+}
+.btn-nav-div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 67px;
+}
+button.btn-nav:disabled, button.btn-nav[disabled] {
+    background: #FEEFD3 0% 0% no-repeat padding-box;
+    border: 1px solid #F9B123;
 }
