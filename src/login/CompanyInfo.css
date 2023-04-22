@@ -1,0 +1,55 @@
+.company-heading{
+    text-align: left;
+    font: normal normal bold 24px/33px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+}
+.company-info {
+    text-align: left;
+    font: normal normal bold 20px/27px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+    margin-bottom: 24px;
+}
+
+.company-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.company-label {
+    text-align: left;
+    font: normal normal 600 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+    margin-bottom: 8px;
+    margin-top: 24px;
+}
+
+.country-div {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.city-div {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.places-div {
+    gap: 24px;
+    display: flex;
+    flex-direction: row;
+}
+.comp-btn-div {
+    margin-top: 40px;
+    gap: 24px;
+}
+.comp-btn {
+    flex:1;
+    text-align: center;
+}

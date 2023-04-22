@@ -1,0 +1,86 @@
+.profile-h2 {
+    text-align: left;
+    font: normal normal bold 24px/33px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+    margin-top: 32px;
+}
+
+.profile-headings {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.profile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.profile-nav-heading {
+    display: flex;
+    gap: 8px;
+}
+
+.profile-nav-p {
+    text-align: left;
+    font: normal normal bold 16px/22px Manrope;
+    letter-spacing: 1.6px;
+    color: inherit;
+    text-transform: uppercase;
+}
+
+.profile-nav-span {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8px;
+    height: 17px;
+    text-align: center;
+    font: normal normal bold 12px/17px Manrope;
+    letter-spacing: 1.2px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    padding: 1.5px 6px;
+}
+
+.profile-nav-hr {
+    height: 4px;
+    border: none;
+}
+
+.prev-tab {
+    color: #DFE566;
+    .profile-nav-hr {
+        background: #DFE566 0% 0% no-repeat padding-box;    
+    }
+    .profile-nav-span {
+        background: #DFE566 0% 0% no-repeat padding-box;
+    }
+}
+.next-tab {
+    color: #D3D3D4;
+    .profile-nav-hr {
+        background: #D3D3D4 0% 0% no-repeat padding-box;    
+    }
+    .profile-nav-span {
+        background: #D3D3D4 0% 0% no-repeat padding-box;
+    }
+}
+.current-tab {
+    color: #CAD401;
+    .profile-nav-hr {
+        background: #CAD401 0% 0% no-repeat padding-box;    
+    }
+    .profile-nav-span {
+        background: #CAD401 0% 0% no-repeat padding-box;
+    }
+}
+.profile-forms {
+    margin-top: 40px;
+}

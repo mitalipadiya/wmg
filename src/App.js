@@ -10,6 +10,9 @@ import ResetPassword from './login/ResetPassword';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Module1 from './survey/Module1';
+import ProfileInfo from './login/ProfileInfo';
+import CompanyInfo from './login/CompanyInfo';
+import UpdateProfile from './login/UpdateProfile';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -32,6 +35,7 @@ function App() {
         <Route path="/create-new" element={<CreateNewPassword />} />
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/module1" element={<Module1 />} />
+        <Route path="/profile" element={<UpdateProfile />} />
       </Routes>
     </div>
   );
