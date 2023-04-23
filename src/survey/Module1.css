@@ -1,3 +1,9 @@
+.survey-ques-div {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 163px);
+    justify-content: space-between;
+}
 .survey-heading-1 {
     text-align: left;
     font: normal normal bold 16px/22px Manrope;
@@ -52,8 +58,8 @@
     margin-left: 40px;
     margin-right: 40px;
     margin-top: 24px;
-    height: calc(100vh - 89px);
-    justify-content: space-between;
+    /* height: calc(100vh - 89px);
+    justify-content: space-between; */
 }
 
 .survey-questions-options {

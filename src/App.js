@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Header from './UI/Header';
-import { Outlet, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import SignIn from './login/SignIn';
 import Intro from './survey/Intro';
 import Register from './login/Register';
@@ -10,9 +10,8 @@ import ResetPassword from './login/ResetPassword';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Module1 from './survey/Module1';
-import ProfileInfo from './login/ProfileInfo';
-import CompanyInfo from './login/CompanyInfo';
 import UpdateProfile from './login/UpdateProfile';
+import SurveyResults from './survey/SurveyResults';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -36,6 +35,7 @@ function App() {
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/module1" element={<Module1 />} />
         <Route path="/profile" element={<UpdateProfile />} />
+        <Route path="/survey-results" element={<SurveyResults />} />        
       </Routes>
     </div>
   );
