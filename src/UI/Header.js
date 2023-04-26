@@ -5,13 +5,15 @@ import { useState } from 'react';
 
 const Header = () => {
     const { isLoggedIn } = useSelector(state => state.auth);
-    const {user} = useSelector(state => state.auth);
+    const { user } = useSelector(state => state.auth);
     const [selectedHeader, setSelectedHeader] = useState("module1");
     return (
         <header>
             {isLoggedIn ? <div className='header-div'>
-                <img className="header-img" />
-                <img className="catapult-img" />
+                <div className='header-logo'>
+                    <img className="header-img" />
+                    <img className="catapult-img" />
+                </div>
 
                 <nav>
                     <Link className={selectedHeader == "module1" ? 'active' : ''} onClick={() => setSelectedHeader("module1")} to="/module1">Module 1</Link>

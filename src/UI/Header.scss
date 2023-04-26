@@ -9,11 +9,16 @@ header {
   padding-right: 40px;
 }
 
+.header-logo{
+
+}
+
 .header-img {
   width: 115px;
   height: 32px;
   content: url("../assets/logo.png");
   background: transparent 0% 0% no-repeat padding-box;
+  margin-right: 32px;
 }
 
 .catapult-img {
