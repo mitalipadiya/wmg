@@ -11,6 +11,8 @@ const Header = () => {
         <header>
             {isLoggedIn ? <div className='header-div'>
                 <img className="header-img" />
+                <img className="catapult-img" />
+
                 <nav>
                     <Link className={selectedHeader == "module1" ? 'active' : ''} onClick={() => setSelectedHeader("module1")} to="/module1">Module 1</Link>
                     <Link className={selectedHeader == "module2" ? 'active' : ''} onClick={() => setSelectedHeader("module2")} to="/module2">Module 2</Link>

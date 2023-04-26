@@ -1,0 +1,44 @@
+.check-box-para {
+    font: normal normal 600 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+    opacity: 1;
+    text-align: inherit;
+    margin-top: 68px;
+    margin-bottom: 16px;
+}
+
+.check-box-para-2 {
+    text-align: inherit;
+    font: normal normal 600 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+    opacity: 1;
+    margin-top: 32px;
+    margin-bottom: 8px;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.checkbox-style {
+    width: 20px;
+    height: 20px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #A8A8A9;
+    opacity: 1;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.checkbox-lable {
+    text-align: left;
+    font: normal normal normal 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #7D7D7F;
+    opacity: 1;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}

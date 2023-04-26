@@ -1,0 +1,20 @@
+//7.Please indicate the management level of your current position:
+
+["Executive","Senior Management","Middle Management","Junior Management","Other"]
+
+// 8.Please describe the total turnover of your company/organisation or subsidiary in the last financial year (£)
+
+["Less than 10 million","10 million to 50 million","50 million to 100 million","100 million to 500 million","500 million to 2 billion","2 billion to 10 billion","Over 10 billion"]
+
+// 9.Please describe the nature of your 'customers':
+
+["B2B","B2C","Governments","Individual consumers (e.g. the general public)","Other organisations and businesses","Other organisations and businesses & Individual consumers (e.g. the general public)","Other organisations and businesses & Governments","Individual consumers (e.g. the general public) & Governments","Other organisations and businesses & Individual consumers (e.g. the general public) & Governments","Other"]
+
+// 10.Please indicate your current function:
+
+["Accounting / Finance","Human resources","Logistics / Distribution","Marketing / Sales","Planning","Production / Manufacturing","Purchasing / Procurement","Research & Development","Supply Chain Management","Legal","Other"]
+
+//11.Please indicate the primary industry in which your company operates
+
+["Accounting / Finance","Human resources","Logistics / Distribution","Marketing / Sales","Planning","Production / Manufacturing","Purchasing / Procurement","Research & Development","Supply Chain Management","Legal","Other"]
+

@@ -1,0 +1,73 @@
+.company-infoform {
+    text-align: left;
+    font: normal normal 600 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+    opacity: 1;
+}
+
+.value-radio-survey {
+    text-align: center;
+    font: normal normal normal 16px/22px Manrope;
+    color: #7D7D7F;
+    display: grid;
+    grid-template-rows: 1;
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 8px;
+    margin-top: 32px;
+    margin-bottom: 14px;
+}
+
+.radio-btn {
+    width: 20px;
+    height: 20px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #A8A8A9;
+    opacity: 1;
+}
+
+input[type='radio']:checked:after {
+    width: 12px;
+    height: 12px;
+    border-radius: 15px;
+    top: 3px;
+    left: 3px;
+    position: relative;
+    background-color: #CAD401;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    background: #CAD401 0% 0% no-repeat padding-box;
+    border: 1px solid #CAD401;
+}
+
+.radio-left-tags {
+    text-align: center;
+    font: normal normal normal 16px/22px Manrope;
+    color: #7D7D7F;
+    display: grid;
+    grid-template-rows: 1;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 8px;
+    align-items: center;
+    justify-items: center;
+}
+
+/* Row shadoe CSS */
+.shadow-left-tag {
+    height: 68px;
+    background: var(--unnamed-color-f8f8f8) 0% 0% no-repeat padding-box;
+    background: #F8F8F8 0% 0% no-repeat padding-box;
+    opacity: 1;
+    align-items: center;
+    display: flex;
+}
+
+.value-container{
+    max-width: 808px;
+}
+
+.value-btn-div{
+    margin-top: 40px;
+}
