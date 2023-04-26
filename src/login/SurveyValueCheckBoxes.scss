@@ -8,19 +8,13 @@
     margin-bottom: 16px;
 }
 
-.check-box-para-2 {
-    text-align: inherit;
-    font: normal normal 600 16px/22px Manrope;
-    letter-spacing: 0px;
-    color: #27272A;
-    opacity: 1;
-    margin-top: 32px;
-    margin-bottom: 8px;
-}
-
 .checkbox-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    div {
+        display: flex;
+        gap: 8px;
+    }
 }
 
 .checkbox-style {
@@ -41,4 +35,7 @@
     opacity: 1;
     margin-top: 8px;
     margin-bottom: 8px;
+}
+input[type='checkbox'] {
+    accent-color: #CAD401;
 }

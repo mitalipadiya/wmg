@@ -71,3 +71,12 @@ input[type='radio']:checked:after {
 .value-btn-div{
     margin-top: 40px;
 }
+.check-box-para-2 {
+    text-align: inherit;
+    font: normal normal 600 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+    opacity: 1;
+    margin-top: 32px;
+    margin-bottom: 8px;
+}

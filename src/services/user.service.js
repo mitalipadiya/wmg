@@ -23,16 +23,22 @@ const updateSurvey = (id, surveyData) => {
   return axios
       .put(API_URL + `surveyResponse/${id}`, surveyData , { headers: authHeader() })
       .then((response) => {
-          console.log("response ==>", response);
-
           return response.data;
       });
 };
 
+const updateProfile = (id, profile) => {
+  return axios
+      .put(API_URL + `update-profile/${id}`, profile , { headers: authHeader() })
+      .then((response) => {
+          return response.data;
+      });
+}
 export default {
   getPublicContent,
   getUserBoard,
   getModeratorBoard,
   getAdminBoard,
-  updateSurvey
+  updateSurvey,
+  updateProfile
 };

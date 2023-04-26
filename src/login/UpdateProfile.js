@@ -12,7 +12,7 @@ const UpdateProfile = () => {
     const completeClick = () => {
         navigate("/intro");
     }
-    return <div>
+    return <div className='profile-main'>
         <h2 className="profile-h2">Complete your account</h2>
         <div className="profile-headings">
             {
