@@ -1,0 +1,54 @@
+.survey-results {
+    margin: 24px 40px 64px 40px;
+
+    h3 {
+        text-align: left;
+        font: normal normal bold 20px/27px Manrope;
+        letter-spacing: 0px;
+        color: #27272A;
+        /* opacity: 1; */
+        margin-bottom: 24px;
+    }
+}
+
+.survey-heading-main {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    align-items: center;
+    margin-bottom: 44px;
+
+    div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h2 {
+        text-align: left;
+        font: normal normal bold 24px/33px Manrope;
+        letter-spacing: 0px;
+        color: #27272A;
+    }
+
+    p {
+        text-align: left;
+        font: normal normal normal 16px/22px Manrope;
+        letter-spacing: 0px;
+        color: #A8A8A9;
+
+        span {
+            text-align: left;
+            font: normal normal normal 16px/22px Manrope;
+            letter-spacing: 0px;
+            color: #27272A;
+        }
+    }
+
+    button {
+        height: 48px;
+        background: var(--unnamed-color-f9b123) 0% 0% no-repeat padding-box;
+        background: #F9B123 0% 0% no-repeat padding-box;
+        padding: 13px 32px;
+        border: none;
+    }
+}

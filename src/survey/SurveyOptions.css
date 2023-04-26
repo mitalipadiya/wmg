@@ -1,10 +1,9 @@
 .option-div-1 {
-    height: 46px;
     background: #F8F8F8 0% 0% no-repeat padding-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 20px;
+    padding: 12px 20px;
     color: #7D7D7F;
 }
 
