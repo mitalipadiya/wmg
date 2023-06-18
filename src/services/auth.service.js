@@ -1,8 +1,8 @@
 
 import axios from "axios";
 
-// const API_URL = "http://wmg-kavida.us-east-1.elasticbeanstalk.com/";
-const API_URL = "http://localhost:4001/";
+const API_URL = "http://wmg-kavida.us-east-1.elasticbeanstalk.com/";
+// const API_URL = "http://localhost:4001/";
 
 const register = (first_name, last_name, email, company, designation, password) => {
     return axios.post(API_URL + "register", {
