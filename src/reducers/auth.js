@@ -4,6 +4,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
+    USER_UPDATE
   } from "../actions/types";
   
   const user = JSON.parse(localStorage.getItem("user"));
@@ -47,6 +48,11 @@ import {
           user: null,
           surveyData: null
         };
+      case USER_UPDATE:
+        return {
+          ...state,
+          user: payload.user
+        }
       default:
         return state;
     }

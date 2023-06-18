@@ -4,9 +4,11 @@ import './CompanyInfo.css'
 import Button from '../UI/Button';
 import { Link } from 'react-router-dom';
 import Select from '../UI/Select';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import userService from '../services/user.service';
+import axios from 'axios';
+import { updateUser } from '../actions/auth';
 
 const CompanyInfo = (props) => {
     const totalTurnovers = ["Less than 10 million", "10 million to 50 million", "50 million to 100 million", "100 million to 500 million", "500 million to 2 billion", "2 billion to 10 billion", "Over 10 billion"]
@@ -21,7 +23,38 @@ const CompanyInfo = (props) => {
     const [primaryIndustry, setPrimaryIndustry] = useState(user?.industry_company_operates || "");
     const [totalTurnover, setTotalTurnover] = useState(user?.company_turnover || "");
     const [natureOfCustomer, setNatureOfCustomer] = useState(user?.customer_nature || "");
+    const [countries, setCountries] = useState([]);
+    const [cities, setCities] = useState([]);
 
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        axios.get("https://countriesnow.space/api/v0.1/countries").then(data =>{
+            if(data && data.data && data.data.data) {
+                setCountries(prev => {
+                    if(companyCountry) {
+                        data.data.data.forEach(data => {
+                            if(data.country == companyCountry) {
+                                setCities(prev => [...data.cities]);
+                                return;
+                            }
+                        })
+                    }
+                    return [...data.data.data];
+                })
+            }
+        });
+    }, []);
+    const onCountryChange = (country) => {
+        countries.forEach(data => {
+            if(data.country == country) {
+                setCities(prev => [...data.cities]);
+                return;
+            }
+        })
+        setCompanyCountry(prev => country);
+        
+    }
     const updateProfile = () => {
         let companyProfile = {
             company: companyName,
@@ -31,13 +64,14 @@ const CompanyInfo = (props) => {
             company_turnover: totalTurnover,
             customer_nature: natureOfCustomer
         }
-        userService.updateProfile(user._id, ).then(data => {
+        userService.updateProfile(user._id).then(data => {
             props.nextClick();
             let userData = localStorage.getItem('user');
             if(userData) {
                 let parsedUserData = JSON.parse(userData);
                 parsedUserData = {...parsedUserData, ...companyProfile};
                 localStorage.setItem('user', JSON.stringify(parsedUserData));
+                dispatch(updateUser(JSON.parse(localStorage.getItem('user'))));
             }
         }, 
         (error)=> {
@@ -62,11 +96,21 @@ const CompanyInfo = (props) => {
                 <div className="places-div">
                     <div className="country-div">
                         <label className="company-label">Country</label>
-                        <Select value={companyCountry} onChange={event => setCompanyCountry(event.target.value)} />
+                        <select className="select" onChange={event => onCountryChange(event.target.value)} value={companyCountry}>
+                            <option value="" disabled selected>Select</option>
+                            {countries.length ? countries.map((data) => {
+                                return <option value={data.country}>{data.country}</option>
+                            }) : null}
+                        </select>
                     </div>
                     <div className="city-div">
                         <label className="company-label">City</label>
-                        <Select value={companyCity} onChange={event => setCompanyCity(event.target.value)} />
+                        <select className="select" onChange={event => setCompanyCity(event.target.value)} value={companyCity}>
+                            <option value="" disabled selected>Select</option>
+                            {cities.length ? cities.map((data) => {
+                                return <option value={data}>{data}</option>
+                            }) : null}
+                        </select>
                     </div>
                 </div>
                 <div className="select-div">

@@ -52,3 +52,27 @@
         border: none;
     }
 }
+.export-label {
+    font: normal normal 600 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #F9B123;
+    cursor: pointer;
+}
+.export-image {
+    content: url("../assets/vuesax-bold-receive-square.svg");
+    width: 20px;
+    height: 20px;
+    background: transparent 0% 0% no-repeat padding-box;
+    cursor: pointer;
+}
+.survey-heading-main .export-div {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+}
+.survey-heading-main .survey-actions {
+    flex-direction: row;
+    gap: 24px;
+}

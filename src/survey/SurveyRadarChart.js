@@ -7,7 +7,6 @@ const SurveyRadarChart = (props) => {
   const [radarData, setRadarData] = useState(null);
   const [isDataReady, setIsDataReady] = useState(false);
   const [radarOptions, setRadarOptions] = useState({...RadarOptions});
-  console.log("props ==>", props.chartData);
   useEffect(() => {
 
     if (props.chartData && !isDataReady) {
@@ -66,7 +65,8 @@ const SurveyRadarChart = (props) => {
               align: 'start',
               color: '#27272A',
               font: {
-                size: 24
+                size: 24,
+                family: 'Manrope'
             }
             },
             subtitle: {
@@ -75,7 +75,8 @@ const SurveyRadarChart = (props) => {
               align: 'start',
               color: '#7D7D7F',
               font: {
-                size: 16
+                size: 16,
+                family: 'Manrope'
             }
           }
           };

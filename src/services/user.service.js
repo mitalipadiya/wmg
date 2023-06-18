@@ -34,11 +34,27 @@ const updateProfile = (id, profile) => {
           return response.data;
       });
 }
+const forgotPassword = (email) => {
+  return axios
+      .post(API_URL + `forgot-password`, email)
+      .then((response) => {
+          return response.data;
+      });
+}
+const resetPassword = (password, token) => {
+  return axios
+      .post(API_URL + `reset-password`, password, { headers: { Authorization: token } })
+      .then((response) => {
+          return response.data;
+      });
+}
 export default {
   getPublicContent,
   getUserBoard,
   getModeratorBoard,
   getAdminBoard,
   updateSurvey,
-  updateProfile
+  updateProfile,
+  resetPassword,
+  forgotPassword
 };

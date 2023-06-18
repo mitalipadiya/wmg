@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './UpdateProfile.scss';
 import ProfileInfo from './ProfileInfo';
 import CompanyInfo from './CompanyInfo';
 import { useNavigate } from 'react-router-dom';
 import Values from './Values';
+
 const UpdateProfile = () => {
     const headings = ["PERSONAL INFORMATION", "COMPANY INFORMATION", "VALUES & ACCREDITATIONS"];
     const [currentTab, setCurrentTab] = useState(0);

@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Header from './UI/Header';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import SignIn from './login/SignIn';
 import Intro from './survey/Intro';
 import Register from './login/Register';
@@ -16,9 +16,13 @@ import SurveyResults from './survey/SurveyResults';
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
   const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(()=>{
-    if(!isLoggedIn) {
-      navigate("/");
+    if(!location.pathname.startsWith("/create-new")){
+      if(!isLoggedIn) {
+        navigate("/");
+      }
     }
 
   }, [isLoggedIn]);
@@ -31,7 +35,7 @@ function App() {
         <Route path="/" element={<SignIn />} />
         <Route path="/intro" element={<Intro />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/create-new" element={<CreateNewPassword />} />
+        <Route path="/create-new/:token" element={<CreateNewPassword />} />
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/module1" element={<Module1 />} />
         <Route path="/profile" element={<UpdateProfile />} />

@@ -4,7 +4,6 @@ import SummaryQuestion from "./SummaryQuestion";
 const Summary = (props) => {
     const navigate = useNavigate();
     const onOptionChange = (index, option) => event => {
-        console.log("Index ==>", index, "option ==>", option);
         props.onSummaryOptionSelected(index, option);
     }
     const onSurveyResults = () => {

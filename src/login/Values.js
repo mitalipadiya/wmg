@@ -1,22 +1,23 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './SignIn.scss';
 import SurveyValueCheckBoxes from './SurveyValueCheckBoxes';
 import './Values.css';
 import { useState } from 'react';
 import Input from '../UI/Input';
 import userService from '../services/user.service';
+import { updateUser } from '../actions/auth';
 
 const Values = (props) => {
     const headings = ["Extremely important", "Highly important", "Quite important", "Moderately important",
         "Relatively important", "Slightly important", "Not so important"];
     const { user } = useSelector(state => state.auth);
-    const [drivers, setDrivers] = useState(user?.business_value_drivers || [
+    const [drivers, setDrivers] = useState(user?.business_value_drivers && user?.business_value_drivers.length ? user?.business_value_drivers :  [
         { name: "Operational excellence", value: -1 },
         { name: "Product leadership", value: -1 },
         { name: "Customer intimacy", value: -1 },
         { name: "Environment saving", value: -1 }
     ]);
-    const [accreditations, setAccreditations] = useState(user?.industry_recognised_accreditations || [
+    const [accreditations, setAccreditations] = useState(user?.industry_recognised_accreditations && user?.industry_recognised_accreditations.length ? user?.industry_recognised_accreditations : [
         { "name": "ISO 90001 (Quality Management System)", "selected": false },
         { "name": "Plan Vivo - Carbon offset project verification", "selected": false },
         { "name": "ISO 14001 (Environmental Management System)", "selected": false },
@@ -34,6 +35,8 @@ const Values = (props) => {
     ]);
     const [otherAccreditations, setOtherAccreditations] = useState(user?.other_recognised_accreditations || "");
 
+    const dispatch = useDispatch();
+
     const updateProfile = () => {
         let valuesData = {
             business_value_drivers: drivers,
@@ -47,6 +50,7 @@ const Values = (props) => {
                 let parsedUserData = JSON.parse(userData);
                 parsedUserData = { ...parsedUserData, ...valuesData };
                 localStorage.setItem('user', JSON.stringify(parsedUserData));
+                dispatch(updateUser(JSON.parse(localStorage.getItem('user'))));
             }
         },
             (error) => {
@@ -78,15 +82,15 @@ const Values = (props) => {
             </div>
             <div className='value-radio-survey'>
                 <p></p>
-                {headings.map(data => {
+                {headings.length && headings.map(data => {
                     return <p>{data}</p>
                 })}
             </div>
             <div className='radio-left-tags'>
-                {drivers.map((data, index) => {
+                {drivers.length && drivers.map((data, index) => {
                     return <><p className='shadow-left-tag'>{data.name}</p>
                         {
-                            headings.map((ele, i) => {
+                            headings.length && headings.map((ele, i) => {
                                 return <input className='radio-btn' name={data.name} checked={i == data.value} onChange={onRadioSelected(index, i)} type="radio" />
                             })
                         }

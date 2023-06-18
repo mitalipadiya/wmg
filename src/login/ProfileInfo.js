@@ -4,8 +4,9 @@ import './ProfileInfo.css'
 import Button from '../UI/Button';
 import Select from '../UI/Select';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import userService from '../services/user.service';
+import { updateUser } from '../actions/auth';
 const ProfileInfo = (props) => {
     const managementLevels = ["Executive", "Senior Management", "Middle Management", "Junior Management", "Other"];
     const currentFunctions = ["Accounting / Finance", "Human resources", "Logistics / Distribution", "Marketing / Sales", "Planning", "Production / Manufacturing", "Purchasing / Procurement", "Research & Development", "Supply Chain Management", "Legal", "Other"];
@@ -17,6 +18,8 @@ const ProfileInfo = (props) => {
     const [designation, setDesignation] = useState(user?.designation || "");
     const [managementLevel, setManagementLevel] = useState(user?.management_level_Current_position || "");
     const [currentFunction, setCurrentFunction] = useState(user?.current_function || "");
+
+    const dispatch = useDispatch();
 
     const updateProfile = () => {
         let profileData = {
@@ -33,6 +36,7 @@ const ProfileInfo = (props) => {
                 let parsedUserData = JSON.parse(userData);
                 parsedUserData = {...parsedUserData, ...profileData};
                 localStorage.setItem('user', JSON.stringify(parsedUserData));
+                dispatch(updateUser(JSON.parse(localStorage.getItem('user'))));
             }
         }, 
         (error)=> {

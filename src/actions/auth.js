@@ -6,6 +6,7 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     SET_MESSAGE,
+    USER_UPDATE,
   } from "./types";
   
   import AuthService from "../services/auth.service";
@@ -77,6 +78,13 @@ import {
       }
     );
   };
+
+  export const updateUser = (data) => (dispatch) => {
+    dispatch({
+      type: USER_UPDATE,
+      payload: { user: data }
+    })
+  }
   
   export const logout = () => (dispatch) => {
     AuthService.logout();
