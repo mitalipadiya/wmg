@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import Module1 from './survey/Module1';
 import UpdateProfile from './login/UpdateProfile';
 import SurveyResults from './survey/SurveyResults';
+import Snackbar from './UI/Snackbar';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -27,21 +28,22 @@ function App() {
 
   }, [isLoggedIn]);
   return (
-    <div className="App">
-      <Header />
-      {/* <Outlet/> */}
+      <div className="App">
+        <Snackbar/>
+        <Header />
+        {/* <Outlet/> */}
 
-      <Routes>
-        <Route path="/" element={<SignIn />} />
-        <Route path="/intro" element={<Intro />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/create-new/:token" element={<CreateNewPassword />} />
-        <Route path="/reset" element={<ResetPassword />} />
-        <Route path="/module1" element={<Module1 />} />
-        <Route path="/profile" element={<UpdateProfile />} />
-        <Route path="/survey-results" element={<SurveyResults />} />        
-      </Routes>
-    </div>
+        <Routes>
+          <Route path="/" element={<SignIn />} />
+          <Route path="/intro" element={<Intro />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/create-new/:token" element={<CreateNewPassword />} />
+          <Route path="/reset" element={<ResetPassword />} />
+          <Route path="/module1" element={<Module1 />} />
+          <Route path="/profile" element={<UpdateProfile />} />
+          <Route path="/survey-results" element={<SurveyResults />} />
+        </Routes>
+      </div>
   );
 }
 

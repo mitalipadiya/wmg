@@ -12,6 +12,7 @@ const SurveyRadarChart = (props) => {
     if (props.chartData && !isDataReady) {
       let labels = [];
       let crl = [];
+      let iarl = [];
       let mrl = [];
       let lrl = [];
       let arl = [];
@@ -20,6 +21,7 @@ const SurveyRadarChart = (props) => {
         mrl.push(4);
         arl.push(2.5);
         lrl.push(1);
+        iarl.push(3);
         if(props.chartData.questions[i].selectedOption < 4) {
           crl.push(props.chartData.questions[i].selectedOption + 1);
         }else{
@@ -43,7 +45,7 @@ const SurveyRadarChart = (props) => {
           poingBorderColor: dataSetLabels[i].color,
           pointHoverBackgroundColor: dataSetLabels[i].color,
           pointHoverBorderColor: dataSetLabels[i].color,
-          data: i == 0 ? [...crl] : (i == 2 ? [...mrl] : (i == 3 ? [...arl] : (i==4 ? [...lrl] : []))),
+          data: i == 0 ? [...crl] : (i==1 ? [...iarl] : (i == 2 ? [...mrl] : (i == 3 ? [...arl] : (i==4 ? [...lrl] : [])))),
           borderWidth: 1,
         })
       }

@@ -20,7 +20,7 @@ import {
   
         dispatch({
           type: SET_MESSAGE,
-          payload: response.data.message,
+          payload: "Registered Successfully",
         });
   
         return Promise.resolve();
@@ -58,12 +58,7 @@ import {
         return Promise.resolve();
       },
       (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+        const message ="Login failed. Please check your credentials";
   
         dispatch({
           type: LOGIN_FAIL,

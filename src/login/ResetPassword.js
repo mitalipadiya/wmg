@@ -2,17 +2,21 @@ import Button from "../UI/Button";
 import Input from "../UI/Input";
 import "./SignIn.scss";
 import "./ResetPassword.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import userService from "../services/user.service";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setMessage } from '../actions/message';
 
 const ResetPassword = () => {
     const [email, setEmail] = useState("");
+    const dispatch = useDispatch();
     const onReset = () => {
         userService.forgotPassword({ "email": email }).then(data => {
+            dispatch(setMessage("Please reset your password on the link shared to your registered mail id"));
         },
             (error) => {
-                console.log("error ==>", error);
+                dispatch(setMessage("Invalid Email id. User Not found"));
             });
     }
     return (
@@ -28,7 +32,7 @@ const ResetPassword = () => {
                 <Button value="Send password reset instructions" onClick={onReset}/>
             </div>
             <p className="signin-p">
-            <Link to={'/'}><span>Back to sign in</span></Link>
+                <Link to={'/'}><span>Back to sign in</span></Link>
             </p>
         </div>
 
