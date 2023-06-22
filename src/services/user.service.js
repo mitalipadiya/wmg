@@ -19,9 +19,10 @@ const getAdminBoard = () => {
   return axios.get(API_URL + "admin", { headers: authHeader() });
 };
 
-const updateSurvey = (id, surveyData) => {
+const updateSurvey = (id, surveyData, timestamp) => {
+  const surveyDataCon = {...surveyData, ...{lastUpdated: timestamp}}
   return axios
-      .put(API_URL + `surveyResponse/${id}`, surveyData , { headers: authHeader() })
+      .put(API_URL + `surveyResponse/${id}`, surveyDataCon , { headers: authHeader() })
       .then((response) => {
           return response.data;
       });

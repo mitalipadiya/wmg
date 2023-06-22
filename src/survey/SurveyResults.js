@@ -3,6 +3,7 @@ import SurveyRadarChart from "./SurveyRadarChart";
 import "./SurveyResults.scss";
 import Button from '../UI/Button';
 import GenericPdfDownloader from "../services/GenericPdfDownloader";
+import Moment from "react-moment";
 
 const SurveyResults = () => {
     const { surveyData } = useSelector(state => state.auth);
@@ -10,7 +11,11 @@ const SurveyResults = () => {
         <div className="survey-heading-main">
             <div>
                 <h2>Here's the results of your survey</h2>
-                <p>Survey done on <span>date</span></p>
+                <p>Survey done on <span>
+                <Moment format="MMMM Do YYYY" withTitle>
+                {new Date(surveyData.lastUpdated)}
+            </Moment>
+                    </span></p>
             </div>
             <div className="survey-actions">
                 <GenericPdfDownloader

@@ -84,8 +84,11 @@ const Module1 = () => {
             prevData['selectedOption'] = param;
             return { ...prevData };
         })
-        userService.updateSurvey(user._id, surveyData).then(data => {
-            updateLocalSurveyData();
+        
+        let timestamp = Date.now();
+        console.log("Timestamp ==>", timestamp)
+        userService.updateSurvey(user._id, surveyData, timestamp).then(data => {
+            updateLocalSurveyData(timestamp);
             onNextClick();
         }, 
         (error)=> {
@@ -98,18 +101,20 @@ const Module1 = () => {
             ques[index].selectedOption = option;
             return [...ques];
         })
-        userService.updateSurvey(user._id, surveyData).then(data => {
-            updateLocalSurveyData();
+        let timestamp = Date.now();
+        console.log("Timestamp ==>", timestamp)
+        userService.updateSurvey(user._id, surveyData, timestamp).then(data => {
+            updateLocalSurveyData(timestamp);
         }, 
         (error)=> {
             console.log("error ==>", error);
         });
     }
-    const updateLocalSurveyData = () => {
+    const updateLocalSurveyData = (timestamp) => {
         let userData = localStorage.getItem('user');
         if(userData) {
             let parsedUserData = JSON.parse(userData);
-            parsedUserData.survey_data = {...surveyData};
+            parsedUserData.survey_data = {...surveyData, ...{lastUpdated: timestamp}};
             localStorage.setItem('user', JSON.stringify(parsedUserData));
         }
     }

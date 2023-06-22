@@ -15,13 +15,11 @@ const SurveyRadarChart = (props) => {
       let iarl = [];
       let mrl = [];
       let lrl = [];
-      let arl = [];
       for (let i = 0; i < props.chartData.questions.length; i++) {
         labels.push(formatLabel(props.chartData.questions[i].heading, 30));
-        mrl.push(4);
-        arl.push(2.5);
-        lrl.push(1);
-        iarl.push(3);
+        mrl.push(props.chartData.questions[i].mrl ? props.chartData.questions[i].mrl : 4);
+        lrl.push(props.chartData.questions[i].lrl ? props.chartData.questions[i].lrl : 1);
+        iarl.push(props.chartData.questions[i].iarl ? props.chartData.questions[i].iarl : 3);
         if(props.chartData.questions[i].selectedOption < 4) {
           crl.push(props.chartData.questions[i].selectedOption + 1);
         }else{
@@ -31,7 +29,6 @@ const SurveyRadarChart = (props) => {
       let dataSetLabels = [{name: "Company readiness level (CRL)", color: "#27272A"},
       {name: "Industry average readiness level (IARL)", color: "#79D4F1"},
       {name: "Maximum readiness level (MRL)", color: "#CAD401"},
-      {name: "Average readiness level (ARL)", color: "#A8A8A9"},
       {name: "Lowest readiness level (LRL)", color: "#F9B123"}
     ]
       let datasets = [];
@@ -45,7 +42,7 @@ const SurveyRadarChart = (props) => {
           poingBorderColor: dataSetLabels[i].color,
           pointHoverBackgroundColor: dataSetLabels[i].color,
           pointHoverBorderColor: dataSetLabels[i].color,
-          data: i == 0 ? [...crl] : (i==1 ? [...iarl] : (i == 2 ? [...mrl] : (i == 3 ? [...arl] : (i==4 ? [...lrl] : [])))),
+          data: i == 0 ? [...crl] : (i==1 ? [...iarl] : (i == 2 ? [...mrl] : (i == 3 ? [...lrl] : []))),
           borderWidth: 1,
         })
       }
