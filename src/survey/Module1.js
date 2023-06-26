@@ -86,7 +86,6 @@ const Module1 = () => {
         })
         
         let timestamp = Date.now();
-        console.log("Timestamp ==>", timestamp)
         userService.updateSurvey(user._id, surveyData, timestamp).then(data => {
             updateLocalSurveyData(timestamp);
             onNextClick();
@@ -102,7 +101,6 @@ const Module1 = () => {
             return [...ques];
         })
         let timestamp = Date.now();
-        console.log("Timestamp ==>", timestamp)
         userService.updateSurvey(user._id, surveyData, timestamp).then(data => {
             updateLocalSurveyData(timestamp);
         }, 

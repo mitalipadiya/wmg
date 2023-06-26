@@ -25,10 +25,11 @@ const SurveyResults = () => {
                 <button>Re-take the survey</button>
             </div>
         </div>
+        <SurveyRadarChart chartData={surveyData?.categories} isOverall={true}/>
         <h3>Here's a summary of what you chose for materials and products (category 5/5)</h3>
         {surveyData?.categories.map((data) => {
             return <div>
-                <SurveyRadarChart chartData={data} />
+                <SurveyRadarChart chartData={data} isOverall={false}/>
 
             </div>
 

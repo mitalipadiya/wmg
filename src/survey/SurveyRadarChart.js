@@ -15,15 +15,39 @@ const SurveyRadarChart = (props) => {
       let iarl = [];
       let mrl = [];
       let lrl = [];
-      for (let i = 0; i < props.chartData.questions.length; i++) {
-        labels.push(formatLabel(props.chartData.questions[i].heading, 30));
-        mrl.push(props.chartData.questions[i].mrl ? props.chartData.questions[i].mrl : 4);
-        lrl.push(props.chartData.questions[i].lrl ? props.chartData.questions[i].lrl : 1);
-        iarl.push(props.chartData.questions[i].iarl ? props.chartData.questions[i].iarl : 3);
-        if(props.chartData.questions[i].selectedOption < 4) {
-          crl.push(props.chartData.questions[i].selectedOption + 1);
-        }else{
-           crl.push(0);
+      if (!props.isOverall) {
+        for (let i = 0; i < props.chartData.questions.length; i++) {
+          labels.push(formatLabel(props.chartData.questions[i].heading, 30));
+          mrl.push(props.chartData.questions[i].mrl ? props.chartData.questions[i].mrl : 4);
+          lrl.push(props.chartData.questions[i].lrl ? props.chartData.questions[i].lrl : 1);
+          iarl.push(props.chartData.questions[i].iarl ? props.chartData.questions[i].iarl : 3);
+          if (props.chartData.questions[i].selectedOption < 4) {
+            crl.push(props.chartData.questions[i].selectedOption + 1);
+          } else {
+            crl.push(0);
+          }
+        }
+      } else {
+        for (let i = 0; i < props.chartData.length; i++) {
+          labels.push(props.chartData[i].category);
+          let crlTotal = 0;
+          let iarlTotal = 0;
+          let mrlTotal = 0;
+          let lrlTotal = 0;
+          for (let j = 0; j < props.chartData[i].questions.length; j++) {
+            iarlTotal += parseInt(props.chartData[i].questions[j].iarl);
+            mrlTotal += parseInt(props.chartData[i].questions[j].mrl);
+            lrlTotal += parseInt(props.chartData[i].questions[j].lrl);
+            if (props.chartData[i].questions[j].selectedOption < 4) {
+              crlTotal += props.chartData[i].questions[j].selectedOption + 1;
+            } else {
+              crlTotal += 0;
+            }
+          }
+          crl.push(crlTotal/props.chartData[i].questions.length);
+          mrl.push(mrlTotal/props.chartData[i].questions.length);
+          lrl.push(lrlTotal/props.chartData[i].questions.length);
+          iarl.push(iarlTotal/props.chartData[i].questions.length);
         }
       }
       let dataSetLabels = [{name: "Company readiness level (CRL)", color: "#27272A"},
@@ -59,7 +83,7 @@ const SurveyRadarChart = (props) => {
             },
             title: {
               display: true,
-              text: props.chartData.category,
+              text: props?.isOverall ? "Overall summary" : props.chartData.category,
               position: 'top',
               align: 'start',
               color: '#27272A',
