@@ -69,11 +69,13 @@ header {
   width: 20px;
   height: 20px;
   background: transparent 0% 0% no-repeat padding-box;
+  cursor: pointer;
 }
 
 nav {
   display: flex;
   gap: 40px;
+
   a {
     text-align: center;
     font: normal normal 600 16px/22px Manrope;
@@ -82,7 +84,17 @@ nav {
     opacity: 1;
     text-decoration: none;
   }
+
   a.active {
     color: #f9b123;
   }
+}
+
+.navbar-nav .dropdown-menu {
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  text-align: left;
+  padding: 8px 10px 8px 10px;
+  cursor: pointer;
 }
