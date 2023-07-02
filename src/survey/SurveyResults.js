@@ -13,7 +13,7 @@ const SurveyResults = () => {
                 <h2>Here's the results of your survey</h2>
                 <p>Survey done on <span>
                 <Moment format="MMMM Do YYYY" withTitle>
-                {new Date(surveyData.lastUpdated)}
+                {new Date(surveyData?.lastUpdated)}
             </Moment>
                     </span></p>
             </div>
