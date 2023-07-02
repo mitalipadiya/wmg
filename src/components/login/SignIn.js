@@ -4,7 +4,7 @@ import Input from "../UI/Input";
 import "./SignIn.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../actions/auth";
+import { login } from "../../actions/auth";
 
 const SignIn = () => {
     const [email, setEmail] = useState("");

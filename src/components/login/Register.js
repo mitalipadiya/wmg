@@ -4,7 +4,7 @@ import "./SignIn.scss";
 import './Register.scss';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { register } from "../actions/auth";
+import { register } from "../../actions/auth";
 import { useDispatch } from "react-redux";
 
 const Register = () => {

@@ -2,11 +2,11 @@ import Button from "../UI/Button";
 import Input from "../UI/Input";
 import "./SignIn.scss";
 import "./ResetPassword.scss";
-import userService from "../services/user.service";
+import userService from "../../services/user.service";
 import { useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { setMessage } from "../actions/message";
+import { setMessage } from "../../actions/message";
 
 const CreateNewPassword = () => {
     const [password, setPassword] = useState("");

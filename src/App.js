@@ -1,19 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import Header from './UI/Header';
+import Header from './components/UI/Header';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import SignIn from './login/SignIn';
-import Intro from './survey/Intro';
-import Register from './login/Register';
-import CreateNewPassword from './login/CreateNewPassword';
-import ResetPassword from './login/ResetPassword';
+import SignIn from './components/login/SignIn';
+import Intro from './components/survey/Intro';
+import Register from './components/login/Register';
+import CreateNewPassword from './components/login/CreateNewPassword';
+import ResetPassword from './components/login/ResetPassword';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import Module1 from './survey/Module1';
-import UpdateProfile from './login/UpdateProfile';
-import SurveyResults from './survey/SurveyResults';
-import Snackbar from './UI/Snackbar';
-import Module2 from './survey/Module2';
+import Module1 from './components/survey/Module1';
+import UpdateProfile from './components/login/UpdateProfile';
+import SurveyResults from './components/survey/SurveyResults';
+import Snackbar from './components/UI/Snackbar';
+import Module2 from './components/survey/Module2';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);

@@ -3,7 +3,7 @@ import './Module1.css';
 import SurveyOptions from './SurveyOptions';
 import Summary from './Summary';
 import { useSelector } from 'react-redux';
-import userService from '../services/user.service';
+import userService from '../../services/user.service';
 
 const Module1 = () => {
     const {surveyData, user} = useSelector(state => state.auth);

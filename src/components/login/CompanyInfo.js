@@ -1,14 +1,12 @@
 import Input from '../UI/Input';
 import "./SignIn.scss";
 import './CompanyInfo.css'
-import Button from '../UI/Button';
-import { Link } from 'react-router-dom';
 import Select from '../UI/Select';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import userService from '../services/user.service';
+import userService from '../../services/user.service';
 import axios from 'axios';
-import { updateUser } from '../actions/auth';
+import { updateUser } from '../../actions/auth';
 
 const CompanyInfo = (props) => {
     const totalTurnovers = ["Less than 10 million", "10 million to 50 million", "50 million to 100 million", "100 million to 500 million", "500 million to 2 billion", "2 billion to 10 billion", "Over 10 billion"]

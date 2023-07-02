@@ -5,8 +5,8 @@ import Button from '../UI/Button';
 import Select from '../UI/Select';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import userService from '../services/user.service';
-import { updateUser } from '../actions/auth';
+import userService from '../../services/user.service';
+import { updateUser } from '../../actions/auth';
 const ProfileInfo = (props) => {
     const managementLevels = ["Executive", "Senior Management", "Middle Management", "Junior Management", "Other"];
     const currentFunctions = ["Accounting / Finance", "Human resources", "Logistics / Distribution", "Marketing / Sales", "Planning", "Production / Manufacturing", "Purchasing / Procurement", "Research & Development", "Supply Chain Management", "Legal", "Other"];

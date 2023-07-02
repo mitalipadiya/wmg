@@ -4,8 +4,8 @@ import SurveyValueCheckBoxes from './SurveyValueCheckBoxes';
 import './Values.css';
 import { useState } from 'react';
 import Input from '../UI/Input';
-import userService from '../services/user.service';
-import { updateUser } from '../actions/auth';
+import userService from '../../services/user.service';
+import { updateUser } from '../../actions/auth';
 
 const Values = (props) => {
     const headings = ["Extremely important", "Highly important", "Quite important", "Moderately important",
