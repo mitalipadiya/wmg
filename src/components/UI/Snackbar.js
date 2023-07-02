@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Snackbar.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearMessage } from '../actions/message';
+import { clearMessage } from '../../actions/message';
 
 const Snackbar = () => {
   const { message } = useSelector(state => state.message);

@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { logout } from "../actions/auth";
+import { logout } from "../../actions/auth";
 
 const Header = () => {
     const { isLoggedIn } = useSelector(state => state.auth);

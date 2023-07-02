@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import SurveyRadarChart from "./SurveyRadarChart";
 import "./SurveyResults.scss";
 import Button from '../UI/Button';
-import GenericPdfDownloader from "../services/GenericPdfDownloader";
+import GenericPdfDownloader from "../../services/GenericPdfDownloader";
 import Moment from "react-moment";
 
 const SurveyResults = () => {

@@ -12,14 +12,14 @@ header {
 .header-img {
   width: 115px;
   height: 32px;
-  content: url("../assets/logo.png");
+  content: url("../../assets/logo.png");
   background: transparent 0% 0% no-repeat padding-box;
   margin-right: 32px;
   cursor: pointer;
 }
 
 .catapult-img {
-  content: url("../assets/catapult.png");
+  content: url("../../assets/catapult.png");
   background: transparent 0% 0% no-repeat padding-box;
   width: 92px;
   height: 32px;
@@ -51,7 +51,7 @@ header {
 }
 
 .user-img {
-  content: url("../assets/user.svg");
+  content: url("../../assets/user.svg");
   width: 20px;
   height: 20px;
 }
@@ -65,7 +65,7 @@ header {
 }
 
 .user-arrow {
-  content: url("../assets/user-arrow.svg");
+  content: url("../../assets/user-arrow.svg");
   width: 20px;
   height: 20px;
   background: transparent 0% 0% no-repeat padding-box;
