@@ -1,0 +1,14 @@
+.main {
+    display: flex;
+    gap: 24px;
+}
+
+.form-input {
+    flex: 1;
+}
+
+.calculated-main {
+    flex: 1;
+    background: #F8F8F8 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
