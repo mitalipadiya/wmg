@@ -13,6 +13,7 @@ import Module1 from './survey/Module1';
 import UpdateProfile from './login/UpdateProfile';
 import SurveyResults from './survey/SurveyResults';
 import Snackbar from './UI/Snackbar';
+import Module2 from './survey/Module2';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -40,6 +41,7 @@ function App() {
           <Route path="/create-new/:token" element={<CreateNewPassword />} />
           <Route path="/reset" element={<ResetPassword />} />
           <Route path="/module1" element={<Module1 />} />
+          <Route path="/module2" element={<Module2/>} />
           <Route path="/profile" element={<UpdateProfile />} />
           <Route path="/survey-results" element={<SurveyResults />} />
         </Routes>
