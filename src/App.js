@@ -13,7 +13,7 @@ import Module1 from './components/survey/Module1';
 import UpdateProfile from './components/login/UpdateProfile';
 import SurveyResults from './components/survey/SurveyResults';
 import Snackbar from './components/UI/Snackbar';
-import Module2 from './components/survey/Module2';
+import Module2 from './components/module2/Module2';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);

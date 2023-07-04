@@ -1,0 +1,15 @@
+.nav {
+    width: 288px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: -8px 16px 40px #27272A0A;
+    border: 1px solid #F9B123;
+}
+
+.nav-item {
+    min-height: 17px;
+    font: normal normal bold 12px/17px Manrope;
+    letter-spacing: 1.2px;
+    color: #A8A8A9;
+    text-transform: uppercase;
+    margin: 16px 0;
+}
