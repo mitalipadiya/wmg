@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Form from "./Form";
+import CalculatedData from "./CalculatedData";
+
 
 const Baseline = () => {
   const [data, setData] = useState();
@@ -80,6 +82,8 @@ const Baseline = () => {
   return (
     <div>
       <Form data={data?.data} />
+      <CalculatedData calculated={data?.data.data[0]} />
+
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import "./Form.css";
 
@@ -38,12 +39,8 @@ const Form = ({ data }) => {
               })}
             </>
           ) : null} */}
-          <h3 className="survey-para-2">Pending information</h3>
-          <p className="survey-heading-3">Annual operational emissions for grid electricity</p>
-          <h3 className="survey-para-2">Pending information</h3>
-          <p className="survey-heading-3">Annual operational emissions for grid gas</p>
-          <h3 className="survey-para-2">Pending information</h3>
-          <p className="survey-heading-3">Total baseline emissions</p>
+          <CalculatedData/>
+          
         </div>
       </div>
     </div>

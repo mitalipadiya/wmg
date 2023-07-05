@@ -2,6 +2,8 @@ import React from 'react';
 import Navigation from './Navigation';
 import "./Module2.css";
 import Baseline from './Baseline';
+// import CalculatedData from '../UI/CalculatedData';
+
 
 
 function Module2() {
@@ -10,6 +12,7 @@ function Module2() {
       <Navigation />
       <div>
         <Baseline />
+        {/* <CalculatedData /> */}
       </div>
     </div>
   );
