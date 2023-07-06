@@ -11,4 +11,8 @@
     flex: 1;
     background: #F8F8F8 0% 0% no-repeat padding-box;
     opacity: 1;
+    max-width: 400px;
+}
+.calculated-container {
+    margin: 32px 40px;
 }
