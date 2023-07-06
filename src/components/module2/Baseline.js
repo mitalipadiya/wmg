@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Form from "./Form";
-import CalculatedData from "./CalculatedData";
+import CalculatedData from "../UI/CalculatedData";
 
 
 const Baseline = () => {
@@ -82,8 +82,6 @@ const Baseline = () => {
   return (
     <div>
       <Form data={data?.data} />
-      <CalculatedData calculated={data?.data.data[0]} />
-
     </div>
   );
 };

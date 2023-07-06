@@ -12,7 +12,6 @@ function Module2() {
       <Navigation />
       <div>
         <Baseline />
-        {/* <CalculatedData /> */}
       </div>
     </div>
   );

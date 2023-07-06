@@ -10,40 +10,49 @@ const Form = ({ data }) => {
       <h2>{data?.title}</h2>
       <h3>{data?.subTitle}</h3>
       <div className="main">
-        <div className="form-input">
-          {data?.data?.length ? (
-            <>
-              {
-                data?.data.map((group, index) => {
-                  {
-                    return group.data.inputs.length ? group?.data?.inputs.map((input, index) => {
-                      return <InputWithSideText value={input.value}
-                        unit={input.unit}
-                        type="number"
-                        placeholder="Enter value"
-                        heading={input.heading}
-                        subHeading={input.subHeading} />;
-                    }) : null
-                  }
-                })
-              }
 
-            </>
-          ) : null}
-        </div>
-        <div className="calculated-main">
-          {/* {data?.calculated.length ? (
-            <>
-              {data?.inputs.map((input) => {
-                return <div></div>;
-              })}
-            </>
-          ) : null} */}
-          <CalculatedData/>
-          
-        </div>
+        {data?.data?.length ? (
+          <>
+            {
+              data?.data.map((group, index) => {
+                {
+                  return <>
+                    <div className="form-input">
+                      {
+                        group.data.inputs.length ? group?.data?.inputs.map((input, index) => {
+                          return <InputWithSideText value={input.value}
+                            unit={input.unit}
+                            type="number"
+                            placeholder="Enter value"
+                            heading={input.heading}
+                            subHeading={input.subHeading} />;
+                        }) : null
+                      }
+                    </div>
+
+
+                    <div className="calculated-main">
+                      <div className="calculated-container">
+                        {
+                          group.data.calculated.length ?
+                            group.data.calculated.map((calculated, index) => {
+                              return <CalculatedData data={calculated} />
+                            })
+
+                            : null
+                        }
+                      </div>
+                    </div>
+                  </>
+                }
+              })
+            }
+
+          </>
+        ) : null}
       </div>
     </div>
+
   );
 };
 export default Form;
