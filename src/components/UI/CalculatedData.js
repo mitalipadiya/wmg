@@ -1,10 +1,11 @@
 import React from "react";
+import "./CalculatedData.css";
 
-const CalculatedData = ({ data }) => {
+const CalculatedData = ({ heading, value, unit }) => {
   return (
     <div>
-      {data.value ? <p>{data.value} {data.unit}</p> : <p>Pending Information</p>}
-      <p>{data.heading}</p>
+      {value ? <p className="calculated-value">{value} {unit}</p> : <p className="pending-info">Pending Information</p>}
+      <p className="calculation-heading">{heading}</p>
     </div>
   );
 };

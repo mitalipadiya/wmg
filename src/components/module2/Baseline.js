@@ -1,88 +1,63 @@
 import { useEffect, useState } from "react";
-import Form from "./Form";
 import CalculatedData from "../UI/CalculatedData";
+import InputWithSideText from "../UI/InputWithSideText";
+
+const Baseline = ({data}) => {
+    const [averageAnnualElectricityConsumption, setAverageAnnualElectricityConsumption] = useState(data?.averageAnnualElectricityConsumption);
+    const [averageAnnualGasConsumption, setAverageAnnualGasConsumption] = useState(data?.averageAnnualGasConsumption);
+    const [emissionFactorGridElectricity, setEmssionFactorGridElectricity] = useState(data?.emissionFactorGridElectricity);
+    const [emissionFactorForGridGas, setEmissionFactorForGridGas] = useState(data?.emissionFactorForGridGas);
+
+    return (
+        <>
+            <h2 className="form-heading">Baseline scenario</h2>
+            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <div className="main">
+
+                <div className="form-input">
+                    <InputWithSideText value={averageAnnualElectricityConsumption}
+                        unit="kWh"
+                        type="number"
+                        placeholder="Enter value"
+                        heading="Average annual electricity consumption"
+                        subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                        onChange={(event) => { setAverageAnnualElectricityConsumption(event.target.value) }} />
+                    <InputWithSideText value={averageAnnualGasConsumption}
+                        unit="kWh"
+                        type="number"
+                        placeholder="Enter value"
+                        heading="Average annual gas consumption"
+                        subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                        onChange={(event) => { setAverageAnnualGasConsumption(event.target.value) }} />
+                    <InputWithSideText value={emissionFactorGridElectricity}
+                        unit="kgCO2e/kWh"
+                        type="number"
+                        placeholder="Enter value"
+                        heading="Emission factor for grid electricity"
+                        subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                        onChange={(event) => { setEmssionFactorGridElectricity(event.target.value) }} />
+                    <InputWithSideText value={emissionFactorForGridGas}
+                        unit="kgCO2e/kWh"
+                        type="number"
+                        placeholder="Enter value"
+                        heading="Emission factor for grid gas"
+                        subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                        onChange={(event) => { setEmissionFactorForGridGas(event.target.value) }} />
+                </div>
 
 
-const Baseline = () => {
-  const [data, setData] = useState();
-  useEffect(() => {
-    setData(
-      {
-          "key": "Baseline",
-          "data": {
-              "title": "Baseline scenario",
-              "subTitle": "Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.",
-              "data": [
-                  {
-                      "heading": "",
-                      "data": {
-                          "inputs": [
-                              {
-                                  "heading": "Average annual electricity consumption",
-                                  "subHeading": "Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel",
-                                  "value": "",
-                                  "unit": "kWh",
-                                  "type": "input",
-                                  "id": 1
-                              },
-                              {
-                                  "heading": "Average annual gas consumption",
-                                  "subHeading": "Quis enim unde. Rerum corrupti voluptatum",
-                                  "value": "",
-                                  "unit": "kWh",
-                                  "type": "input",
-                                  "id": 2
-                              },
-                              {
-                                  "heading": "Emission factor for grid electricity",
-                                  "subHeading": "Et voluptatum harum. In rerum necessitatibus quis. Inventor",
-                                  "value": "",
-                                  "unit": "kgCO2e/kWh",
-                                  "type": "input",
-                                  "id": 3
-                              },
-                              {
-                                  "heading": "Emission factor for grid gas",
-                                  "subHeading": "Et voluptatum harum. In rerum necessitatibus quis. Inventor",
-                                  "value": "",
-                                  "unit": "kgCO2e/kWh",
-                                  "type": "input",
-                                  "id": 4
-                              }
-                          ],
-                          "calculated": [
-                              {
-                                  "heading": "Annual operational emissions for grid electricity",
-                                  "value": "",
-                                  "unit": "",
-                                  "type": "calculated",
-                                  "id": 1
-                              },
-                              {
-                                  "heading": "Annual operational emissions for grid gas",
-                                  "value": "",
-                                  "unit": "",
-                                  "type": "calculated",
-                                  "id": 2
-                              },
-                              {
-                                  "heading": "Total baseline emissions",
-                                  "value": "",
-                                  "unit": "",
-                                  "type": "calculated",
-                                  "id": 3
-                              }
-                          ]
-                      }
-                  }
-              ]
-          }
-      });
-  }, []);
-  return (
-    <div>
-      <Form data={data?.data} />
-    </div>
-  );
+                <div className="calculated-main">
+                    <div className="calculated-container">
+                        <CalculatedData heading="Annual operational emissions for grid electricity" unit="kgCO2e" value={averageAnnualElectricityConsumption * emissionFactorGridElectricity}/>
+                        <CalculatedData heading="Annual operational emissions for grid gas" unit="kgCO2e" value={averageAnnualGasConsumption * emissionFactorForGridGas}/>
+                        <CalculatedData heading="Total baseline emissions" unit="kgCO2e" value={(averageAnnualElectricityConsumption * emissionFactorGridElectricity) + (averageAnnualGasConsumption * emissionFactorForGridGas)}/>
+
+                    </div>
+                </div>
+
+            </div >
+        </>
+
+    );
 };
 export default Baseline;

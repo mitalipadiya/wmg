@@ -6,3 +6,36 @@
     margin-top: 24px;
     gap: 24px;
 }
+.content-div {
+    width: 100%;
+}
+.main {
+    display: flex;
+    gap: 24px;
+}
+
+.form-input {
+    flex: 1;
+}
+
+.calculated-main {
+    flex: 1;
+    background: #F8F8F8 0% 0% no-repeat padding-box;
+    opacity: 1;
+    max-width: 400px;
+    align-self: baseline;
+}
+.calculated-container {
+    margin: 32px 40px;
+}
+.form-heading {
+    font: normal normal bold 24px/33px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+}
+.form-subheading {
+    font: normal normal normal 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #7D7D7F;
+    margin-bottom: 32px;
+}

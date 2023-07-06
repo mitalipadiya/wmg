@@ -4,11 +4,11 @@ import Input from "./Input";
 
 const InputWithSideText = (props) => {
   return (
-    <div>
-      <h3 className="survey-heading-3">
+    <div className="input-main">
+      <h3 className="input-heading">
         {props.heading}
       </h3>
-      <p className="survey-para-2">
+      <p className="input-para">
         {props.subHeading}
       </p>
       <div className="image_input">
