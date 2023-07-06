@@ -12,7 +12,7 @@ const ResetPassword = () => {
     const [email, setEmail] = useState("");
     const dispatch = useDispatch();
     const onReset = () => {
-        userService.forgotPassword({ "email": email }).then(data => {
+        userService.forgotPassword({ "email": email.toLocaleLowerCase() }).then(data => {
             dispatch(setMessage("Please reset your password on the link shared to your registered mail id"));
         },
             (error) => {
@@ -25,8 +25,8 @@ const ResetPassword = () => {
                 <h3 className="top-heading">Reset password</h3>
                 <p className="top-paragraph">Enter your email address and we'll send you an email with password reset instructions</p>
                 <form className="signin-form reset-password-form">
-                    <label className="signin-label" htmlFor="email">Email
-                        <Input placeholder="example@email.com" onChange={(event) => setEmail(event.target.value)} />
+                    <label className="signin-label"><span>Email<span className="compulsory">*</span></span>
+                        <Input type="email" placeholder="example@email.com" onChange={(event) => setEmail(event.target.value)} />
                     </label>
                 </form>
                 <Button value="Send password reset instructions" onClick={onReset}/>
