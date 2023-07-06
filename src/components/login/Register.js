@@ -35,28 +35,28 @@ const Register = () => {
                 <p className="top-paragraph">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore inventore expedita ab sit.</p>
                 <div className="signin-form register-form">
                     <div>
-                        <label className="signin-label" htmlFor="name">Your name </label>
+                        <label className="signin-label"><span>Your name<span className="compulsory">*</span></span> </label>
                         <div className="name-div">
                             <Input placeholder="First name" onChange={(event) => setFirstName(event.target.value)}/>
                             <Input placeholder="Last name" onChange={(event) => setLastName(event.target.value)}/>
                         </div>
                     </div>
                     <div className="email-div">
-                        <label className="signin-label" htmlFor="email">Your email</label>
+                        <label className="signin-label"><span>Your email<span className="compulsory">*</span></span> </label>
                         <Input placeholder="example@email.com" type="email" onChange={(event) => setEmail(event.target.value)}/>
                     </div>
                     <div className="company-desig-div">
                         <div className="company-div">
-                            <label className="signin-label" htmlFor="company">Your company</label>
+                            <label className="signin-label"><span>Your company<span className="compulsory">*</span></span></label>
                             <Input placeholder="" onChange={(event) => setCompany(event.target.value)}/>
                         </div>
                         <div className="designation-div">
-                            <label className="signin-label" htmlFor="designation">Designation</label>
+                            <label className="signin-label"><span>Designation<span className="compulsory">*</span></span></label>
                             <Input placeholder="" onChange={(event) => setDesignation(event.target.value)}/>
                         </div>
                     </div>
                     <div className="password-div">
-                        <label className="signin-label" htmlFor="password">Create a password</label>
+                        <label className="signin-label"><span>Create a password<span className="compulsory">*</span></span></label>
                         <Input placeholder="Password" type="password" onChange={(event) => setPassword(event.target.value)}/>
                     </div>
                 </div>

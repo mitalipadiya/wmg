@@ -12,7 +12,7 @@ import {
   import AuthService from "../services/auth.service";
   
   export const register = (first_name, last_name, email, company, designation, password) => (dispatch) => {
-    return AuthService.register(first_name, last_name, email, company, designation, password).then(
+    return AuthService.register(first_name, last_name, email.toLocaleLowerCase(), company, designation, password).then(
       (response) => {
         dispatch({
           type: REGISTER_SUCCESS,
@@ -48,7 +48,7 @@ import {
   };
   
   export const login = (username, password) => (dispatch) => {
-    return AuthService.login(username, password).then(
+    return AuthService.login(username.toLocaleLowerCase(), password).then(
       (data) => {
         dispatch({
           type: LOGIN_SUCCESS,

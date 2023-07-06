@@ -51,23 +51,23 @@ const ProfileInfo = (props) => {
 
             <div className="profile-infoform">
                 <div>
-                    <label className="profile-label" htmlFor="name">Your name </label>
+                    <label className="profile-label">Your name </label>
                     <div className="name-div">
                         <Input placeholder="First name" value={firstName} onChange={(event)=>setFirstName(event.target.value)}/>
                         <Input placeholder="Last name" value={lastName}  onChange={(event)=>setLastName(event.target.value)} />
                     </div>
                 </div>
                 <div className="designation-div">
-                    <label className="profile-label" htmlFor="designation">Designation</label>
+                    <label className="profile-label">Designation</label>
                     <Input placeholder="Your Designation" value={designation} onChange={(event)=>setDesignation(event.target.value)} />
                 </div>
                 <div className="select-div">
-                    <label className="profile-label" htmlFor="select">Please indicate the management level of your current position</label>
+                    <label className="profile-label">Please indicate the management level of your current position</label>
                     <Select values={managementLevels} value={managementLevel} onChange={event => setManagementLevel(event.target.value)}/>
                 </div>
 
                 <div className="select-div select-func">
-                    <label className="profile-label" htmlFor="select">Please indicate your current function</label>
+                    <label className="profile-label">Please indicate your current function</label>
                     <Select values={currentFunctions} value={currentFunction} onChange={event => setCurrentFunction(event.target.value)}/>
                 </div>
             </div>

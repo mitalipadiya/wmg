@@ -35,10 +35,10 @@ const CreateNewPassword = () => {
                 <h3 className="top-heading">Create new password</h3>
                 <p className="top-paragraph">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore inventore expedita ab sit.</p>
                 <form className="signin-form reset-password-form">
-                    <label className="signin-label">Enter password
+                    <label className="signin-label"><span>Enter password<span className="compulsory">*</span></span>
                         <Input placeholder="" type="password" onChange={(event) => setPassword(event.target.value)} />
                     </label>
-                    <label className="signin-label">Confirm password
+                    <label className="signin-label"><span>Confirm password<span className="compulsory">*</span></span>
                         <Input placeholder="" type="password" onChange={(event) => setConfirmPassword(event.target.value)} />
                     </label>
                 </form>

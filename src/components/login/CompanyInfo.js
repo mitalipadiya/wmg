@@ -85,7 +85,7 @@ const CompanyInfo = (props) => {
 
             <div className="company-infoform">
                 <div>
-                    <label className="company-label" htmlFor="name">Company name </label>
+                    <label className="company-label">Company name </label>
                     <div className="name-div">
                         <Input placeholder="Company Name" value={companyName}
                             onChange={(event) => setCompanyName(event.target.value)} />

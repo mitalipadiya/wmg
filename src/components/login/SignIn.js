@@ -36,10 +36,10 @@ const SignIn = () => {
                 <h3 className="top-heading">Welcome back</h3>
                 <p className="top-paragraph">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore inventore expedita ab sit.</p>
                 <form className="signin-form">
-                    <label className="signin-label" htmlFor="email">Email
+                    <label className="signin-label"><span>Email<span className="compulsory">*</span></span>
                         <Input type="email" placeholder="example@email.com" onChange={event => setEmail(event.target.value)} />
                     </label>
-                    <label className="signin-label" htmlFor="lname">Password:
+                    <label className="signin-label"><span>Password<span className="compulsory">*</span></span>
                         <Input type="password" placeholder="" onChange={event => setPassword(event.target.value)} />
                     </label>
                 </form>
