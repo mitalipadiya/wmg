@@ -17,6 +17,7 @@ import Module2 from './components/module2/Module2';
 import EconomicParameters from './components/module2/EconomicParameters';
 import Baseline from './components/module2/Baseline';
 import SolarPV from './components/module2/SolarPV';
+import Wind from './components/module2/Wind';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -46,6 +47,7 @@ function App() {
           <Route exact path="baseline" element={<Baseline/>} />
           <Route path="economic-parameters" element={<EconomicParameters/>} />
           <Route path="solar-pv" element={<SolarPV/>} />
+          <Route path="wind" element={<Wind/>} />
         </Route>
         <Route path="/profile" element={<UpdateProfile />} />
         <Route path="/survey-results" element={<SurveyResults />} />
