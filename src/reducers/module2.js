@@ -1,4 +1,4 @@
-import { GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS } from "../actions/types";
+import { GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS, UPDATE_SOLAR_PV } from "../actions/types";
 
 const initialState = {
     baseline: {
@@ -12,6 +12,28 @@ const initialState = {
         unitPriceOfGas: "0.0603",
         yearsOfAbatement: "10",
         discountRate: "5"
+    },
+    solarPV: {
+        averageAnnualElectricityRequirements: "",
+        percentAnnualElectricityFromPV: "",
+        location: "",
+        latitudeLongitude: "",
+        electricityGeneratedPVSystem: "",
+        annualElectricityGenerationSelectedLocation: "",
+        annualSolarInsolationSelectedLocation: "",
+        solarModuleEfficiency: "",
+        gHGEmissionsElectricityPVSystem: "",
+        annualOperationalEmissionSavings: "",
+        totalOperationalEmissionSavingsAbatementPeriod: "",
+        unitInstallationCostPVSystem: "",
+        initialInvestmentPVSystem: "",
+        annualElectricityInsteadOfGrid: "",
+        sizeOfPVSystem: "",
+        areaOfPVSystem: "",
+        annualOperationalCostSavings: "",
+        netPresentValueOperationalEnergy: "",
+        totalOperationalEmissionSavingsAbatementPeriodInTon: "",
+        costEffectivenessOperationalEmission: ""
     }
 };
 
@@ -30,6 +52,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 economicParameters: payload
+            }
+        case UPDATE_SOLAR_PV:
+            return {
+                ...state,
+                solarPV: payload
             }
 
         default:

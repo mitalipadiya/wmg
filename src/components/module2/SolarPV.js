@@ -3,11 +3,11 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBaseline } from "../../actions/module2";
+import { updateBaseline, updateSolarPV } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 
 const SolarPV = () => {
-    const { solavPV, baseline } = useSelector(state => state.module2);
+    const { solavPV, baseline, economicParameters } = useSelector(state => state.module2);
 
     const [averageAnnualElectricityRequirements, setAverageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
     const [percentAnnualElectricityFromPV, setPercentAnnualElectricityFromPV] = useState(solavPV?.percentAnnualElectricityFromPV);
@@ -22,45 +22,83 @@ const SolarPV = () => {
     const [totalOperationalEmissionSavingsAbatementPeriod, setTotalOperationalEmissionSavingsAbatementPeriod] = useState(solavPV?.totalOperationalEmissionSavingsAbatementPeriod);
     const [unitInstallationCostPVSystem, setUnitInstallationCostPVSystem] = useState(solavPV?.unitInstallationCostPVSystem);
     const [initialInvestmentPVSystem, setInitialInvestmentPVSystem] = useState(solavPV?.initialInvestmentPVSystem);
+    const [annualElectricityInsteadOfGrid, setAnnualElectricityInsteadOfGrid] = useState(solavPV?.annualElectricityInsteadOfGrid);
     const [sizeOfPVSystem, setSizeOfPVSystem] = useState(solavPV?.sizeOfPVSystem);
-
     const [areaOfPVSystem, setAreaOfPVSystem] = useState(solavPV?.areaOfPVSystem);
-
-
+    const [annualOperationalCostSavings, setAnnualOperationalCostSavings] = useState(solavPV?.annualOperationalCostSavings);
+    const [netPresentValueOperationalEnergy, setNetPresentValueOperationalEnergy] = useState(solavPV?.netPresentValueOperationalEnergy);
+    const [totalOperationalEmissionSavingsAbatementPeriodInTon, setTotalOperationalEmissionSavingsAbatementPeriodInTon] = useState(solavPV?.totalOperationalEmissionSavingsAbatementPeriodInTon);
+    const [costEffectivenessOperationalEmission, setCostEffectivenessOperationalEmission] = useState(solavPV?.costEffectivenessOperationalEmission);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const onSave = () => {
-        // dispatch(updateBaseline({
-        //     averageAnnualElectricityConsumption: averageAnnualElectricityConsumption,
-        //     averageAnnualGasConsumption: averageAnnualGasConsumption,
-        //     emissionFactorGridElectricity: emissionFactorGridElectricity,
-        //     emissionFactorForGridGas: emissionFactorForGridGas
-        // }));
-        navigate("./../economic-parameters")
+        dispatch(updateSolarPV({
+            averageAnnualElectricityRequirements,
+            percentAnnualElectricityFromPV,
+            location,
+            latitudeLongitude,
+            electricityGeneratedPVSystem,
+            annualElectricityGenerationSelectedLocation,
+            annualSolarInsolationSelectedLocation,
+            solarModuleEfficiency,
+            gHGEmissionsElectricityPVSystem,
+            annualOperationalEmissionSavings,
+            totalOperationalEmissionSavingsAbatementPeriod,
+            unitInstallationCostPVSystem,
+            initialInvestmentPVSystem,
+            annualElectricityInsteadOfGrid,
+            sizeOfPVSystem,
+            areaOfPVSystem,
+            annualOperationalCostSavings,
+            netPresentValueOperationalEnergy,
+            totalOperationalEmissionSavingsAbatementPeriodInTon,
+            costEffectivenessOperationalEmission
+        }));
+        navigate("./../wind")
 
     }
     const onPercentAnnualElectricityFromPVChange = (event) => {
         setPercentAnnualElectricityFromPV(event.target.value);
-        setElectricityGeneratedPVSystem((event.target.value/100) * averageAnnualElectricityRequirements);
+        setElectricityGeneratedPVSystem((event.target.value / 100) * averageAnnualElectricityRequirements);
+        setAnnualElectricityInsteadOfGrid((event.target.value / 100) * averageAnnualElectricityRequirements);
     }
-    useEffect(()=>{
-        setAreaOfPVSystem(electricityGeneratedPVSystem/(parseInt(annualSolarInsolationSelectedLocation)*(parseInt(solarModuleEfficiency)/100)));
+    useEffect(() => {
+        setAreaOfPVSystem(electricityGeneratedPVSystem / (parseInt(annualSolarInsolationSelectedLocation) * (parseInt(solarModuleEfficiency) / 100)));
     }, [electricityGeneratedPVSystem, annualSolarInsolationSelectedLocation, solarModuleEfficiency]);
-    useEffect(()=>{
+    useEffect(() => {
         setSizeOfPVSystem(electricityGeneratedPVSystem / annualElectricityGenerationSelectedLocation);
-    },[electricityGeneratedPVSystem, annualElectricityGenerationSelectedLocation]);
-    useEffect(()=>{
+    }, [electricityGeneratedPVSystem, annualElectricityGenerationSelectedLocation]);
+    useEffect(() => {
         setInitialInvestmentPVSystem(sizeOfPVSystem * unitInstallationCostPVSystem);
-    },[sizeOfPVSystem, unitInstallationCostPVSystem])
-    useEffect(()=>{
+    }, [sizeOfPVSystem, unitInstallationCostPVSystem]);
+    useEffect(() => {
+        setAnnualOperationalCostSavings(economicParameters?.unitPriceOfElectricity * annualElectricityInsteadOfGrid);
+        setAnnualOperationalEmissionSavings(annualElectricityInsteadOfGrid * baseline?.emissionFactorGridElectricity);
+    }, [annualElectricityInsteadOfGrid]);
+    useEffect(() => {
+        setNetPresentValueOperationalEnergy(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+    }, [annualOperationalCostSavings]);
+    useEffect(() => {
+        setgHGEmissionsElectricityPVSystem((averageAnnualElectricityRequirements - annualElectricityInsteadOfGrid) * baseline?.emissionFactorGridElectricity);
+    }, [averageAnnualElectricityRequirements, annualElectricityInsteadOfGrid]);
+    useEffect(() => {
+        setTotalOperationalEmissionSavingsAbatementPeriod(annualOperationalEmissionSavings * economicParameters?.yearsOfAbatement);
+    }, [annualOperationalEmissionSavings]);
+    useEffect(() => {
+        setTotalOperationalEmissionSavingsAbatementPeriodInTon(totalOperationalEmissionSavingsAbatementPeriod / 1000);
+    }, [totalOperationalEmissionSavingsAbatementPeriod]);
+    useEffect(() => {
+        setCostEffectivenessOperationalEmission((initialInvestmentPVSystem - netPresentValueOperationalEnergy) / totalOperationalEmissionSavingsAbatementPeriodInTon);
+    }, [initialInvestmentPVSystem, netPresentValueOperationalEnergy, totalOperationalEmissionSavingsAbatementPeriodInTon])
+    useEffect(() => {
         let defaultValue = '';
-        if(sizeOfPVSystem <= 4 ) {
+        if (sizeOfPVSystem <= 4) {
             defaultValue = 1800;
-        }else if(sizeOfPVSystem >= 10 && sizeOfPVSystem <= 50) {
+        } else if (sizeOfPVSystem >= 10 && sizeOfPVSystem <= 50) {
             defaultValue = 1100;
-        }else if(sizeOfPVSystem > 50) {
+        } else if (sizeOfPVSystem > 50) {
             defaultValue = 1000;
         }
         setUnitInstallationCostPVSystem(defaultValue);
@@ -167,12 +205,19 @@ const SolarPV = () => {
                                 heading="Initial investment for PV system (CAPEX)"
                                 subHeading="Quis enim unde. Rerum corrupti voluptatum"
                                 onChange={(event) => { setInitialInvestmentPVSystem(event.target.value) }} />
+                            <InputWithSideText value={annualElectricityInsteadOfGrid}
+                                unit="kWh"
+                                type="number"
+                                placeholder="Enter value"
+                                disabled={true}
+                                heading="Annual electricity used from PV system instead of grid ()"
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                         </div>
                         <div className="calculated-main">
-                            {/* <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={unitPriceOfGas * baseline?.averageAnnualGasConsumption} />
-                            </div> */}
+                            <div className="calculated-container">
+                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOperationalEnergy} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -186,27 +231,32 @@ const SolarPV = () => {
                                 placeholder="Enter value"
                                 heading="GHG Emissions for electricity in presence of PV system"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setgHGEmissionsElectricityPVSystem(event.target.value) }} />
+                                disabled={true} />
                             <InputWithSideText value={annualOperationalEmissionSavings}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings"
                                 subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event) => { setAnnualOperationalEmissionSavings(event.target.value) }} />
+                                disabled={true} />
                             <InputWithSideText value={totalOperationalEmissionSavingsAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
                                 subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event) => { setTotalOperationalEmissionSavingsAbatementPeriod(event.target.value) }} />
+                                disabled={true} />
                         </div>
                         <div className="calculated-main">
-                            {/* <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
-                            </div> */}
+                            <div className="calculated-container">
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAbatementPeriodInTon} />
+                            </div>
                         </div>
+                    </div>
+                </div>
+                <div className="calculated-main calculated-last">
+                    <div className="calculated-container">
+                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="£/tCO2e" value={costEffectivenessOperationalEmission} />
                     </div>
                 </div>
                 <div className="btn-div">

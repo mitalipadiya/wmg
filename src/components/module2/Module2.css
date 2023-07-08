@@ -57,3 +57,7 @@
     color: #B8BF29;
     text-transform: uppercase;
 } 
+.calculated-last {
+    width: 100%;
+    max-width: initial;
+}

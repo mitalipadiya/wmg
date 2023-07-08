@@ -1,6 +1,6 @@
 
 import {
-    GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS
+    GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS, UPDATE_SOLAR_PV
   } from "./types";
   
   import Module2Service from "../services/module2.service";
@@ -44,5 +44,11 @@ import {
     dispatch({
       type: UPDATE_ECONOMIC_PARAMETERS,
       payload: economicParameters
+    }); 
+  };
+  export const updateSolarPV = (solarPV) => (dispatch) => {
+    dispatch({
+      type: UPDATE_SOLAR_PV,
+      payload: solarPV
     }); 
   };
