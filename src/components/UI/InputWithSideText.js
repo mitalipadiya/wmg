@@ -18,6 +18,7 @@ const InputWithSideText = (props) => {
           type={props.type}
           placeholder={props.placeholder}
           onChange={props.onChange}
+          disabled={props.disabled}
         />
       </div>
     </div>

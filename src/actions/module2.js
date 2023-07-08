@@ -1,6 +1,6 @@
 
 import {
-    GET_MODULE2
+    GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS
   } from "./types";
   
   import Module2Service from "../services/module2.service";
@@ -33,4 +33,16 @@ import {
         return Promise.reject();
       }
     );
+  };
+  export const updateBaseline = (baseline) => (dispatch) => {
+    dispatch({
+      type: UPDATE_BASELINE,
+      payload: baseline
+    }); 
+  };
+  export const updateEconomicParameters = (economicParameters) => (dispatch) => {
+    dispatch({
+      type: UPDATE_ECONOMIC_PARAMETERS,
+      payload: economicParameters
+    }); 
   };

@@ -12,6 +12,7 @@
 .main {
     display: flex;
     gap: 24px;
+    flex-direction: column;
 }
 
 .form-input {
@@ -27,6 +28,10 @@
 }
 .calculated-container {
     margin: 32px 40px;
+    margin: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }
 .form-heading {
     font: normal normal bold 24px/33px Manrope;
@@ -39,3 +44,16 @@
     color: #7D7D7F;
     margin-bottom: 32px;
 }
+.form-div {
+    display: flex;
+    gap: 24px;
+}
+.btn-div {
+    align-self: flex-end;
+}   
+.group-heading {
+    font: normal normal bold 16px/22px Manrope;
+    letter-spacing: 1.6px;
+    color: #B8BF29;
+    text-transform: uppercase;
+} 
