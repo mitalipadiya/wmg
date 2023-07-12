@@ -2,8 +2,8 @@ import { GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS, UPDATE_SOLAR_
 
 const initialState = {
     baseline: {
-        averageAnnualElectricityConsumption: "10000",
-        averageAnnualGasConsumption: "140000",
+        averageAnnualElectricityConsumption: "",
+        averageAnnualGasConsumption: "",
         emissionFactorGridElectricity: "0.284",
         emissionFactorForGridGas: "0.18"
     },
@@ -15,8 +15,8 @@ const initialState = {
     },
     solarPV: {
         averageAnnualElectricityRequirements: "",
-        percentAnnualElectricityFromPV: "",
-        location: "",
+        percentAnnualElectricityFromPV: "80",
+        location: "Coventry",
         latitudeLongitude: "",
         electricityGeneratedPVSystem: "",
         annualElectricityGenerationSelectedLocation: "",

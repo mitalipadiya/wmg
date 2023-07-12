@@ -6,23 +6,18 @@
 }
 
 .c-nav-item {
-    min-height: 17px;
     font: normal normal bold 12px/17px Manrope;
     letter-spacing: 1.2px;
     color: #A8A8A9;
     text-transform: uppercase;
     margin: 16px 0;
-
-    width: 202px;
-    height: 17px;
-    color: var(--unnamed-color-a8a8a9);
     text-align: left;
     font: normal normal bold 12px/17px Manrope;
-    letter-spacing: 1.2px;
-    color: #A8A8A9;
-    opacity: 1;
 }
 
+.c-nav-subitem {
+    text-transform: capitalize;
+}
 .inner-box {
     margin: 20px 24px;
 }
