@@ -21,12 +21,18 @@ const Navigation = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
+    useEffect(()=>{
+        setCurrentSelection("baseline");
+        navigate("baseline");
+    },[])
 
     useEffect(() => {
         console.log('route has been changed ==> ', location.pathname);
         if(location.pathname.startsWith("/module2/")) {
             let routes = location.pathname.split("/");
-            setCurrentSelection(routes[2]);
+            if(routes.length == 3) {
+                setCurrentSelection(routes[2]);
+            }
         }
     },[location.pathname]);
 

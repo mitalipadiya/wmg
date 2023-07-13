@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateBaseline } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 
-const Wind = () => {
+const CHP = () => {
     const { solavPV, baseline } = useSelector(state => state.module2);
 
     const [averageAnnualElectricityRequirements, setAverageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
@@ -188,8 +188,8 @@ const Wind = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={unitPriceOfGas * baseline?.averageAnnualGasConsumption} />
+                                <CalculatedData heading="Annual operational cost savings" unit="£" value={baseline?.averageAnnualElectricityConsumption} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={baseline?.averageAnnualGasConsumption} />
                             </div>
                         </div>
                     </div>
@@ -215,8 +215,8 @@ const Wind = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
-                                <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption} />
+                                <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption} />
                             </div>
                         </div>
                     </div>
@@ -229,4 +229,4 @@ const Wind = () => {
 
     );
 };
-export default Wind;
+export default CHP;

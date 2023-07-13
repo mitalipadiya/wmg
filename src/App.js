@@ -21,13 +21,13 @@ import Wind from './components/module2/Wind';
 import Technologies from './components/module2/Technologies';
 import SolarPVBESS from './components/module2/SolarPVBESS';
 import Biomass from './components/module2/Biomass';
-import Chp from './components/module2/Chp';
-import Led from './components/module2/Led';
 import PassiveInfraredSensor from './components/module2/PassiveInfraredSensor';
 import SmartMetersElectricity from './components/module2/SmartMetersElectricity';
 import SmartMetersGas from './components/module2/SmartMetersGas';
 import VoltageOptimisation from './components/module2/VoltageOptimisation';
 import EnergyManagementSystem from './components/module2/EnergyManagementSystem';
+import CHP from './components/module2/Chp';
+import LED from './components/module2/Led';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -61,8 +61,8 @@ function App() {
           <Route path="wind" element={<Wind/>} />
           <Route path="solar-pv-bess" element={<SolarPVBESS/>} />
           <Route path="biomass" element={<Biomass/>} />
-          <Route path="chp" element={<Chp/>} />
-          <Route path="led" element={<Led/>} />
+          <Route path="chp" element={<CHP/>} />
+          <Route path="led" element={<LED/>} />
           <Route path="passive-infrared-sensor" element={<PassiveInfraredSensor/>} />
           <Route path="smart-meters-electricity" element={<SmartMetersElectricity/>} />
           <Route path="smart-meters-gas" element={<SmartMetersGas/>} />

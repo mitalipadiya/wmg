@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateBaseline } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 import { event } from "jquery";
+import { round } from "../../services/module2.service";
 
 const Wind = () => {
     const { solavPV, baseline, economicParameters } = useSelector(state => state.module2);
@@ -155,7 +156,7 @@ const Wind = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Size of wind system" unit="kW" value={sizeOfWindSystem} />
+                                <CalculatedData heading="Size of wind system" unit="kW" value={round(sizeOfWindSystem,2)} />
                             </div>
                         </div>
                     </div>
@@ -188,8 +189,8 @@ const Wind = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCost} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOperationalEnergyCostSavings} />
+                                <CalculatedData heading="Annual operational cost savings" unit="£" value={round(annualOperationalCost,2)} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={round(netPresentValueOperationalEnergyCostSavings, 2)} />
                             </div>
                         </div>
                     </div>
@@ -215,8 +216,8 @@ const Wind = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAbatementPeriodTon} />
-                                <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavings} />
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={round(totalOperationalEmissionSavingsAbatementPeriodTon, 2)} />
+                                <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={round(costEffectivenessConsideringOperationalEmissionSavings, 2)} />
                             </div>
                         </div>
                     </div>

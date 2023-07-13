@@ -82,18 +82,18 @@ const Wind = () => {
                                 heading="Average annual electricity consumption"
                                 disabled={true}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                                 <InputWithSideText value={averageAnnualElectricityRequirements}
+                            <InputWithSideText value={averageAnnualElectricityRequirements}
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Average annual gas consumption"
                                 disabled={true}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                            <div className="calculated-main">
-                                <div className="calculated-container">
-                                    <CalculatedData heading="" unit="" value={sizeOfPVSystem} />
-                                    <CalculatedData heading="" unit="" value={areaOfPVSystem} />
-                                </div>
+                        </div>
+                        <div className="calculated-main">
+                            <div className="calculated-container">
+                                <CalculatedData heading="" unit="" value={sizeOfPVSystem} />
+                                <CalculatedData heading="" unit="" value={areaOfPVSystem} />
                             </div>
                         </div>
                     </div>
@@ -108,13 +108,13 @@ const Wind = () => {
                                     heading="Average electricity savings incentivised using building energy management system (BEMS)"
                                     disabled={true}
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                                     <InputWithSideText value={electricityGeneratedPVSystem}
+                                <InputWithSideText value={electricityGeneratedPVSystem}
                                     unit="%"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Average gas savings incentivised using building energy management system (BEMS)"
                                     disabled={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" /> 
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
@@ -140,10 +140,10 @@ const Wind = () => {
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Annual operational electricity cost savings" unit="£" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
-                                    <CalculatedData heading="Annual operational gas cost savings" unit="£" value={unitPriceOfGas * baseline?.averageAnnualGasConsumption} />
-                                    <CalculatedData heading="Total annual operational cost savings" unit="£" value={unitPriceOfGas * baseline?.averageAnnualGasConsumption} />
-                                    <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={unitPriceOfGas * baseline?.averageAnnualGasConsumption} />
+                                    <CalculatedData heading="Annual operational electricity cost savings" unit="£" value={baseline?.averageAnnualElectricityConsumption} />
+                                    <CalculatedData heading="Annual operational gas cost savings" unit="£" value={baseline?.averageAnnualGasConsumption} />
+                                    <CalculatedData heading="Total annual operational cost savings" unit="£" value={baseline?.averageAnnualGasConsumption} />
+                                    <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={baseline?.averageAnnualGasConsumption} />
                                 </div>
                             </div>
                         </div>
@@ -166,14 +166,14 @@ const Wind = () => {
                                     heading="GHG Emissions savings for gas with BEMS"
                                     subHeading="Quis enim unde. Rerum corrupti voluptatum"
                                     onChange={(event) => { setAnnualOperationalEmissionSavings(event.target.value) }} />
-                                     <InputWithSideText value={gHGEmissionsElectricityPVSystem}
+                                <InputWithSideText value={gHGEmissionsElectricityPVSystem}
                                     unit="kgCO2e"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Annual operational emission savings"
                                     subHeading="Quis enim unde. Rerum corrupti voluptatum"
                                     onChange={(event) => { setgHGEmissionsElectricityPVSystem(event.target.value) }} />
-                                     <InputWithSideText value={gHGEmissionsElectricityPVSystem}
+                                <InputWithSideText value={gHGEmissionsElectricityPVSystem}
                                     unit="kgCO2e"
                                     type="number"
                                     placeholder="Enter value"
@@ -183,8 +183,8 @@ const Wind = () => {
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
-                                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
+                                    <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption} />
+                                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption} />
                                 </div>
                             </div>
                         </div>
