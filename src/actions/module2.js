@@ -3,10 +3,10 @@ import {
     GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS, UPDATE_SOLAR_PV
   } from "./types";
   
-  import Module2Service from "../services/module2.service";
+  import {getModule2Details} from "../services/module2.service";
   
   export const moduleDetails = () => (dispatch) => {
-    return Module2Service.getModule2Details().then(
+    return getModule2Details().then(
       (response) => {
         dispatch({
           type: GET_MODULE2,

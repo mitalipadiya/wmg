@@ -6,7 +6,6 @@
 }
 
 .c-nav-item {
-    font: normal normal bold 12px/17px Manrope;
     letter-spacing: 1.2px;
     color: #A8A8A9;
     text-transform: uppercase;
@@ -17,6 +16,9 @@
 
 .c-nav-subitem {
     text-transform: capitalize;
+    cursor: pointer;
+    font: normal normal 16px/22px Manrope;
+    font-weight: 500;
 }
 .inner-box {
     margin: 20px 24px;
@@ -28,21 +30,19 @@
     letter-spacing: 1.2px;
     color: #F9B123;
     text-transform: uppercase;
-    opacity: 1;
 }
 
 .current-subitem {
     text-align: left;
-    font: normal normal medium 16px/22px Manrope;
+    font: normal normal 16px/22px Manrope;
     letter-spacing: 0px;
     color: #27272A;
     opacity: 1;
+    font-weight: 600;
 }
-
-.tech-eco-nav {
-    text-align: left;
-    font: normal normal medium 16px/22px Manrope;
+.is-completed {
+    font: normal normal 16px/22px Manrope;
     letter-spacing: 0px;
-    color: #A8A8A9;
-    opacity: 1;
+    color: #B8BF29;
+    font-weight: 600;
 }

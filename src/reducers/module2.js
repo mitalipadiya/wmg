@@ -5,13 +5,18 @@ const initialState = {
         averageAnnualElectricityConsumption: "",
         averageAnnualGasConsumption: "",
         emissionFactorGridElectricity: "0.284",
-        emissionFactorForGridGas: "0.18"
+        emissionFactorForGridGas: "0.18",
+        annualOperationalEmissionsForGridElectricity: "",
+        annualOperationalEmissionsForGridGas: "",
+        totalBaselineEmissions: "",
+        isComplete: false
     },
     economicParameters: {
         unitPriceOfElectricity: "0.248",
         unitPriceOfGas: "0.0603",
         yearsOfAbatement: "10",
-        discountRate: "5"
+        discountRate: "5",
+        isComplete: false
     },
     solarPV: {
         averageAnnualElectricityRequirements: "",
@@ -33,7 +38,8 @@ const initialState = {
         annualOperationalCostSavings: "",
         netPresentValueOperationalEnergy: "",
         totalOperationalEmissionSavingsAbatementPeriodInTon: "",
-        costEffectivenessOperationalEmission: ""
+        costEffectivenessOperationalEmission: "",
+        isComplete: false
     }
 };
 

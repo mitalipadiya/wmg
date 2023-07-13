@@ -4,6 +4,7 @@ import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBaseline, updateSolarPV } from "../../actions/module2";
+import { round } from "../../services/module2.service";
 import { useNavigate } from "react-router-dom";
 
 const SolarPV = () => {
@@ -54,7 +55,8 @@ const SolarPV = () => {
             annualOperationalCostSavings,
             netPresentValueOperationalEnergy,
             totalOperationalEmissionSavingsAbatementPeriodInTon,
-            costEffectivenessOperationalEmission
+            costEffectivenessOperationalEmission,
+            isComplete: true
         }));
         navigate("./../wind")
 
@@ -87,7 +89,7 @@ const SolarPV = () => {
         setTotalOperationalEmissionSavingsAbatementPeriod(annualOperationalEmissionSavings * economicParameters?.yearsOfAbatement);
     }, [annualOperationalEmissionSavings]);
     useEffect(() => {
-        setTotalOperationalEmissionSavingsAbatementPeriodInTon(totalOperationalEmissionSavingsAbatementPeriod / 1000);
+        setTotalOperationalEmissionSavingsAbatementPeriodInTon(round(totalOperationalEmissionSavingsAbatementPeriod / 1000, 2));
     }, [totalOperationalEmissionSavingsAbatementPeriod]);
     useEffect(() => {
         setCostEffectivenessOperationalEmission((initialInvestmentPVSystem - netPresentValueOperationalEnergy) / totalOperationalEmissionSavingsAbatementPeriodInTon);
@@ -181,8 +183,8 @@ const SolarPV = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Size of PV system" unit="kWp" value={sizeOfPVSystem} />
-                                <CalculatedData heading="Area of PV system" unit="m2" value={areaOfPVSystem} />
+                                <CalculatedData heading="Size of PV system" unit="kWp" value={round(sizeOfPVSystem, 2)} />
+                                <CalculatedData heading="Area of PV system" unit="m2" value={round(areaOfPVSystem,2)} />
                             </div>
                         </div>
                     </div>
@@ -215,8 +217,8 @@ const SolarPV = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOperationalEnergy} />
+                                <CalculatedData heading="Annual operational cost savings" unit="£" value={round(annualOperationalCostSavings, 2)} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={round(netPresentValueOperationalEnergy, 2)} />
                             </div>
                         </div>
                     </div>
@@ -249,14 +251,14 @@ const SolarPV = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAbatementPeriodInTon} />
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={round(totalOperationalEmissionSavingsAbatementPeriodInTon, 2)} />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="calculated-main calculated-last">
                     <div className="calculated-container">
-                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="£/tCO2e" value={costEffectivenessOperationalEmission} />
+                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="£/tCO2e" value={round(costEffectivenessOperationalEmission, 2)} />
                     </div>
                 </div>
                 <div className="btn-div">

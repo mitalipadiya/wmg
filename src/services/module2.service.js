@@ -5,7 +5,14 @@ import { API_URL } from "../constants";
 const getModule2Details = () => {
   return axios.get(API_URL + "all");
 };
+const round = (num, decimalPlaces = 0) =>{
+  if(num) {
+    num = Math.round(num + "e" + decimalPlaces);
+    return Number(num + "e" + -decimalPlaces).toFixed(2).replace(/\.00$/, '');
+  }
+}
 
-export default {
-    getModule2Details
+export {
+    getModule2Details,
+    round
 };

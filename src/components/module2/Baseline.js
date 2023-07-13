@@ -5,6 +5,7 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBaseline } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import { round } from "../../services/module2.service";
 
 const Baseline = () => {
     const { baseline } = useSelector(state => state.module2);
@@ -13,19 +14,36 @@ const Baseline = () => {
     const [averageAnnualGasConsumption, setAverageAnnualGasConsumption] = useState(baseline?.averageAnnualGasConsumption);
     const [emissionFactorGridElectricity, setEmssionFactorGridElectricity] = useState(baseline?.emissionFactorGridElectricity);
     const [emissionFactorForGridGas, setEmissionFactorForGridGas] = useState(baseline?.emissionFactorForGridGas);
+    const [annualOperationalEmissionsForGridElectricity, setAnnualOperationalEmissionsForGridElectricity] = useState(baseline?.annualOperationalEmissionsForGridElectricity);
+    const [annualOperationalEmissionsForGridGas, setAnnualOperationalEmissionsForGridGas] = useState(baseline?.annualOperationalEmissionsForGridGas);
+    const [totalBaselineEmissions, setTotalBaselineEmissions] = useState(baseline?.totalBaselineEmissions);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const onSave = () => {
         dispatch(updateBaseline({
-            averageAnnualElectricityConsumption: averageAnnualElectricityConsumption,
-            averageAnnualGasConsumption: averageAnnualGasConsumption,
-            emissionFactorGridElectricity: emissionFactorGridElectricity,
-            emissionFactorForGridGas: emissionFactorForGridGas
+            averageAnnualElectricityConsumption,
+            averageAnnualGasConsumption,
+            emissionFactorGridElectricity,
+            emissionFactorForGridGas,
+            annualOperationalEmissionsForGridElectricity,
+            annualOperationalEmissionsForGridGas,
+            totalBaselineEmissions,
+            isComplete: true
         }));
+
         navigate("./../economic-parameters")
 
     }
+    useEffect(() => {
+        setAnnualOperationalEmissionsForGridElectricity(round(averageAnnualElectricityConsumption * emissionFactorGridElectricity, 2));
+    }, [averageAnnualElectricityConsumption, emissionFactorGridElectricity]);
+    useEffect(() => {
+        setAnnualOperationalEmissionsForGridGas(round(averageAnnualGasConsumption * emissionFactorForGridGas, 2));
+    }, [averageAnnualGasConsumption, emissionFactorForGridGas]);
+    useEffect(() => {
+        setTotalBaselineEmissions(round((averageAnnualElectricityConsumption * emissionFactorGridElectricity) + (averageAnnualGasConsumption * emissionFactorForGridGas), 2));
+    }, [averageAnnualElectricityConsumption, emissionFactorGridElectricity, averageAnnualGasConsumption, emissionFactorForGridGas]);
 
     return (
         <>
@@ -68,9 +86,9 @@ const Baseline = () => {
 
                     <div className="calculated-main">
                         <div className="calculated-container">
-                            <CalculatedData heading="Annual operational emissions for grid electricity" unit="kgCO2e" value={averageAnnualElectricityConsumption * emissionFactorGridElectricity} />
-                            <CalculatedData heading="Annual operational emissions for grid gas" unit="kgCO2e" value={averageAnnualGasConsumption * emissionFactorForGridGas} />
-                            <CalculatedData heading="Total baseline emissions" unit="kgCO2e" value={(averageAnnualElectricityConsumption * emissionFactorGridElectricity) + (averageAnnualGasConsumption * emissionFactorForGridGas)} />
+                            <CalculatedData heading="Annual operational emissions for grid electricity" unit="kgCO2e" value={annualOperationalEmissionsForGridElectricity} />
+                            <CalculatedData heading="Annual operational emissions for grid gas" unit="kgCO2e" value={annualOperationalEmissionsForGridGas} />
+                            <CalculatedData heading="Total baseline emissions" unit="kgCO2e" value={totalBaselineEmissions} />
 
                         </div>
                     </div>

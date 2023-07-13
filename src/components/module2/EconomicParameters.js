@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateEconomicParameters } from "../../actions/module2";
 import Button from "../UI/Button";
+import { round } from "../../services/module2.service";
 
 const EconomicParameters = () => {
     const { economicParameters, baseline } = useSelector(state => state.module2);
@@ -12,19 +13,29 @@ const EconomicParameters = () => {
     const [unitPriceOfGas, setUnitPriceOfGas] = useState(economicParameters?.unitPriceOfGas);
     const [yearsOfAbatement, setYearsOfAbatement] = useState(economicParameters?.yearsOfAbatement);
     const [discountRate, setDiscountRate] = useState(economicParameters.discountRate);
+    const [annualOperationalCostOfElectricity, setAnnualOperationalCostOfElectricity] = useState(economicParameters?.annualOperationalCostOfElectricity);
+    const [annualOperationalCostOfHeat, setAnnualOperationalCostOfHeat] = useState(economicParameters?.annualOperationalCostOfHeat);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    useEffect(() => {
+        setAnnualOperationalCostOfElectricity(round(baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity, 2));
+    }, [unitPriceOfElectricity]);
+    useEffect(() => {
+        setAnnualOperationalCostOfHeat(round(unitPriceOfGas * baseline?.averageAnnualGasConsumption, 2));
+    }, [unitPriceOfGas]);
 
     const onSave = () => {
         dispatch(updateEconomicParameters({
-            unitPriceOfElectricity: unitPriceOfElectricity,
-            unitPriceOfGas: unitPriceOfGas,
-            yearsOfAbatement: yearsOfAbatement,
-            discountRate: discountRate
+            unitPriceOfElectricity,
+            unitPriceOfGas,
+            yearsOfAbatement,
+            discountRate,
+            annualOperationalCostOfElectricity,
+            annualOperationalCostOfHeat,
+            isComplete: true
         }));
         navigate("./../solar-pv")
-
     }
 
     return (
@@ -69,8 +80,8 @@ const EconomicParameters = () => {
 
                     <div className="calculated-main">
                         <div className="calculated-container">
-                            <CalculatedData heading="Annual operational cost of electricity" unit="£" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
-                            <CalculatedData heading="Annual operational cost of heat" unit="£" value={unitPriceOfGas * baseline?.averageAnnualGasConsumption} />
+                            <CalculatedData heading="Annual operational cost of electricity" unit="£" value={annualOperationalCostOfElectricity} />
+                            <CalculatedData heading="Annual operational cost of heat" unit="£" value={annualOperationalCostOfHeat} />
                         </div>
                     </div>
                 </div>
