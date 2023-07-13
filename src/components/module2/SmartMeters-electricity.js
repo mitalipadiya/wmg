@@ -68,7 +68,7 @@ const Wind = () => {
 
     return (
         <>
-            <h2 className="form-heading">LED</h2>
+            <h2 className="form-heading">Smart meters - electricity</h2>
             <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
             <div className="main">
                 <div>
@@ -76,12 +76,12 @@ const Wind = () => {
                     <div className="form-div">
                         <div className="form-input">
                             <InputWithSideText value={averageAnnualElectricityRequirements}
-                                unit=""
+                                unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
-                                heading="Enter current lighting power rating"
+                                heading="Average annual electricity consumption"
                                 disabled={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                             <InputWithSideText value={percentAnnualElectricityFromPV}
                                 unit="W"
                                 type="number"
@@ -89,13 +89,6 @@ const Wind = () => {
                                 heading="Enter current lighting power rating"
                                 subHeading="Quis enim unde. Rerum corrupti voluptatum"
                                 onChange={onPercentAnnualElectricityFromPVChange} />
-                            <InputWithSideText value={location}
-                                unit=""
-                                type="text"
-                                placeholder="Select"
-                                heading="Number of units"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setLocation(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -110,39 +103,17 @@ const Wind = () => {
                     <div className="form-div">
                         <div className="form-input">
                             <InputWithSideText value={electricityGeneratedPVSystem}
-                                unit="h"
+                                unit="%"
                                 type="number"
                                 placeholder="Enter value"
-                                heading="Daily usage"
+                                heading="Average electricity savings incentivised using smart meter"
                                 disabled={true}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                            <InputWithSideText value={annualElectricityGenerationSelectedLocation}
-                                unit=""
-                                type="number"
-                                placeholder="Enter value"
-                                heading="Number of operational days in a year"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event) => { setAnnualElectricityGenerationSelectedLocation(event.target.value) }} />
-                            <InputWithSideText value={annualSolarInsolationSelectedLocation}
-                                unit="h"
-                                type="number"
-                                placeholder="Enter value"
-                                heading="Annual usage"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setAnnualSolarInsolationSelectedLocation(event.target.value) }} />
-                            <InputWithSideText value={solarModuleEfficiency}
-                                unit="W"
-                                type="number"
-                                placeholder="Enter value"
-                                heading="LED power rating"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setSolarModuleEfficiency(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual electricity consumption with current lighting" unit="kWh" value={sizeOfPVSystem} />
-                                <CalculatedData heading="Annual electricity consumption with LEDs" unit="kWh" value={areaOfPVSystem} />
-                                <CalculatedData heading="Annual electricity savings with LEDs" unit="kWh" value={areaOfPVSystem} />
+                                <CalculatedData heading="Annual electricity savings with smart meters" unit="kWh" value={sizeOfPVSystem} />
+                                <CalculatedData heading="" unit="" value={areaOfPVSystem} />
                             </div>
                         </div>
                     </div>
@@ -155,24 +126,10 @@ const Wind = () => {
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
-                                heading="Unit cost for LED"
+                                heading="Initial investment for electricity smart meter(CAPEX)"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
                                 onChange={(event) => { setUnitInstallationCostPVSystem(event.target.value) }} />
-                            <InputWithSideText value={initialInvestmentPVSystem}
-                                unit="£"
-                                type="number"
-                                placeholder="Enter value"
-                                heading="Initial investment for LEDs (CAPEX)"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event) => { setInitialInvestmentPVSystem(event.target.value) }} />
-                            <InputWithSideText value={initialInvestmentPVSystem}
-                                unit="£"
-                                type="number"
-                                placeholder="Enter value"
-                                heading="Cost of electricity with LEDs"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event) => { setInitialInvestmentPVSystem(event.target.value) }} />
-                        </div>
+                                                   </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
                                 <CalculatedData heading="Annual operational cost savings" unit="£" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />

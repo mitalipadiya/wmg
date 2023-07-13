@@ -68,7 +68,7 @@ const Wind = () => {
 
     return (
         <>
-            <h2 className="form-heading">Voltage optimisation</h2>
+            <h2 className="form-heading">Smart meters - gas</h2>
             <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
             <div className="main">
                 <div>
@@ -79,7 +79,7 @@ const Wind = () => {
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
-                                heading="Average annual electricity consumption"
+                                heading="Average annual gas consumption"
                                 disabled={true}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                             <div className="calculated-main">
@@ -98,16 +98,13 @@ const Wind = () => {
                                     unit="%"
                                     type="number"
                                     placeholder="Enter value"
-                                    heading="Average electricity savings using voltage optimisation"
+                                    heading="Average gas savings incentivised using smart meter"
                                     disabled={true}
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Annual electricity savings with voltage optimisation" unit="kWh" value={sizeOfPVSystem} />
-                                </div>
-                                <div className="calculated-container">
-                                    <CalculatedData heading="" unit="" value={sizeOfPVSystem} />
+                                    <CalculatedData heading="Annual gas consumption with smart meters" unit="kWh" value={sizeOfPVSystem} />
                                 </div>
                             </div>
                         </div>
@@ -120,7 +117,7 @@ const Wind = () => {
                                     unit="£"
                                     type="number"
                                     placeholder="Enter value"
-                                    heading="Initial investment for voltage optimisation (CAPEX)"
+                                    heading="Initial investment for gas smart meter(CAPEX)"
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
                                     onChange={(event) => { setUnitInstallationCostPVSystem(event.target.value) }} />
                             </div>
