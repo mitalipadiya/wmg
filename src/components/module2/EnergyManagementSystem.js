@@ -91,10 +91,7 @@ const Wind = () => {
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                         </div>
                         <div className="calculated-main">
-                            <div className="calculated-container">
-                                <CalculatedData heading="" unit="" value={sizeOfPVSystem} />
-                                <CalculatedData heading="" unit="" value={areaOfPVSystem} />
-                            </div>
+                            
                         </div>
                     </div>
                     <div>

@@ -105,12 +105,9 @@ const Biomass = () => {
                                 onChange={(event) => { setLatitudeLongitude(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
-                        <div className="calculated-container">
-                                <CalculatedData heading="" unit="" value={sizeOfPVSystem} />
-                                <CalculatedData heading="" unit="" value={areaOfPVSystem} />
-                            </div>
                         </div>
                     </div>
+                    
                 </div>
                 <div>
                     <h2 className="group-heading">TECHNICAL ANALYSIS</h2>
@@ -189,7 +186,7 @@ const Biomass = () => {
                         <div className="calculated-main">
                             <div className="calculated-container">
                                 <CalculatedData heading="Annual operational cost savings" unit="£" value={baseline?.averageAnnualElectricityConsumption} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={ baseline?.averageAnnualGasConsumption} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={baseline?.averageAnnualGasConsumption} />
                             </div>
                         </div>
                     </div>
