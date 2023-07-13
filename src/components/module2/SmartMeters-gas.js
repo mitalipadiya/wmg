@@ -8,25 +8,15 @@ import { useNavigate } from "react-router-dom";
 
 const Wind = () => {
     const { solavPV, baseline } = useSelector(state => state.module2);
-
-    const [averageAnnualElectricityRequirements, setAverageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
-    const [percentAnnualElectricityFromPV, setPercentAnnualElectricityFromPV] = useState(solavPV?.percentAnnualElectricityFromPV);
-    const [location, setLocation] = useState(solavPV?.location);
-    const [latitudeLongitude, setLatitudeLongitude] = useState(solavPV?.latitudeLongitude);
-    const [electricityGeneratedPVSystem, setElectricityGeneratedPVSystem] = useState(solavPV?.electricityGeneratedPVSystem);
-    const [annualElectricityGenerationSelectedLocation, setAnnualElectricityGenerationSelectedLocation] = useState(solavPV?.annualElectricityGenerationSelectedLocation);
-    const [annualSolarInsolationSelectedLocation, setAnnualSolarInsolationSelectedLocation] = useState(solavPV?.annualSolarInsolationSelectedLocation);
-    const [solarModuleEfficiency, setSolarModuleEfficiency] = useState(solavPV?.solarModuleEfficiency);
-    const [gHGEmissionsElectricityPVSystem, setgHGEmissionsElectricityPVSystem] = useState(solavPV?.gHGEmissionsElectricityPVSystem);
+    const [averageAnnualGasConsumption, setAverageAnnualGasConsumption] = useState(baseline?.averageAnnualGasConsumption);
+    const [averageGasSavingsIncentivisedUsingSmartMeter, setAverageGasSavingsIncentivisedUsingSmartMeter] = useState(solavPV?.averageGasSavingsIncentivisedUsingSmartMeter);
+    const [initialInvestmentForGasSmartMeter, setInitialInvestmentForGasSmartMeter] = useState(solavPV?.initialInvestmentForGasSmartMeter);
+    const [annualOperationalCostSavings, setAnnualOperationalCostSavings] = useState(solavPV?.annualOperationalCostSavings);
+    const [netPresentValueOfOperationalEnergyCostSavings, setNetPresentValueOfOperationalEnergyCostSavings] = useState(solavPV?.netPresentValueOfOperationalEnergyCostSavings);
     const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(solavPV?.annualOperationalEmissionSavings);
-    const [totalOperationalEmissionSavingsAbatementPeriod, setTotalOperationalEmissionSavingsAbatementPeriod] = useState(solavPV?.totalOperationalEmissionSavingsAbatementPeriod);
-    const [unitInstallationCostPVSystem, setUnitInstallationCostPVSystem] = useState(solavPV?.unitInstallationCostPVSystem);
-    const [initialInvestmentPVSystem, setInitialInvestmentPVSystem] = useState(solavPV?.initialInvestmentPVSystem);
-    const [sizeOfPVSystem, setSizeOfPVSystem] = useState(solavPV?.sizeOfPVSystem);
-
-    const [areaOfPVSystem, setAreaOfPVSystem] = useState(solavPV?.areaOfPVSystem);
-
-
+    const [totalOperationalEmissionSavingsAcrossAbatementPeriod, setTotalOperationalEmissionSavingsAcrossAbatementPeriod] = useState(solavPV?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
+    const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(solavPV?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
+    const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(solavPV?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -75,7 +65,7 @@ const Wind = () => {
                     <h2 className="group-heading">GENERAL</h2>
                     <div className="form-div">
                         <div className="form-input">
-                            <InputWithSideText value={averageAnnualElectricityRequirements}
+                            <InputWithSideText value={averageAnnualGasConsumption}
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
@@ -94,7 +84,7 @@ const Wind = () => {
                         <h2 className="group-heading">TECHNICAL ANALYSIS</h2>
                         <div className="form-div">
                             <div className="form-input">
-                                <InputWithSideText value={electricityGeneratedPVSystem}
+                                <InputWithSideText value={averageGasSavingsIncentivisedUsingSmartMeter}
                                     unit="%"
                                     type="number"
                                     placeholder="Enter value"
@@ -104,7 +94,7 @@ const Wind = () => {
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Annual gas consumption with smart meters" unit="kWh" value={sizeOfPVSystem} />
+                                    <CalculatedData heading="Annual gas consumption with smart meters" unit="kWh" value={annualGasConsumptionWithSmartMeters} />
                                 </div>
                             </div>
                         </div>
@@ -113,18 +103,18 @@ const Wind = () => {
                         <h2 className="group-heading">ECONOMIC ANALYSIS</h2>
                         <div className="form-div">
                             <div className="form-input">
-                                <InputWithSideText value={unitInstallationCostPVSystem}
+                                <InputWithSideText value={initialInvestmentForGasSmartMeter}
                                     unit="£"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Initial investment for gas smart meter(CAPEX)"
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                    onChange={(event) => { setUnitInstallationCostPVSystem(event.target.value) }} />
+                                    onChange={(event) => { setInitialInvestmentForGasSmartMeter(event.target.value) }} />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Annual operational cost savings" unit="£" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
-                                    <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={unitPriceOfGas * baseline?.averageAnnualGasConsumption} />
+                                    <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
+                                    <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
                                 </div>
                             </div>
                         </div>
@@ -133,25 +123,25 @@ const Wind = () => {
                         <h2 className="group-heading">OPERATIONAL EMISSIONS ANALYSIS</h2>
                         <div className="form-div">
                             <div className="form-input">
-                                <InputWithSideText value={gHGEmissionsElectricityPVSystem}
+                                <InputWithSideText value={annualOperationalEmissionSavings}
                                     unit="kgCO2e"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Annual operational emission savings"
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                    onChange={(event) => { setgHGEmissionsElectricityPVSystem(event.target.value) }} />
-                                <InputWithSideText value={annualOperationalEmissionSavings}
+                                    onChange={(event) => { setAnnualOperationalEmissionSavings(event.target.value) }} />
+                                <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                     unit="kgCO2e"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Total operational emission savings across abatement period"
                                     subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                    onChange={(event) => { setAnnualOperationalEmissionSavings(event.target.value) }} />
+                                    onChange={(event) => { setTotalOperationalEmissionSavingsAcrossAbatementPeriod(event.target.value) }} />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
-                                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity} />
+                                    <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} />
+                                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} />
                                 </div>
                             </div>
                         </div>
