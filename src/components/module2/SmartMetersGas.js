@@ -7,20 +7,35 @@ import { updateBaseline } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 
 const SmartMetersGas = () => {
-    const { solavPV, baseline } = useSelector(state => state.module2);
-    const [averageAnnualGasConsumption, setAverageAnnualGasConsumption] = useState(baseline?.averageAnnualGasConsumption);
-    const [averageGasSavingsIncentivisedUsingSmartMeter, setAverageGasSavingsIncentivisedUsingSmartMeter] = useState(solavPV?.averageGasSavingsIncentivisedUsingSmartMeter);
-    const [initialInvestmentForGasSmartMeter, setInitialInvestmentForGasSmartMeter] = useState(solavPV?.initialInvestmentForGasSmartMeter);
-    const [annualOperationalCostSavings, setAnnualOperationalCostSavings] = useState(solavPV?.annualOperationalCostSavings);
-    const [netPresentValueOfOperationalEnergyCostSavings, setNetPresentValueOfOperationalEnergyCostSavings] = useState(solavPV?.netPresentValueOfOperationalEnergyCostSavings);
-    const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(solavPV?.annualOperationalEmissionSavings);
-    const [totalOperationalEmissionSavingsAcrossAbatementPeriod, setTotalOperationalEmissionSavingsAcrossAbatementPeriod] = useState(solavPV?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
-    const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(solavPV?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
-    const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(solavPV?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
+    const { solavPV, baseline, economicParameters,smartMetersGas } = useSelector(state => state.module2);
+    const [averageAnnualGasConsumption, setAverageAnnualGasConsumption] = useState(smartMetersGas?.averageAnnualGasConsumption);
+    const [averageGasSavingsIncentivisedUsingSmartMeter, setAverageGasSavingsIncentivisedUsingSmartMeter] = useState(smartMetersGas?.averageGasSavingsIncentivisedUsingSmartMeter);
+    const [annualGasConsumptionWithSmartMeters, setAnnualGasConsumptionWithSmartMeters]=useState(smartMetersGas?.annualGasConsumptionWithSmartMeters);
+    const [initialInvestmentForGasSmartMeter, setInitialInvestmentForGasSmartMeter] = useState(smartMetersGas?.initialInvestmentForGasSmartMeter);
+    const [annualOperationalCostSavings, setAnnualOperationalCostSavings] = useState(smartMetersGas?.annualOperationalCostSavings);
+    const [netPresentValueOfOperationalEnergyCostSavings, setNetPresentValueOfOperationalEnergyCostSavings] = useState(smartMetersGas?.netPresentValueOfOperationalEnergyCostSavings);
+    const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(smartMetersGas?.annualOperationalEmissionSavings);
+    const [totalOperationalEmissionSavingsAcrossAbatementPeriod, setTotalOperationalEmissionSavingsAcrossAbatementPeriod] = useState(smartMetersGas?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
+    const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(smartMetersGas?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
+    const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(smartMetersGas?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    useEffect(() => {
+        setAnnualGasConsumptionWithSmartMeters(averageAnnualGasConsumption*(100-averageGasSavingsIncentivisedUsingSmartMeter)/100)
+    }, [averageAnnualGasConsumption, averageGasSavingsIncentivisedUsingSmartMeter]);
+    useEffect(() => {
+        setAnnualOperationalCostSavings((averageAnnualGasConsumption-annualGasConsumptionWithSmartMeters)*economicParameters.unitPriceOfGas)
+    }, [averageAnnualGasConsumption, annualGasConsumptionWithSmartMeters]);
+    useEffect(() => {
+        setAnnualOperationalEmissionSavings((averageAnnualGasConsumption-annualGasConsumptionWithSmartMeters)*baseline.emissionFactorForGridGas)
+    }, [averageAnnualGasConsumption, annualGasConsumptionWithSmartMeters]);
+    useEffect(() => {
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriod(annualOperationalEmissionSavings*economicParameters.yearsOfAbatement)
+    }, [annualOperationalEmissionSavings]);
+    useEffect(() => {
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod/1000)
+    }, [totalOperationalEmissionSavingsAcrossAbatementPeriod]);
     return (
         <>
             <h2 className="form-heading">Smart meters - gas</h2>
@@ -35,8 +50,9 @@ const SmartMetersGas = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Average annual gas consumption"
-                                disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                // disabled={true}
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                onChange={(event) => { setAverageAnnualGasConsumption(event.target.value) }}/>
                             
                         </div>
                         <div className="calculated-main">
@@ -52,12 +68,12 @@ const SmartMetersGas = () => {
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Average gas savings incentivised using smart meter"
-                                    disabled={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                    onChange={(event) => { setAverageGasSavingsIncentivisedUsingSmartMeter(event.target.value) }} />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Annual gas consumption with smart meters" unit="kWh" value={""} />
+                                    <CalculatedData heading="Annual gas consumption with smart meters" unit="kWh" value={annualGasConsumptionWithSmartMeters} />
                                 </div>
                             </div>
                         </div>

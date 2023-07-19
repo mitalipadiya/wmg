@@ -3,68 +3,58 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBaseline } from "../../actions/module2";
+import { updateBaseline, updateEconomicParameters } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 
-const Wind = () => {
-    const { solavPV, baseline } = useSelector(state => state.module2);
+const PassiveInfraredSensor = () => {
+    const { solavPV, baseline, economicParameters, passiveInfraredSensor } = useSelector(state => state.module2);
+    const [numberOfLamps, setNumberOfLamps] = useState(passiveInfraredSensor?.numberOfLamps);
+    const [wattageOfLamp, setWattageOfLamp] = useState(passiveInfraredSensor?.wattageOfLamp);
+    const [numberOfDaysInYear, setNumberOfDaysInYear] = useState(passiveInfraredSensor?.numberOfDaysInYear);
+    const [estimatedHoursONPerDay, setEstimatedHoursONPerDay] = useState(passiveInfraredSensor?.estimatedHoursONPerDay);
+    const [estimatedHoursOccupiedPerDay, setEstimatedHoursOccupiedPerDay] = useState(passiveInfraredSensor?.estimatedHoursOccupiedPerDay);
+    const [areaOfIndustrialFacility, setAreaofIndustrialFacility] = useState(passiveInfraredSensor?.areaOfIndustrialFacility);
+    const [detectionRangeOfPIRSensors, setDetectionRangeOfPIRSensors] = useState(passiveInfraredSensor?.detectionRangeOfPIRSensors);
+    const [numberOfPIRSensors, setNumberOfPIRSensors] = useState(passiveInfraredSensor?.numberOfPIRSensors);
+    const [annualElectricityConsumptionWithoutPirSensor, setAnnualElectricityConsumptionWithoutPirSensor] = useState(passiveInfraredSensor?.annualElectricityConsumptionWithoutPirSensor);
+    const [annualElectricityConsumptionWithPirSensorInstalled, setAnnualElectricityConsumptionWithPirSensorInstalled] = useState(passiveInfraredSensor?.annualElectricityConsumptionWithPirSensorInstalled);
+    const [annualElectricitySavingsWithPirSensors, setAnnualElectricitySavingsWithPirSensors] = useState(passiveInfraredSensor?.annualElectricitySavingsWithPirSensors);
+    const [unitCostOfPirSensor, setUnitCostOfPirSensor] = useState(passiveInfraredSensor?.unitCostOfPirSensor);
+    const [initialInvestmentForPir, setInitialInvestmentForPir] = useState(passiveInfraredSensor?.initialInvestmentForPir);
+    const [annualOperationalCostSavings, setAnnualOperationalCostSavings] = useState(passiveInfraredSensor?.annualOperationalCostSavings);
+    const [netPresentValueOfOperationalEnergyCostSaings, setNetPresentValueOfOperationalEnergyCostSaings] = useState(passiveInfraredSensor?.netPresentValueOfOperationalEnergyCostSaings);
+    const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(passiveInfraredSensor?.annualOperationalEmissionSavings);
+    const [totalOperationalEmissionSavingsAcrossAbatementPeriod, setTotalOperationalEmissionSavingsAcrossAbatementPeriod] = useState(passiveInfraredSensor?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
+    const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(passiveInfraredSensor?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
+    const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(passiveInfraredSensor?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
 
-    const [averageAnnualElectricityRequirements, setAverageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
-    const [percentAnnualElectricityFromPV, setPercentAnnualElectricityFromPV] = useState(solavPV?.percentAnnualElectricityFromPV);
-    const [location, setLocation] = useState(solavPV?.location);
-    const [latitudeLongitude, setLatitudeLongitude] = useState(solavPV?.latitudeLongitude);
-    const [electricityGeneratedPVSystem, setElectricityGeneratedPVSystem] = useState(solavPV?.electricityGeneratedPVSystem);
-    const [annualElectricityGenerationSelectedLocation, setAnnualElectricityGenerationSelectedLocation] = useState(solavPV?.annualElectricityGenerationSelectedLocation);
-    const [annualSolarInsolationSelectedLocation, setAnnualSolarInsolationSelectedLocation] = useState(solavPV?.annualSolarInsolationSelectedLocation);
-    const [solarModuleEfficiency, setSolarModuleEfficiency] = useState(solavPV?.solarModuleEfficiency);
-    const [gHGEmissionsElectricityPVSystem, setgHGEmissionsElectricityPVSystem] = useState(solavPV?.gHGEmissionsElectricityPVSystem);
-    const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(solavPV?.annualOperationalEmissionSavings);
-    const [totalOperationalEmissionSavingsAbatementPeriod, setTotalOperationalEmissionSavingsAbatementPeriod] = useState(solavPV?.totalOperationalEmissionSavingsAbatementPeriod);
-    const [unitInstallationCostPVSystem, setUnitInstallationCostPVSystem] = useState(solavPV?.unitInstallationCostPVSystem);
-    const [initialInvestmentPVSystem, setInitialInvestmentPVSystem] = useState(solavPV?.initialInvestmentPVSystem);
-    const [sizeOfPVSystem, setSizeOfPVSystem] = useState(solavPV?.sizeOfPVSystem);
-
-    const [areaOfPVSystem, setAreaOfPVSystem] = useState(solavPV?.areaOfPVSystem);
-
-
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const onSave = () => {
-        // dispatch(updateBaseline({
-        //     averageAnnualElectricityConsumption: averageAnnualElectricityConsumption,
-        //     averageAnnualGasConsumption: averageAnnualGasConsumption,
-        //     emissionFactorGridElectricity: emissionFactorGridElectricity,
-        //     emissionFactorForGridGas: emissionFactorForGridGas
-        // }));
-        navigate("./../economic-parameters")
-
-    }
-    const onPercentAnnualElectricityFromPVChange = (event) => {
-        setPercentAnnualElectricityFromPV(event.target.value);
-        setElectricityGeneratedPVSystem((event.target.value / 100) * averageAnnualElectricityRequirements);
-    }
     useEffect(() => {
-        setAreaOfPVSystem(electricityGeneratedPVSystem / (parseInt(annualSolarInsolationSelectedLocation) * (parseInt(solarModuleEfficiency) / 100)));
-    }, [electricityGeneratedPVSystem, annualSolarInsolationSelectedLocation, solarModuleEfficiency]);
+        setNumberOfPIRSensors(areaOfIndustrialFacility / detectionRangeOfPIRSensors)
+    }, [areaOfIndustrialFacility, detectionRangeOfPIRSensors]);
     useEffect(() => {
-        setSizeOfPVSystem(electricityGeneratedPVSystem / annualElectricityGenerationSelectedLocation);
-    }, [electricityGeneratedPVSystem, annualElectricityGenerationSelectedLocation]);
+        setAnnualElectricityConsumptionWithoutPirSensor(numberOfLamps * wattageOfLamp * numberOfDaysInYear * estimatedHoursONPerDay / 1000)
+    }, [numberOfLamps, wattageOfLamp, numberOfDaysInYear, estimatedHoursONPerDay]);
     useEffect(() => {
-        setInitialInvestmentPVSystem(sizeOfPVSystem * unitInstallationCostPVSystem);
-    }, [sizeOfPVSystem, unitInstallationCostPVSystem])
+        setAnnualElectricityConsumptionWithPirSensorInstalled(numberOfLamps * wattageOfLamp * numberOfDaysInYear * estimatedHoursOccupiedPerDay / 1000)
+    }, [numberOfLamps, wattageOfLamp, numberOfDaysInYear, estimatedHoursOccupiedPerDay]);
     useEffect(() => {
-        let defaultValue = '';
-        if (sizeOfPVSystem <= 4) {
-            defaultValue = 1800;
-        } else if (sizeOfPVSystem >= 10 && sizeOfPVSystem <= 50) {
-            defaultValue = 1100;
-        } else if (sizeOfPVSystem > 50) {
-            defaultValue = 1000;
-        }
-        setUnitInstallationCostPVSystem(defaultValue);
-    }, [sizeOfPVSystem])
+        setAnnualElectricitySavingsWithPirSensors(annualElectricityConsumptionWithoutPirSensor - annualElectricityConsumptionWithPirSensorInstalled)
+    }, [annualElectricityConsumptionWithPirSensorInstalled, annualElectricityConsumptionWithoutPirSensor]);
+    useEffect(() => {
+        setAnnualOperationalCostSavings(annualElectricitySavingsWithPirSensors * economicParameters.unitPriceOfElectricity)
+    }, [annualElectricitySavingsWithPirSensors]);
+    useEffect(() => {
+        setInitialInvestmentForPir(unitCostOfPirSensor * numberOfPIRSensors)
+    }, [unitCostOfPirSensor, numberOfPIRSensors]);
+    useEffect(() => {
+        setAnnualOperationalEmissionSavings(annualElectricitySavingsWithPirSensors * baseline.emissionFactorGridElectricity)
+    }, [annualElectricitySavingsWithPirSensors]);
+    useEffect(() => {
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriod(annualOperationalEmissionSavings * economicParameters.yearsOfAbatement)
+    }, [annualOperationalEmissionSavings]);
+    useEffect(() => {
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod/1000)
+    }, [totalOperationalEmissionSavingsAcrossAbatementPeriod]);
 
     return (
         <>
@@ -76,48 +66,48 @@ const Wind = () => {
                         <h2 className="group-heading">GENERAL</h2>
                         <div className="form-div">
                             <div className="form-input">
-                                <InputWithSideText value={averageAnnualElectricityRequirements}
+                                <InputWithSideText value={numberOfLamps}
                                     unit="N"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Number of lamps"
-                                    disabled={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                                <InputWithSideText value={averageAnnualElectricityRequirements}
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                    onChange={(event) => { setNumberOfLamps(event.target.value) }} />
+                                <InputWithSideText value={wattageOfLamp}
                                     unit="W"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Wattage of lamp"
-                                    disabled={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                                <InputWithSideText value={averageAnnualElectricityRequirements}
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                    onChange={(event) => { setWattageOfLamp(event.target.value) }} />
+                                <InputWithSideText value={numberOfDaysInYear}
                                     unit="D"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Number of days in year"
-                                    disabled={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                                <InputWithSideText value={averageAnnualElectricityRequirements}
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                    onChange={(event) => { setNumberOfDaysInYear(event.target.value) }} />
+                                <InputWithSideText value={estimatedHoursONPerDay}
                                     unit="h0"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Estimated hours ON per day"
-                                    disabled={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                                <InputWithSideText value={averageAnnualElectricityRequirements}
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                    onChange={(event) => { setEstimatedHoursONPerDay(event.target.value) }} />
+                                <InputWithSideText value={estimatedHoursOccupiedPerDay}
                                     unit="hoc"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Estimated hours occupied per day"
-                                    disabled={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                                <InputWithSideText value={averageAnnualElectricityRequirements}
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                    onChange={(event) => { setEstimatedHoursOccupiedPerDay(event.target.value) }} />
+                                <InputWithSideText value={areaOfIndustrialFacility}
                                     unit="m2"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Area of industrial facility"
-                                    disabled={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                    onChange={(event) => { setAreaofIndustrialFacility(event.target.value) }} />
                             </div>
                             <div className="calculated-main">
 
@@ -128,44 +118,31 @@ const Wind = () => {
                         <h2 className="group-heading">TECHNICAL ANALYSIS</h2>
                         <div className="form-div">
                             <div className="form-input">
-                                <InputWithSideText value={electricityGeneratedPVSystem}
+                                <InputWithSideText value={detectionRangeOfPIRSensors}
                                     unit="m2"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Detection range of PIR sensors"
-                                    disabled={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                                <InputWithSideText value={electricityGeneratedPVSystem}
-                                    unit="m2"
-                                    type="number"
-                                    placeholder="Enter value"
-                                    heading="Detection range of PIR sensors"
-                                    disabled={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                                <InputWithSideText value={electricityGeneratedPVSystem}
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                    onChange={(event) => { setDetectionRangeOfPIRSensors(event.target.value) }} />
+
+                                <InputWithSideText value={numberOfPIRSensors}
                                     unit=""
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Number of PIR sensors"
                                     disabled={true}
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                                <InputWithSideText value={electricityGeneratedPVSystem}
-                                    unit="m2"
-                                    type="number"
-                                    placeholder="Enter value"
-                                    heading="Detection range of PIR sensors"
-                                    disabled={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Annual electricity consumption without PIR sensor" unit="kWh" value={sizeOfPVSystem} />
+                                    <CalculatedData heading="Annual electricity consumption without PIR sensor" unit="kWh" value={annualElectricityConsumptionWithoutPirSensor} />
                                 </div>
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Annual electricity consumption with PIR sensor installed" unit="kWh" value={sizeOfPVSystem} />
+                                    <CalculatedData heading="Annual electricity consumption with PIR sensor installed" unit="kWh" value={annualElectricityConsumptionWithPirSensorInstalled} />
                                 </div>
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Annual Electricity savings with PIR sensors" unit="kWh" value={sizeOfPVSystem} />
+                                    <CalculatedData heading="Annual Electricity savings with PIR sensors" unit="kWh" value={annualElectricitySavingsWithPirSensors} />
                                 </div>
                             </div>
                         </div>
@@ -174,25 +151,26 @@ const Wind = () => {
                         <h2 className="group-heading">ECONOMIC ANALYSIS</h2>
                         <div className="form-div">
                             <div className="form-input">
-                                <InputWithSideText value={unitInstallationCostPVSystem}
+                                <InputWithSideText value={unitCostOfPirSensor}
                                     unit="£"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Unit cost of PIR sensor"
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                    onChange={(event) => { setUnitInstallationCostPVSystem(event.target.value) }} />
-                                <InputWithSideText value={unitInstallationCostPVSystem}
+                                    onChange={(event) => { setUnitCostOfPirSensor(event.target.value) }} />
+                                <InputWithSideText value={initialInvestmentForPir}
                                     unit="£"
                                     type="number"
+                                    disabled={true}
                                     placeholder="Enter value"
                                     heading="Initial investment for PIR (CAPEX)"
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                    onChange={(event) => { setUnitInstallationCostPVSystem(event.target.value) }} />
+                                />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Annual operational cost savings" unit="£" value={baseline?.averageAnnualElectricityConsumption} />
-                                    <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={baseline?.averageAnnualGasConsumption} />
+                                    <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
+                                    <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSaings} />
                                 </div>
                             </div>
                         </div>
@@ -201,36 +179,37 @@ const Wind = () => {
                         <h2 className="group-heading">OPERATIONAL EMISSIONS ANALYSIS</h2>
                         <div className="form-div">
                             <div className="form-input">
-                                <InputWithSideText value={gHGEmissionsElectricityPVSystem}
+                                <InputWithSideText value={annualOperationalEmissionSavings}
                                     unit="kgCO2e"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Annual operational emission savings"
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                    onChange={(event) => { setgHGEmissionsElectricityPVSystem(event.target.value) }} />
-                                <InputWithSideText value={annualOperationalEmissionSavings}
+                                    onChange={(event) => { annualOperationalEmissionSavings(event.target.value) }} />
+
+                                <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                     unit="kgCO2e"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Total operational emission savings across abatement period"
                                     subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                    onChange={(event) => { setAnnualOperationalEmissionSavings(event.target.value) }} />
+                                />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
-                                    <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption} />
-                                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={baseline?.averageAnnualElectricityConsumption} />
+                                    <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} />
+                                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="btn-div">
+                    {/* <div className="btn-div">
                         <Button value="Next" onClick={onSave} />
-                    </div>
+                    </div> */}
                 </div >
             </div>
         </>
 
     );
 };
-export default Wind;
+export default PassiveInfraredSensor;
