@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./Navigation.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import IndustrialHeatPump from "./IndustrialHeatPump";
 const Navigation = () => {
     const [currentSelection, setCurrentSelection] = useState("baseline");
     const { isComplete: isBaselineComplete } = useSelector(state => state?.module2?.baseline);
@@ -18,7 +19,8 @@ const Navigation = () => {
     const [isSmartMetersGasComplete, setIsSmartMetersGasComplete] = useState(false);
     const [isVoltageOptimisationComplete, setIsVoltageOptimisationComplete] = useState(false);
     const [isEnergyManagementSystemComplete, setIsEnergyManagementSystemComplete] = useState(false);
-
+    const [isSolarThermalComplete,setIsSolarThermalComplete]=useState(false);
+    const [isIndustrialHeatPumpComplete,setIsIndustrialHeatPumpComplete]=useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     useEffect(()=>{
@@ -76,11 +78,15 @@ const Navigation = () => {
                     onClick={onItemSelect("voltage-optimisation")}>Voltage optimisation</div>
                 <div className={`c-nav-item c-nav-subitem ${currentSelection == "energy-management-system" ? 'current-subitem' : ''} ${isEnergyManagementSystemComplete ? 'is-completed' : ''}`}
                     onClick={onItemSelect("energy-management-system")}>Energy management system</div>
+                 <div className={`c-nav-item c-nav-subitem ${currentSelection == "solar-thermal" ? 'current-subitem' : ''} ${isSolarThermalComplete ? 'is-completed' : ''}`}
+                    onClick={onItemSelect("solar-thermal")}>Solar thermal</div>
+                 <div className={`c-nav-item c-nav-subitem ${currentSelection == "industrial-heat-pump" ? 'current-subitem' : ''} ${isIndustrialHeatPumpComplete ? 'is-completed' : ''}`}
+                    onClick={onItemSelect("industrial-heat-pump")}>Industrial heat pump</div>
             </div>
             <hr />
             <div className="c-nav-item">BASELINE CONSUMPTION</div>
             <hr />
-            <div className="c-nav-item">EMISSION SAVINGS</div>
+            <div className="c-nav-item" onClick={onItemSelect("emission-savings")}>%EMISSION SAVINGS</div>
             <hr />
             <div className="c-nav-item">MARGINAL ABATEMENT COST CURVE (MACC)</div>
             <hr />

@@ -28,6 +28,9 @@ import VoltageOptimisation from './components/module2/VoltageOptimisation';
 import EnergyManagementSystem from './components/module2/EnergyManagementSystem';
 import CHP from './components/module2/Chp';
 import LED from './components/module2/Led';
+import SolarThermal from './components/module2/SolarThermal';
+import IndustrialHeatPump from './components/module2/IndustrialHeatPump';
+import EmissionSavings from './components/module2/EmissionSavings';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -68,8 +71,9 @@ function App() {
           <Route path="smart-meters-gas" element={<SmartMetersGas/>} />
           <Route path="voltage-optimisation" element={<VoltageOptimisation/>} />
           <Route path="energy-management-system" element={<EnergyManagementSystem/>} />
-
-
+          <Route path="solar-thermal" element={<SolarThermal/>}/>
+          <Route path="industrial-heat-pump" element={<IndustrialHeatPump/>}/>
+          <Route path="emission-savings" element={<EmissionSavings/>}/>
         </Route>
         <Route path="/profile" element={<UpdateProfile />} />
         <Route path="/survey-results" element={<SurveyResults />} />
