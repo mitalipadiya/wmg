@@ -21,6 +21,7 @@ const SurveyResults = () => {
                 <GenericPdfDownloader
                     downloadFileName="SurveyPdf"
                     rootElementId="radar-chart-div"
+                    surveyData={surveyData}
                 />
                 <button>Re-take the survey</button>
             </div>
