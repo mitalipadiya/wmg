@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const IndustrialHeatPump = () => {
     const { solavPV, baseline, economicParameters, led } = useSelector(state => state.module2);
 
-    const [averageAnnualGasRequirements, setAverageAnnualGasRequirements] = useState(led?.averageAnnualGasRequirements);
+    const [averageAnnualGasRequirements, setAverageAnnualGasRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
     const [heatLoadIsAtTemperaturesBelow100C, setHeatLoadIsAtTemperaturesBelow100C] = useState(led?.heatLoadIsAtTemperaturesBelow100C);
     const [heatLoadIsAtTemperaturesBetween100C150C, setHeatLoadIsAtTemperaturesBetween100C150C] = useState(led?.heatLoadIsAtTemperaturesBetween100C150C);
     const [lattitudeLongitude, setlattitudeLongitude] = useState(led?.lattitudeLongitude);
@@ -37,9 +37,81 @@ const IndustrialHeatPump = () => {
     const [annualCostOfElectricityForIHP1, setAnnualCostOfElectricityForIHP1] = useState(led?.annualCostOfElectricityForIHP1);
     const [annualCostOfElectricityForIHP2, setAnnualCostOfElectricityForIHP2] = useState(led?.annualCostOfElectricityForIHP2);
     const [unitPriceOfGridGas, setUnitPriceOfGridGas] = useState(led?.unitPriceOfGridGas);
-    // const [annualCostOfElectricityForIHP2, setAnnualCostOfElectricityForIHP2] = useState(led?.annualCostOfElectricityForIHP2);
-
- 
+    const [annualCostSavingsForGridGas, setAnnualCostSavingsForGridGas] = useState(led?.annualCostSavingsForGridGas);
+    const [annualCostOfElectricityForIHPs, setAnnualCostOfElectricityForIHPs] = useState(led?.annualCostOfElectricityForIHPs);
+    const [annualOperationalCostSavings, setAnnualOperationalCostSavings] = useState(led?.annualOperationalCostSavings);
+    const [netPresentValueOfOperationalEnergyCostSavings, setNetPresentValueOfOperationalEnergyCostSavings] = useState(led?.netPresentValueOfOperationalEnergyCostSavings);
+    const [emissionFactorOfGridGas, setEmissionFactorOfGridGas] = useState(led?.emissionFactorOfGridGas);
+    const [emissionFactorOfElectricityUsedForIHPs, setEmissionFactorOfElectricityUsedForIHPs] = useState(led?.emissionFactorOfElectricityUsedForIHPs);
+    const [gHGEmissionsForHeatInAbsenceOfIHP, setGHGEmissionsForHeatInAbsenceOfIHP] = useState(led?.gHGEmissionsForHeatInAbsenceOfIHP);
+    const [gHGEmissionsForHeatInPresenceOfIHP, setGHGEmissionsForHeatInPresenceOfIHP] = useState(led?.gHGEmissionsForHeatInPresenceOfIHP);
+    const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(led?.annualOperationalEmissionSavings);
+    const [totalOperationalEmissionSavingsAcrossAbatementPeriod, setTotalOperationalEmissionSavingsAcrossAbatementPeriod] = useState(led?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
+    const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(led?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+    const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(led?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
+    useEffect(() => {
+        setAnnualHeatLoad(averageAnnualGasRequirements / hoursOfHeatDemand);
+    }, [averageAnnualGasRequirements, hoursOfHeatDemand])
+    useEffect(() => {
+        setSizeOfIndustrialHeatPump1(annualHeatLoad * heatLoadIsAtTemperaturesBelow100C);
+    }, [annualHeatLoad, heatLoadIsAtTemperaturesBelow100C])
+    useEffect(() => {
+        setAnnualGridGasSavingInPresenceOfIHP1(averageAnnualGasRequirements * heatLoadIsAtTemperaturesBelow100C);
+    }, [averageAnnualGasRequirements, heatLoadIsAtTemperaturesBelow100C])
+    useEffect(() => {
+        setTemperatureLift(heatSinkTemperature - heatSourceTemperature);
+    }, [heatSinkTemperature, heatSourceTemperature])
+    useEffect(() => {
+        setTemperatureLift(heatSinkTemperature - heatSourceTemperature);
+    }, [heatSinkTemperature, heatSourceTemperature])
+    useEffect(() => {
+        setAnnualGridGasSavingInPresenceOfIHP2(averageAnnualGasRequirements * heatLoadIsAtTemperaturesBetween100C150C);
+    }, [averageAnnualGasRequirements, heatLoadIsAtTemperaturesBetween100C150C])
+    useEffect(() => {
+        setSizeOfIndustrialHeatPump1(annualHeatLoad * heatLoadIsAtTemperaturesBelow100C);
+    }, [annualHeatLoad, heatLoadIsAtTemperaturesBelow100C])
+    useEffect(() => {
+        setSizeOfIndustrialHeatPump2(sizeOfIndustrialHeatPump1 * heatLoadIsAtTemperaturesBetween100C150C);
+    }, [sizeOfIndustrialHeatPump1, heatLoadIsAtTemperaturesBetween100C150C])
+    useEffect(() => {
+        setUnitInstallationCostOfIHP(1950 * 0.11);
+    }, [heatSinkTemperature, heatSourceTemperature])
+    useEffect(() => {
+        setInitialInvestmentForIHP1(unitInstallationCostOfIHP * sizeOfIndustrialHeatPump1);
+    }, [unitInstallationCostOfIHP, sizeOfIndustrialHeatPump1])
+    useEffect(() => {
+        setInitialInvestmentForIHP2(unitInstallationCostOfIHP * sizeOfIndustrialHeatPump2);
+    }, [unitInstallationCostOfIHP, sizeOfIndustrialHeatPump2])
+    useEffect(() => {
+        setAnnualCostOfElectricityForIHP1(unitPriceOfElectricity * annualElectricityInputToIHP1);
+    }, [unitPriceOfElectricity, annualElectricityInputToIHP1])
+    useEffect(() => {
+        setAnnualCostOfElectricityForIHP2(unitPriceOfElectricity * annualElectricityInputToIHP1);
+    }, [unitPriceOfElectricity, annualElectricityInputToIHP1])
+    useEffect(() => {
+        setAnnualCostSavingsForGridGas((averageAnnualGasRequirements * (heatLoadIsAtTemperaturesBelow100C + heatLoadIsAtTemperaturesBetween100C150C)) * unitPriceOfGridGas);
+    }, [averageAnnualGasRequirements, heatLoadIsAtTemperaturesBelow100C, heatLoadIsAtTemperaturesBetween100C150C, unitPriceOfGridGas])
+    useEffect(() => {
+        setAnnualCostOfElectricityForIHPs(annualCostOfElectricityForIHP1 + annualCostOfElectricityForIHP2);
+    }, [annualCostOfElectricityForIHP1, annualCostOfElectricityForIHP2])
+    useEffect(() => {
+        setAnnualOperationalCostSavings(annualCostSavingsForGridGas - annualCostOfElectricityForIHPs);
+    }, [annualCostSavingsForGridGas, annualCostOfElectricityForIHPs])
+    useEffect(() => {
+        setGHGEmissionsForHeatInAbsenceOfIHP(averageAnnualGasRequirements*emissionFactorOfGridGas);
+    }, [averageAnnualGasRequirements, emissionFactorOfElectricityUsedForIHPs])
+    useEffect(() => {
+        setGHGEmissionsForHeatInPresenceOfIHP((averageAnnualGasRequirements*(1-(heatLoadIsAtTemperaturesBelow100C+heatLoadIsAtTemperaturesBetween100C150C))*emissionFactorOfGridGas)+((annualElectricityInputToIHP1+annualElectricityInputToIHP2)*emissionFactorOfElectricityUsedForIHPs));
+    }, [averageAnnualGasRequirements,heatLoadIsAtTemperaturesBelow100C,heatLoadIsAtTemperaturesBetween100C150C,emissionFactorOfGridGas,annualElectricityInputToIHP1,annualElectricityInputToIHP2,emissionFactorOfElectricityUsedForIHPs])
+    useEffect(() => {
+        setAnnualOperationalEmissionSavings(gHGEmissionsForHeatInAbsenceOfIHP - gHGEmissionsForHeatInPresenceOfIHP);
+    }, [gHGEmissionsForHeatInAbsenceOfIHP, gHGEmissionsForHeatInPresenceOfIHP])
+    useEffect(() => {
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriod(annualOperationalEmissionSavings*economicParameters.yearsOfAbatement);
+    }, [annualOperationalEmissionSavings])
+    useEffect(() => {
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod/1000);
+    }, [totalOperationalEmissionSavingsAcrossAbatementPeriod])
     return (
         <>
             <h2 className="form-heading">Industrial heat pump</h2>
@@ -49,12 +121,12 @@ const IndustrialHeatPump = () => {
                     <h2 className="group-heading">GENERAL</h2>
                     <div className="form-div">
                         <div className="form-input">
-                            <InputWithSideText value={averageAnnualGasRequirements}
+                            <InputWithSideText value={baseline.averageAnnualGasConsumption}
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Average annual gas requirements"
-                                onChange={(event) => { setAverageAnnualGasRequirements(event.target.value) }}
+                                
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                             <InputWithSideText value={heatLoadIsAtTemperaturesBelow100C}
                                 unit="%"
@@ -69,7 +141,7 @@ const IndustrialHeatPump = () => {
                                 placeholder="Enter value"
                                 heading="What % of heat load is at temperatures between 100°C-150°C (get from Industrial Heat Pump)?"
                                 subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { heatLoadIsAtTemperaturesBetween100C150C(event.target.value) }} />
+                                onChange={(event) => { setHeatLoadIsAtTemperaturesBetween100C150C(event.target.value) }} />
 
                         </div>
                         <div className="calculated-main">
@@ -100,16 +172,17 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual heat load"
-                                onChange={(event) => { setAnnualHeatLoad(event.target.value) }}
+                                disabled={true}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
                             />
                             <InputWithSideText value={annualGridGasSavingInPresenceOfIHP1}
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
+                                disabled={true}
                                 heading="Annual grid gas saving in presence of IHP1"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setAnnualGridGasSavingInPresenceOfIHP1(event.target.value) }} />
+                            />
                             <InputWithSideText value={heatSourceTemperature}
                                 unit="°C"
                                 type="number"
@@ -129,8 +202,9 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Temperature lift"
+                                disabled={true}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setTemperatureLift(event.target.value) }} />
+                            />
                             <InputWithSideText value={refrigerant}
                                 unit=""
                                 type="number"
@@ -152,9 +226,10 @@ const IndustrialHeatPump = () => {
                                 placeholder="Enter value"
                                 heading="Electricity input"
                                 disabled={true}
+
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
                                 onChange={(event) => { setElectricityInput(event.target.value) }} />
-                            {/* collector temperature difference in excel */}
+                            {/* pending */}
                             <InputWithSideText value={annualGridGasSavingInPresenceOfIHP2}
                                 unit="kWh"
                                 type="number"
@@ -162,16 +237,16 @@ const IndustrialHeatPump = () => {
                                 heading="Annual grid gas saving in presence of IHP2"
                                 disabled={true}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setAnnualGridGasSavingInPresenceOfIHP2(event.target.value) }} />
+                            />
                             <InputWithSideText value={coefficientOfPerformanceOfIHP2}
                                 unit="kW"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Coefficient of performance (COP) of IHP2"
-                                disabled={true}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
                                 onChange={(event) => { setCoefficientOfPerformanceOfIHP2(event.target.value) }} />
                             <InputWithSideText value={electricityInputForIHP2}
+                                // pending
                                 unit="kW"
                                 type="number"
                                 placeholder="Enter value"
@@ -184,6 +259,7 @@ const IndustrialHeatPump = () => {
                         <div className="calculated-main">
                             <div className="calculated-container">
                                 <CalculatedData heading="Size of Industrial Heat Pump1" unit="kW" value={sizeOfIndustrialHeatPump1} />
+                                {/* pending */}
                                 <CalculatedData heading="Annual electricity input to IHP1" unit="kWh" value={annualElectricityInputToIHP1} />
                                 <CalculatedData heading="Size of Industrial Heat Pump2" unit="kW" value={sizeOfIndustrialHeatPump2} />
                                 <CalculatedData heading="Annual electricity input to IHP2" unit="kWh" value={annualElectricityInputToIHP2} />
@@ -198,10 +274,12 @@ const IndustrialHeatPump = () => {
                             <InputWithSideText value={unitInstallationCostOfIHP}
                                 unit="£/kW"
                                 type="number"
+                                // k10*f26
+                                disabled={true}
                                 placeholder="Enter value"
                                 heading="Unit installation cost of IHP"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setUnitInstallationCostOfIHP(event.target.value) }} />
+                            />
                             <InputWithSideText value={initialInvestmentForIHP1}
                                 unit="£"
                                 type="number"
@@ -209,56 +287,58 @@ const IndustrialHeatPump = () => {
                                 heading="Initial investment for IHP1 (CAPEX)"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
                                 disabled={true}
-                                onChange={(event) => { setInitialInvestmentForIHP1(event.target.value) }} />
+                            />
                             <InputWithSideText value={initialInvestmentForIHP2}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Initial investment for IHP2 (CAPEX)"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setInitialInvestmentForIHP2(event.target.value) }} />
-                            <InputWithSideText value={unitPriceOfElectricity}
+                            />
+                            <InputWithSideText value={economicParameters.unitPriceOfElectricity}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit Price of electricity"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setUnitPriceOfElectricity(event.target.value) }} />
+                                disabled={true} />
                             <InputWithSideText value={annualCostOfElectricityForIHP1}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual cost of electricity for IHP1"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setAnnualCostOfElectricityForIHP1(event.target.value) }} />
+                                disabled={true} />
                             <InputWithSideText value={annualCostOfElectricityForIHP2}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual cost of electricity for IHP2"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setAnnualCostOfElectricityForIHP2(event.target.value) }} />
-                            <InputWithSideText value={unitPriceOfGridGas}
+                                disabled={true} />
+                            <InputWithSideText value={economicParameters.unitPriceOfGas}
                                 unit="£/kWh"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit price of grid gas"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setUnitPriceOfGridGas(event.target.value) }} />
-                            <InputWithSideText value={economicParameters.unitPriceOfGas}
+                                disabled={true} />
+                            <InputWithSideText value={annualCostSavingsForGridGas}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
+                                disabled={true}
                                 heading="Annual cost savings for grid gas"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setUnitPriceOfGridGas(event.target.value) }} />
-                            <InputWithSideText value={economicParameters.unitPriceOfGas}
+                            />
+                            <InputWithSideText value={annualCostOfElectricityForIHPs}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
+                                disabled={true}
                                 heading="Annual cost of electricity for IHPs"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setUnitPriceOfGridGas(event.target.value) }} />
+                            />
                             {/* <InputWithSideText value={costOfElectricityWithLEDs}
                                 unit="£"
                                 type="number"
@@ -279,42 +359,48 @@ const IndustrialHeatPump = () => {
                     <h2 className="group-heading">OPERATIONAL EMISSIONS ANALYSIS</h2>
                     <div className="form-div">
                         <div className="form-input">
-                            <InputWithSideText value={emissionFactorOfGridGas}
+                            <InputWithSideText value={baseline.emissionFactorForGridGas}
                                 unit="kgCO2e/kWh"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Emission factor of grid gas"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setEmissionFactorOfGridGas(event.target.value) }} />
-                            <InputWithSideText value={annualOperationalEmissionSavings}
+                                disabled={true}
+                            />
+                            <InputWithSideText value={baseline.emissionFactorGridElectricity}
                                 unit="kgCO2e/kWh"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Emission factor of electricity used for IHPs"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setAnnualOperationalEmissionSavings(event.target.value) }} />
+                                disabled={true}
+                            />
+                            <InputWithSideText value={gHGEmissionsForHeatInAbsenceOfIHP}
+                                unit="kgCO2e"
+                                type="number"
+                                placeholder="Enter value"
+                                disabled={true}
+                                heading="GHG Emissions for heat in absence of IHP"
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                            <InputWithSideText value={gHGEmissionsForHeatInPresenceOfIHP}
+                                unit="kgCO2e"
+                                type="number"
+                                placeholder="Enter value"
+                                disabled={true}
+                                heading="GHG Emissions for heat in presence of IHP"
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                            <InputWithSideText value={annualOperationalEmissionSavings}
+                                unit="kgCO2e"
+                                type="number"
+                                disabled={true}
+                                placeholder="Enter value"
+                                heading="Annual operational emission savings"
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
-                                heading="GHG Emissions for heat in absence of IHP"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
-                                unit="kgCO2e"
-                                type="number"
-                                placeholder="Enter value"
-                                heading="GHG Emissions for heat in presence of IHP"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
-                                unit="kgCO2e"
-                                type="number"
-                                placeholder="Enter value"
-                                heading="Annual operational emission savings"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
-                                unit="kgCO2e"
-                                type="number"
-                                placeholder="Enter value"
+                                disabled={true}
                                 heading="Total operational emission savings across abatement period"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                         </div>
@@ -328,7 +414,7 @@ const IndustrialHeatPump = () => {
                 </div>
                 <div className="calculated-main calculated-last">
                     <div className="calculated-container">
-                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="£/tCO2e" value={""} />
+                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="£/tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} />
                     </div>
                 </div>
                 <div className="btn-div">
