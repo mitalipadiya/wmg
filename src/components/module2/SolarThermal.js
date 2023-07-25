@@ -87,7 +87,7 @@ const SolarThermal = () => {
                     <h2 className="group-heading">GENERAL</h2>
                     <div className="form-div">
                         <div className="form-input">
-                            <InputWithSideText value={averageAnnualGasRequirements}
+                            <InputWithSideText value={baseline.averageAnnualGasConsumption}
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"

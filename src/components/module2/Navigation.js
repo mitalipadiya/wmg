@@ -88,7 +88,7 @@ const Navigation = () => {
             <hr />
             <div className="c-nav-item" onClick={onItemSelect("emission-savings")}>%EMISSION SAVINGS</div>
             <hr />
-            <div className="c-nav-item">MARGINAL ABATEMENT COST CURVE (MACC)</div>
+            <div className="c-nav-item" onClick={onItemSelect("macc")}>MARGINAL ABATEMENT COST CURVE (MACC)</div>
             <hr />
         </div>
 
