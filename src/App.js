@@ -72,7 +72,7 @@ function App() {
           <Route path="voltage-optimisation" element={<VoltageOptimisation/>} />
           <Route path="energy-management-system" element={<EnergyManagementSystem/>} />
           <Route path="solar-thermal" element={<SolarThermal/>}/>
-          <Route path="industrial-heat-pump" element={<IndustrialHeatPump/>}/>
+          {/* <Route path="industrial-heat-pump" element={<IndustrialHeatPump/>}/> */}
           <Route path="emission-savings" element={<EmissionSavings/>}/>
         </Route>
         <Route path="/profile" element={<UpdateProfile />} />

@@ -41,6 +41,17 @@ const Biomass = () => {
         navigate("./../economic-parameters")
 
     }
+    
+    useEffect(() => {
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(response => {
+            return response.json()
+        }).then(data => {
+            if (data && data.length) {
+                setLatitudeLongitude(data[0].lat + "," + data[0].lon);
+            }
+        })
+    }, [location]);
+
     const onPercentAnnualElectricityFromPVChange = (event) => {
         setPercentAnnualElectricityFromPV(event.target.value);
         setElectricityGeneratedPVSystem((event.target.value / 100) * averageAnnualElectricityRequirements);
@@ -107,7 +118,7 @@ const Biomass = () => {
                         <div className="calculated-main">
                         </div>
                     </div>
-                    
+
                 </div>
                 <div>
                     <h2 className="group-heading">TECHNICAL ANALYSIS</h2>

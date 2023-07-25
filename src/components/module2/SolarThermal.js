@@ -12,7 +12,7 @@ const SolarThermal = () => {
     const [averageAnnualGasRequirements,setAverageAnnualGasRequirements ] = useState(led?.averageAnnualGasRequirements);
     const [heatDemandToBeTakenFromSolarThermalSystem, setHeatDemandToBeTakenFromSolarThermalSystem]=useState(led?.heatDemandToBeTakenFromSolarThermalSystem);
     const [location, setLocation]=useState(led?.location);
-    const [lattitudeLongitude,setlattitudeLongitude]=useState(led?.lattitudeLongitude);
+    const [latitudeLongitude,setLatitudeLongitude]=useState(led?.latitudeLongitude);
     const [existingBoilerEfficiency, setExistingBoilerEfficiency]=useState(led?.existingBoilerEfficiency);
     const [incidentSolarIrradiation, setIncidentSolarIrradiation]=useState(led?.incidentSolarIrradiation);
     const [solarIrradiation, setSolarIrradiation]=useState(led?.solarIrradiation);
@@ -36,6 +36,17 @@ const SolarThermal = () => {
     const [annualOperationalEmissionSavings,setAnnualOperationalEmissionSavings]=useState(led?.annualOperationalEmissionSavings);
     const [totalOperationalEmissionSavingsAcrossAbatementPeriod,setTotalOperationalEmissionSavingsAcrossAbatementPeriod]=useState(led?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
     const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon,setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon]=useState(led?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon)
+
+    useEffect(() => {
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(response => {
+            return response.json()
+        }).then(data => {
+            if (data && data.length) {
+                setLatitudeLongitude(data[0].lat + "," + data[0].lon);
+            }
+        })
+    }, [location]);
+
     useEffect(() => {
         setCollectorTemperature( outletTemperature-inletTemperature);
     }, [outletTemperature, inletTemperature])
@@ -97,13 +108,13 @@ const SolarThermal = () => {
                                 heading="Location"
                                 subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
                                 onChange={(event) => { setLocation(event.target.value) }} />
-                            <InputWithSideText value={lattitudeLongitude}
+                            <InputWithSideText value={latitudeLongitude}
                                 unit=""
                                 type="text"
                                 placeholder="Enter value"
                                 heading="Lattitude, longitude"
                                 subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setlattitudeLongitude(event.target.value) }} />
+                                onChange={(event) => { setLatitudeLongitude(event.target.value) }} />
                             {/* from ninjaewebsite */}
                         </div>
                         <div className="calculated-main">

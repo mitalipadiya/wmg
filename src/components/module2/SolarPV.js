@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateBaseline, updateSolarPV } from "../../actions/module2";
 import { round } from "../../services/module2.service";
 import { useNavigate } from "react-router-dom";
+import extractDataFromCSV from "../../services/extract-data-from-csv";
 
 const SolarPV = () => {
     const { solavPV, baseline, economicParameters } = useSelector(state => state.module2);
@@ -61,11 +62,52 @@ const SolarPV = () => {
         navigate("./../wind")
 
     }
+
+    useEffect(() => {
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(response => {
+            return response.json()
+        }).then(data => {
+            if (data && data.length) {
+                setLatitudeLongitude(data[0].lat + "," + data[0].lon);
+            }
+        })
+    }, [location]);
+
     const onPercentAnnualElectricityFromPVChange = (event) => {
         setPercentAnnualElectricityFromPV(event.target.value);
         setElectricityGeneratedPVSystem((event.target.value / 100) * averageAnnualElectricityRequirements);
         setAnnualElectricityInsteadOfGrid((event.target.value / 100) * averageAnnualElectricityRequirements);
     }
+
+    useEffect(() => {
+        if (location) {
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(res => res.json()).then(data => {
+                if (data && data.length) {
+                    setLatitudeLongitude(data[0].lat + "," + data[0].lon);
+                }
+            })
+        }
+    }, [location]);
+
+    useEffect(() => {
+        fetch("https://renewables.ninja/api/data/pv?local_time=true&format=json&header=true&lat=52.4081812&lon=-1.510477&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&system_loss=0.1&tracking=0&tilt=35&azim=180&raw=true").then(res => res.json()).then(data => {
+            if (data && data.data) {
+                let allData = Object.values(data.data);
+                let totalElectricity = 0;
+                let totalDirectIrradiance = 0;
+                let totalDiffuseIrradiance = 0;
+                for (let i = 0; i < allData.length; i++) {
+                    totalElectricity += allData[i].electricity;
+                    totalDirectIrradiance += allData[i].irradiance_direct;
+                    totalDiffuseIrradiance += allData[i].irradiance_diffuse;
+                }
+                setAnnualElectricityGenerationSelectedLocation(totalElectricity);
+                setAnnualSolarInsolationSelectedLocation(totalDirectIrradiance + totalDiffuseIrradiance);
+            }
+        })
+
+    }, [])
+
     useEffect(() => {
         setAreaOfPVSystem(electricityGeneratedPVSystem / (parseInt(annualSolarInsolationSelectedLocation) * (parseInt(solarModuleEfficiency) / 100)));
     }, [electricityGeneratedPVSystem, annualSolarInsolationSelectedLocation, solarModuleEfficiency]);
@@ -165,14 +207,14 @@ const SolarPV = () => {
                                 placeholder="Enter value"
                                 heading="Annual electricity generation at selected location using 1 kWp system"
                                 subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event) => { setAnnualElectricityGenerationSelectedLocation(event.target.value) }} />
+                                disabled={true} />
                             <InputWithSideText value={annualSolarInsolationSelectedLocation}
                                 unit="kWh/m2"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual solar insolation at selected location"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setAnnualSolarInsolationSelectedLocation(event.target.value) }} />
+                                disabled={true}
+                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor" />
                             <InputWithSideText value={solarModuleEfficiency}
                                 unit="%"
                                 type="number"
@@ -184,7 +226,7 @@ const SolarPV = () => {
                         <div className="calculated-main">
                             <div className="calculated-container">
                                 <CalculatedData heading="Size of PV system" unit="kWp" value={round(sizeOfPVSystem, 2)} />
-                                <CalculatedData heading="Area of PV system" unit="m2" value={round(areaOfPVSystem,2)} />
+                                <CalculatedData heading="Area of PV system" unit="m2" value={round(areaOfPVSystem, 2)} />
                             </div>
                         </div>
                     </div>

@@ -45,6 +45,17 @@ const SolarPVBESS = () => {
         setPercentAnnualElectricityFromPV(event.target.value);
         setElectricityGeneratedPVSystem((event.target.value / 100) * averageAnnualElectricityRequirements);
     }
+
+    useEffect(() => {
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(response => {
+            return response.json()
+        }).then(data => {
+            if (data && data.length) {
+                setLatitudeLongitude(data[0].lat + "," + data[0].lon);
+            }
+        })
+    }, [location]);
+    
     useEffect(() => {
         setAreaOfPVSystem(electricityGeneratedPVSystem / (parseInt(annualSolarInsolationSelectedLocation) * (parseInt(solarModuleEfficiency) / 100)));
     }, [electricityGeneratedPVSystem, annualSolarInsolationSelectedLocation, solarModuleEfficiency]);

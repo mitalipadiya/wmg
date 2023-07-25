@@ -45,6 +45,33 @@ const Wind = () => {
 
     }
     useEffect(() => {
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(response => {
+            return response.json()
+        }).then(data => {
+            if (data && data.length) {
+                setLatitudeLongitude(data[0].lat + "," + data[0].lon);
+            }
+        })
+    }, [location]);
+    
+    useEffect(() =>{
+        fetch(`https://renewables.ninja/api/data/wind?local_time=true&format=json&header=true&lat=52.4081812&lon=-1.510477&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&height=80&turbine=Gamesa+G128+4500&raw=true`).then(res => res.json()).then(data => {
+            console.log(data)
+            if (data && data.data) {
+                let allData = Object.values(data.data);
+                let totalWindSpeed = 0;
+                let totalElectricity = 0;
+                let totalDiffuseIrradiance = 0;
+                for (let i = 0; i < allData.length; i++) {
+                    totalElectricity += allData[i].electricity;
+                    totalWindSpeed += allData[i].wind_speed;
+                }
+                setAnnualGenerationWindSystem(totalElectricity);
+                setAverageAnnualWindSpeed(totalWindSpeed/allData.length);
+            }
+        })
+    }, [])
+    useEffect(() => {
         setSizeOfWindSystem((averageAnnualElectricityRequirements * (percentAnnualElectricityFromWind / 100)) / (annualGenerationWindSystem * (inverterEfficiency / 100)));
     }, [averageAnnualElectricityRequirements, percentAnnualElectricityFromWind, annualGenerationWindSystem, inverterEfficiency]);
     useEffect(() => {
