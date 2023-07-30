@@ -3,17 +3,21 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBaseline } from "../../actions/module2";
+import { updateVoltageOptimisation } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 
 const Wind = () => {
-    const { solavPV, baseline,economicParameters, voltageOptimisation } = useSelector(state => state.module2);
-    const [averageAnnualElectricityConsumption, setAverageAnnualElectricityConsumption]=useState(voltageOptimisation?.averageAnnualElectricityConsumption);
+    const { baseline,economicParameters, voltageOptimisation } = useSelector(state => state.module2);
+
+    const dispatch = useDispatch();
+    const navigate =  useNavigate();
+
+    const [averageAnnualElectricityConsumption, setAverageAnnualElectricityConsumption]=useState(baseline?.averageAnnualElectricityConsumption);
     const [averageElectricitySavingsUsingVoltageOptimisation, setAverageElectricitySavingsUsingVoltageOptimisation] =useState(voltageOptimisation?.averageElectricitySavingsUsingVoltageOptimisation);
     const [annualElectricitySavingsWithVoltageOptimisation, setAnnualElectricitySavingsWithVoltageOptimisation]=useState(voltageOptimisation?.annualElectricitySavingsWithVoltageOptimisation);
     const [annualOperationalCostSavings,setAnnualOperationalCostSavings]=useState(voltageOptimisation?.annualOperationalCostSavings);
     const [initialInvestmentForVoltageOptimisation, setInitialInvestmentForVoltageOptimisation]=useState(voltageOptimisation?.initialInvestmentForVoltageOptimisation);
-    const [netPresentValueOfOperationalEnergyCostSavings,setnetPresentValueOfOperationalEnergyCostSavings]=useState(voltageOptimisation?.netPresentValueOfOperationalEnergyCostSavings);
+    const [netPresentValueOfOperationalEnergyCostSavings,setNetPresentValueOfOperationalEnergyCostSavings]=useState(voltageOptimisation?.netPresentValueOfOperationalEnergyCostSavings);
     const [annualOperationalEmissionSavings,setAnualOperationalEmissionSavings]=useState(voltageOptimisation?.annualOperationalEmissionSavings);
     const [totalOperationalEmissionSavingsAcrossAbatementPeriod,setTotalOperationalEmissionSavingsAcrossAbatementPeriod]=useState(voltageOptimisation?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
     const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon,setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon]=useState(voltageOptimisation?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
@@ -34,9 +38,29 @@ const Wind = () => {
         setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod/1000)
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod]);
 
+    useEffect(() => {
+        setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+    }, [annualOperationalCostSavings]);
+    useEffect(()=>{
+        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForVoltageOptimisation - netPresentValueOfOperationalEnergyCostSavings)/totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+    },[initialInvestmentForVoltageOptimisation,netPresentValueOfOperationalEnergyCostSavings,totalOperationalEmissionSavingsAcrossAbatementPeriodTon]);
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const onSave = () => {
+        dispatch(updateVoltageOptimisation({
+            averageAnnualElectricityConsumption,
+            averageElectricitySavingsUsingVoltageOptimisation,
+            annualElectricitySavingsWithVoltageOptimisation,
+            annualOperationalCostSavings,
+            initialInvestmentForVoltageOptimisation,
+            netPresentValueOfOperationalEnergyCostSavings,
+            annualOperationalEmissionSavings,
+            totalOperationalEmissionSavingsAcrossAbatementPeriod,
+            totalOperationalEmissionSavingsAcrossAbatementPeriodTon,
+            costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            isComplete: true
+        }));
+        navigate("./../energy-management-system")
+    }
 
     return (
         <>
@@ -128,9 +152,9 @@ const Wind = () => {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="btn-div">
+                    <div className="btn-div">
                         <Button value="Next" onClick={onSave} />
-                    </div> */}
+                    </div>
                 </div >
             </div>
         </>

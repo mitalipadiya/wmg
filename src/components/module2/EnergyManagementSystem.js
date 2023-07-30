@@ -3,34 +3,36 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBaseline, updateEconomicParameters } from "../../actions/module2";
+import { updateEnergyManagementSystem } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 
 const EnergyManagementSystem = () => {
-    const { solavPV, baseline ,economicParameters} = useSelector(state => state.module2);
+    const { baseline ,economicParameters, energyManagementSystem} = useSelector(state => state.module2);
+    const dispatch = useDispatch();
+    const navigate =  useNavigate();
 
     const [averageAnnualElectricityConsumption,setAverageAnnualElectricityConsumption] = useState(baseline?.averageAnnualElectricityConsumption);
     const [averageAnnualGasConsumption, setAverageAnnualGasConsumption] = useState(baseline?.averageAnnualGasConsumption);
-    const [averageElectricitySavingsIncentivisedUsingBEMS, setAverageElectricitySavingsIncentivisedUsingBEMS] = useState(solavPV?.averageElectricitySavingsIncentivisedUsingBEMS);
-    const [averageGasSavingsIncentivisedUsingBEMS, setAverageGasSavingsIncentivisedUsingBEMS] = useState(solavPV?.averageGasSavingsIncentivisedUsingBEMS);
-    const [annualElectricitySavingsWithBEMS, setAnnualElectricitySavingsWithBEMS] = useState(solavPV?.annualElectricitySavingsWithBEMS);
-    const [annualGasSavingsWithBEMS, setAnnualGasSavingsWithBEMS] = useState(solavPV?.annualGasSavingsWithBEMS);
-    const [initialInvestmentForBEMS, setInitialInvestmentForBEMS] = useState(solavPV?.initialInvestmentForBEMS);
+    const [averageElectricitySavingsIncentivisedUsingBEMS, setAverageElectricitySavingsIncentivisedUsingBEMS] = useState(energyManagementSystem?.averageElectricitySavingsIncentivisedUsingBEMS);
+    const [averageGasSavingsIncentivisedUsingBEMS, setAverageGasSavingsIncentivisedUsingBEMS] = useState(energyManagementSystem?.averageGasSavingsIncentivisedUsingBEMS);
+    const [annualElectricitySavingsWithBEMS, setAnnualElectricitySavingsWithBEMS] = useState(energyManagementSystem?.annualElectricitySavingsWithBEMS);
+    const [annualGasSavingsWithBEMS, setAnnualGasSavingsWithBEMS] = useState(energyManagementSystem?.annualGasSavingsWithBEMS);
+    const [initialInvestmentForBEMS, setInitialInvestmentForBEMS] = useState(energyManagementSystem?.initialInvestmentForBEMS);
     const [annualOperationalElectricityCostSavings, setAnnualOperationalElectricityCostSavings] = useState(economicParameters?.annualOperationalElectricityCostSavings);
-    const [annualOperationalGasCostSavings, setAnnualOperationalGasCostSavings] = useState(solavPV?.annualOperationalGasCostSavings);
-    const [totalAnnualOperationalCostSavings, setTotalAnnualOperationalCostSavings] = useState(solavPV?.totalAnnualOperationalCostSavings);
-    const [totalOperationalEmissionSavingsAbatementPeriod, setTotalOperationalEmissionSavingsAbatementPeriod] = useState(solavPV?.totalOperationalEmissionSavingsAbatementPeriod);
-    const [netPresentValueOfOperationalEnergyCostSavings, setNetPresentValueOfOperationalEnergyCostSavings] = useState(solavPV?.netPresentValueOfOperationalEnergyCostSavings);
-    const [gHGEmissionsSavingsForElectricityWithBEMS, setGHGEmissionsSavingsForElectricityWithBEMS] = useState(solavPV?.gHGEmissionsSavingsForElectricityWithBEMS);
-    const [gHGEmissionsSavingsForGasWithBEMS, setGHGEmissionsSavingsForGasWithBEMS] = useState(baseline?.gHGEmissionsSavingsForGasWithBEMS);
-    const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(solavPV?.annualOperationalEmissionSavings);
-    const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(solavPV?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
-    const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(solavPV?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
+    const [annualOperationalGasCostSavings, setAnnualOperationalGasCostSavings] = useState(energyManagementSystem?.annualOperationalGasCostSavings);
+    const [totalAnnualOperationalCostSavings, setTotalAnnualOperationalCostSavings] = useState(energyManagementSystem?.totalAnnualOperationalCostSavings);
+    const [totalOperationalEmissionSavingsAbatementPeriod, setTotalOperationalEmissionSavingsAbatementPeriod] = useState(energyManagementSystem?.totalOperationalEmissionSavingsAbatementPeriod);
+    const [netPresentValueOfOperationalEnergyCostSavings, setNetPresentValueOfOperationalEnergyCostSavings] = useState(energyManagementSystem?.netPresentValueOfOperationalEnergyCostSavings);
+    const [gHGEmissionsSavingsForElectricityWithBEMS, setGHGEmissionsSavingsForElectricityWithBEMS] = useState(energyManagementSystem?.gHGEmissionsSavingsForElectricityWithBEMS);
+    const [gHGEmissionsSavingsForGasWithBEMS, setGHGEmissionsSavingsForGasWithBEMS] = useState(energyManagementSystem?.gHGEmissionsSavingsForGasWithBEMS);
+    const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(energyManagementSystem?.annualOperationalEmissionSavings);
+    const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(energyManagementSystem?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+    const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(energyManagementSystem?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
     useEffect(() => {
-        setAnnualElectricitySavingsWithBEMS(averageAnnualElectricityConsumption*averageElectricitySavingsIncentivisedUsingBEMS);
+        setAnnualElectricitySavingsWithBEMS(averageAnnualElectricityConsumption*averageElectricitySavingsIncentivisedUsingBEMS/100);
     }, [averageAnnualElectricityConsumption, averageElectricitySavingsIncentivisedUsingBEMS])
     useEffect(() => {
-        setAnnualGasSavingsWithBEMS(averageAnnualGasConsumption*averageGasSavingsIncentivisedUsingBEMS);
+        setAnnualGasSavingsWithBEMS(averageAnnualGasConsumption*averageGasSavingsIncentivisedUsingBEMS/100);
     }, [averageAnnualGasConsumption, averageGasSavingsIncentivisedUsingBEMS])
     useEffect(() => {
         setAnnualOperationalElectricityCostSavings(annualElectricitySavingsWithBEMS*economicParameters.unitPriceOfElectricity);
@@ -53,17 +55,47 @@ const EnergyManagementSystem = () => {
     }, [annualOperationalEmissionSavings])    
     useEffect(() => {
         setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAbatementPeriod/1000);
-    }, [totalOperationalEmissionSavingsAbatementPeriod])    
-    
+    }, [totalOperationalEmissionSavingsAbatementPeriod])  
     useEffect(() => {
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(response => {
-            return response.json()
-        }).then(data => {
-            if (data && data.length) {
-                setLatitudeLongitude(data[0].lat + "," + data[0].lon);
-            }
-        })
-    }, [location]);
+        setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * totalAnnualOperationalCostSavings);
+    }, [totalAnnualOperationalCostSavings]);  
+    useEffect(()=>{
+        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForBEMS-netPresentValueOfOperationalEnergyCostSavings)/totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+    },[initialInvestmentForBEMS,netPresentValueOfOperationalEnergyCostSavings,totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
+    
+    // useEffect(() => {
+    //     fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(response => {
+    //         return response.json()
+    //     }).then(data => {
+    //         if (data && data.length) {
+    //             setLatitudeLongitude(data[0].lat + "," + data[0].lon);
+    //         }
+    //     })
+    // }, [location]);
+
+    const onSave = () => {
+        dispatch(updateEnergyManagementSystem({
+            averageAnnualElectricityConsumption,
+            averageAnnualGasConsumption,
+            averageElectricitySavingsIncentivisedUsingBEMS,
+            averageGasSavingsIncentivisedUsingBEMS,
+            annualElectricitySavingsWithBEMS,
+            annualGasSavingsWithBEMS,
+            initialInvestmentForBEMS,
+            annualOperationalElectricityCostSavings,
+            annualOperationalGasCostSavings,
+            totalAnnualOperationalCostSavings,
+            totalOperationalEmissionSavingsAbatementPeriod,
+            netPresentValueOfOperationalEnergyCostSavings,
+            gHGEmissionsSavingsForElectricityWithBEMS,
+            gHGEmissionsSavingsForGasWithBEMS,
+            annualOperationalEmissionSavings,
+            totalOperationalEmissionSavingsAcrossAbatementPeriodTon,
+            costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            isComplete: true
+        }));
+        navigate("./../solar-thermal")
+    }
 
     return (
         <>
@@ -81,8 +113,7 @@ const EnergyManagementSystem = () => {
                                 heading="Average annual electricity consumption"
                                 disabled={true}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                            <InputWithSideText value={averageAnnualGasConsumption
-                            }
+                            <InputWithSideText value={averageAnnualGasConsumption}
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
@@ -102,16 +133,16 @@ const EnergyManagementSystem = () => {
                                     unit="%"
                                     type="number"
                                     placeholder="Enter value"
+                                    disabled={true}
                                     heading="Average electricity savings incentivised using building energy management system (BEMS)"
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                    onChange={(event) => { setAverageElectricitySavingsIncentivisedUsingBEMS(event.target.value) }} />
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
                                 <InputWithSideText value={averageGasSavingsIncentivisedUsingBEMS}
                                     unit="%"
                                     type="number"
                                     placeholder="Enter value"
+                                    disabled={true}
                                     heading="Average gas savings incentivised using building energy management system (BEMS)"
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                    onChange={(event) => { setAverageGasSavingsIncentivisedUsingBEMS(event.target.value) }} />
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
@@ -155,6 +186,7 @@ const EnergyManagementSystem = () => {
                                     placeholder="Enter value"
                                     heading="GHG Emissions savings for electricity with BEMS"
                                     disabled={true}
+                                    toFixed={true}
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
                                 <InputWithSideText value={gHGEmissionsSavingsForGasWithBEMS}
                                     unit="kgCO2e"
@@ -162,34 +194,35 @@ const EnergyManagementSystem = () => {
                                     placeholder="Enter value"
                                     heading="GHG Emissions savings for gas with BEMS"
                                     subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                    toFixed={true}
                                     disabled={true} />
                                 <InputWithSideText value={annualOperationalEmissionSavings}
                                     unit="kgCO2e"
                                     disabled={true}
+                                    toFixed={true}
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Annual operational emission savings"
-                                    subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                    // onChange={(event) => { setan(event.target.value) }}
-                                     />
+                                    subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
                                 <InputWithSideText value={totalOperationalEmissionSavingsAbatementPeriod}
                                     unit="kgCO2e"
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Total operational emission savings across abatement period"
                                     subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                    toFixed={true}
                                     disabled={true} />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
                                     <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAbatementPeriod} />
-                                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} />
+                                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="btn-div">
-                        <Button value="Next"  />
+                        <Button value="Next" onClick={onSave}/>
                     </div>
                 </div >
             </div>

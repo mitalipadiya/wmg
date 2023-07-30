@@ -3,16 +3,18 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBaseline } from "../../actions/module2";
+import { updateIndustrialHeatPump } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 
 const IndustrialHeatPump = () => {
     const { solavPV, baseline, economicParameters, led } = useSelector(state => state.module2);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [averageAnnualGasRequirements, setAverageAnnualGasRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
     const [heatLoadIsAtTemperaturesBelow100C, setHeatLoadIsAtTemperaturesBelow100C] = useState(led?.heatLoadIsAtTemperaturesBelow100C);
     const [heatLoadIsAtTemperaturesBetween100C150C, setHeatLoadIsAtTemperaturesBetween100C150C] = useState(led?.heatLoadIsAtTemperaturesBetween100C150C);
-    const [lattitudeLongitude, setlattitudeLongitude] = useState(led?.lattitudeLongitude);
+    const [latitudeLongitude, setlatitudeLongitude] = useState(led?.latitudeLongitude);
     const [existingBoilerEfficiency, setExistingBoilerEfficiency] = useState(led?.existingBoilerEfficiency);
     const [hoursOfHeatDemand, setHoursOfHeatDemand] = useState(led?.hoursOfHeatDemand);
     const [annualHeatLoad, setAnnualHeatLoad] = useState(led?.annualHeatLoad);
@@ -112,6 +114,53 @@ const IndustrialHeatPump = () => {
     useEffect(() => {
         setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod/1000);
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod])
+    
+    const onSave = () => {
+        dispatch(updateIndustrialHeatPump({
+            averageAnnualGasRequirements,
+            heatLoadIsAtTemperaturesBelow100C,
+            heatLoadIsAtTemperaturesBetween100C150C,
+            latitudeLongitude,
+            existingBoilerEfficiency,
+            hoursOfHeatDemand,
+            annualHeatLoad,
+            annualGridGasSavingInPresenceOfIHP1,
+            heatSourceTemperature,
+            heatSinkTemperature,
+            temperatureLift,
+            refrigerant,
+            coefficientOfPerformanceOfIHP1,
+            electricityInput,
+            annualGridGasSavingInPresenceOfIHP2,
+            coefficientOfPerformanceOfIHP2,
+            electricityInputForIHP2,
+            sizeOfIndustrialHeatPump1,
+            annualElectricityInputToIHP1,
+            sizeOfIndustrialHeatPump2,
+            annualElectricityInputToIHP2,
+            unitInstallationCostOfIHP,
+            initialInvestmentForIHP1,
+            initialInvestmentForIHP2,
+            unitPriceOfElectricity,
+            annualCostOfElectricityForIHP1,
+            annualCostOfElectricityForIHP2,
+            unitPriceOfGridGas,
+            annualCostSavingsForGridGas,
+            annualCostOfElectricityForIHPs,
+            annualOperationalCostSavings,
+            netPresentValueOfOperationalEnergyCostSavings,
+            emissionFactorOfGridGas,
+            emissionFactorOfElectricityUsedForIHPs,
+            gHGEmissionsForHeatInAbsenceOfIHP,
+            gHGEmissionsForHeatInPresenceOfIHP,
+            annualOperationalEmissionSavings,
+            totalOperationalEmissionSavingsAcrossAbatementPeriod,
+            totalOperationalEmissionSavingsAcrossAbatementPeriodTon,
+            costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            isComplete: true
+        }));
+        navigate("./../industrial-heat-pump")
+    }
     return (
         <>
             <h2 className="form-heading">Industrial heat pump</h2>

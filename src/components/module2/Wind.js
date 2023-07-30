@@ -3,45 +3,59 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBaseline } from "../../actions/module2";
+import { updateWind } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
-import { event } from "jquery";
-import { round } from "../../services/module2.service";
 
 const Wind = () => {
-    const { solavPV, baseline, economicParameters } = useSelector(state => state.module2);
+    const { wind, baseline, economicParameters } = useSelector(state => state.module2);
 
-    const [averageAnnualElectricityRequirements, setAverageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
-    const [percentAnnualElectricityFromWind, setPercentAnnualElectricityFromWind] = useState(solavPV?.percentAnnualElectricityFromWind);
-    const [location, setLocation] = useState(solavPV?.location);
-    const [latitudeLongitude, setLatitudeLongitude] = useState(solavPV?.latitudeLongitude);
-    const [height, setHeight] = useState(solavPV?.height);
-    const [turbineModel, setTurbineModel] = useState(solavPV?.turbineModel);
-    const [averageAnnualWindSpeed, setAverageAnnualWindSpeed] = useState(solavPV?.averageAnnualWindSpeed);
-    const [annualGenerationWindSystem, setAnnualGenerationWindSystem] = useState(solavPV?.annualGenerationWindSystem);
-    const [inverterEfficiency, setInverterEfficiency] = useState(solavPV?.inverterEfficiency);
-    const [sizeOfWindSystem, setSizeOfWindSystem] = useState(solavPV?.sizeOfWindSystem);
-    const [electricityUsedFromWindSystemInsteadGrid, setElectricityUsedFromWindSystemInsteadGrid] = useState(solavPV?.electricityUsedFromWindSystemInsteadGrid);
-    const [unitInstallationCost, setUnitInstallationCost] = useState(solavPV?.unitInstallationCost);
-    const [initialInvestmentWindSystem, setInitialInvestmentWindSystem] = useState(solavPV?.initialInvestmentWindSystem);
-    const [annualOperationalCost, setAnnualOperationalCost] = useState(solavPV?.annualOperationalCost);
-    const [netPresentValueOperationalEnergyCostSavings, setNetPresentValueOperationalEnergyCostSavings] = useState(solavPV?.netPresentValueOperationalEnergyCostSavings);
-    const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(solavPV?.annualOperationalEmissionSavings);
-    const [totalOperationalEmissionSavingsAbatementPeriod, setTotalOperationalEmissionSavingsAbatementPeriod] = useState(solavPV?.totalOperationalEmissionSavingsAbatementPeriod);
-    const [totalOperationalEmissionSavingsAbatementPeriodTon, setTotalOperationalEmissionSavingsAbatementPeriodTon] = useState(solavPV?.totalOperationalEmissionSavingsAbatementPeriodTon);
-    const [costEffectivenessConsideringOperationalEmissionSavings, setCostEffectivenessConsideringOperationalEmissionSavings] = useState(solavPV?.costEffectivenessConsideringOperationalEmissionSavings);
+    const [averageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
+    const [percentAnnualElectricityFromWind, setPercentAnnualElectricityFromWind] = useState(wind?.percentAnnualElectricityFromWind);
+    const [location, setLocation] = useState(wind?.location);
+    const [latitudeLongitude, setLatitudeLongitude] = useState(wind?.latitudeLongitude);
+    const [height, setHeight] = useState(wind?.height);
+    const [turbineModel, setTurbineModel] = useState(wind?.turbineModel);
+    const [averageAnnualWindSpeed, setAverageAnnualWindSpeed] = useState(wind?.averageAnnualWindSpeed);
+    const [annualGenerationWindSystem, setAnnualGenerationWindSystem] = useState(wind?.annualGenerationWindSystem);
+    const [inverterEfficiency, setInverterEfficiency] = useState(wind?.inverterEfficiency);
+    const [sizeOfWindSystem, setSizeOfWindSystem] = useState(wind?.sizeOfWindSystem);
+    const [electricityUsedFromWindSystemInsteadGrid, setElectricityUsedFromWindSystemInsteadGrid] = useState(wind?.electricityUsedFromWindSystemInsteadGrid);
+    const [unitInstallationCost, setUnitInstallationCost] = useState(wind?.unitInstallationCost);
+    const [initialInvestmentWindSystem, setInitialInvestmentWindSystem] = useState(wind?.initialInvestmentWindSystem);
+    const [annualOperationalCost, setAnnualOperationalCost] = useState(wind?.annualOperationalCost);
+    const [netPresentValueOperationalEnergyCostSavings, setNetPresentValueOperationalEnergyCostSavings] = useState(wind?.netPresentValueOperationalEnergyCostSavings);
+    const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(wind?.annualOperationalEmissionSavings);
+    const [totalOperationalEmissionSavingsAbatementPeriod, setTotalOperationalEmissionSavingsAbatementPeriod] = useState(wind?.totalOperationalEmissionSavingsAbatementPeriod);
+    const [totalOperationalEmissionSavingsAbatementPeriodTon, setTotalOperationalEmissionSavingsAbatementPeriodTon] = useState(wind?.totalOperationalEmissionSavingsAbatementPeriodTon);
+    const [costEffectivenessConsideringOperationalEmissionSavings, setCostEffectivenessConsideringOperationalEmissionSavings] = useState(wind?.costEffectivenessConsideringOperationalEmissionSavings);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const onSave = () => {
-        // dispatch(updateBaseline({
-        //     averageAnnualElectricityConsumption: averageAnnualElectricityConsumption,
-        //     averageAnnualGasConsumption: averageAnnualGasConsumption,
-        //     emissionFactorGridElectricity: emissionFactorGridElectricity,
-        //     emissionFactorForGridGas: emissionFactorForGridGas
-        // }));
-        navigate("./../economic-parameters")
+        dispatch(updateWind({
+            averageAnnualElectricityRequirements,
+            percentAnnualElectricityFromWind,
+            location,
+            latitudeLongitude,
+            height,
+            turbineModel,
+            averageAnnualWindSpeed,
+            annualGenerationWindSystem,
+            inverterEfficiency,
+            sizeOfWindSystem,
+            electricityUsedFromWindSystemInsteadGrid,
+            unitInstallationCost,
+            initialInvestmentWindSystem,
+            annualOperationalCost,
+            netPresentValueOperationalEnergyCostSavings,
+            annualOperationalEmissionSavings,
+            totalOperationalEmissionSavingsAbatementPeriod,
+            totalOperationalEmissionSavingsAbatementPeriodTon,
+            costEffectivenessConsideringOperationalEmissionSavings,
+            isComplete: true
+        }));
+        navigate("./../solar-pv-bess")
 
     }
     useEffect(() => {
@@ -61,7 +75,6 @@ const Wind = () => {
                 let allData = Object.values(data.data);
                 let totalWindSpeed = 0;
                 let totalElectricity = 0;
-                let totalDiffuseIrradiance = 0;
                 for (let i = 0; i < allData.length; i++) {
                     totalElectricity += allData[i].electricity;
                     totalWindSpeed += allData[i].wind_speed;
@@ -157,22 +170,24 @@ const Wind = () => {
                                 type="text"
                                 placeholder="Enter value"
                                 heading="Turbine model"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event) => { setTurbineModel(event.target.value) }} />
+                                disabled={true}
+                                subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
                             <InputWithSideText value={averageAnnualWindSpeed}
                                 unit="m/s"
                                 type="number"
                                 placeholder="Enter value"
+                                disabled={true}
+                                toFixed={true}
                                 heading="Average annual wind speed"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setAverageAnnualWindSpeed(event.target.value) }} />
+                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"/>
                             <InputWithSideText value={annualGenerationWindSystem}
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
+                                disabled={true}
+                                toFixed={true}
                                 heading="Annual generation per 1kW wind system"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setAnnualGenerationWindSystem(event.target.value) }} />
+                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"/>
                             <InputWithSideText value={inverterEfficiency}
                                 unit="%"
                                 type="number"
@@ -183,7 +198,7 @@ const Wind = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Size of wind system" unit="kW" value={round(sizeOfWindSystem,2)} />
+                                <CalculatedData heading="Size of wind system" unit="kW" value={sizeOfWindSystem} />
                             </div>
                         </div>
                     </div>
@@ -196,9 +211,10 @@ const Wind = () => {
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
+                                disabled={true}
+                                toFixed={true}
                                 heading="Electricity used from wind system instead of grid"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setElectricityUsedFromWindSystemInsteadGrid(event.target.value) }} />
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
                             <InputWithSideText value={unitInstallationCost}
                                 unit="£/kW"
                                 type="number"
@@ -210,14 +226,15 @@ const Wind = () => {
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
+                                disabled={true}
+                                toFixed={true}
                                 heading="Initial investment for Wind system (CAPEX)"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event) => { setInitialInvestmentWindSystem(event.target.value) }} />
+                                subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={round(annualOperationalCost,2)} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={round(netPresentValueOperationalEnergyCostSavings, 2)} />
+                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCost} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>
@@ -229,22 +246,24 @@ const Wind = () => {
                             <InputWithSideText value={annualOperationalEmissionSavings}
                                 unit="kgCO2e"
                                 type="number"
+                                disabled={true}
+                                toFixed={true}
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setAnnualOperationalEmissionSavings(event.target.value) }} />
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
                             <InputWithSideText value={totalOperationalEmissionSavingsAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
+                                disabled={true}
+                                toFixed={true}
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event) => { setTotalOperationalEmissionSavingsAbatementPeriod(event.target.value) }} />
+                                subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={round(totalOperationalEmissionSavingsAbatementPeriodTon, 2)} />
-                                <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={round(costEffectivenessConsideringOperationalEmissionSavings, 2)} />
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAbatementPeriodTon} />
+                                <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavings} />
                             </div>
                         </div>
                     </div>

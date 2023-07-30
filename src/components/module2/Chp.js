@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const Chp = () => {
     const { solavPV, baseline,economicParameters } = useSelector(state => state.module2);
@@ -33,7 +35,7 @@ const Chp = () => {
         //     emissionFactorGridElectricity: emissionFactorGridElectricity,
         //     emissionFactorForGridGas: emissionFactorForGridGas
         // }));
-        navigate("./../economic-parameters")
+        Navigate("./../economic-parameters")
 
     }
 

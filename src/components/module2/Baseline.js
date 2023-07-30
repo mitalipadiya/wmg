@@ -5,7 +5,6 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBaseline } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
-import { round } from "../../services/module2.service";
 
 const Baseline = () => {
     const { baseline } = useSelector(state => state.module2);
@@ -36,13 +35,13 @@ const Baseline = () => {
 
     }
     useEffect(() => {
-        setAnnualOperationalEmissionsForGridElectricity(round(averageAnnualElectricityConsumption * emissionFactorGridElectricity, 2));
+        setAnnualOperationalEmissionsForGridElectricity(averageAnnualElectricityConsumption * emissionFactorGridElectricity);
     }, [averageAnnualElectricityConsumption, emissionFactorGridElectricity]);
     useEffect(() => {
-        setAnnualOperationalEmissionsForGridGas(round(averageAnnualGasConsumption * emissionFactorForGridGas, 2));
+        setAnnualOperationalEmissionsForGridGas(averageAnnualGasConsumption * emissionFactorForGridGas);
     }, [averageAnnualGasConsumption, emissionFactorForGridGas]);
     useEffect(() => {
-        setTotalBaselineEmissions(round((averageAnnualElectricityConsumption * emissionFactorGridElectricity) + (averageAnnualGasConsumption * emissionFactorForGridGas), 2));
+        setTotalBaselineEmissions((averageAnnualElectricityConsumption * emissionFactorGridElectricity) + (averageAnnualGasConsumption * emissionFactorForGridGas));
     }, [averageAnnualElectricityConsumption, emissionFactorGridElectricity, averageAnnualGasConsumption, emissionFactorForGridGas]);
 
     return (

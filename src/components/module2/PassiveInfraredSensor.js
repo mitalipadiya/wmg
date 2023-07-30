@@ -3,11 +3,13 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBaseline, updateEconomicParameters } from "../../actions/module2";
+import { updatePassiveInfraredSensor } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 
 const PassiveInfraredSensor = () => {
-    const { solavPV, baseline, economicParameters, passiveInfraredSensor } = useSelector(state => state.module2);
+    const { baseline, economicParameters, passiveInfraredSensor } = useSelector(state => state.module2);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [numberOfLamps, setNumberOfLamps] = useState(passiveInfraredSensor?.numberOfLamps);
     const [wattageOfLamp, setWattageOfLamp] = useState(passiveInfraredSensor?.wattageOfLamp);
     const [numberOfDaysInYear, setNumberOfDaysInYear] = useState(passiveInfraredSensor?.numberOfDaysInYear);
@@ -55,6 +57,38 @@ const PassiveInfraredSensor = () => {
     useEffect(() => {
         setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod/1000)
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod]);
+    useEffect(()=>{
+        setNetPresentValueOfOperationalEnergyCostSaings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+    },[annualOperationalCostSavings]);
+    useEffect(()=>{
+        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForPir - netPresentValueOfOperationalEnergyCostSaings)/ totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+    }, [initialInvestmentForPir,netPresentValueOfOperationalEnergyCostSaings,totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
+
+    const onSave = () => {
+        dispatch(updatePassiveInfraredSensor({
+            numberOfLamps,
+            wattageOfLamp,
+            numberOfDaysInYear,
+            estimatedHoursONPerDay,
+            estimatedHoursOccupiedPerDay,
+            areaOfIndustrialFacility,
+            detectionRangeOfPIRSensors,
+            numberOfPIRSensors,
+            annualElectricityConsumptionWithoutPirSensor,
+            annualElectricityConsumptionWithPirSensorInstalled,
+            annualElectricitySavingsWithPirSensors,
+            unitCostOfPirSensor,
+            initialInvestmentForPir,
+            annualOperationalCostSavings,
+            netPresentValueOfOperationalEnergyCostSaings,
+            annualOperationalEmissionSavings,
+            totalOperationalEmissionSavingsAcrossAbatementPeriod,
+            costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            totalOperationalEmissionSavingsAcrossAbatementPeriodTon,
+            isComplete: true
+        }));
+        navigate("./../smart-meters-electricity")
+    }
 
     return (
         <>
@@ -132,6 +166,7 @@ const PassiveInfraredSensor = () => {
                                     placeholder="Enter value"
                                     heading="Number of PIR sensors"
                                     disabled={true}
+                                    toFixed={true}
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                             </div>
                             <div className="calculated-main">
@@ -162,6 +197,7 @@ const PassiveInfraredSensor = () => {
                                     unit="£"
                                     type="number"
                                     disabled={true}
+                                    toFixed={true}
                                     placeholder="Enter value"
                                     heading="Initial investment for PIR (CAPEX)"
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
@@ -184,13 +220,16 @@ const PassiveInfraredSensor = () => {
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Annual operational emission savings"
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                    onChange={(event) => { annualOperationalEmissionSavings(event.target.value) }} />
+                                    toFixed={true}
+                                    disabled={true}
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
 
                                 <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                     unit="kgCO2e"
                                     type="number"
                                     placeholder="Enter value"
+                                    toFixed={true}
+                                    disabled={true}
                                     heading="Total operational emission savings across abatement period"
                                     subHeading="Quis enim unde. Rerum corrupti voluptatum"
                                 />
@@ -203,9 +242,9 @@ const PassiveInfraredSensor = () => {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="btn-div">
+                    <div className="btn-div">
                         <Button value="Next" onClick={onSave} />
-                    </div> */}
+                    </div>
                 </div >
             </div>
         </>

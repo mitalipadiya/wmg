@@ -1,6 +1,7 @@
 import React from "react";
 import "./InputWithSideText.css";
 import Input from "./Input";
+import { formatValueWithTwoDecimals } from "../../services/module2.service";
 
 const InputWithSideText = (props) => {
   return (
@@ -14,7 +15,7 @@ const InputWithSideText = (props) => {
       <div className="image_input">
         <p>{props.unit}</p>
         <Input
-          value={props.value}
+          value={props.toFixed ? formatValueWithTwoDecimals(props.value) : props.value}
           type={props.type}
           placeholder={props.placeholder}
           onChange={props.onChange}

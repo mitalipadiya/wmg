@@ -3,11 +3,13 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBaseline } from "../../actions/module2";
+import { updateBaseline, updateSolarThermal } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 
 const SolarThermal = () => {
     const { solavPV, baseline, economicParameters, led } = useSelector(state => state.module2);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [averageAnnualGasRequirements,setAverageAnnualGasRequirements ] = useState(led?.averageAnnualGasRequirements);
     const [heatDemandToBeTakenFromSolarThermalSystem, setHeatDemandToBeTakenFromSolarThermalSystem]=useState(led?.heatDemandToBeTakenFromSolarThermalSystem);
@@ -78,6 +80,41 @@ const SolarThermal = () => {
     useEffect(() => {
         setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod/1000);
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod])
+
+    const onSave = () => {
+        dispatch(updateSolarThermal({
+            averageAnnualGasRequirements,
+            heatDemandToBeTakenFromSolarThermalSystem,
+            location,
+            latitudeLongitude,
+            existingBoilerEfficiency,
+            incidentSolarIrradiation,
+            solarIrradiation,
+            opticalEfficiency,
+            firstOrderEfficiencyCoefficient,
+            secondOrderEfficiencyCoefficient,
+            ambientTemperature,
+            inletTemperature,
+            outletTemperature,
+            collectorTemperature,
+            efficiencyOfSolarThermalSystem,
+            capacityOfSolarThermalSystem,
+            annualGridGasSavingInPresenceOfSolarThermalSystem,
+            sizeOfSolarThermalSystem,
+            unitInstallationCostOfSolarThermalSystem,
+            initialInvestmentForSolarThermalSystem,
+            unitPriceOfGridGas,
+            annualOperationalCostSavings,
+            netPresentValueOfOperationalEnergyCostSavings,
+            emissionFactorOfGridGas,
+            annualOperationalEmissionSavings,
+            totalOperationalEmissionSavingsAcrossAbatementPeriod,
+            totalOperationalEmissionSavingsAcrossAbatementPeriodTon,
+            isComplete: true
+        }));
+        navigate("./../industrial-heat-pump")
+    }
+
     return (
         <>
             <h2 className="form-heading">Solar thermal</h2>

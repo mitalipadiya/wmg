@@ -11,8 +11,12 @@ const round = (num, decimalPlaces = 0) =>{
     return Number(num + "e" + -decimalPlaces).toFixed(2).replace(/\.00$/, '');
   }
 }
+const formatValueWithTwoDecimals = (value) => {
+  return parseFloat(parseFloat(value).toFixed(2));
+};
 
 export {
     getModule2Details,
-    round
+    round,
+    formatValueWithTwoDecimals
 };

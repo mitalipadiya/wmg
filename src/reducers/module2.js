@@ -1,5 +1,4 @@
-import { GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS, UPDATE_SOLAR_PV } from "../actions/types";
-import EnergyManagementSystem from "../components/module2/EnergyManagementSystem";
+import { GET_MODULE2, INDUSTRIAL_HEAT_PUMP, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS, UPDATE_ENERGY_MANAGEMENT_SYSTEM, UPDATE_LED, UPDATE_PASSIVE_INFRARED_SENSOR, UPDATE_SMART_METERS_ELECTRICITY, UPDATE_SMART_METERS_GAS, UPDATE_SOLAR_PV, UPDATE_SOLAR_THERMAL, UPDATE_VOLTAGE_OPTIMISATION, UPDATE_WIND } from "../actions/types";
 
 const initialState = {
     baseline: {
@@ -27,7 +26,7 @@ const initialState = {
         electricityGeneratedPVSystem: "",
         annualElectricityGenerationSelectedLocation: "",
         annualSolarInsolationSelectedLocation: "",
-        solarModuleEfficiency: "",
+        solarModuleEfficiency: "15",
         gHGEmissionsElectricityPVSystem: "",
         annualOperationalEmissionSavings: "",
         totalOperationalEmissionSavingsAbatementPeriod: "",
@@ -42,12 +41,34 @@ const initialState = {
         costEffectivenessOperationalEmission: "",
         isComplete: false
     },
+    wind: {
+        averageAnnualElectricityRequirements: "",
+        percentAnnualElectricityFromWind: "15",
+        location: "Coventry",
+        latitudeLongitude: "",
+        height: "80",
+        turbineModel: "Gamesa G128 4500",
+        averageAnnualWindSpeed: "",
+        annualGenerationWindSystem: "",
+        inverterEfficiency: "90",
+        sizeOfWindSystem: "",
+        electricityUsedFromWindSystemInsteadGrid: "",
+        unitInstallationCost: "1300",
+        initialInvestmentWindSystem: "",
+        annualOperationalCost: "",
+        netPresentValueOperationalEnergyCostSavings: "",
+        annualOperationalEmissionSavings: "",
+        totalOperationalEmissionSavingsAbatementPeriod: "",
+        totalOperationalEmissionSavingsAbatementPeriodTon: "",
+        costEffectivenessConsideringOperationalEmissionSavings: "",
+        isComplete: false
+    },
     led: {
-        currentTypeOfLighting: "",
-        currentLightingPowerRating:"",
-        numberOfUnits:"",
-        dailyUsage:"",
-        numberOfOperationalDaysInaYear:"",
+        currentTypeOfLighting: "Incandescent Bulb",
+        currentLightingPowerRating:"60",
+        numberOfUnits:"50",
+        dailyUsage:"16",
+        numberOfOperationalDaysInaYear:"200",
         annualUsage:"",
         lEDPowerRating:"",
         unitCostForLED:"",
@@ -63,21 +84,21 @@ const initialState = {
         netPresentValueOfOperationalEnergyCostSavings:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon:"",
         costEffectivenessConsideringOperationalEmissionSavingsOnly:"",
-
+        isComplete: false
     },
     passiveInfraredSensor: {
-        numberOfLamps:"",
-        wattageOfLamp:"",
-        numberOfDaysInYear:"",
-        estimatedHoursONPerDay:"",
-        estimatedHoursOccupiedPerDay:"",
-        areaOfIndustrialFacility:"",
-        detectionRangeOfPIRSensors:"",
+        numberOfLamps:"50",
+        wattageOfLamp:"60",
+        numberOfDaysInYear:"200",
+        estimatedHoursONPerDay:"16",
+        estimatedHoursOccupiedPerDay:"12",
+        areaOfIndustrialFacility:"5000",
+        detectionRangeOfPIRSensors:"491",
         numberOfPIRSensors:"",
         annualElectricityConsumptionWithoutPirSensor:"",
         annualElectricityConsumptionWithPirSensorInstalled:"",
         annualElectricitySavingsWithPirSensors:"",
-        unitCostOfPirSensor:"",
+        unitCostOfPirSensor:"140",
         initialInvestmentForPir:"",
         annualOperationalCostSavings:"",
         netPresentValueOfOperationalEnergyCostSaings:"",
@@ -85,52 +106,55 @@ const initialState = {
         totalOperationalEmissionSavingsAcrossAbatementPeriod:"",
         costEffectivenessConsideringOperationalEmissionSavingsOnly:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon:"",
+        isComplete: false
     },
     smartMetersElectricity:{
         averageAnnualElectricityConsumption:"",
-        currentLightingPowerRating:"",
-        averageElectricitySavingsIncentivisedUsingSmartMeter:"",
+        averageElectricitySavingsIncentivisedUsingSmartMeter:"2.80",
         annualElectricitySavingsWithSmartMeters:"",
-        initialInvestmentForElectricitySmartMeter:"",
         annualOperationalCostSavings:"",
+        initialInvestmentForElectricitySmartMeter:"136.00",
         netPresentValueOfOperationalEnergyCostSavings:"",
         annualOperationalEmissionSavings:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriod:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon:"",
         costEffectivenessConsideringOperationalEmissionSavingsOnly:"",
+        isComplete: false
     },
     smartMetersGas:{
         averageAnnualGasConsumption:"",
-        averageGasSavingsIncentivisedUsingSmartMeter:"",
+        averageGasSavingsIncentivisedUsingSmartMeter:"4.50",
         annualGasConsumptionWithSmartMeters:"",
-        initialInvestmentForGasSmartMeter:"",
+        initialInvestmentForGasSmartMeter:"136.00",
         annualOperationalCostSavings:"",
         netPresentValueOfOperationalEnergyCostSavings:"",
         annualOperationalEmissionSavings:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriod:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon:"",
         costEffectivenessConsideringOperationalEmissionSavingsOnly:"",
+        isComplete: false
     },
     voltageOptimisation:{
         averageAnnualElectricityConsumption:"",
-        averageElectricitySavingsUsingVoltageOptimisation:"",
+        averageElectricitySavingsUsingVoltageOptimisation:"13",
         annualElectricitySavingsWithVoltageOptimisation:"",
         annualOperationalCostSavings:"",
-        initialInvestmentForVoltageOptimisation:"",
+        initialInvestmentForVoltageOptimisation:"7500",
         netPresentValueOfOperationalEnergyCostSavings:"",
         annualOperationalEmissionSavings:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriod:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon:"",
         costEffectivenessConsideringOperationalEmissionSavingsOnly:"",
+        isComplete: false
     },
     energyManagementSystem:{
         averageAnnualElectricityConsumption:"",
         averageAnnualGasConsumption:"",
-        averageElectricitySavingsIncentivisedUsingBEMS:"",
-        averageGasSavingsIncentivisedUsingBEMS:"",
+        averageElectricitySavingsIncentivisedUsingBEMS:"12",
+        averageGasSavingsIncentivisedUsingBEMS:"9",
         annualElectricitySavingsWithBEMS:"",
         annualGasSavingsWithBEMS:"",
-        initialInvestmentForBEMS:"",
+        initialInvestmentForBEMS:"5000",
         annualOperationalElectricityCostSavings:"",
         annualOperationalGasCostSavings:"",
         totalAnnualOperationalCostSavings:"",
@@ -141,12 +165,13 @@ const initialState = {
         annualOperationalEmissionSavings:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon:"",
         costEffectivenessConsideringOperationalEmissionSavingsOnly:"",
+        isComplete: false
     },
     solarThermal:{
         averageAnnualGasRequirements:"",
         heatDemandToBeTakenFromSolarThermalSystem:"",
         location:"",
-        lattitudeLongitude:"",
+        latitudeLongitude:"",
         existingBoilerEfficiency:"",
         incidentSolarIrradiation:"",
         solarIrradiation:"",
@@ -170,12 +195,13 @@ const initialState = {
         annualOperationalEmissionSavings:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriod:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon:"",
+        isComplete: false
     },
     industrialHeatPump:{
         averageAnnualGasRequirements:"",
         heatLoadIsAtTemperaturesBelow100C:"",
         heatLoadIsAtTemperaturesBetween100C150C:"",
-        lattitudeLongitude:"",
+        latitudeLongitude:"",
         existingBoilerEfficiency:"",
         hoursOfHeatDemand:"",
         annualHeatLoad:"",
@@ -212,7 +238,7 @@ const initialState = {
         totalOperationalEmissionSavingsAcrossAbatementPeriod:"",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon:"",
         costEffectivenessConsideringOperationalEmissionSavingsOnly:"",
-        
+        isComplete: false        
     }
 
 };
@@ -238,7 +264,51 @@ export default function (state = initialState, action) {
                 ...state,
                 solarPV: payload
             }
-
+        case UPDATE_WIND:
+            return {
+                ...state,
+                wind: payload
+            }
+        case UPDATE_LED:
+            return {
+                ...state,
+                led: payload
+            }
+        case UPDATE_PASSIVE_INFRARED_SENSOR:
+            return {
+                ...state,
+                passiveInfraredSensor: payload
+            }
+        case UPDATE_SMART_METERS_ELECTRICITY:
+            return {
+                ...state,
+                smartMetersElectricity: payload
+            }
+        case UPDATE_SMART_METERS_GAS:
+            return {
+                ...state,
+                smartMetersGas: payload
+            }
+        case UPDATE_VOLTAGE_OPTIMISATION:
+            return {
+                ...state,
+                voltageOptimisation: payload
+            }
+        case UPDATE_ENERGY_MANAGEMENT_SYSTEM:
+            return {
+                ...state,
+                energyManagementSystem: payload
+            }
+        case UPDATE_SOLAR_THERMAL:
+            return {
+                ...state,
+                solarThermal: payload
+            }
+        case INDUSTRIAL_HEAT_PUMP:
+            return {
+                ...state,
+                industrialHeatPump: payload
+            }
         default:
             return state;
     }

@@ -11,12 +11,12 @@ function Module2() {
 
   return (
     <div className='parent-div'>
-      {/* <Navigation />
+      <Navigation />
       <div className='content-div'>
           <Outlet/>
-      </div> */}
+      </div>
       {/* <BarChartGoogle/> */}
-      <ColumnChartGoogle/>
+      {/* <ColumnChartGoogle/> */}
       {/* <TimelineChart/> */}
     </div>
   );

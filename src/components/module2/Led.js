@@ -3,11 +3,13 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBaseline } from "../../actions/module2";
+import { updateLed } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 
 const Led = () => {
-    const { solavPV, baseline, economicParameters, led } = useSelector(state => state.module2);
+    const { baseline, economicParameters, led } = useSelector(state => state.module2);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [currentTypeOfLighting, setCurrentTypeOfLighting] = useState(led?.currentTypeOfLighting);
     const [currentLightingPowerRating, setCurrentLightingPowerRating] = useState(led?.currentLightingPowerRating);
@@ -18,7 +20,7 @@ const Led = () => {
     const [lEDPowerRating, setLEDPowerRating] = useState(led?.lEDPowerRating);
     const [unitCostForLED, setUnitCostForLED] = useState(led?.unitCostForLED);
     const [initialInvestmentForLEDs, setInitialInvestmentForLEDs] = useState(led?.initialInvestmentForLEDs);
-    const [costofElectricityWithCurrentLighting, setCostofElectricityWithCurrentLighting]=useState(led?.costofElectricityWithCurrentLighting);
+    const [costofElectricityWithCurrentLighting, setCostofElectricityWithCurrentLighting] = useState(led?.costofElectricityWithCurrentLighting);
     const [costOfElectricityWithLEDs, setCostOfElectricityWithLEDs] = useState(led?.costOfElectricityWithLEDs);
     const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(led?.annualOperationalEmissionSavings);
     const [totalOperationalEmissionSavingsAcrossAbatementPeriod, setTotalOperationalEmissionSavingsAcrossAbatementPeriod] = useState(led?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
@@ -44,30 +46,81 @@ const Led = () => {
         setAnnualElectricitySavingsWithLEDs(annualElectricityConsumptionWithCurrentLighting - annualElectricityConsumptionWithLEDs);
     }, [annualElectricityConsumptionWithCurrentLighting, annualElectricityConsumptionWithLEDs])
     useEffect(() => {
-        setInitialInvestmentForLEDs(unitCostForLED*numberOfUnits);
-    }, [unitCostForLED,numberOfUnits])
+        setInitialInvestmentForLEDs(unitCostForLED * numberOfUnits);
+    }, [unitCostForLED, numberOfUnits])
     useEffect(() => {
-        setCostofElectricityWithCurrentLighting(annualElectricityConsumptionWithCurrentLighting*economicParameters.unitPriceOfElectricity);
+        setCostofElectricityWithCurrentLighting(annualElectricityConsumptionWithCurrentLighting * economicParameters.unitPriceOfElectricity);
     }, [annualElectricityConsumptionWithCurrentLighting])
     useEffect(() => {
-        setCostOfElectricityWithLEDs(annualElectricityConsumptionWithLEDs*economicParameters.unitPriceOfElectricity);
+        setCostOfElectricityWithLEDs(annualElectricityConsumptionWithLEDs * economicParameters.unitPriceOfElectricity);
     }, [annualElectricityConsumptionWithLEDs])
     useEffect(() => {
-        setAnnualOperationalCostSavings(annualElectricitySavingsWithLEDs*economicParameters.unitPriceOfElectricity);
+        setAnnualOperationalCostSavings(annualElectricitySavingsWithLEDs * economicParameters.unitPriceOfElectricity);
     }, [annualElectricitySavingsWithLEDs])
     useEffect(() => {
-        setAnnualOperationalEmissionSavings(annualElectricitySavingsWithLEDs*baseline.emissionFactorGridElectricity);
+        setAnnualOperationalEmissionSavings(annualElectricitySavingsWithLEDs * baseline.emissionFactorGridElectricity);
     }, [annualElectricitySavingsWithLEDs])
-        useEffect(() => {
-            setTotalOperationalEmissionSavingsAcrossAbatementPeriod(annualOperationalEmissionSavings*economicParameters.yearsOfAbatement);
-        }, [annualOperationalEmissionSavings])
-        useEffect(() => {
-            setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod/1000);
-        }, [totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
-        // useEffect(() => {
-        //     setCostEffectivenessConsideringOperationalEmissionSavingsOnly(());
-        // }, [totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
-    
+    useEffect(() => {
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriod(annualOperationalEmissionSavings * economicParameters.yearsOfAbatement);
+    }, [annualOperationalEmissionSavings])
+    useEffect(() => {
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod / 1000);
+    }, [totalOperationalEmissionSavingsAcrossAbatementPeriod])
+    useEffect(()=>{
+        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForLEDs-netPresentValueOfOperationalEnergyCostSavings)/totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+    },[initialInvestmentForLEDs,netPresentValueOfOperationalEnergyCostSavings,totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
+    useEffect(()=>{
+        if(currentTypeOfLighting == "Incandescent Bulb") {
+            switch(currentLightingPowerRating) {
+                case "40": 
+                    setLEDPowerRating(5);
+                    break;
+                case "60": 
+                    setLEDPowerRating(6);
+                    break;
+                case "75":
+                    setLEDPowerRating(7.5);
+                    break;
+                case "100":
+                    setLEDPowerRating(10);
+                    break;
+                case "150":
+                    setLEDPowerRating(15);
+                    break;
+            }
+        }
+    }, [currentTypeOfLighting, currentLightingPowerRating])
+
+    useEffect(() => {
+        setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+    }, [annualOperationalCostSavings]);
+
+    const onSave = () => {
+        dispatch(updateLed({
+            currentTypeOfLighting,
+            currentLightingPowerRating,
+            numberOfUnits,
+            dailyUsage,
+            numberOfOperationalDaysInaYear,
+            annualUsage,
+            lEDPowerRating,
+            unitCostForLED,
+            initialInvestmentForLEDs,
+            costofElectricityWithCurrentLighting,
+            costOfElectricityWithLEDs,
+            annualOperationalEmissionSavings,
+            totalOperationalEmissionSavingsAcrossAbatementPeriod,
+            annualElectricityConsumptionWithCurrentLighting,
+            annualElectricityConsumptionWithLEDs,
+            annualElectricitySavingsWithLEDs,
+            annualOperationalCostSavings,
+            netPresentValueOfOperationalEnergyCostSavings,
+            totalOperationalEmissionSavingsAcrossAbatementPeriodTon,
+            costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            isComplete: true
+        }));
+        navigate("./../passive-infrared-sensor")
+    }
 
     return (
         <>
@@ -80,10 +133,10 @@ const Led = () => {
                         <div className="form-input">
                             <InputWithSideText value={currentTypeOfLighting}
                                 unit=""
-                                type="number"
+                                type="text"
                                 placeholder="Enter value"
                                 heading="Enter current type of lighting"
-                                onChange={(event)=>{setCurrentTypeOfLighting(event.target.value)}}
+                                onChange={(event) => { setCurrentTypeOfLighting(event.target.value) }}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                             <InputWithSideText value={currentLightingPowerRating}
                                 unit="W"
@@ -129,6 +182,7 @@ const Led = () => {
                                 placeholder="Enter value"
                                 heading="Annual usage"
                                 disabled={true}
+                                toFixed={true}
                                 subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
                             />
                             <InputWithSideText value={lEDPowerRating}
@@ -165,21 +219,26 @@ const Led = () => {
                                 placeholder="Enter value"
                                 heading="Initial investment for LEDs (CAPEX)"
                                 subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event) => { setInitialInvestmentForLEDs(event.target.value) }} />
+                                disabled={true}
+                                toFixed={true} />
                             <InputWithSideText value={costofElectricityWithCurrentLighting}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
+                                disabled={true}
+                                toFixed={true}
                                 heading="Cost of electricity with current lighting"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
+                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
 
                             <InputWithSideText value={costOfElectricityWithLEDs}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
+                                disabled={true}
+                                toFixed={true}
                                 heading="Cost of electricity with LEDs"
                                 subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                 />
+                            />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -198,14 +257,17 @@ const Led = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 disabled={true}
+                                toFixed={true}
                                 heading="Annual operational emission savings"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
+                                disabled={true}
+                                toFixed={true}
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
+                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -216,7 +278,7 @@ const Led = () => {
                     </div>
                 </div>
                 <div className="btn-div">
-                    <Button value="Next" />
+                    <Button value="Next" onClick={onSave} />
                 </div>
             </div >
         </>

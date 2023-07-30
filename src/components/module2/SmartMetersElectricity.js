@@ -3,17 +3,17 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBaseline } from "../../actions/module2";
+import { updateSmartMetersElectricity } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
-import EconomicParameters from "./EconomicParameters";
 
 const SmartMetersElectricity = () => {
-    const { solavPV, baseline,economicParameters,smartMetersElectricity } = useSelector(state => state.module2);
-    const [averageAnnualElectricityConsumption, setAverageAnnualElectricityConsumption] = useState(smartMetersElectricity?.averageAnnualElectricityConsumption);
-    const [currentLightingPowerRating, setcurrentLightingPowerRating] = useState(smartMetersElectricity?.currentLightingPowerRating);
-    const [averageElectricitySavingsIncentivisedUsingSmartMeter, setAverageElectricitySavingsIncentivisedUsingSmartMeter] = useState(smartMetersElectricity?.averageElectricitySavingsIncentivisedUsingSmartMeter);
+    const { baseline, economicParameters, smartMetersElectricity } = useSelector(state => state.module2);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [averageAnnualElectricityConsumption] = useState(baseline?.averageAnnualElectricityConsumption);
+    const [averageElectricitySavingsIncentivisedUsingSmartMeter] = useState(smartMetersElectricity?.averageElectricitySavingsIncentivisedUsingSmartMeter);
     const [annualElectricitySavingsWithSmartMeters, setAnnualElectricitySavingsWithSmartMeters] = useState(smartMetersElectricity?.annualElectricitySavingsWithSmartMeters);
-    const [initialInvestmentForElectricitySmartMeter, setInitialInvestmentForElectricitySmartMeter] = useState(smartMetersElectricity?.initialInvestmentForElectricitySmartMeter);
+    const [initialInvestmentForElectricitySmartMeter] = useState(smartMetersElectricity?.initialInvestmentForElectricitySmartMeter);
     const [annualOperationalCostSavings, setAnnualOperationalCostSavings] = useState(smartMetersElectricity?.annualOperationalCostSavings);
     const [netPresentValueOfOperationalEnergyCostSavings, setNetPresentValueOfOperationalEnergyCostSavings] = useState(smartMetersElectricity?.netPresentValueOfOperationalEnergyCostSavings);
     const [annualOperationalEmissionSavings, setAnnualOperationalEmissionSavings] = useState(smartMetersElectricity?.annualOperationalEmissionSavings);
@@ -21,20 +21,43 @@ const SmartMetersElectricity = () => {
     const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(smartMetersElectricity?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
     const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(smartMetersElectricity?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
     useEffect(() => {
-        setAnnualElectricitySavingsWithSmartMeters(averageAnnualElectricityConsumption*averageElectricitySavingsIncentivisedUsingSmartMeter/100)
+        setAnnualElectricitySavingsWithSmartMeters(averageAnnualElectricityConsumption * averageElectricitySavingsIncentivisedUsingSmartMeter / 100)
     }, [averageAnnualElectricityConsumption, averageElectricitySavingsIncentivisedUsingSmartMeter]);
     useEffect(() => {
-        setAnnualOperationalCostSavings(annualElectricitySavingsWithSmartMeters*economicParameters.unitPriceOfElectricity)
+        setAnnualOperationalCostSavings(annualElectricitySavingsWithSmartMeters * economicParameters.unitPriceOfElectricity)
     }, [annualElectricitySavingsWithSmartMeters]);
     useEffect(() => {
-        setAnnualOperationalEmissionSavings(annualElectricitySavingsWithSmartMeters*baseline.emissionFactorGridElectricity)
+        setAnnualOperationalEmissionSavings(annualElectricitySavingsWithSmartMeters * baseline.emissionFactorGridElectricity)
     }, [annualElectricitySavingsWithSmartMeters]);
     useEffect(() => {
-        setTotalOperationalEmissionSavingsAcrossAbatementPeriod(annualOperationalEmissionSavings*economicParameters.yearsOfAbatement)
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriod(annualOperationalEmissionSavings * economicParameters.yearsOfAbatement)
     }, [annualOperationalEmissionSavings]);
     useEffect(() => {
-        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod/1000)
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod / 1000)
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod]);
+    useEffect(() => {
+        setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+    }, [annualOperationalCostSavings]);
+    useEffect(() => {
+        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForElectricitySmartMeter - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+    }, [initialInvestmentForElectricitySmartMeter, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
+
+    const onSave = () => {
+        dispatch(updateSmartMetersElectricity({
+            averageAnnualElectricityConsumption,
+            averageElectricitySavingsIncentivisedUsingSmartMeter,
+            annualElectricitySavingsWithSmartMeters,
+            annualOperationalCostSavings,
+            initialInvestmentForElectricitySmartMeter,
+            netPresentValueOfOperationalEnergyCostSavings,
+            annualOperationalEmissionSavings,
+            totalOperationalEmissionSavingsAcrossAbatementPeriod,
+            totalOperationalEmissionSavingsAcrossAbatementPeriodTon,
+            costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            isComplete: true
+        }));
+        navigate("./../smart-meters-gas")
+    }
 
     return (
         <>
@@ -49,16 +72,9 @@ const SmartMetersElectricity = () => {
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
+                                disabled={true}
                                 heading="Average annual electricity consumption"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setAverageAnnualElectricityConsumption(event.target.value) }} />
-                            {/* <InputWithSideText value={currentLightingPowerRating}
-                                unit="W"
-                                type="number"
-                                placeholder="Enter value"
-                                heading="Enter current lighting power rating"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event)=>{setcurrentLightingPowerRating(event.target.value)}} /> */}
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                         </div>
                         <div className="calculated-main">
 
@@ -75,13 +91,12 @@ const SmartMetersElectricity = () => {
                                 placeholder="Enter value"
                                 heading="Average electricity savings incentivised using smart meter"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setAverageElectricitySavingsIncentivisedUsingSmartMeter(event.target.value) }} />
+                                disabled={true} />
 
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
                                 <CalculatedData heading="Annual electricity savings with smart meters" unit="kWh" value={annualElectricitySavingsWithSmartMeters} />
-                                {/* <CalculatedData heading="" unit="" value={""} /> */}
                             </div>
                         </div>
                     </div>
@@ -96,7 +111,8 @@ const SmartMetersElectricity = () => {
                                 placeholder="Enter value"
                                 heading="Initial investment for electricity smart meter(CAPEX)"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setInitialInvestmentForElectricitySmartMeter(event.target.value) }} />
+                                disabled={true}
+                                toFixed={true} />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -113,17 +129,19 @@ const SmartMetersElectricity = () => {
                             <InputWithSideText value={annualOperationalEmissionSavings}
                                 unit="kgCO2e"
                                 type="number"
+                                disabled={true}
+                                toFixed={true}
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                onChange={(event) => { setAnnualOperationalEmissionSavings(event.target.value) }}/>
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
+                                disabled={true}
+                                toFixed={true}
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={(event) => { setTotalOperationalEmissionSavingsAcrossAbatementPeriod(event.target.value) }} />
+                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -134,7 +152,7 @@ const SmartMetersElectricity = () => {
                     </div>
                 </div>
                 <div className="btn-div">
-                    <Button value="Next" onClick={""} />
+                    <Button value="Next" onClick={onSave} />
                 </div>
             </div >
         </>
