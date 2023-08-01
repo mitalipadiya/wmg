@@ -5,6 +5,7 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLed } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import InputWithSelect from "../UI/InputWithSelect";
 
 const Led = () => {
     const { baseline, economicParameters, led } = useSelector(state => state.module2);
@@ -31,6 +32,8 @@ const Led = () => {
     const [netPresentValueOfOperationalEnergyCostSavings, setNetPresentValueOfOperationalEnergyCostSavings] = useState(led?.netPresentValueOfOperationalEnergyCostSavings);
     const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(led?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
     const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(led?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
+
+    const lightingTypes = ["Incandescent Bulb", "CFL"];
 
 
     useEffect(() => {
@@ -72,24 +75,42 @@ const Led = () => {
     useEffect(()=>{
         if(currentTypeOfLighting == "Incandescent Bulb") {
             switch(currentLightingPowerRating) {
-                case "40": 
+                case "40" || 40: 
                     setLEDPowerRating(5);
                     break;
-                case "60": 
+                case "60" || 60: 
                     setLEDPowerRating(6);
                     break;
-                case "75":
+                case "75" || 75:
                     setLEDPowerRating(7.5);
                     break;
-                case "100":
+                case "100" || 100:
                     setLEDPowerRating(10);
                     break;
-                case "150":
+                case "150" || 150:
                     setLEDPowerRating(15);
                     break;
             }
+        }else {
+            if(currentLightingPowerRating >= 13 && currentLightingPowerRating <= 18) {
+                setLEDPowerRating("6");
+            }else if(currentLightingPowerRating > 18 && currentLightingPowerRating <= 22) {
+                setLEDPowerRating("7.5");
+            }else if(currentLightingPowerRating > 22 && currentLightingPowerRating <= 30){
+                setLEDPowerRating("10");
+            }else if(currentLightingPowerRating > 30 && currentLightingPowerRating <= 55){
+                setLEDPowerRating("15");
+            }
         }
     }, [currentTypeOfLighting, currentLightingPowerRating])
+
+    useEffect(()=>{
+        if(currentTypeOfLighting == "Incandescent Bulb") {
+            setCurrentLightingPowerRating("60");
+        }else {
+            setCurrentLightingPowerRating("15");
+        }
+    },[currentTypeOfLighting]);
 
     useEffect(() => {
         setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
@@ -131,10 +152,8 @@ const Led = () => {
                     <h2 className="group-heading">GENERAL</h2>
                     <div className="form-div">
                         <div className="form-input">
-                            <InputWithSideText value={currentTypeOfLighting}
-                                unit=""
-                                type="text"
-                                placeholder="Enter value"
+                            <InputWithSelect value={currentTypeOfLighting}
+                                values={lightingTypes}
                                 heading="Enter current type of lighting"
                                 onChange={(event) => { setCurrentTypeOfLighting(event.target.value) }}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />

@@ -14,9 +14,13 @@ const round = (num, decimalPlaces = 0) =>{
 const formatValueWithTwoDecimals = (value) => {
   return parseFloat(parseFloat(value).toFixed(2));
 };
+const formatValueWithoutDecimals = (value) => {
+  return parseFloat(parseFloat(value).toFixed(0));
+};
 
 export {
     getModule2Details,
     round,
-    formatValueWithTwoDecimals
+    formatValueWithTwoDecimals,
+    formatValueWithoutDecimals
 };

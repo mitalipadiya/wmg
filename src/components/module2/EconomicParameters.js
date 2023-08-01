@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateEconomicParameters } from "../../actions/module2";
 import Button from "../UI/Button";
-import { round } from "../../services/module2.service";
 
 const EconomicParameters = () => {
     const { economicParameters, baseline } = useSelector(state => state.module2);
@@ -19,10 +18,10 @@ const EconomicParameters = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
-        setAnnualOperationalCostOfElectricity(round(baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity, 2));
+        setAnnualOperationalCostOfElectricity(baseline?.averageAnnualElectricityConsumption * unitPriceOfElectricity);
     }, [unitPriceOfElectricity]);
     useEffect(() => {
-        setAnnualOperationalCostOfHeat(round(unitPriceOfGas * baseline?.averageAnnualGasConsumption, 2));
+        setAnnualOperationalCostOfHeat(unitPriceOfGas * baseline?.averageAnnualGasConsumption);
     }, [unitPriceOfGas]);
 
     const onSave = () => {

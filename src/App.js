@@ -32,6 +32,7 @@ import SolarThermal from './components/module2/SolarThermal';
 import IndustrialHeatPump from './components/module2/IndustrialHeatPump';
 import EmissionSavings from './components/module2/EmissionSavings';
 import Macc from './components/module2/Macc';
+import ParetoOptimisation from './components/module2/ParetoOptimisation';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -75,7 +76,8 @@ function App() {
           <Route path="solar-thermal" element={<SolarThermal/>}/>
           <Route path="industrial-heat-pump" element={<IndustrialHeatPump/>}/>
           <Route path="emission-savings" element={<EmissionSavings/>}/>
-          <Route path="macc"element={<Macc/>}/>
+          <Route path="macc" element={<Macc/>}/>
+          <Route path='pareto-optimisation' element={<ParetoOptimisation/>}/>
         </Route>
         <Route path="/profile" element={<UpdateProfile />} />
         <Route path="/survey-results" element={<SurveyResults />} />

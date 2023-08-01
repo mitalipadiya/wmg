@@ -12,6 +12,9 @@
     margin: 16px 0;
     text-align: left;
     font: normal normal bold 12px/17px Manrope;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
 .c-nav-subitem {
@@ -45,4 +48,19 @@
     letter-spacing: 0px;
     color: #B8BF29;
     font-weight: 600;
+}
+.heading-arrow {
+    width: 16px;
+    height: 16px;
+    background: transparent 0% 0% no-repeat padding-box;
+    content: url("../../assets/vuesax-linear-arrow-left.svg");
+}
+.heading-arrow.selected {
+    content: url("../../assets/vuesax-linear-arrow-left-selected.svg");
+}
+.hide {
+    display: none;
+}
+.show {
+    display: block;
 }

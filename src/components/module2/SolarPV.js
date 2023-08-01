@@ -97,10 +97,14 @@ const SolarPV = () => {
     }, [])
 
     useEffect(() => {
-        setAreaOfPVSystem(electricityGeneratedPVSystem / (annualSolarInsolationSelectedLocation * (solarModuleEfficiency) / 100));
+        if(annualSolarInsolationSelectedLocation && solarModuleEfficiency) {
+            setAreaOfPVSystem(electricityGeneratedPVSystem / (annualSolarInsolationSelectedLocation * (solarModuleEfficiency) / 100));
+        }
     }, [electricityGeneratedPVSystem, annualSolarInsolationSelectedLocation, solarModuleEfficiency]);
     useEffect(() => {
-        setSizeOfPVSystem(electricityGeneratedPVSystem / annualElectricityGenerationSelectedLocation);
+        if(annualElectricityGenerationSelectedLocation) {
+            setSizeOfPVSystem(electricityGeneratedPVSystem / annualElectricityGenerationSelectedLocation);
+        }
     }, [electricityGeneratedPVSystem, annualElectricityGenerationSelectedLocation]);
     useEffect(() => {
         setInitialInvestmentPVSystem(sizeOfPVSystem * unitInstallationCostPVSystem);
@@ -158,7 +162,7 @@ const SolarPV = () => {
                                 placeholder="Enter value"
                                 heading="What % of annual electricity you want to get from PV?"
                                 subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                onChange={setPercentAnnualElectricityFromPV} />
+                                onChange={(event) => setPercentAnnualElectricityFromPV(event.target.value)} />
                             <InputWithSideText value={location}
                                 unit=""
                                 type="text"

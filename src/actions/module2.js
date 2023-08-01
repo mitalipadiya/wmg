@@ -1,6 +1,6 @@
 
 import {
-    GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS, UPDATE_SOLAR_PV, UPDATE_WIND, UPDATE_LED, UPDATE_PASSIVE_INFRARED_SENSOR, UPDATE_SMART_METERS_ELECTRICITY, UPDATE_SMART_METERS_GAS, UPDATE_VOLTAGE_OPTIMISATION, UPDATE_ENERGY_MANAGEMENT_SYSTEM, UPDATE_SOLAR_THERMAL, INDUSTRIAL_HEAT_PUMP
+    GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS, UPDATE_SOLAR_PV, UPDATE_WIND, UPDATE_LED, UPDATE_PASSIVE_INFRARED_SENSOR, UPDATE_SMART_METERS_ELECTRICITY, UPDATE_SMART_METERS_GAS, UPDATE_VOLTAGE_OPTIMISATION, UPDATE_ENERGY_MANAGEMENT_SYSTEM, UPDATE_SOLAR_THERMAL, INDUSTRIAL_HEAT_PUMP, UPDATE_BIOMASS, UPDATE_SOLAR_PV_BESS
   } from "./types";
   
   import {getModule2Details} from "../services/module2.service";
@@ -58,6 +58,19 @@ import {
       payload: wind
     }); 
   };
+  export const updateSolarPvBess = (solarPvBess) => (dispatch) => {
+    dispatch({
+      type: UPDATE_SOLAR_PV_BESS,
+      payload: solarPvBess
+    }); 
+  };
+  export const updateBiomass = (biomass) => (dispatch) => {
+    dispatch({
+      type: UPDATE_BIOMASS,
+      payload: biomass
+    }); 
+  };
+  
   export const updateLed = (led) => (dispatch) => {
     dispatch({
       type: UPDATE_LED,
