@@ -69,16 +69,16 @@ const Led = () => {
     useEffect(() => {
         setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod / 1000);
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod])
-    useEffect(()=>{
-        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForLEDs-netPresentValueOfOperationalEnergyCostSavings)/totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
-    },[initialInvestmentForLEDs,netPresentValueOfOperationalEnergyCostSavings,totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
-    useEffect(()=>{
-        if(currentTypeOfLighting == "Incandescent Bulb") {
-            switch(currentLightingPowerRating) {
-                case "40" || 40: 
+    useEffect(() => {
+        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForLEDs - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+    }, [initialInvestmentForLEDs, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
+    useEffect(() => {
+        if (currentTypeOfLighting == "Incandescent Bulb") {
+            switch (currentLightingPowerRating) {
+                case "40" || 40:
                     setLEDPowerRating(5);
                     break;
-                case "60" || 60: 
+                case "60" || 60:
                     setLEDPowerRating(6);
                     break;
                 case "75" || 75:
@@ -91,26 +91,26 @@ const Led = () => {
                     setLEDPowerRating(15);
                     break;
             }
-        }else {
-            if(currentLightingPowerRating >= 13 && currentLightingPowerRating <= 18) {
+        } else {
+            if (currentLightingPowerRating >= 13 && currentLightingPowerRating <= 18) {
                 setLEDPowerRating("6");
-            }else if(currentLightingPowerRating > 18 && currentLightingPowerRating <= 22) {
+            } else if (currentLightingPowerRating > 18 && currentLightingPowerRating <= 22) {
                 setLEDPowerRating("7.5");
-            }else if(currentLightingPowerRating > 22 && currentLightingPowerRating <= 30){
+            } else if (currentLightingPowerRating > 22 && currentLightingPowerRating <= 30) {
                 setLEDPowerRating("10");
-            }else if(currentLightingPowerRating > 30 && currentLightingPowerRating <= 55){
+            } else if (currentLightingPowerRating > 30 && currentLightingPowerRating <= 55) {
                 setLEDPowerRating("15");
             }
         }
     }, [currentTypeOfLighting, currentLightingPowerRating])
 
-    useEffect(()=>{
-        if(currentTypeOfLighting == "Incandescent Bulb") {
+    useEffect(() => {
+        if (currentTypeOfLighting == "Incandescent Bulb") {
             setCurrentLightingPowerRating("60");
-        }else {
+        } else {
             setCurrentLightingPowerRating("15");
         }
-    },[currentTypeOfLighting]);
+    }, [currentTypeOfLighting]);
 
     useEffect(() => {
         setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
@@ -291,9 +291,14 @@ const Led = () => {
                         <div className="calculated-main">
                             <div className="calculated-container">
                                 <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} />
-                                <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} />
+
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div className="calculated-main calculated-last">
+                    <div className="calculated-container">
+                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} />
                     </div>
                 </div>
                 <div className="btn-div">

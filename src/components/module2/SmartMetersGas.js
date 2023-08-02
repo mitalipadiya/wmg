@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { updateSmartMetersGas } from "../../actions/module2";
 
 const SmartMetersGas = () => {
-    const { baseline, economicParameters,smartMetersGas } = useSelector(state => state.module2);
+    const { baseline, economicParameters, smartMetersGas } = useSelector(state => state.module2);
     const [averageAnnualGasConsumption] = useState(baseline?.averageAnnualGasConsumption);
     const [averageGasSavingsIncentivisedUsingSmartMeter] = useState(smartMetersGas?.averageGasSavingsIncentivisedUsingSmartMeter);
-    const [annualGasConsumptionWithSmartMeters, setAnnualGasConsumptionWithSmartMeters]=useState(smartMetersGas?.annualGasConsumptionWithSmartMeters);
+    const [annualGasConsumptionWithSmartMeters, setAnnualGasConsumptionWithSmartMeters] = useState(smartMetersGas?.annualGasConsumptionWithSmartMeters);
     const [initialInvestmentForGasSmartMeter] = useState(smartMetersGas?.initialInvestmentForGasSmartMeter);
     const [annualOperationalCostSavings, setAnnualOperationalCostSavings] = useState(smartMetersGas?.annualOperationalCostSavings);
     const [netPresentValueOfOperationalEnergyCostSavings, setNetPresentValueOfOperationalEnergyCostSavings] = useState(smartMetersGas?.netPresentValueOfOperationalEnergyCostSavings);
@@ -22,19 +22,19 @@ const SmartMetersGas = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
-        setAnnualGasConsumptionWithSmartMeters(averageAnnualGasConsumption*(100-averageGasSavingsIncentivisedUsingSmartMeter)/100)
+        setAnnualGasConsumptionWithSmartMeters(averageAnnualGasConsumption * (100 - averageGasSavingsIncentivisedUsingSmartMeter) / 100)
     }, [averageAnnualGasConsumption, averageGasSavingsIncentivisedUsingSmartMeter]);
     useEffect(() => {
-        setAnnualOperationalCostSavings((averageAnnualGasConsumption-annualGasConsumptionWithSmartMeters)*economicParameters.unitPriceOfGas)
+        setAnnualOperationalCostSavings((averageAnnualGasConsumption - annualGasConsumptionWithSmartMeters) * economicParameters.unitPriceOfGas)
     }, [averageAnnualGasConsumption, annualGasConsumptionWithSmartMeters]);
     useEffect(() => {
-        setAnnualOperationalEmissionSavings((averageAnnualGasConsumption-annualGasConsumptionWithSmartMeters)*baseline.emissionFactorForGridGas)
+        setAnnualOperationalEmissionSavings((averageAnnualGasConsumption - annualGasConsumptionWithSmartMeters) * baseline.emissionFactorForGridGas)
     }, [averageAnnualGasConsumption, annualGasConsumptionWithSmartMeters]);
     useEffect(() => {
-        setTotalOperationalEmissionSavingsAcrossAbatementPeriod(annualOperationalEmissionSavings*economicParameters.yearsOfAbatement)
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriod(annualOperationalEmissionSavings * economicParameters.yearsOfAbatement)
     }, [annualOperationalEmissionSavings]);
     useEffect(() => {
-        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod/1000)
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod / 1000)
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod]);
     useEffect(() => {
         setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
@@ -65,7 +65,7 @@ const SmartMetersGas = () => {
             <h2 className="form-heading">Smart meters - gas</h2>
             <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
             <div className="main">
-                <div>
+              
                     <h2 className="group-heading">GENERAL</h2>
                     <div className="form-div">
                         <div className="form-input">
@@ -75,11 +75,11 @@ const SmartMetersGas = () => {
                                 placeholder="Enter value"
                                 heading="Average annual gas consumption"
                                 disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                         </div>
                         <div className="calculated-main">
-                                
-                            </div>
+
+                        </div>
                     </div>
                     <div>
                         <h2 className="group-heading">TECHNICAL ANALYSIS</h2>
@@ -110,7 +110,7 @@ const SmartMetersGas = () => {
                                     placeholder="Enter value"
                                     heading="Initial investment for gas smart meter(CAPEX)"
                                     subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                    disabled={true}/>
+                                    disabled={true} />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
@@ -131,7 +131,7 @@ const SmartMetersGas = () => {
                                     disabled={true}
                                     toFixed={true}
                                     heading="Annual operational emission savings"
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
+                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                                 <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                     unit="kgCO2e"
                                     type="number"
@@ -139,20 +139,25 @@ const SmartMetersGas = () => {
                                     disabled={true}
                                     toFixed={true}
                                     heading="Total operational emission savings across abatement period"
-                                    subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
+                                    subHeading="Quis enim unde. Rerum corrupti voluptatum" />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
                                     <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} />
-                                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} />
+
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="calculated-main calculated-last">
+                        <div className="calculated-container">
+                            <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} />
                         </div>
                     </div>
                     <div className="btn-div">
                         <Button value="Next" onClick={onSave} />
                     </div>
-                </div >
+                
             </div>
         </>
 

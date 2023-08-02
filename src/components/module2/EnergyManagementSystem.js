@@ -7,11 +7,11 @@ import { updateEnergyManagementSystem } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 
 const EnergyManagementSystem = () => {
-    const { baseline ,economicParameters, energyManagementSystem} = useSelector(state => state.module2);
+    const { baseline, economicParameters, energyManagementSystem } = useSelector(state => state.module2);
     const dispatch = useDispatch();
-    const navigate =  useNavigate();
+    const navigate = useNavigate();
 
-    const [averageAnnualElectricityConsumption,setAverageAnnualElectricityConsumption] = useState(baseline?.averageAnnualElectricityConsumption);
+    const [averageAnnualElectricityConsumption, setAverageAnnualElectricityConsumption] = useState(baseline?.averageAnnualElectricityConsumption);
     const [averageAnnualGasConsumption, setAverageAnnualGasConsumption] = useState(baseline?.averageAnnualGasConsumption);
     const [averageElectricitySavingsIncentivisedUsingBEMS, setAverageElectricitySavingsIncentivisedUsingBEMS] = useState(energyManagementSystem?.averageElectricitySavingsIncentivisedUsingBEMS);
     const [averageGasSavingsIncentivisedUsingBEMS, setAverageGasSavingsIncentivisedUsingBEMS] = useState(energyManagementSystem?.averageGasSavingsIncentivisedUsingBEMS);
@@ -29,40 +29,40 @@ const EnergyManagementSystem = () => {
     const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(energyManagementSystem?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
     const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(energyManagementSystem?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
     useEffect(() => {
-        setAnnualElectricitySavingsWithBEMS(averageAnnualElectricityConsumption*averageElectricitySavingsIncentivisedUsingBEMS/100);
+        setAnnualElectricitySavingsWithBEMS(averageAnnualElectricityConsumption * averageElectricitySavingsIncentivisedUsingBEMS / 100);
     }, [averageAnnualElectricityConsumption, averageElectricitySavingsIncentivisedUsingBEMS])
     useEffect(() => {
-        setAnnualGasSavingsWithBEMS(averageAnnualGasConsumption*averageGasSavingsIncentivisedUsingBEMS/100);
+        setAnnualGasSavingsWithBEMS(averageAnnualGasConsumption * averageGasSavingsIncentivisedUsingBEMS / 100);
     }, [averageAnnualGasConsumption, averageGasSavingsIncentivisedUsingBEMS])
     useEffect(() => {
-        setAnnualOperationalElectricityCostSavings(annualElectricitySavingsWithBEMS*economicParameters.unitPriceOfElectricity);
+        setAnnualOperationalElectricityCostSavings(annualElectricitySavingsWithBEMS * economicParameters.unitPriceOfElectricity);
     }, [annualElectricitySavingsWithBEMS])
     useEffect(() => {
-        setAnnualOperationalGasCostSavings(annualGasSavingsWithBEMS*economicParameters.unitPriceOfGas);
-        setGHGEmissionsSavingsForGasWithBEMS(annualGasSavingsWithBEMS*baseline.emissionFactorForGridGas);
+        setAnnualOperationalGasCostSavings(annualGasSavingsWithBEMS * economicParameters.unitPriceOfGas);
+        setGHGEmissionsSavingsForGasWithBEMS(annualGasSavingsWithBEMS * baseline.emissionFactorForGridGas);
     }, [annualGasSavingsWithBEMS])
     useEffect(() => {
-        setTotalAnnualOperationalCostSavings(annualOperationalElectricityCostSavings+annualOperationalGasCostSavings);
-    }, [annualOperationalElectricityCostSavings,annualOperationalGasCostSavings])
+        setTotalAnnualOperationalCostSavings(annualOperationalElectricityCostSavings + annualOperationalGasCostSavings);
+    }, [annualOperationalElectricityCostSavings, annualOperationalGasCostSavings])
     useEffect(() => {
-        setGHGEmissionsSavingsForElectricityWithBEMS(annualElectricitySavingsWithBEMS*baseline.emissionFactorGridElectricity);
+        setGHGEmissionsSavingsForElectricityWithBEMS(annualElectricitySavingsWithBEMS * baseline.emissionFactorGridElectricity);
     }, [annualElectricitySavingsWithBEMS])
     useEffect(() => {
-        setAnnualOperationalEmissionSavings(gHGEmissionsSavingsForElectricityWithBEMS+gHGEmissionsSavingsForGasWithBEMS);
-    }, [gHGEmissionsSavingsForElectricityWithBEMS,gHGEmissionsSavingsForGasWithBEMS])
+        setAnnualOperationalEmissionSavings(gHGEmissionsSavingsForElectricityWithBEMS + gHGEmissionsSavingsForGasWithBEMS);
+    }, [gHGEmissionsSavingsForElectricityWithBEMS, gHGEmissionsSavingsForGasWithBEMS])
     useEffect(() => {
-        setTotalOperationalEmissionSavingsAbatementPeriod(annualOperationalEmissionSavings*economicParameters.yearsOfAbatement);
-    }, [annualOperationalEmissionSavings])    
+        setTotalOperationalEmissionSavingsAbatementPeriod(annualOperationalEmissionSavings * economicParameters.yearsOfAbatement);
+    }, [annualOperationalEmissionSavings])
     useEffect(() => {
-        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAbatementPeriod/1000);
-    }, [totalOperationalEmissionSavingsAbatementPeriod])  
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAbatementPeriod / 1000);
+    }, [totalOperationalEmissionSavingsAbatementPeriod])
     useEffect(() => {
         setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * totalAnnualOperationalCostSavings);
-    }, [totalAnnualOperationalCostSavings]);  
-    useEffect(()=>{
-        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForBEMS-netPresentValueOfOperationalEnergyCostSavings)/totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
-    },[initialInvestmentForBEMS,netPresentValueOfOperationalEnergyCostSavings,totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
-    
+    }, [totalAnnualOperationalCostSavings]);
+    useEffect(() => {
+        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForBEMS - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+    }, [initialInvestmentForBEMS, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
+
     // useEffect(() => {
     //     fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(response => {
     //         return response.json()
@@ -102,129 +102,132 @@ const EnergyManagementSystem = () => {
             <h2 className="form-heading">Energy management system</h2>
             <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
             <div className="main">
+                <h2 className="group-heading">GENERAL</h2>
+                <div className="form-div">
+                    <div className="form-input">
+                        <InputWithSideText value={baseline.averageAnnualElectricityConsumption}
+                            unit="kWh"
+                            type="number"
+                            placeholder="Enter value"
+                            heading="Average annual electricity consumption"
+                            disabled={true}
+                            subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                        <InputWithSideText value={averageAnnualGasConsumption}
+                            unit="kWh"
+                            type="number"
+                            placeholder="Enter value"
+                            heading="Average annual gas consumption"
+                            disabled={true}
+                            subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                    </div>
+                    <div className="calculated-main">
+
+                    </div>
+                </div>
                 <div>
-                    <h2 className="group-heading">GENERAL</h2>
+                    <h2 className="group-heading">TECHNICAL ANALYSIS</h2>
                     <div className="form-div">
                         <div className="form-input">
-                            <InputWithSideText value={baseline.averageAnnualElectricityConsumption}
-                                unit="kWh"
+                            <InputWithSideText value={averageElectricitySavingsIncentivisedUsingBEMS}
+                                unit="%"
                                 type="number"
                                 placeholder="Enter value"
-                                heading="Average annual electricity consumption"
                                 disabled={true}
+                                heading="Average electricity savings incentivised using building energy management system (BEMS)"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
-                            <InputWithSideText value={averageAnnualGasConsumption}
-                                unit="kWh"
+                            <InputWithSideText value={averageGasSavingsIncentivisedUsingBEMS}
+                                unit="%"
                                 type="number"
                                 placeholder="Enter value"
-                                heading="Average annual gas consumption"
                                 disabled={true}
+                                heading="Average gas savings incentivised using building energy management system (BEMS)"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
                         </div>
                         <div className="calculated-main">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <h2 className="group-heading">TECHNICAL ANALYSIS</h2>
-                        <div className="form-div">
-                            <div className="form-input">
-                                <InputWithSideText value={averageElectricitySavingsIncentivisedUsingBEMS}
-                                    unit="%"
-                                    type="number"
-                                    placeholder="Enter value"
-                                    disabled={true}
-                                    heading="Average electricity savings incentivised using building energy management system (BEMS)"
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
-                                <InputWithSideText value={averageGasSavingsIncentivisedUsingBEMS}
-                                    unit="%"
-                                    type="number"
-                                    placeholder="Enter value"
-                                    disabled={true}
-                                    heading="Average gas savings incentivised using building energy management system (BEMS)"
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
+                            <div className="calculated-container">
+                                <CalculatedData heading="Annual electricity savings with BEMS" unit="kWh" value={annualElectricitySavingsWithBEMS} />
                             </div>
-                            <div className="calculated-main">
-                                <div className="calculated-container">
-                                    <CalculatedData heading="Annual electricity savings with BEMS" unit="kWh" value={annualElectricitySavingsWithBEMS} />
-                                </div>
-                                <div className="calculated-container">
-                                    <CalculatedData heading="Annual gas savings with BEMS" unit="kWh" value={annualGasSavingsWithBEMS} />
-                                </div>
+                            <div className="calculated-container">
+                                <CalculatedData heading="Annual gas savings with BEMS" unit="kWh" value={annualGasSavingsWithBEMS} />
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <h2 className="group-heading">ECONOMIC ANALYSIS</h2>
-                        <div className="form-div">
-                            <div className="form-input">
-                                <InputWithSideText value={5000}
-                                    unit="£"
-                                    type="number"
-                                    placeholder="Enter value"
-                                    heading="Initial investment for BEMS(CAPEX)"
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                    disabled={true} />
-                            </div>
-                            <div className="calculated-main">
-                                <div className="calculated-container">
-                                    <CalculatedData heading="Annual operational electricity cost savings" unit="£" value={annualOperationalElectricityCostSavings} />
-                                    <CalculatedData heading="Annual operational gas cost savings" unit="£" value={annualOperationalGasCostSavings} />
-                                    <CalculatedData heading="Total annual operational cost savings" unit="£" value={totalAnnualOperationalCostSavings} />
-                                    <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
-                                </div>
+                </div>
+                <div>
+                    <h2 className="group-heading">ECONOMIC ANALYSIS</h2>
+                    <div className="form-div">
+                        <div className="form-input">
+                            <InputWithSideText value={5000}
+                                unit="£"
+                                type="number"
+                                placeholder="Enter value"
+                                heading="Initial investment for BEMS(CAPEX)"
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                disabled={true} />
+                        </div>
+                        <div className="calculated-main">
+                            <div className="calculated-container">
+                                <CalculatedData heading="Annual operational electricity cost savings" unit="£" value={annualOperationalElectricityCostSavings} />
+                                <CalculatedData heading="Annual operational gas cost savings" unit="£" value={annualOperationalGasCostSavings} />
+                                <CalculatedData heading="Total annual operational cost savings" unit="£" value={totalAnnualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <h2 className="group-heading">OPERATIONAL EMISSIONS ANALYSIS</h2>
-                        <div className="form-div">
-                            <div className="form-input">
-                                <InputWithSideText value={gHGEmissionsSavingsForElectricityWithBEMS}
-                                    unit="kgCO2e"
-                                    type="number"
-                                    placeholder="Enter value"
-                                    heading="GHG Emissions savings for electricity with BEMS"
-                                    disabled={true}
-                                    toFixed={true}
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
-                                <InputWithSideText value={gHGEmissionsSavingsForGasWithBEMS}
-                                    unit="kgCO2e"
-                                    type="number"
-                                    placeholder="Enter value"
-                                    heading="GHG Emissions savings for gas with BEMS"
-                                    subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                    toFixed={true}
-                                    disabled={true} />
-                                <InputWithSideText value={annualOperationalEmissionSavings}
-                                    unit="kgCO2e"
-                                    disabled={true}
-                                    toFixed={true}
-                                    type="number"
-                                    placeholder="Enter value"
-                                    heading="Annual operational emission savings"
-                                    subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
-                                <InputWithSideText value={totalOperationalEmissionSavingsAbatementPeriod}
-                                    unit="kgCO2e"
-                                    type="number"
-                                    placeholder="Enter value"
-                                    heading="Total operational emission savings across abatement period"
-                                    subHeading="Quis enim unde. Rerum corrupti voluptatum"
-                                    toFixed={true}
-                                    disabled={true} />
-                            </div>
-                            <div className="calculated-main">
-                                <div className="calculated-container">
-                                    <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} />
-                                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} />
-                                </div>
+                </div>
+                <div>
+                    <h2 className="group-heading">OPERATIONAL EMISSIONS ANALYSIS</h2>
+                    <div className="form-div">
+                        <div className="form-input">
+                            <InputWithSideText value={gHGEmissionsSavingsForElectricityWithBEMS}
+                                unit="kgCO2e"
+                                type="number"
+                                placeholder="Enter value"
+                                heading="GHG Emissions savings for electricity with BEMS"
+                                disabled={true}
+                                toFixed={true}
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                            <InputWithSideText value={gHGEmissionsSavingsForGasWithBEMS}
+                                unit="kgCO2e"
+                                type="number"
+                                placeholder="Enter value"
+                                heading="GHG Emissions savings for gas with BEMS"
+                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                toFixed={true}
+                                disabled={true} />
+                            <InputWithSideText value={annualOperationalEmissionSavings}
+                                unit="kgCO2e"
+                                disabled={true}
+                                toFixed={true}
+                                type="number"
+                                placeholder="Enter value"
+                                heading="Annual operational emission savings"
+                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
+                            <InputWithSideText value={totalOperationalEmissionSavingsAbatementPeriod}
+                                unit="kgCO2e"
+                                type="number"
+                                placeholder="Enter value"
+                                heading="Total operational emission savings across abatement period"
+                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                toFixed={true}
+                                disabled={true} />
+                        </div>
+                        <div className="calculated-main">
+                            <div className="calculated-container">
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} />
+
                             </div>
                         </div>
                     </div>
-                    <div className="btn-div">
-                        <Button value="Next" onClick={onSave}/>
+                </div>
+                <div className="calculated-main calculated-last">
+                    <div className="calculated-container">
+                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} />
                     </div>
-                </div >
+                </div>
+                <div className="btn-div">
+                    <Button value="Next" onClick={onSave} />
+                </div>
             </div>
         </>
 

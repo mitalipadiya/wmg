@@ -61,7 +61,7 @@ const SolarPV = () => {
 
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         const data = (percentAnnualElectricityFromPV / 100) * averageAnnualElectricityRequirements;
         setElectricityGeneratedPVSystem(data);
         setAnnualElectricityInsteadOfGrid(data);
@@ -97,12 +97,12 @@ const SolarPV = () => {
     }, [])
 
     useEffect(() => {
-        if(annualSolarInsolationSelectedLocation && solarModuleEfficiency) {
+        if (annualSolarInsolationSelectedLocation && solarModuleEfficiency) {
             setAreaOfPVSystem(electricityGeneratedPVSystem / (annualSolarInsolationSelectedLocation * (solarModuleEfficiency) / 100));
         }
     }, [electricityGeneratedPVSystem, annualSolarInsolationSelectedLocation, solarModuleEfficiency]);
     useEffect(() => {
-        if(annualElectricityGenerationSelectedLocation) {
+        if (annualElectricityGenerationSelectedLocation) {
             setSizeOfPVSystem(electricityGeneratedPVSystem / annualElectricityGenerationSelectedLocation);
         }
     }, [electricityGeneratedPVSystem, annualElectricityGenerationSelectedLocation]);
@@ -272,8 +272,8 @@ const SolarPV = () => {
                                 placeholder="Enter value"
                                 heading="GHG Emissions for electricity in presence of PV system"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
-                                disabled={true} 
-                                isFixed={true}/>
+                                disabled={true}
+                                isFixed={true} />
                             <InputWithSideText value={annualOperationalEmissionSavings}
                                 unit="kgCO2e"
                                 type="number"

@@ -465,7 +465,7 @@ const Chp = () => {
                     </div>
                 </div>
                 <div className="btn-div">
-                    {/* <Button value="Next" onClick={onSave} /> */}
+                    <Button value="Next" />
                 </div>
             </div >
         </>

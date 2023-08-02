@@ -1,0 +1,4 @@
+<svg id="tick-circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <path id="Vector" d="M0,3.628,3.628,7.256,10.9,0" transform="translate(2.551 4.372)" fill="none" stroke="#b8bf29" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  <path id="Vector-2" data-name="Vector" d="M0,0H16V16H0Z" fill="none" opacity="0"/>
+</svg>

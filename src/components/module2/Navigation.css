@@ -22,7 +22,12 @@
     cursor: pointer;
     font: normal normal 16px/22px Manrope;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
 }
+
 .inner-box {
     margin: 20px 24px;
 }
@@ -43,24 +48,36 @@
     opacity: 1;
     font-weight: 600;
 }
+
 .is-completed {
     font: normal normal 16px/22px Manrope;
     letter-spacing: 0px;
     color: #B8BF29;
     font-weight: 600;
 }
+
 .heading-arrow {
     width: 16px;
     height: 16px;
     background: transparent 0% 0% no-repeat padding-box;
     content: url("../../assets/vuesax-linear-arrow-left.svg");
 }
+
 .heading-arrow.selected {
     content: url("../../assets/vuesax-linear-arrow-left-selected.svg");
 }
+
 .hide {
     display: none;
 }
+
 .show {
     display: block;
+}
+
+.is-completed>span {
+    width: 16px;
+    height: 16px;
+    background: transparent 0% 0% no-repeat padding-box;
+    content: url("../../assets/vuesax-bold-tick-circle.svg");
 }
