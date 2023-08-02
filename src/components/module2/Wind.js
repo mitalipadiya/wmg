@@ -70,7 +70,6 @@ const Wind = () => {
     
     useEffect(() =>{
         fetch(`https://renewables.ninja/api/data/wind?local_time=true&format=json&header=true&lat=52.4081812&lon=-1.510477&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&height=80&turbine=Gamesa+G128+4500&raw=true`).then(res => res.json()).then(data => {
-            console.log(data)
             if (data && data.data) {
                 let allData = Object.values(data.data);
                 let totalWindSpeed = 0;

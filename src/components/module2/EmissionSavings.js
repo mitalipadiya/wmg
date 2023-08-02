@@ -8,51 +8,82 @@ import BarChartGoogle from "../UI/BarChartGoogle";
 
 const EmissionSavings = () => {
     const [emissionData, setEmissionData] = useState([]);
+    const [barData, setBarData] = useState();
     const { solarPV, baseline, led, wind, smartMetersElectricity, smartMetersGas, passiveInfraredSensor, voltageOptimisation, energyManagementSystem } = useSelector(state => state.module2);
 
     useEffect(() => {
         const data = [{
             technologyOptions: "Solar Photovoltaics (PV)",
             emissionSavings: formatValueWithTwoDecimals(solarPV?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((solarPV?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100) +"%"
+            percentSavings: formatValueWithoutDecimals((solarPV?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100),
+            color: "#79D4F1"
         },
         {
             technologyOptions: "Wind",
             emissionSavings: formatValueWithTwoDecimals(wind?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((wind?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100) + "%",
+            percentSavings: formatValueWithoutDecimals((wind?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100),
+            color: "#FBD07B"
         },
         {
             technologyOptions: "Light Emitting Diodes (LED)",
             emissionSavings: formatValueWithTwoDecimals(led?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((led?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100) + "%",
+            percentSavings: formatValueWithoutDecimals((led?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100),
+            color: "#9092BE"
         },
         {
             technologyOptions: "Smart meter for electricity",
             emissionSavings: formatValueWithTwoDecimals(smartMetersElectricity?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((smartMetersElectricity?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100) + "%",
+            percentSavings: formatValueWithoutDecimals((smartMetersElectricity?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100),
+            color: "#F4A3A0"
         },
         {
             technologyOptions: "Smart meter for gas",
             emissionSavings: formatValueWithTwoDecimals(smartMetersGas?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((smartMetersGas?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100) + "%",
+            percentSavings: formatValueWithoutDecimals((smartMetersGas?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100),
+            color: "#A8A8A9"
         },
         {
             technologyOptions: "Passive Infrared Sensors",
             emissionSavings: formatValueWithTwoDecimals(passiveInfraredSensor?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((passiveInfraredSensor?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100) + "%",
+            percentSavings: formatValueWithoutDecimals((passiveInfraredSensor?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100),
+            color: "#AC9A81"
         },
         {
             technologyOptions: "Voltage optimisation",
             emissionSavings: formatValueWithTwoDecimals(voltageOptimisation?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((voltageOptimisation?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100) + "%",
+            percentSavings: formatValueWithoutDecimals((voltageOptimisation?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100),
+            color: "#BA80C6"
         },
         {
             technologyOptions: "Building energy management system",
             emissionSavings: formatValueWithTwoDecimals(energyManagementSystem?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((energyManagementSystem?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100) + "%",
+            percentSavings: formatValueWithoutDecimals((energyManagementSystem?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions)*100),
+            color: "#F7A47B"
         }
 
         ]
+        const barData = [];
+
+        for(let i=0;i<data.length;i++) {
+            let dt = [data[i].technologyOptions, data[i].percentSavings, data[i].color, data[i].emissionSavings];
+            barData.push(dt);
+        }
+
+        setBarData([
+            [
+                "Element",
+                "% Savings with reference to Baseline",
+                { role: "style" },
+                {
+                    sourceColumn: 0,
+                    role: "annotation",
+                    type: "string",
+                    calc: "stringify",
+                },
+            ],
+            ...barData
+        
+        ]);
         setEmissionData(data);
     }, [])
     return <div>
@@ -85,7 +116,7 @@ const EmissionSavings = () => {
             </div>
             <div>
                 <div className="group-heading">GRAPHICAL VIEW</div>
-                <BarChartGoogle/>
+                <BarChartGoogle barData={barData} hAxisTitle="% Savings with reference to Baseline" vAxisTitle="kgCO2e"/>
             </div>
         </div>
     </div>

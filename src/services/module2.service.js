@@ -11,8 +11,8 @@ const round = (num, decimalPlaces = 0) =>{
     return Number(num + "e" + -decimalPlaces).toFixed(2).replace(/\.00$/, '');
   }
 }
-const formatValueWithTwoDecimals = (value) => {
-  return parseFloat(parseFloat(value).toFixed(2));
+const formatValueWithTwoDecimals = (value, decimalCount=2) => {
+  return parseFloat(parseFloat(value).toFixed(decimalCount));
 };
 const formatValueWithoutDecimals = (value) => {
   return parseFloat(parseFloat(value).toFixed(0));

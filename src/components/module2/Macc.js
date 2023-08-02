@@ -3,84 +3,78 @@ import "./Module2.css"
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./EmissionSavings.css"
+import { formatValueWithTwoDecimals } from "../../services/module2.service";
+import ColumnRecharts from "../UI/ColumnRecharts";
 
 const Macc = () => {
     const [maccData, setMaccData] = useState([]);
-    const { solavPV, baseline, economicParameters, led, wind, smartMetersElectricity, smartMetersGas, passiveInfraredSensors, voltageOptimisation, energyManagementSystem } = useSelector(state => state.module2);
+    const { solarPV, passiveInfraredSensor, smartMetersGas, led, wind, smartMetersElectricity, passiveInfraredSensors, voltageOptimisation, energyManagementSystem } = useSelector(state => state.module2);
 
     useEffect(() => {
         const data = [{
             technologyOptions: "Light Emitting Diodes (LED)",
-            annualOperations: led?.annualOperationalEmissionSavings,
-            netPresent: led?.netPresentValueOperationalEnergyCostSavings,
-            totalOperational: led?.totalOperationalEmissionSavingsAbatementPeriodTon,
-            costEffectiveness: led?.costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            annualOperations: formatValueWithTwoDecimals(led?.annualOperationalCostSavings),
+            netPresent: formatValueWithTwoDecimals(led?.netPresentValueOfOperationalEnergyCostSavings),
+            totalOperational: formatValueWithTwoDecimals(led?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 4),
+            costEffectiveness: formatValueWithTwoDecimals(led?.costEffectivenessConsideringOperationalEmissionSavingsOnly),
+            color: '#9092BE'
         },
         {
             technologyOptions: "Smart meter for electricity",
-            annualOperations: smartMetersElectricity?.annualOperationalEmissionSavings,
-            netPresent: smartMetersElectricity?.netPresentValueOperationalEnergyCostSavings,
-            totalOperational: smartMetersElectricity?.totalOperationalEmissionSavingsAbatementPeriodTon,
-            costEffectiveness: smartMetersElectricity?.costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            annualOperations: formatValueWithTwoDecimals(smartMetersElectricity?.annualOperationalCostSavings),
+            netPresent: formatValueWithTwoDecimals(smartMetersElectricity?.netPresentValueOfOperationalEnergyCostSavings),
+            totalOperational: formatValueWithTwoDecimals(smartMetersElectricity?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 4),
+            costEffectiveness: formatValueWithTwoDecimals(smartMetersElectricity?.costEffectivenessConsideringOperationalEmissionSavingsOnly),
+            color: '#F4A3A0'
         },
         {
             technologyOptions: "Wind",
-            annualOperations: wind?.annualOperationalEmissionSavings,
-            netPresent: wind?.netPresentValueOperationalEnergyCostSavings,
-            totalOperational: wind?.totalOperationalEmissionSavingsAbatementPeriodTon,
-            costEffectiveness: wind?.costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            annualOperations: formatValueWithTwoDecimals(wind?.annualOperationalCost),
+            netPresent: formatValueWithTwoDecimals(wind?.netPresentValueOperationalEnergyCostSavings),
+            totalOperational: formatValueWithTwoDecimals(wind?.totalOperationalEmissionSavingsAbatementPeriodTon, 4),
+            costEffectiveness: formatValueWithTwoDecimals(wind?.costEffectivenessConsideringOperationalEmissionSavings),
+            color: '#FBD07B'
         },
         {
             technologyOptions: "Passive Infrared Sensors",
-            annualOperations: solavPV?.annualOperationalEmissionSavings,
-            netPresent: solavPV?.netPresentValueOperationalEnergyCostSavings,
-            totalOperational: solavPV?.totalOperationalEmissionSavingsAbatementPeriodTon,
-            costEffectiveness: solavPV?.costEffectivenessConsideringOperationalEmissionSavingsOnly,
-        },
-        {
-            technologyOptions: "Smart meter for gas",
-            annualOperations: solavPV?.annualOperationalEmissionSavings,
-            netPresent: solavPV?.netPresentValueOperationalEnergyCostSavings,
-            totalOperational: solavPV?.totalOperationalEmissionSavingsAbatementPeriodTon,
-            costEffectiveness: solavPV?.costEffectivenessConsideringOperationalEmissionSavingsOnly,
-        },
-        {
-            technologyOptions: "Passive Infrared Sensors",
-            annualOperations: passiveInfraredSensors?.annualOperationalEmissionSavings,
-            netPresent: passiveInfraredSensors?.netPresentValueOperationalEnergyCostSavings,
-            totalOperational: passiveInfraredSensors?.totalOperationalEmissionSavingsAbatementPeriodTon,
-            costEffectiveness: passiveInfraredSensors?.costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            annualOperations: formatValueWithTwoDecimals(passiveInfraredSensor?.annualOperationalCostSavings),
+            netPresent: formatValueWithTwoDecimals(passiveInfraredSensor?.netPresentValueOfOperationalEnergyCostSaings),
+            totalOperational: formatValueWithTwoDecimals(passiveInfraredSensor?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 4),
+            costEffectiveness: formatValueWithTwoDecimals(passiveInfraredSensor?.costEffectivenessConsideringOperationalEmissionSavingsOnly),
+            color: '#AC9A81'
         },
         {
             technologyOptions: "Solar PhotoVoltaics(PV)",
-            annualOperations: solavPV?.annualOperationalEmissionSavings,
-            netPresent: solavPV?.netPresentValueOperationalEnergy,
-            totalOperational: solavPV?.totalOperationalEmissionSavingsAbatementPeriodInTon,
-            costEffectiveness: solavPV?.costEffectivenessOperationalEmission,
+            annualOperations: formatValueWithTwoDecimals(solarPV?.annualOperationalCostSavings),
+            netPresent: formatValueWithTwoDecimals(solarPV?.netPresentValueOperationalEnergy),
+            totalOperational: formatValueWithTwoDecimals(solarPV?.totalOperationalEmissionSavingsAbatementPeriodInTon, 4),
+            costEffectiveness: formatValueWithTwoDecimals(solarPV?.costEffectivenessOperationalEmission),
+            color: '#79D4F1'
         },
         {
             technologyOptions: "Building energy management system",
-            annualOperations: energyManagementSystem?.annualOperationalEmissionSavings,
-            netPresent: energyManagementSystem?.netPresentValueOperationalEnergyCostSavings,
-            totalOperational: energyManagementSystem?.totalOperationalEmissionSavingsAbatementPeriodTon,
-            costEffectiveness: energyManagementSystem?.costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            annualOperations: formatValueWithTwoDecimals(energyManagementSystem?.totalAnnualOperationalCostSavings),
+            netPresent: formatValueWithTwoDecimals(energyManagementSystem?.netPresentValueOfOperationalEnergyCostSavings),
+            totalOperational: formatValueWithTwoDecimals(energyManagementSystem?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 4),
+            costEffectiveness: formatValueWithTwoDecimals(energyManagementSystem?.costEffectivenessConsideringOperationalEmissionSavingsOnly),
+            color: '#F7A47B'
         },
         {
             technologyOptions: "Voltage Optimisation",
-            annualOperations: voltageOptimisation?.annualOperationalEmissionSavings,
-            netPresent: voltageOptimisation?.netPresentValueOperationalEnergyCostSavings,
-            totalOperational: voltageOptimisation?.totalOperationalEmissionSavingsAbatementPeriodTon,
-            costEffectiveness: voltageOptimisation?.costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            annualOperations: formatValueWithTwoDecimals(voltageOptimisation?.annualOperationalCostSavings),
+            netPresent: formatValueWithTwoDecimals(voltageOptimisation?.netPresentValueOfOperationalEnergyCostSavings),
+            totalOperational: formatValueWithTwoDecimals(voltageOptimisation?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 4),
+            costEffectiveness: formatValueWithTwoDecimals(voltageOptimisation?.costEffectivenessConsideringOperationalEmissionSavingsOnly),
+            color: '#BA80C6'
         },
         {
             technologyOptions: "Smart Meters for Gas",
-            annualOperations: smartMetersGas?.annualOperationalEmissionSavings,
-            netPresent: smartMetersGas?.netPresentValueOperationalEnergyCostSavings,
-            totalOperational: smartMetersGas?.totalOperationalEmissionSavingsAbatementPeriodTon,
-            costEffectiveness: smartMetersGas?.costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            annualOperations: formatValueWithTwoDecimals(smartMetersGas?.annualOperationalCostSavings),
+            netPresent: formatValueWithTwoDecimals(smartMetersGas?.netPresentValueOfOperationalEnergyCostSavings),
+            totalOperational: formatValueWithTwoDecimals(smartMetersGas?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 4),
+            costEffectiveness: formatValueWithTwoDecimals(smartMetersGas?.costEffectivenessConsideringOperationalEmissionSavingsOnly),
+            color: '#A8A8A9'
         }
-
-
         ]
         setMaccData(data);
     }, [])
@@ -115,6 +109,11 @@ const Macc = () => {
                         }
                     </tbody>
                 </table>
+            </div>
+            <div>
+                <div className="group-heading">GRAPHICAL VIEW</div>
+                {/* <ColumnChartGoogle chartData={chartData} hAxisTitle="% Savings with reference to Baseline" vAxisTitle="kgCO2e"/> */}
+                <ColumnRecharts data={maccData}/>
             </div>
         </div>
     </div>
