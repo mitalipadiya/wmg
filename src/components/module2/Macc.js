@@ -1,14 +1,19 @@
 import { useState } from "react"
 import "./Module2.css"
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./EmissionSavings.css"
 import { formatValueWithTwoDecimals } from "../../services/module2.service";
 import ColumnRecharts from "../UI/ColumnRecharts";
+import { updateMacc } from "../../actions/module2";
+import { useNavigate } from "react-router-dom";
+import Button from "../UI/Button";
 
 const Macc = () => {
     const [maccData, setMaccData] = useState([]);
-    const { solarPV, passiveInfraredSensor, smartMetersGas, led, wind, smartMetersElectricity, passiveInfraredSensors, voltageOptimisation, energyManagementSystem } = useSelector(state => state.module2);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { solarPV, passiveInfraredSensor, smartMetersGas, led, wind, smartMetersElectricity, voltageOptimisation, energyManagementSystem } = useSelector(state => state.module2);
 
     useEffect(() => {
         const data = [{
@@ -78,6 +83,13 @@ const Macc = () => {
         ]
         setMaccData(data);
     }, [])
+
+    const onSave = () => {
+        dispatch(updateMacc({
+            isComplete: true
+        }));
+        navigate("./../pareto-optimisation")
+    }
     return <div>
         <h2 className="form-heading">Marginal Abatement Cost Curve (MACC)</h2>
         <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
@@ -115,6 +127,9 @@ const Macc = () => {
                 {/* <ColumnChartGoogle chartData={chartData} hAxisTitle="% Savings with reference to Baseline" vAxisTitle="kgCO2e"/> */}
                 <ColumnRecharts data={maccData}/>
             </div>
+        </div>
+        <div className="btn-div">
+            <Button value="Next" onClick={onSave} />
         </div>
     </div>
 }

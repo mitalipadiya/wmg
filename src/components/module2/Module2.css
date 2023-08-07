@@ -52,12 +52,14 @@
 .btn-div {
     align-self: flex-end;
     margin: 17px 0;
+    text-align: right;
 }   
 .group-heading {
     font: normal normal bold 16px/22px Manrope;
     letter-spacing: 1.6px;
     color: #B8BF29;
     text-transform: uppercase;
+    margin-bottom: 20px;
 } 
 .calculated-last {
     width: 100%;

@@ -31,7 +31,7 @@ const Baseline = () => {
             isComplete: true
         }));
 
-        navigate("./../economic-parameters")
+        navigate("./../technologies");
 
     }
     useEffect(() => {

@@ -1,0 +1,22 @@
+.all-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.technologies-list>h4 {
+    font: normal normal 600 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+}
+.technologies-list {
+    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.checkbox-div {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}

@@ -1,6 +1,6 @@
 
 import {
-    GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS, UPDATE_SOLAR_PV, UPDATE_WIND, UPDATE_LED, UPDATE_PASSIVE_INFRARED_SENSOR, UPDATE_SMART_METERS_ELECTRICITY, UPDATE_SMART_METERS_GAS, UPDATE_VOLTAGE_OPTIMISATION, UPDATE_ENERGY_MANAGEMENT_SYSTEM, UPDATE_SOLAR_THERMAL, INDUSTRIAL_HEAT_PUMP, UPDATE_BIOMASS, UPDATE_SOLAR_PV_BESS
+    GET_MODULE2, UPDATE_BASELINE, UPDATE_ECONOMIC_PARAMETERS, UPDATE_SOLAR_PV, UPDATE_WIND, UPDATE_LED, UPDATE_PASSIVE_INFRARED_SENSOR, UPDATE_SMART_METERS_ELECTRICITY, UPDATE_SMART_METERS_GAS, UPDATE_VOLTAGE_OPTIMISATION, UPDATE_ENERGY_MANAGEMENT_SYSTEM, UPDATE_SOLAR_THERMAL, UPDATE_INDUSTRIAL_HEAT_PUMP, UPDATE_BIOMASS, UPDATE_SOLAR_PV_BESS, UPDATE_TECHNOLOGIES, UPDATE_EMISSION_SAVINGS, UPDATE_MACC, UPDATE_PARETO_OPTIMISATION, UPDATE_CHP
   } from "./types";
   
   import {getModule2Details} from "../services/module2.service";
@@ -40,6 +40,12 @@ import {
       payload: baseline
     }); 
   };
+  export const updateTechnologies = (technologies) => (dispatch) => {
+    dispatch({
+      type: UPDATE_TECHNOLOGIES,
+      payload: technologies
+    }); 
+  };
   export const updateEconomicParameters = (economicParameters) => (dispatch) => {
     dispatch({
       type: UPDATE_ECONOMIC_PARAMETERS,
@@ -68,6 +74,13 @@ import {
     dispatch({
       type: UPDATE_BIOMASS,
       payload: biomass
+    }); 
+  };
+
+  export const updateChp = (chp) => (dispatch) => {
+    dispatch({
+      type: UPDATE_CHP,
+      payload: chp
     }); 
   };
   
@@ -115,8 +128,26 @@ import {
   };
   export const updateIndustrialHeatPump = (industrialHeatPump) => (dispatch) => {
     dispatch({
-      type: INDUSTRIAL_HEAT_PUMP,
+      type: UPDATE_INDUSTRIAL_HEAT_PUMP,
       payload: industrialHeatPump
+    }); 
+  };
+  export const updateEmissionSavings = (emissionSavings) => (dispatch) => {
+    dispatch({
+      type: UPDATE_EMISSION_SAVINGS,
+      payload: emissionSavings
+    }); 
+  };
+  export const updateMacc = (macc) => (dispatch) => {
+    dispatch({
+      type: UPDATE_MACC,
+      payload: macc
+    }); 
+  };
+  export const updateParetoOptimisation = (paretoOptimisation) => (dispatch) => {
+    dispatch({
+      type: UPDATE_PARETO_OPTIMISATION,
+      payload: paretoOptimisation
     }); 
   };
   

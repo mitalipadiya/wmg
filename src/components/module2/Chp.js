@@ -3,11 +3,14 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBaseline } from "../../actions/module2";
+import { updateBaseline, updateChp } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import InputWithSelect from "../UI/InputWithSelect";
 
 const Chp = () => {
     const { chp, baseline, economicParameters } = useSelector(state => state.module2);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [averageAnnualElectricityRequirements, setAverageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
     const [numberOfHoursOfElectricityDemand, setNumberOfHoursOfElectricityDemand] = useState(chp?.numberOfHoursOfElectricityDemand);
@@ -51,6 +54,11 @@ const Chp = () => {
     const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAbatementPeriodTon] = useState(chp?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon)
     const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(chp?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
 
+    const [headToPowerRatioForCalculation, setHeadToPowerRatioForCalculation] = useState();
+    const [installationCost, setInstallationCost] = useState();
+
+    const loadsSupplied = ["Hot water only", "Process heat-Medium pressure steam", "Process heat-high temp heat"];
+
     useEffect(() => {
         setAverageElectricityLoad((averageAnnualElectricityRequirements * (annualElectricityYouWantToGetFromCHPSystem/100)) / numberOfHoursOfElectricityDemand);
     }, [averageAnnualElectricityRequirements, annualElectricityYouWantToGetFromCHPSystem, numberOfHoursOfElectricityDemand]);
@@ -67,11 +75,10 @@ const Chp = () => {
         setAnnualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas(baseLoadHeatDemand * numberOfHoursOfHeatDemand)
     }, [baseLoadHeatDemand, numberOfHoursOfHeatDemand]);
     useEffect(() => {
-        setAnnualElectricityDeliveredUsingCHPSystemInsteadOfGridGas(annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas / (1.79
-            ))
+        setAnnualElectricityDeliveredUsingCHPSystemInsteadOfGridGas(annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas / headToPowerRatioForCalculation)
     }, [annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas]);
     useEffect(() => {
-        setSizeOfCHPSystem(baseLoadHeatDemand / 1.79)
+        setSizeOfCHPSystem(baseLoadHeatDemand / headToPowerRatioForCalculation)
     }, [baseLoadHeatDemand, electricalEfficiency]);
     useEffect(() => {
         setFuelUsage((annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas / (thermalEfficiency/100)) + (annualElectricityDeliveredUsingCHPSystemInsteadOfGridGas / (electricalEfficiency/100)))
@@ -121,6 +128,140 @@ const Chp = () => {
     useEffect(()=>{
         setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForCHPSystem - netPresentValueOfOperationalEnergyCostSavings)/totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
     },[initialInvestmentForCHPSystem,netPresentValueOfOperationalEnergyCostSavings,totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
+
+    useEffect(()=>{
+        if(loadsAreToBeSupplied == "Hot water only") {
+            setCHPSystem("Reciprocating engine");
+            setCHPSystemPrimeMoverTechnology("Reciprocating engine");
+            if(averageElectricityLoad <= 100) {
+                setElectricalEfficiency(29.6);
+                setThermalEfficiency(53.2);
+                setHeadToPowerRatioForCalculation(1.79);
+                setInstallationCost(2900);
+            }else if(averageElectricityLoad > 100 && averageElectricityLoad <= 633) {
+                setElectricalEfficiency(34.5);
+                setThermalEfficiency(45.3);
+                setHeadToPowerRatioForCalculation(1.32);
+                setInstallationCost(2840);
+            }else if(averageElectricityLoad > 633 && averageElectricityLoad <= 1141){
+                setElectricalEfficiency(37.6);
+                setThermalEfficiency(43.0);
+                setHeadToPowerRatioForCalculation(1.15);
+                setInstallationCost(2370);
+            }else if(averageElectricityLoad > 1141 && averageElectricityLoad <= 3325){
+                setElectricalEfficiency(40.9);
+                setThermalEfficiency(38.6);
+                setHeadToPowerRatioForCalculation(0.94);
+                setInstallationCost(1800);
+            }else if(averageElectricityLoad > 3325 && averageElectricityLoad <= 9341){
+                setElectricalEfficiency(41.9);
+                setThermalEfficiency(35.0);
+                setHeadToPowerRatioForCalculation(0.83);
+                setInstallationCost(1430);
+            }
+        }else if(loadsAreToBeSupplied == "Process heat-Medium pressure steam") {
+            setCHPSystem("Pass out steam turbine");
+            setCHPSystemPrimeMoverTechnology("Steam turbine");
+            if(averageElectricityLoad <= 500) {
+                setElectricalEfficiency(6.30);
+                setThermalEfficiency(73.30);
+                setHeadToPowerRatioForCalculation(11.6);
+                setInstallationCost(1136);
+            }else if(averageElectricityLoad > 500 && averageElectricityLoad <= 3000) {
+                setElectricalEfficiency(4.90);
+                setThermalEfficiency(74.80);
+                setHeadToPowerRatioForCalculation(15.2);
+                setInstallationCost(682);
+            }else if(averageElectricityLoad > 3000 && averageElectricityLoad <= 15000){
+                setElectricalEfficiency(7.30);
+                setThermalEfficiency(72.40);
+                setHeadToPowerRatioForCalculation(9.9);
+                setInstallationCost(666);
+            }
+        }else {
+            setCHPSystem("Gas turbine");
+            setCHPSystemPrimeMoverTechnology("Gas turbine");
+            if(averageElectricityLoad <= 3515) {
+                setElectricalEfficiency(23.7);
+                setThermalEfficiency(41.1);
+                setHeadToPowerRatioForCalculation(1.72);
+                setInstallationCost(3320);
+            }else if(averageElectricityLoad > 3515 && averageElectricityLoad <= 4600) {
+                setElectricalEfficiency(25.0);
+                setThermalEfficiency(42.7);
+                setHeadToPowerRatioForCalculation(1.72);
+                setInstallationCost(2817);
+            }else if(averageElectricityLoad > 4600 && averageElectricityLoad <= 7965){
+                setElectricalEfficiency(29.2);
+                setThermalEfficiency(41.4);
+                setHeadToPowerRatioForCalculation(1.43);
+                setInstallationCost(2017);
+            }else if(averageElectricityLoad > 7965 && averageElectricityLoad <= 11350){
+                setElectricalEfficiency(28.0);
+                setThermalEfficiency(40.2);
+                setHeadToPowerRatioForCalculation(1.43);
+                setInstallationCost(1798);
+            }else if(averageElectricityLoad > 11350 && averageElectricityLoad <= 21745){
+                setElectricalEfficiency(33.1);
+                setThermalEfficiency(36.7);
+                setHeadToPowerRatioForCalculation(1.11);
+                setInstallationCost(1474);
+            }else if(averageElectricityLoad > 21745 && averageElectricityLoad <= 43069){
+                setElectricalEfficiency(35.5);
+                setThermalEfficiency(34.4);
+                setHeadToPowerRatioForCalculation(0.97);
+                setInstallationCost(1276);
+            }
+        }
+    },[loadsAreToBeSupplied]);
+
+    const onSave = () =>{
+        dispatch(updateChp({
+            averageAnnualElectricityRequirements,
+            numberOfHoursOfElectricityDemand,
+            averageAnnualGasRequirements,
+            numberOfHoursOfHeatDemand,
+            annualElectricityYouWantToGetFromCHPSystem,
+            annualHeatYouWantToGetFromCHPSystem,
+            loadsAreToBeSupplied,
+            cHPFuel,
+            cHPSystem,
+            cHPSystemPrimeMoverTechnology,
+            averageElectricityLoad,
+            existingBoilerEfficiency,
+            electricalEfficiency,
+            thermalEfficiency,
+            heatToPowerRatioForSite,
+            averageLoadHeatDemand,
+            annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas,
+            baseLoadHeatDemand,
+            annualElectricityDeliveredUsingCHPSystemInsteadOfGridGas,
+            sizeOfCHPSystem,
+            fuelUsage,
+            unitInstallationCostOfCHPSystem,
+            initialInvestmentForCHPSystem,
+            unitPriceOfElectricity,
+            annualCostOfElectricityInAbsenceOfCHPSystem,
+            unitPriceOfNaturalGas,
+            annualCostOfGridGasInAbsenceOfCHPSystem,
+            annualCostOfCHPFuel,
+            annualCostOfGridElectricityInPresenceOfCHPSystem,
+            annualCostOfGridGasInPresenceOfCHPSystem,
+            annualOperationalCostSavings,
+            netPresentValueOfOperationalEnergyCostSavings,
+            emissionFactorForGridGas,
+            gHGEmissionsForHeatInAbsenceOfCHPSystem,
+            emissionFactorOfGridElectricity,
+            gHGEmissionsForElectricityInAbsenceOfCHPSystem,
+            gHGEmissionsForElectricityInPresenceOfCHPSystem,
+            annualOperationalEmissionSavings,
+            totalOperationalEmissionSavingsAbatementPeriod,
+            totalOperationalEmissionSavingsAcrossAbatementPeriodTon,
+            costEffectivenessConsideringOperationalEmissionSavingsOnly,
+            isComplete: true
+        }));
+        navigate("./../led")
+    }
 
     return (
         <>
@@ -175,10 +316,8 @@ const Chp = () => {
                                 heading="What % of annual heat you want to get from CHP system?"
                                 subHeading="Quis enim unde. Rerum corrupti voluptatum"
                                 onChange={(event) => { setAnnualHeatYouWantToGetFromCHPSystem(event.target.value) }} />
-                            <InputWithSideText value={loadsAreToBeSupplied}
-                                unit=""
-                                type="text"
-                                placeholder="Enter value"
+                            <InputWithSelect value={loadsAreToBeSupplied}
+                                values={loadsSupplied}
                                 heading="Which loads are to be supplied?"
                                 subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
                                 onChange={(event) => { setLoadsAreToBeSupplied(event.target.value) }} />
@@ -454,7 +593,7 @@ const Chp = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} />
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={4}/>
                             </div>
                         </div>
                     </div>
@@ -465,7 +604,7 @@ const Chp = () => {
                     </div>
                 </div>
                 <div className="btn-div">
-                    <Button value="Next" />
+                    <Button value="Next" onClick={onSave}/>
                 </div>
             </div >
         </>

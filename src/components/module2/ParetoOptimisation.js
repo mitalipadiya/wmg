@@ -1,16 +1,15 @@
 import { useState } from "react"
 import "./Module2.css"
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./EmissionSavings.css"
 import { formatValueWithTwoDecimals, formatValueWithoutDecimals } from "../../services/module2.service";
-import ColumnRecharts from "../UI/ColumnRecharts";
 import TimelineChart from "../UI/TimelineChart";
 
 const ParetoOptimisation = () => {
     const [maccData, setMaccData] = useState([]);
     const [chartData, setChartData] = useState();
-    const { solarPV, passiveInfraredSensor, smartMetersGas, led, wind, smartMetersElectricity, passiveInfraredSensors, voltageOptimisation, energyManagementSystem } = useSelector(state => state.module2);
+    const { solarPV, passiveInfraredSensor, smartMetersGas, led, wind, smartMetersElectricity, voltageOptimisation, energyManagementSystem } = useSelector(state => state.module2);
 
     useEffect(() => {
         const data = [{

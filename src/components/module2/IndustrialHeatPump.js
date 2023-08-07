@@ -173,7 +173,7 @@ const IndustrialHeatPump = () => {
             costEffectivenessConsideringOperationalEmissionSavingsOnly,
             isComplete: true
         }));
-        navigate("./../industrial-heat-pump")
+        navigate("./../emission-savings")
     }
     return (
         <>
@@ -465,7 +465,7 @@ const IndustrialHeatPump = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} />
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={4}/>
                             </div>
                         </div>
                     </div>

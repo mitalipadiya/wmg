@@ -3,6 +3,7 @@
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: -8px 16px 40px #27272A0A;
     border: 1px solid #F9B123;
+    height: fit-content;
 }
 
 .c-nav-item {
@@ -80,4 +81,20 @@
     height: 16px;
     background: transparent 0% 0% no-repeat padding-box;
     content: url("../../assets/vuesax-bold-tick-circle.svg");
+}
+.c-nav-item.is-complete {
+    color: #B8BF29;
+}
+.item-done {
+    width: 16px;
+    height: 16px;
+    background: transparent 0% 0% no-repeat padding-box;
+    content: url("../../assets/tick-circle.svg");
+}
+.is-complete>.heading-arrow {
+    content: url("../../assets/vuesax-linear-arrow-left-green.svg");
+}
+.heading-span {
+    display: flex;
+    gap: 8px;
 }
