@@ -1,0 +1,9 @@
+.table-heading {
+    background: #F8F8F8 0% 0% no-repeat padding-box;
+    border: 1px solid #E9E9E9;
+}
+.td{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}

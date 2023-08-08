@@ -33,6 +33,7 @@ import IndustrialHeatPump from './components/module2/IndustrialHeatPump';
 import EmissionSavings from './components/module2/EmissionSavings';
 import Macc from './components/module2/Macc';
 import ParetoOptimisation from './components/module2/ParetoOptimisation';
+import Module3 from './components/module3/Module3';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -79,6 +80,7 @@ function App() {
           <Route path="macc" element={<Macc/>}/>
           <Route path='pareto-optimisation' element={<ParetoOptimisation/>}/>
         </Route>
+        <Route path="/module3" element ={<Module3/>}/>
         <Route path="/profile" element={<UpdateProfile />} />
         <Route path="/survey-results" element={<SurveyResults />} />
       </Routes>
