@@ -43,6 +43,7 @@ const CompanyInfo = (props) => {
             }
         });
     }, []);
+    // console.log(data)
     const onCountryChange = (country) => {
         countries.forEach(data => {
             if(data.country == country) {
