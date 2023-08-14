@@ -5,6 +5,7 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSolarThermal } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import InputWithSelect from "../UI/InputWithSelect";
 
 const SolarThermal = () => {
     const { baseline, economicParameters, solarThermal } = useSelector(state => state.module2);
@@ -13,8 +14,8 @@ const SolarThermal = () => {
 
     const [averageAnnualGasRequirements, setAverageAnnualGasRequirements] = useState(baseline?.averageAnnualGasConsumption);
     const [heatDemandToBeTakenFromSolarThermalSystem, setHeatDemandToBeTakenFromSolarThermalSystem] = useState(solarThermal?.heatDemandToBeTakenFromSolarThermalSystem);
-    const [location, setLocation] = useState(solarThermal?.location);
-    const [latitudeLongitude, setLatitudeLongitude] = useState(solarThermal?.latitudeLongitude);
+    const [location, setLocation] = useState(baseline?.location);
+    const [latitudeLongitude, setLatitudeLongitude] = useState(baseline?.latitudeLongitude);
     const [existingBoilerEfficiency, setExistingBoilerEfficiency] = useState(solarThermal?.existingBoilerEfficiency);
     const [incidentSolarIrradiation, setIncidentSolarIrradiation] = useState(solarThermal?.incidentSolarIrradiation);
     const [annualSolarIrradiation, setAnnualSolarIrradiation] = useState(solarThermal?.annualSolarIrradiation);
@@ -39,35 +40,35 @@ const SolarThermal = () => {
     const [totalOperationalEmissionSavingsAcrossAbatementPeriod, setTotalOperationalEmissionSavingsAcrossAbatementPeriod] = useState(solarThermal?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
     const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(solarThermal?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon)
     const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(solarThermal?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
+    const [solarThermalSystemType, setSolarThermalSystemType] = useState(solarThermal?.solarThermalSystemType);
+    const solarThermalTypes = ["High performance FPC", "Low cost  FPC", "High performance ETC", "Low cost  ETC"];
+
 
     useEffect(() => {
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(response => {
-            return response.json()
-        }).then(data => {
-            if (data && data.length) {
-                setLatitudeLongitude(data[0].lat + "," + data[0].lon);
-            }
-        })
-    }, [location]);
-
-    useEffect(() => {
-        fetch("https://renewables.ninja/api/data/pv?local_time=true&format=json&header=true&lat=52.4081812&lon=-1.510477&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&system_loss=0.1&tracking=0&tilt=35&azim=180&raw=true").then(res => res.json()).then(data => {
-            if (data && data.data) {
-                let allData = Object.values(data.data);
-                let totalTemperature = 0;
-                let totalDirectIrradiance = 0;
-                let totalDiffuseIrradiance = 0;
-                for (let i = 0; i < allData.length; i++) {
-                    totalTemperature += allData[i].temperature;
-                    totalDirectIrradiance += allData[i].irradiance_direct;
-                    totalDiffuseIrradiance += allData[i].irradiance_diffuse;
+        const latLong = latitudeLongitude.split(",");
+        let maxIrradianceSum = 0;
+        if(latLong.length > 1) {
+            fetch(`https://renewables.ninja/api/data/pv?local_time=true&format=json&header=true&lat=${latLong[0]}&lon=${latLong[1]}&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&system_loss=0.1&tracking=0&tilt=35&azim=180&raw=true`).then(res => res.json()).then(data => {
+                if (data && data.data) {
+                    let allData = Object.values(data.data);
+                    let totalTemperature = 0;
+                    let totalDirectIrradiance = 0;
+                    let totalDiffuseIrradiance = 0;
+                    for (let i = 0; i < allData.length; i++) {
+                        totalTemperature += allData[i].temperature;
+                        totalDirectIrradiance += allData[i].irradiance_direct;
+                        totalDiffuseIrradiance += allData[i].irradiance_diffuse;
+                        let irradianceSum = totalDirectIrradiance + totalDiffuseIrradiance;
+                        if(irradianceSum > maxIrradianceSum) {
+                            maxIrradianceSum = irradianceSum;
+                        }
+                    }
+                    setAmbientTemperature(totalTemperature/allData.length);
+                    setAnnualSolarIrradiation(totalDirectIrradiance + totalDiffuseIrradiance);
+                    setIncidentSolarIrradiation(maxIrradianceSum);
                 }
-                setAmbientTemperature(totalTemperature/allData.length);
-                setAnnualSolarIrradiation(totalDirectIrradiance + totalDiffuseIrradiance);
-                setIncidentSolarIrradiation(totalDirectIrradiance + totalDiffuseIrradiance);
-            }
-        })
-
+            })
+        }
     }, [])
 
     useEffect(() => {
@@ -107,6 +108,30 @@ const SolarThermal = () => {
     useEffect(() => {
         setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForSolarThermalSystem - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
     }, [initialInvestmentForSolarThermalSystem, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
+    useEffect(()=>{
+        switch(solarThermalSystemType) {
+            case "High performance FPC":
+                setOpticalEfficiency(0.77);
+                setFirstOrderEfficiencyCoefficient(3.45);
+                setSecondOrderEfficiencyCoefficient(0.0083);
+                break;
+            case "Low cost  FPC":
+                setOpticalEfficiency(0.705);
+                setFirstOrderEfficiencyCoefficient(3.78);
+                setSecondOrderEfficiencyCoefficient(0.011);
+                break;
+            case "High performance ETC":
+                setOpticalEfficiency(0.63);
+                setFirstOrderEfficiencyCoefficient(0.93);
+                setSecondOrderEfficiencyCoefficient(0.004);
+                break;
+            case "Low cost  ETC":
+                setOpticalEfficiency(0.39);
+                setFirstOrderEfficiencyCoefficient(0.88);
+                setSecondOrderEfficiencyCoefficient(0.012);
+                break;
+        }
+    },[solarThermalSystemType]);
 
     const onSave = () => {
         dispatch(updateSolarThermal({
@@ -117,6 +142,7 @@ const SolarThermal = () => {
             existingBoilerEfficiency,
             incidentSolarIrradiation,
             annualSolarIrradiation,
+            solarThermalSystemType,
             opticalEfficiency,
             firstOrderEfficiencyCoefficient,
             secondOrderEfficiencyCoefficient,
@@ -172,7 +198,7 @@ const SolarThermal = () => {
                                 placeholder="Enter value"
                                 heading="Location"
                                 subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setLocation(event.target.value) }} />
+                                disabled={true} />
                             <InputWithSideText value={latitudeLongitude}
                                 unit=""
                                 type="text"
@@ -212,6 +238,13 @@ const SolarThermal = () => {
                                 toFixed={true}
                                 disabled={true}
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                            />
+                            <InputWithSelect heading="Solar thermal system type"
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                values={solarThermalTypes}
+                                value={solarThermalSystemType}
+                                placeholder="Enter the value"
+                                onChange={(event) => { setSolarThermalSystemType(event.target.value) }}
                             />
                             <InputWithSideText value={opticalEfficiency}
                                 unit="W"

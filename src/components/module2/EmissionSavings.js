@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import "./Module2.css"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,13 +10,11 @@ import { useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
 
 const EmissionSavings = () => {
-    const [emissionData, setEmissionData] = useState([]);
-    const [barData, setBarData] = useState();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { solarPV, baseline, led, wind, smartMetersElectricity, smartMetersGas, passiveInfraredSensor, voltageOptimisation, energyManagementSystem } = useSelector(state => state.module2);
 
-    useEffect(() => {
+    const emissionData = useMemo(()=>{
         const data = [{
             technologyOptions: "Solar Photovoltaics (PV)",
             emissionSavings: formatValueWithTwoDecimals(solarPV?.annualOperationalEmissionSavings),
@@ -67,14 +65,17 @@ const EmissionSavings = () => {
         }
 
         ]
-        const barData = [];
+        return [...data];
+    },[])
 
-        for (let i = 0; i < data.length; i++) {
-            let dt = [data[i].technologyOptions, data[i].percentSavings, data[i].color, data[i].emissionSavings];
-            barData.push(dt);
+    const barData = useMemo(()=>{
+        const bData = [];
+        for (let i = 0; i < emissionData.length; i++) {
+            let dt = [emissionData[i].technologyOptions, emissionData[i].percentSavings, emissionData[i].color, emissionData[i].emissionSavings];
+            bData.push(dt);
         }
 
-        setBarData([
+        return [
             [
                 "Element",
                 "% Savings with reference to Baseline",
@@ -86,11 +87,10 @@ const EmissionSavings = () => {
                     calc: "stringify",
                 },
             ],
-            ...barData
+            ...bData.sort( function ( a, b ) { return b[3] - a[3]; } )
 
-        ]);
-        setEmissionData(data);
-    }, [])
+        ];
+    },[emissionData]);
 
     const onSave = () => {
         dispatch(updateEmissionSavings({

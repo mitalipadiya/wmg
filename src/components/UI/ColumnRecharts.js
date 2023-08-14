@@ -12,6 +12,7 @@ import {
 } from "recharts";
 
 export default function ColumnRecharts({ data }) {
+    console.log("chart data ==>", data);
     let legendItems = [];
     if(data) {
         legendItems =  data.map((entry) => ({

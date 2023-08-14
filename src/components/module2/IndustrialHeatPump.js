@@ -5,6 +5,7 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateIndustrialHeatPump } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import InputWithSelect from "../UI/InputWithSelect";
 
 const IndustrialHeatPump = () => {
     const { baseline, economicParameters, industrialHeatPump } = useSelector(state => state.module2);
@@ -18,6 +19,8 @@ const IndustrialHeatPump = () => {
     const [hoursOfHeatDemand, setHoursOfHeatDemand] = useState(industrialHeatPump?.hoursOfHeatDemand);
     const [annualHeatLoad, setAnnualHeatLoad] = useState(industrialHeatPump?.annualHeatLoad);
     const [annualGridGasSavingInPresenceOfIHP1, setAnnualGridGasSavingInPresenceOfIHP1] = useState(industrialHeatPump?.annualGridGasSavingInPresenceOfIHP1);
+    const [ihpTypeIhp1, setIhpTypeIhp1] = useState(industrialHeatPump?.ihpTypeIhp1);
+    const [copForIhp1, setCopForIhp1] = useState(industrialHeatPump?.copForIhp1);
     const [heatSourceTemperature, setHeatSourceTemperature] = useState(industrialHeatPump?.heatSourceTemperature);
     const [heatSinkTemperature, setHeatSinkTemperature] = useState(industrialHeatPump?.heatSinkTemperature);
     const [temperatureLift, setTemperatureLift] = useState(industrialHeatPump?.temperatureLift);
@@ -50,6 +53,7 @@ const IndustrialHeatPump = () => {
     const [totalOperationalEmissionSavingsAcrossAbatementPeriod, setTotalOperationalEmissionSavingsAcrossAbatementPeriod] = useState(industrialHeatPump?.totalOperationalEmissionSavingsAcrossAbatementPeriod);
     const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(industrialHeatPump?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
     const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(industrialHeatPump?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
+    const copValues = [3.9, 4.2, 5.2];
 
     useEffect(() => {
         setAnnualHeatLoad(averageAnnualGasRequirements / hoursOfHeatDemand);
@@ -140,6 +144,8 @@ const IndustrialHeatPump = () => {
             annualHeatLoad,
             sizeOfIndustrialHeatPump1,
             annualGridGasSavingInPresenceOfIHP1,
+            ihpTypeIhp1,
+            copForIhp1,
             heatSourceTemperature,
             heatSinkTemperature,
             temperatureLift,
@@ -245,6 +251,23 @@ const IndustrialHeatPump = () => {
                                 toFixed={true}
                                 heading="Annual grid gas saving in presence of IHP1"
                                 subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                            />
+                            <InputWithSideText value={ihpTypeIhp1}
+                                unit=""
+                                type="text"
+                                placeholder="Enter value"
+                                disabled={true}
+                                heading="IHP type for IHP1"
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                            />
+                            <InputWithSelect value={copForIhp1}
+                                values={copValues}
+                                unit=""
+                                type="text"
+                                placeholder="Enter value"
+                                heading="COP for IHP1"
+                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                onChange={event => setCopForIhp1(event.target.value)}
                             />
                             <InputWithSideText value={heatSourceTemperature}
                                 unit="°C"

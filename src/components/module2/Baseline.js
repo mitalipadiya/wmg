@@ -16,6 +16,8 @@ const Baseline = () => {
     const [annualOperationalEmissionsForGridElectricity, setAnnualOperationalEmissionsForGridElectricity] = useState(baseline?.annualOperationalEmissionsForGridElectricity);
     const [annualOperationalEmissionsForGridGas, setAnnualOperationalEmissionsForGridGas] = useState(baseline?.annualOperationalEmissionsForGridGas);
     const [totalBaselineEmissions, setTotalBaselineEmissions] = useState(baseline?.totalBaselineEmissions);
+    const [location, setLocation] = useState(baseline?.location);
+    const [latitudeLongitude, setLatitudeLongitude] = useState(baseline?.latitudeLongitude);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -28,6 +30,8 @@ const Baseline = () => {
             annualOperationalEmissionsForGridElectricity,
             annualOperationalEmissionsForGridGas,
             totalBaselineEmissions,
+            location,
+            latitudeLongitude,
             isComplete: true
         }));
 
@@ -43,6 +47,16 @@ const Baseline = () => {
     useEffect(() => {
         setTotalBaselineEmissions((averageAnnualElectricityConsumption * emissionFactorGridElectricity) + (averageAnnualGasConsumption * emissionFactorForGridGas));
     }, [averageAnnualElectricityConsumption, emissionFactorGridElectricity, averageAnnualGasConsumption, emissionFactorForGridGas]);
+
+    useEffect(() => {
+        if (location) {
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(res => res.json()).then(data => {
+                if (data && data.length) {
+                    setLatitudeLongitude(data[0].lat + "," + data[0].lon);
+                }
+            })
+        }
+    }, [location]);
 
     return (
         <>
@@ -80,6 +94,19 @@ const Baseline = () => {
                             heading="Emission factor for grid gas"
                             subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
                             onChange={(event) => { setEmissionFactorForGridGas(event.target.value) }} />
+                        <InputWithSideText value={location}
+                                unit=""
+                                type="text"
+                                placeholder="Select"
+                                heading="Location"
+                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                onChange={(event) => { setLocation(event.target.value) }} />
+                        <InputWithSideText value={latitudeLongitude}
+                                unit=""
+                                type="text"
+                                placeholder="Select location to view lattitude, longitude"
+                                heading="Lattitude, longitude"
+                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"/>
                     </div>
 
 
