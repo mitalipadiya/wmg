@@ -63,16 +63,6 @@ const EnergyManagementSystem = () => {
         setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForBEMS - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
     }, [initialInvestmentForBEMS, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
 
-    // useEffect(() => {
-    //     fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(response => {
-    //         return response.json()
-    //     }).then(data => {
-    //         if (data && data.length) {
-    //             setLatitudeLongitude(data[0].lat + "," + data[0].lon);
-    //         }
-    //     })
-    // }, [location]);
-
     const onSave = () => {
         dispatch(updateEnergyManagementSystem({
             averageAnnualElectricityConsumption,

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Chart } from "react-google-charts";
 
 const BarChartGoogle = ({ barData, hAxisTitle, vAxisTitle }) => {
-    const [options, setOptions] = useState();
-    useEffect(()=>{
+    console.log(barData);
+    const options = useMemo(()=>{
         if(hAxisTitle && vAxisTitle) {
-            setOptions({
+            return {
                 title: "",
                 width: 1000,
                 height: 800,
@@ -28,7 +28,7 @@ const BarChartGoogle = ({ barData, hAxisTitle, vAxisTitle }) => {
                 colors: ['#4ED8DA'],
                 curveType: 'none',
                 fontName: 'Manrope',
-            })
+            }
         }
     })
     return (

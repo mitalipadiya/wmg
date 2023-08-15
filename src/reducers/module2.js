@@ -2,13 +2,15 @@ import { GET_MODULE2, UPDATE_INDUSTRIAL_HEAT_PUMP, UPDATE_BASELINE, UPDATE_BIOMA
 
 const initialState = {
     baseline: {
-        averageAnnualElectricityConsumption: "",
-        averageAnnualGasConsumption: "",
+        averageAnnualElectricityConsumption: "10000",
+        averageAnnualGasConsumption: "140000",
         emissionFactorGridElectricity: "0.284",
         emissionFactorForGridGas: "0.18",
         annualOperationalEmissionsForGridElectricity: "",
         annualOperationalEmissionsForGridGas: "",
         totalBaselineEmissions: "",
+        location: "Coventry",
+        latitudeLongitude: "52.4081812,-1.510477",
         isComplete: false
     },
     technologies: {
@@ -39,7 +41,7 @@ const initialState = {
     solarPV: {
         averageAnnualElectricityRequirements: "",
         percentAnnualElectricityFromPV: "80",
-        location: "Coventry",
+        location: "",
         latitudeLongitude: "",
         electricityGeneratedPVSystem: "",
         annualElectricityGenerationSelectedLocation: "",
@@ -62,7 +64,7 @@ const initialState = {
     wind: {
         averageAnnualElectricityRequirements: "",
         percentAnnualElectricityFromWind: "15",
-        location: "Coventry",
+        location: "",
         latitudeLongitude: "",
         height: "80",
         turbineModel: "Gamesa G128 4500",
@@ -85,7 +87,7 @@ const initialState = {
         averageAnnualElectricityRequirements: "",
         percentAnnualElectricityFromPVBESS: "80",
         numberOfDaysOfOperationInAYear: "300",
-        location: "Coventry",
+        location: "",
         latitudeLongitude: "",
         dailyElectricityRequirementUsingPVBESSSystem: "",
         dailyAverageElectricityGeneration: "",
@@ -300,11 +302,12 @@ const initialState = {
     solarThermal: {
         averageAnnualGasRequirements: "",
         heatDemandToBeTakenFromSolarThermalSystem: "50",
-        location: "Coventry",
+        location: "",
         latitudeLongitude: "",
         existingBoilerEfficiency: "80",
         incidentSolarIrradiation: "",
         annualSolarIrradiation: "",
+        solarThermalSystemType: "High performance FPC",
         opticalEfficiency: "0.77",
         firstOrderEfficiencyCoefficient: "3.45",
         secondOrderEfficiencyCoefficient: "0.0083",
@@ -336,6 +339,8 @@ const initialState = {
         hoursOfHeatDemand: "2920",
         annualHeatLoad: "",
         annualGridGasSavingInPresenceOfIHP1: "",
+        ihpTypeIhp1: "Vapor Compression Cycle",
+        copForIhp1: 3.9,
         heatSourceTemperature: "75",
         heatSinkTemperature: "120",
         temperatureLift: "",

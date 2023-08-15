@@ -13,8 +13,8 @@ const SolarPVBESS = () => {
     const [averageAnnualElectricityRequirements, setAverageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
     const [percentAnnualElectricityFromPVBESS, setPercentAnnualElectricityFromPVBESS] = useState(solarPvBess?.percentAnnualElectricityFromPVBESS);
     const [numberOfDaysOfOperationInAYear, setNumberOfDaysOfOperationInAYear] = useState(solarPvBess?.numberOfDaysOfOperationInAYear);
-    const [location, setLocation] = useState(solarPvBess?.location)
-    const [latitudeLongitude, setLatitudeLongitude] = useState(solarPvBess?.latitudeLongitude);
+    const [location, setLocation] = useState(baseline?.location)
+    const [latitudeLongitude, setLatitudeLongitude] = useState(baseline?.latitudeLongitude);
     const [dailyElectricityRequirementUsingPVBESSSystem, setDailyElectricityRequirementUsingPVBESSSystem] = useState(solarPvBess?.dailyElectricityRequirementUsingPVBESSSystem);
     const [dailyAverageElectricityGeneration, setDailyAverageElectricityGeneration] = useState(solarPvBess?.dailyAverageElectricityGeneration);
     const [averageDailySolarInsolation, setAverageDailySolarInsolation] = useState(solarPvBess?.averageDailySolarInsolation);
@@ -39,30 +39,24 @@ const SolarPVBESS = () => {
     const [costEffectivenessConsideringOperationalEmissionSavingsOnly, setCostEffectivenessConsideringOperationalEmissionSavingsOnly] = useState(solarPvBess?.costEffectivenessConsideringOperationalEmissionSavingsOnly);
 
     useEffect(() => {
-        if (location) {
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(res => res.json()).then(data => {
-                if (data && data.length) {
-                    setLatitudeLongitude(data[0].lat + "," + data[0].lon);
+        const latLong = latitudeLongitude.split(",");
+        if(latLong.length > 1) {
+            fetch(`https://renewables.ninja/api/data/pv?local_time=true&format=json&header=true&lat=${latLong[0]}&lon=${latLong[1]}&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&system_loss=0.1&tracking=0&tilt=35&azim=180&raw=true`).then(res => res.json()).then(data => {
+                if (data && data.data) {
+                    let allData = Object.values(data.data);
+                    let totalElectricity = 0;
+                    let totalDirectIrradiance = 0;
+                    let totalDiffuseIrradiance = 0;
+                    for (let i = 0; i < allData.length; i++) {
+                        totalElectricity += allData[i].electricity;
+                        totalDirectIrradiance += allData[i].irradiance_direct;
+                        totalDiffuseIrradiance += allData[i].irradiance_diffuse;
+                    }
+                    setDailyAverageElectricityGeneration(totalElectricity / allData.length);
+                    setAverageDailySolarInsolation((totalDirectIrradiance + totalDiffuseIrradiance) / allData.length);
                 }
             })
         }
-    }, [location]);
-    useEffect(() => {
-        fetch("https://renewables.ninja/api/data/pv?local_time=true&format=json&header=true&lat=52.4081812&lon=-1.510477&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&system_loss=0.1&tracking=0&tilt=35&azim=180&raw=true").then(res => res.json()).then(data => {
-            if (data && data.data) {
-                let allData = Object.values(data.data);
-                let totalElectricity = 0;
-                let totalDirectIrradiance = 0;
-                let totalDiffuseIrradiance = 0;
-                for (let i = 0; i < allData.length; i++) {
-                    totalElectricity += allData[i].electricity;
-                    totalDirectIrradiance += allData[i].irradiance_direct;
-                    totalDiffuseIrradiance += allData[i].irradiance_diffuse;
-                }
-                setDailyAverageElectricityGeneration(totalElectricity / allData.length);
-                setAverageDailySolarInsolation((totalDirectIrradiance + totalDiffuseIrradiance) / allData.length);
-            }
-        })
     }, [])
 
     useEffect(() => {
@@ -189,14 +183,14 @@ const SolarPVBESS = () => {
                                 placeholder="Select"
                                 heading="Location"
                                 subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setLocation(event.target.value) }} />
+                                disabled={true}/>
                             <InputWithSideText value={latitudeLongitude}
-                                // from renewables ninja
                                 unit=""
                                 type="text"
                                 placeholder="Select location to view lattitude, longitude"
                                 heading="Lattitude, longitude"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor" />
+                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                disabled={true} />
                         </div>
                         <div className="calculated-main">
 

@@ -11,8 +11,8 @@ const SolarPV = () => {
 
     const [averageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
     const [percentAnnualElectricityFromPV, setPercentAnnualElectricityFromPV] = useState(solarPV?.percentAnnualElectricityFromPV);
-    const [location, setLocation] = useState(solarPV?.location);
-    const [latitudeLongitude, setLatitudeLongitude] = useState(solarPV?.latitudeLongitude);
+    const [location, setLocation] = useState(baseline?.location);
+    const [latitudeLongitude, setLatitudeLongitude] = useState(baseline?.latitudeLongitude);
     const [electricityGeneratedPVSystem, setElectricityGeneratedPVSystem] = useState(solarPV?.electricityGeneratedPVSystem);
     const [annualElectricityGenerationSelectedLocation, setAnnualElectricityGenerationSelectedLocation] = useState(solarPV?.annualElectricityGenerationSelectedLocation);
     const [annualSolarInsolationSelectedLocation, setAnnualSolarInsolationSelectedLocation] = useState(solarPV?.annualSolarInsolationSelectedLocation);
@@ -68,31 +68,24 @@ const SolarPV = () => {
     }, [averageAnnualElectricityRequirements, percentAnnualElectricityFromPV]);
 
     useEffect(() => {
-        if (location) {
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(res => res.json()).then(data => {
-                if (data && data.length) {
-                    setLatitudeLongitude(data[0].lat + "," + data[0].lon);
+        const latLong = latitudeLongitude.split(",");
+        if(latLong.length > 1) {
+            fetch(`https://renewables.ninja/api/data/pv?local_time=true&format=json&header=true&lat=${latLong[0]}&lon=${latLong[1]}&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&system_loss=0.1&tracking=0&tilt=35&azim=180&raw=true`).then(res => res.json()).then(data => {
+                if (data && data.data) {
+                    let allData = Object.values(data.data);
+                    let totalElectricity = 0;
+                    let totalDirectIrradiance = 0;
+                    let totalDiffuseIrradiance = 0;
+                    for (let i = 0; i < allData.length; i++) {
+                        totalElectricity += allData[i].electricity;
+                        totalDirectIrradiance += allData[i].irradiance_direct;
+                        totalDiffuseIrradiance += allData[i].irradiance_diffuse;
+                    }
+                    setAnnualElectricityGenerationSelectedLocation(totalElectricity);
+                    setAnnualSolarInsolationSelectedLocation(totalDirectIrradiance + totalDiffuseIrradiance);
                 }
             })
         }
-    }, [location]);
-
-    useEffect(() => {
-        fetch("https://renewables.ninja/api/data/pv?local_time=true&format=json&header=true&lat=52.4081812&lon=-1.510477&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&system_loss=0.1&tracking=0&tilt=35&azim=180&raw=true").then(res => res.json()).then(data => {
-            if (data && data.data) {
-                let allData = Object.values(data.data);
-                let totalElectricity = 0;
-                let totalDirectIrradiance = 0;
-                let totalDiffuseIrradiance = 0;
-                for (let i = 0; i < allData.length; i++) {
-                    totalElectricity += allData[i].electricity;
-                    totalDirectIrradiance += allData[i].irradiance_direct;
-                    totalDiffuseIrradiance += allData[i].irradiance_diffuse;
-                }
-                setAnnualElectricityGenerationSelectedLocation(totalElectricity);
-                setAnnualSolarInsolationSelectedLocation(totalDirectIrradiance + totalDiffuseIrradiance);
-            }
-        })
 
     }, [])
 
@@ -169,14 +162,14 @@ const SolarPV = () => {
                                 placeholder="Select"
                                 heading="Location"
                                 subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setLocation(event.target.value) }} />
+                                disabled={true}/>
                             <InputWithSideText value={latitudeLongitude}
                                 unit=""
                                 type="text"
                                 placeholder="Select location to view lattitude, longitude"
                                 heading="Lattitude, longitude"
                                 subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setLatitudeLongitude(event.target.value) }} />
+                                disabled={true} />
                         </div>
                         <div className="calculated-main">
                         </div>

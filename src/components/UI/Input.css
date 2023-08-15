@@ -21,3 +21,6 @@
 .input::placeholder {
     color: #D3D3D4;
 }
+input:disabled {
+    background-color: #e9e9e9;
+}

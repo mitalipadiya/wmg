@@ -11,8 +11,8 @@ const Wind = () => {
 
     const [averageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
     const [percentAnnualElectricityFromWind, setPercentAnnualElectricityFromWind] = useState(wind?.percentAnnualElectricityFromWind);
-    const [location, setLocation] = useState(wind?.location);
-    const [latitudeLongitude, setLatitudeLongitude] = useState(wind?.latitudeLongitude);
+    const [location, setLocation] = useState(baseline?.location);
+    const [latitudeLongitude, setLatitudeLongitude] = useState(baseline?.latitudeLongitude);
     const [height, setHeight] = useState(wind?.height);
     const [turbineModel, setTurbineModel] = useState(wind?.turbineModel);
     const [averageAnnualWindSpeed, setAverageAnnualWindSpeed] = useState(wind?.averageAnnualWindSpeed);
@@ -58,30 +58,24 @@ const Wind = () => {
         navigate("./../solar-pv-bess")
 
     }
-    useEffect(() => {
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${location}`).then(response => {
-            return response.json()
-        }).then(data => {
-            if (data && data.length) {
-                setLatitudeLongitude(data[0].lat + "," + data[0].lon);
-            }
-        })
-    }, [location]);
     
     useEffect(() =>{
-        fetch(`https://renewables.ninja/api/data/wind?local_time=true&format=json&header=true&lat=52.4081812&lon=-1.510477&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&height=80&turbine=Gamesa+G128+4500&raw=true`).then(res => res.json()).then(data => {
-            if (data && data.data) {
-                let allData = Object.values(data.data);
-                let totalWindSpeed = 0;
-                let totalElectricity = 0;
-                for (let i = 0; i < allData.length; i++) {
-                    totalElectricity += allData[i].electricity;
-                    totalWindSpeed += allData[i].wind_speed;
+        const latLong = latitudeLongitude.split(",");
+        if(latLong.length > 0) {
+            fetch(`https://renewables.ninja/api/data/wind?local_time=true&format=json&header=true&lat=${latLong[0]}&lon=${latLong[1]}&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&height=80&turbine=Gamesa+G128+4500&raw=true`).then(res => res.json()).then(data => {
+                if (data && data.data) {
+                    let allData = Object.values(data.data);
+                    let totalWindSpeed = 0;
+                    let totalElectricity = 0;
+                    for (let i = 0; i < allData.length; i++) {
+                        totalElectricity += allData[i].electricity;
+                        totalWindSpeed += allData[i].wind_speed;
+                    }
+                    setAnnualGenerationWindSystem(totalElectricity);
+                    setAverageAnnualWindSpeed(totalWindSpeed/allData.length);
                 }
-                setAnnualGenerationWindSystem(totalElectricity);
-                setAverageAnnualWindSpeed(totalWindSpeed/allData.length);
-            }
-        })
+            })
+        }
     }, [])
     useEffect(() => {
         setSizeOfWindSystem((averageAnnualElectricityRequirements * (percentAnnualElectricityFromWind / 100)) / (annualGenerationWindSystem * (inverterEfficiency / 100)));
@@ -140,14 +134,14 @@ const Wind = () => {
                                 placeholder="Select"
                                 heading="Location"
                                 subHeading="Et voluptatum harum. In rerum necessitatibus quis.Inventor"
-                                onChange={(event) => { setLocation(event.target.value) }} />
+                                disabled={true} />
                             <InputWithSideText value={latitudeLongitude}
                                 unit=""
                                 type="text"
                                 placeholder="Select location to view lattitude, longitude"
                                 heading="Lattitude, longitude"
                                 subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
-                                onChange={(event) => { setLatitudeLongitude(event.target.value) }} />
+                                disabled={true} />
                         </div>
                         <div className="calculated-main">
                         </div>
