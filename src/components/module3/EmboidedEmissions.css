@@ -1,8 +1,10 @@
+.module3-form-main {
+    margin: 48px 108px;
+}
 .form-heading {
     font: normal normal bold 24px/33px Manrope;
     letter-spacing: 0px;
     color: #27272A;
-    /* margin-top: 24px; */
 }
 
 .form-subheading {
@@ -35,7 +37,7 @@
 .main-container-emboided {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #D3D3D4;
-    margin: 48px 108px;
+    border-top: none;
 }
 
 .add-entry {
@@ -44,6 +46,25 @@
     letter-spacing: 0px;
     color: #F9B123;
 }
-/* .form-heading{
-    margin-top:24 px;
-} */
+.module3-tab-heading {
+    text-align: left;
+    font: normal normal bold 12px/17px Manrope;
+    letter-spacing: 1.2px;
+    color: #000000;
+    text-transform: uppercase;
+}
+.module3-heading {
+    text-align: left;
+    font: normal normal bold 12px/17px Manrope;
+    letter-spacing: 1.2px;
+    color: #000000;
+    text-transform: uppercase;
+    margin: 12px 49px;
+}
+.add-tab {
+    width: 24px;
+    height: 24px;
+    background: transparent 0% 0% no-repeat padding-box;
+    content: url("../../assets/vuesax-bold-add-circle.svg");
+    margin: 5px 12px;
+}

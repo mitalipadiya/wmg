@@ -9,10 +9,10 @@
   padding: 24px;
 }
 .add-img{
-  content: url(D:\wmg\src\assets\vuesax-bold-add-circle.svg);
+  /* content: url(D:\wmg\src\assets\vuesax-bold-add-circle.svg); */
 }
 .trash-img{
-  content: url(D:\wmg\src\assets\vuesax-outline-trash.svg )
+  /* content: url(D:\wmg\src\assets\vuesax-outline-trash.svg ) */
 }
 .emission-data{
   display: flex;
