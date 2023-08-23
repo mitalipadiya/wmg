@@ -1,0 +1,97 @@
+.table-heading {
+  background: #F8F8F8 0% 0% no-repeat padding-box;
+  border: 1px solid #E9E9E9;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 24px;
+  text-align: left;
+  font: normal normal 600 16px/22px Manrope;
+  letter-spacing: 0px;
+  color: #27272A;
+}
+
+.table-data {
+  padding: 24px;
+}
+
+.table-input {
+
+  input,
+  select {
+    font: normal normal 600 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #27272A;
+  }
+}
+
+.input-trash {
+  input {
+    width: 150px;
+    padding-right: 0px;
+    font: normal normal 600 16px/22px Manrope;
+    letter-spacing: 0px;
+    color: #606060;
+  }
+}
+
+.trash-img {
+  content: url("../../assets/vuesax-outline-trash.svg");
+  width: 24px;
+  height: 24px;
+}
+
+.input-trash {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.emission-data {
+  display: flex;
+}
+
+.add-entry {
+  padding: 24px;
+}
+
+.country-flag-dropdown {
+  display: flex;
+  align-items: center;
+}
+
+.flag-icon {
+  margin-left: 10px;
+}
+
+#rfs-btn {
+  height: 48px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #D3D3D4;
+  border-radius: 0;
+}
+
+.currency p {
+  position: absolute;
+  left: 16px;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  font: normal normal normal 16px/22px Manrope;
+  color: #27272A;
+}
+
+.currency {
+  position: relative;
+
+  input {
+    padding-left: 30px;
+  }
+}
+
+.result-value {
+  width: 150px;
+  height: 48px;
+  background: #FEEFD3 0% 0% no-repeat padding-box;
+}

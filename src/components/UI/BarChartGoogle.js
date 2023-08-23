@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { Chart } from "react-google-charts";
 
 const BarChartGoogle = ({ barData, hAxisTitle, vAxisTitle }) => {
     console.log(barData);
-    const options = useMemo(()=>{
-        if(hAxisTitle && vAxisTitle) {
+    const options = useMemo(() => {
+        if (hAxisTitle && vAxisTitle) {
             return {
                 title: "",
                 width: 1000,
@@ -32,13 +32,17 @@ const BarChartGoogle = ({ barData, hAxisTitle, vAxisTitle }) => {
         }
     })
     return (
-        <Chart
-            chartType="BarChart"
-            width="100%"
-            height="800px"
-            data={barData}
-            options={options}
-        />
+        <>
+            {barData && barData.length ? <Chart
+                chartType="BarChart"
+                width="100%"
+                height="800px"
+                data={barData}
+                options={options}
+            /> : null}
+
+        </>
+
     );
 }
 export default BarChartGoogle;
