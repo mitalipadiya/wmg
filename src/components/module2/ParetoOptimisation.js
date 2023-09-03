@@ -163,8 +163,8 @@ const ParetoOptimisation = () => {
         setMaccData(data);
     }, [])
     return <div>
-        <h2 className="form-heading">Marginal Abatement Cost Curve (MACC)</h2>
-        <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+        <h2 className="form-heading">Pareto optimisation</h2>
+        <h3 className="form-subheading"></h3>
         <div className="main">
             <div>
                 <div className="group-heading">TABULAR VIEW</div>

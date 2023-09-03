@@ -108,7 +108,7 @@ const Wind = () => {
     return (
         <>
             <h2 className="form-heading">Wind</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading">The wind energy system generates electricity using kinetic energy of wind.</h3>
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -120,27 +120,27 @@ const Wind = () => {
                                 placeholder="Enter value"
                                 heading="Average annual electricity requirements"
                                 disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={percentAnnualElectricityFromWind}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="What % of annual electricity you want to get from wind?"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading="The wind energy system generates electricity based on weather conditions; thus you utilise stand-alone wind system to generate a share of your electricity requirements."
                                 onChange={(event) => setPercentAnnualElectricityFromWind(event.target.value)} />
                             <InputWithSideText value={location}
                                 unit=""
                                 type="text"
                                 placeholder="Select"
                                 heading="Location"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis.Inventor"
+                                subHeading="This is the location of your facility."
                                 disabled={true} />
                             <InputWithSideText value={latitudeLongitude}
                                 unit=""
                                 type="text"
                                 placeholder="Select location to view lattitude, longitude"
                                 heading="Lattitude, longitude"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 disabled={true} />
                         </div>
                         <div className="calculated-main">
@@ -156,7 +156,7 @@ const Wind = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Height"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading="Height of the wind turbine."
                                 onChange={(event) => { setHeight(event.target.value) }} />
                             <InputWithSideText value={turbineModel}
                                 unit=""
@@ -164,7 +164,7 @@ const Wind = () => {
                                 placeholder="Enter value"
                                 heading="Turbine model"
                                 disabled={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
+                                subHeading=""/>
                             <InputWithSideText value={averageAnnualWindSpeed}
                                 unit="m/s"
                                 type="number"
@@ -172,7 +172,7 @@ const Wind = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Average annual wind speed"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"/>
+                                subHeading=""/>
                             <InputWithSideText value={annualGenerationWindSystem}
                                 unit="kWh"
                                 type="number"
@@ -180,13 +180,13 @@ const Wind = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Annual generation per 1kW wind system"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"/>
+                                subHeading=""/>
                             <InputWithSideText value={inverterEfficiency}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Inverter efficiency"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 onChange={(event) => { setInverterEfficiency(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
@@ -207,13 +207,13 @@ const Wind = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Electricity used from wind system instead of grid"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
+                                subHeading=""/>
                             <InputWithSideText value={unitInstallationCost}
                                 unit="£/kW"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit installation cost"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setUnitInstallationCost(event.target.value) }} />
                             <InputWithSideText value={initialInvestmentWindSystem}
                                 unit="£"
@@ -222,7 +222,7 @@ const Wind = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Initial investment for Wind system (CAPEX)"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
+                                subHeading=""/>
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -243,7 +243,7 @@ const Wind = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
+                                subHeading=""/>
                             <InputWithSideText value={totalOperationalEmissionSavingsAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
@@ -251,14 +251,18 @@ const Wind = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
+                                subHeading=""/>
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
                                 <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAbatementPeriodTon} />
-                                <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavings} decimalCount={4}/>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div className="calculated-main calculated-last">
+                    <div className="calculated-container">
+                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavings} decimalCount={4}/>
                     </div>
                 </div>
                 <div className="btn-div">

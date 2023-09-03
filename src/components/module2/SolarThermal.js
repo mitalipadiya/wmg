@@ -172,7 +172,7 @@ const SolarThermal = () => {
     return (
         <>
             <h2 className="form-heading">Solar thermal</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading"></h3>
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -184,27 +184,27 @@ const SolarThermal = () => {
                                 placeholder="Enter value"
                                 heading="Average annual gas requirements"
                                 disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={heatDemandToBeTakenFromSolarThermalSystem}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="What % of heat demand to be taken from Solar thermal system?"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setHeatDemandToBeTakenFromSolarThermalSystem(event.target.value) }} />
                             <InputWithSideText value={location}
                                 unit=""
                                 type="text"
                                 placeholder="Enter value"
                                 heading="Location"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 disabled={true} />
                             <InputWithSideText value={latitudeLongitude}
                                 unit=""
                                 type="text"
                                 placeholder="Enter value"
                                 heading="Lattitude, longitude"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 disabled={true}/>
                         </div>
                         <div className="calculated-main">
@@ -221,14 +221,14 @@ const SolarThermal = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Existing boiler efficiency"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setExistingBoilerEfficiency(event.target.value) }} />
                             <InputWithSideText value={incidentSolarIrradiation}
                                 unit="W/m2"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Incident solar irradiation"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"                                toFixed={true}
+                                subHeading=""                                toFixed={true}
                                 disabled={true} />
                             <InputWithSideText value={annualSolarIrradiation}
                                 unit="kWh/m2"
@@ -237,10 +237,10 @@ const SolarThermal = () => {
                                 heading="Annual Solar irradiation"                                
                                 toFixed={true}
                                 disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSelect heading="Solar thermal system type"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 values={solarThermalTypes}
                                 value={solarThermalSystemType}
                                 placeholder="Enter the value"
@@ -251,21 +251,21 @@ const SolarThermal = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Optical Efficiency"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setOpticalEfficiency(event.target.value) }} />
                             <InputWithSideText value={firstOrderEfficiencyCoefficient}
                                 unit="W/m²K"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="First-order Efficiency Coefficient"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true} />
                             <InputWithSideText value={secondOrderEfficiencyCoefficient}
                                 unit="W/m²K2"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Second-order Efficiency Coefficient"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}/>
                             <InputWithSideText value={ambientTemperature}
                                 unit="K"
@@ -274,20 +274,20 @@ const SolarThermal = () => {
                                 heading="Ambient temperature"
                                 toFixed={true}
                                 disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
+                                subHeading=""/>
                             <InputWithSideText value={inletTemperature}
                                 unit="K"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Inlet temperature"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setInletTemperature(event.target.value) }} />
                             <InputWithSideText value={outletTemperature}
                                 unit="K"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Outlet temperature"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setOutletTemperature(event.target.value) }} />
 
                             <InputWithSideText value={collectorTemperature}
@@ -297,7 +297,7 @@ const SolarThermal = () => {
                                 heading="Collector temperature"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={efficiencyOfSolarThermalSystem}
                                 unit="%"
                                 type="number"
@@ -305,7 +305,7 @@ const SolarThermal = () => {
                                 heading="Efficiency of solar thermal system"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={capacityOfSolarThermalSystem}
                                 unit="kW"
                                 type="number"
@@ -313,13 +313,13 @@ const SolarThermal = () => {
                                 heading="Capacity of solar thermal system"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={annualGridGasSavingInPresenceOfSolarThermalSystem}
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual grid gas saving in presence of solar thermal system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true} />
 
@@ -340,14 +340,14 @@ const SolarThermal = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit installation cost of Solar thermal system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setUnitInstallationCostOfSolarThermalSystem(event.target.value) }} />
                             <InputWithSideText value={initialInvestmentForSolarThermalSystem}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Initial investment for Solar thermal system (CAPEX)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true} />
                             <InputWithSideText value={unitPriceOfGridGas}
@@ -355,7 +355,7 @@ const SolarThermal = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit price of grid gas"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setUnitPriceOfGridGas(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
@@ -375,21 +375,21 @@ const SolarThermal = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Emission factor of grid gas"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setEmissionFactorOfGridGas(event.target.value) }} />
                             <InputWithSideText value={annualOperationalEmissionSavings}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setAnnualOperationalEmissionSavings(event.target.value) }} />
                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">

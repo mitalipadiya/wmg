@@ -61,7 +61,7 @@ const Baseline = () => {
     return (
         <>
             <h2 className="form-heading">Baseline scenario</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading">Calculates the Greenhouse gas (GHG) emissions associated with your current electricity and gas consumption.</h3>
             <div className="main">
                 <div className="form-div">
 
@@ -71,50 +71,51 @@ const Baseline = () => {
                             type="number"
                             placeholder="Enter value"
                             heading="Average annual electricity consumption"
-                            subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                            subHeading="This is a consolidated value of your electricity bills for the last one year or can be derived as an average of the annual electricity consumption for number of years in the past decade. (Information indicated by 'i' and above comment visible on hovering on 'i')"
                             onChange={(event) => { setAverageAnnualElectricityConsumption(event.target.value) }} />
                         <InputWithSideText value={averageAnnualGasConsumption}
                             unit="kWh"
                             type="number"
                             placeholder="Enter value"
                             heading="Average annual gas consumption"
-                            subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                            subHeading="This is a consolidated value of your gas bills for the last one year or can be derived as an average of the annual gas consumption for number of years in the past decade. (Information indicated by 'i' and above comment visible on hovering on 'i')"
                             onChange={(event) => { setAverageAnnualGasConsumption(event.target.value) }} />
                         <InputWithSideText value={emissionFactorGridElectricity}
                             unit="kgCO2e/kWh"
                             type="number"
                             placeholder="Enter value"
                             heading="Emission factor for grid electricity"
-                            subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                            subHeading="It indicates the GHG emissions associated with the production, transmission and distribution of electricity reaching your facility and the value is specific to your energy supplier. If not known, you may want to use the real-time value of average national grid emission factor from https://carbonintensity.org.uk/"
                             onChange={(event) => { setEmssionFactorGridElectricity(event.target.value) }} />
                         <InputWithSideText value={emissionFactorForGridGas}
                             unit="kgCO2e/kWh"
                             type="number"
                             placeholder="Enter value"
                             heading="Emission factor for grid gas"
-                            subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                            subHeading="Indicates GHG emissions associated with natural gas combusted at your facility. If not known, you may want to refer to the conversion factor available for primary fuel sources at https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2022"
                             onChange={(event) => { setEmissionFactorForGridGas(event.target.value) }} />
                         <InputWithSideText value={location}
                                 unit=""
                                 type="text"
                                 placeholder="Select"
                                 heading="Location"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading="This is the location of your facility."
                                 onChange={(event) => { setLocation(event.target.value) }} />
                         <InputWithSideText value={latitudeLongitude}
                                 unit=""
                                 type="text"
                                 placeholder="Select location to view lattitude, longitude"
                                 heading="Lattitude, longitude"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"/>
+                                disabled={true}
+                                subHeading=""/>
                     </div>
 
 
                     <div className="calculated-main">
                         <div className="calculated-container">
-                            <CalculatedData heading="Annual operational emissions for grid electricity" unit="kgCO2e" value={annualOperationalEmissionsForGridElectricity} />
-                            <CalculatedData heading="Annual operational emissions for grid gas" unit="kgCO2e" value={annualOperationalEmissionsForGridGas} />
-                            <CalculatedData heading="Total baseline emissions" unit="kgCO2e" value={totalBaselineEmissions} />
+                            <CalculatedData heading="Annual operational emissions for grid electricity (kgCO2e)" unit="kgCO2e" value={annualOperationalEmissionsForGridElectricity} />
+                            <CalculatedData heading="Annual operational emissions for grid gas (kgCO2e)" unit="kgCO2e" value={annualOperationalEmissionsForGridGas} />
+                            <CalculatedData heading="Total baseline emissions (kgCO2e)" unit="kgCO2e" value={totalBaselineEmissions} />
 
                         </div>
                     </div>

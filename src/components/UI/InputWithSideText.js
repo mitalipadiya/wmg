@@ -7,7 +7,7 @@ const InputWithSideText = (props) => {
   return (
     <div className="input-main">
       <h3 className="input-heading">
-        {props.heading}
+        {props.heading}{!props.disabled ? <span className="compulsory">*</span> : null}
       </h3>
       <p className="input-para">
         {props.subHeading}

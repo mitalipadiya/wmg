@@ -4,11 +4,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./EmissionSavings.css"
 import { formatValueWithTwoDecimals } from "../../services/module2.service";
-import ColumnRecharts from "../UI/ColumnRecharts";
 import { updateMacc } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
 import BarChartGoogle from "../UI/BarChartGoogle";
+import TwoSidedChart from "../UI/TwoSidedChart";
 
 const Macc = () => {
     const [maccData, setMaccData] = useState([]);
@@ -82,34 +82,33 @@ const Macc = () => {
             color: '#A8A8A9'
         }
         ]
-        console.log(data);
 
         setMaccData(data.sort( function ( a, b ) { return a.costEffectiveness - b.costEffectiveness; } ));
     }, [])
 
-    const barData = useMemo(()=>{
-        const bData = [];
-        for (let i = 0; i < maccData.length; i++) {
-            let dt = [maccData[i].technologyOptions, maccData[i].costEffectiveness, maccData[i].color, maccData[i].totalOperational];
-            bData.push(dt);
-        }
+    // const barData = useMemo(()=>{
+    //     const bData = [];
+    //     for (let i = 0; i < maccData.length; i++) {
+    //         let dt = [maccData[i].technologyOptions, maccData[i].costEffectiveness, maccData[i].color, maccData[i].totalOperational];
+    //         bData.push(dt);
+    //     }
 
-        return [
-            [
-                "Element",
-                "CO2 emissions savings (tCO2e)",
-                { role: "style" },
-                {
-                    sourceColumn: 0,
-                    role: "annotation",
-                    type: "string",
-                    calc: "stringify",
-                },
-            ],
-            ...bData.sort( function ( a, b ) { return b[1] - a[1]; } )
+    //     return [
+    //         [
+    //             "Element",
+    //             "CO2 emissions savings (tCO2e)",
+    //             { role: "style" },
+    //             {
+    //                 sourceColumn: 0,
+    //                 role: "annotation",
+    //                 type: "string",
+    //                 calc: "stringify",
+    //             },
+    //         ],
+    //         ...bData.sort( function ( a, b ) { return b[1] - a[1]; } )
 
-        ];
-    },[maccData]);
+    //     ];
+    // },[maccData]);
 
     const onSave = () => {
         dispatch(updateMacc({
@@ -119,7 +118,7 @@ const Macc = () => {
     }
     return <div>
         <h2 className="form-heading">Marginal Abatement Cost Curve (MACC)</h2>
-        <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+        <h3 className="form-subheading"></h3>
         <div className="main">
             <div>
                 <div className="group-heading">TABULAR VIEW</div>
@@ -153,7 +152,8 @@ const Macc = () => {
                 <div className="group-heading">GRAPHICAL VIEW</div>
                 {/* <ColumnChartGoogle chartData={chartData} hAxisTitle="% Savings with reference to Baseline" vAxisTitle="kgCO2e"/> */}
                 {/* <ColumnRecharts data={maccData}/> */}
-                <BarChartGoogle barData={barData} hAxisTitle="£/tCO2e" vAxisTitle=" " />
+                {/* <BarChartGoogle barData={barData} hAxisTitle="£/tCO2e" vAxisTitle=" " /> */}
+                <TwoSidedChart data={maccData}/>
 
             </div>
         </div>

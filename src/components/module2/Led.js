@@ -146,7 +146,7 @@ const Led = () => {
     return (
         <>
             <h2 className="form-heading">LED</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading">Light Emitting diode is energy efficient technology alternative for lighting.</h3>
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -156,20 +156,20 @@ const Led = () => {
                                 values={lightingTypes}
                                 heading="Enter current type of lighting"
                                 onChange={(event) => { setCurrentTypeOfLighting(event.target.value) }}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="You may wish to change specific type of less efficient lighting units." />
                             <InputWithSideText value={currentLightingPowerRating}
                                 unit="W"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Enter current lighting power rating"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading="Check the power rating for the lighting units from your inventory."
                                 onChange={(event) => { setCurrentLightingPowerRating(event.target.value) }} />
                             <InputWithSideText value={numberOfUnits}
                                 unit=""
                                 type="text"
                                 placeholder="Select"
                                 heading="Number of units"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading="Number of units installed in your facility which provide for lighting currently."
                                 onChange={(event) => { setNumberOfUnits(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
@@ -186,14 +186,14 @@ const Led = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Daily usage"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading="Enter the number of hours the lights are ON in your facility."
                                 onChange={(event) => { setDailyUsage(event.target.value) }} />
                             <InputWithSideText value={numberOfOperationalDaysInaYear}
                                 unit=""
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Number of operational days in a year"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading="Enter the number of days your facility is operational in a year when the lights are ON."
                                 onChange={(event) => { setNumberOfOperationalDaysInaYear(event.target.value) }} />
                             <InputWithSideText value={annualUsage}
                                 unit="h"
@@ -202,14 +202,14 @@ const Led = () => {
                                 heading="Annual usage"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                             />
                             <InputWithSideText value={lEDPowerRating}
                                 unit="W"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="LED power rating"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 onChange={(event) => { setLEDPowerRating(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
@@ -230,14 +230,14 @@ const Led = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit cost for LED"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setUnitCostForLED(event.target.value) }} />
                             <InputWithSideText value={initialInvestmentForLEDs}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Initial investment for LEDs (CAPEX)"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true} />
                             <InputWithSideText value={costofElectricityWithCurrentLighting}
@@ -247,7 +247,7 @@ const Led = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Cost of electricity with current lighting"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
+                                subHeading="" />
 
                             <InputWithSideText value={costOfElectricityWithLEDs}
                                 unit="£"
@@ -256,7 +256,7 @@ const Led = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Cost of electricity with LEDs"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                         </div>
                         <div className="calculated-main">
@@ -278,7 +278,7 @@ const Led = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Annual operational emission savings"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
@@ -286,7 +286,7 @@ const Led = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">

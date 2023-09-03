@@ -41,7 +41,7 @@ const EconomicParameters = () => {
 
         <>
             <h2 className="form-heading">Economic parameters</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading">Ensure you enter the latest/most relevant values.</h3>
             <div className="main">
                 <div className="form-div">
 
@@ -51,28 +51,28 @@ const EconomicParameters = () => {
                             type="number"
                             placeholder="Enter value"
                             heading="Unit price of electricity"
-                            subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                            subHeading="Get the value from your energy supplier else use default value."
                             onChange={(event) => { setUnitPriceOfElectricity(event.target.value) }} />
                         <InputWithSideText value={unitPriceOfGas}
                             unit="£/kWh"
                             type="number"
                             placeholder="Enter value"
                             heading="Unit price of gas"
-                            subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                            subHeading="Get the value from your energy supplier else use default value."
                             onChange={(event) => { setUnitPriceOfGas(event.target.value) }} />
                         <InputWithSideText value={yearsOfAbatement}
                             unit="years"
                             type="number"
                             placeholder="Enter value"
                             heading="Years of abatement"
-                            subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                            subHeading="Timeframe during which the profitability or the cost of the project is to be assessed."
                             onChange={(event) => { setYearsOfAbatement(event.target.value) }} />
                         <InputWithSideText value={discountRate}
                             unit="%"
                             type="number"
                             placeholder="Enter value"
                             heading="Discount rate"
-                            subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                            subHeading="The discount rate is defined as the minimum level of return on investment that an organisation deems acceptable."
                             onChange={(event) => { setDiscountRate(event.target.value) }} />
                     </div>
 

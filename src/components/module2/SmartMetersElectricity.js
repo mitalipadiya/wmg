@@ -61,8 +61,8 @@ const SmartMetersElectricity = () => {
 
     return (
         <>
-            <h2 className="form-heading">Smart meters - electricity</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h2 className="form-heading">Smart Meters - Electricity</h2>
+            <h3 className="form-subheading">Non-domestic or industrial smart meters could be installed in your facility in consultation with your energy supplier.</h3>
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -74,7 +74,7 @@ const SmartMetersElectricity = () => {
                                 placeholder="Enter value"
                                 disabled={true}
                                 heading="Average annual electricity consumption"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
 
@@ -90,7 +90,7 @@ const SmartMetersElectricity = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Average electricity savings incentivised using smart meter"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading="Smart meters provide visibility about energy usage and thus incentivise the savings. The % savings depends on existing measures of energy savings as well as the actions taken based on smart meter data. The default is based on empirical data."
                                 disabled={true} />
 
                         </div>
@@ -110,7 +110,7 @@ const SmartMetersElectricity = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Initial investment for electricity smart meter(CAPEX)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true} />
                         </div>
@@ -133,7 +133,7 @@ const SmartMetersElectricity = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
@@ -141,7 +141,7 @@ const SmartMetersElectricity = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">

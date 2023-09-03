@@ -45,7 +45,7 @@ const Technologies = () => {
 
     return <div>
         <h2 className="form-heading">Select low carbon technology options</h2>
-        <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+        <h3 className="form-subheading">Click the boxes for the technologies you wish to implement at your facility.</h3>
         <div className="all-list">
             <div className="technologies-list">
                 <h4>Electricity related options</h4>

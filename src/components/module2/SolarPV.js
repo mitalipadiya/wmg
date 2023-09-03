@@ -136,7 +136,7 @@ const SolarPV = () => {
     return (
         <>
             <h2 className="form-heading">Solar PV</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading">The solar photovoltaic (PV) technology utilises sunlight to generate electricity.</h3>
             <div className="main">
                 <div>
                     <h2 className="group-heading">General</h2>
@@ -148,27 +148,27 @@ const SolarPV = () => {
                                 placeholder="Enter value"
                                 heading="Average annual electricity requirements"
                                 disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={percentAnnualElectricityFromPV}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="What % of annual electricity you want to get from PV?"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading="Solar PV system generates electricity only during sunshine hours; so you utilise stand-alone solar PV for a share of your electricity requirements; else you need storage system (such as battery)."
                                 onChange={(event) => setPercentAnnualElectricityFromPV(event.target.value)} />
                             <InputWithSideText value={location}
                                 unit=""
                                 type="text"
                                 placeholder="Select"
                                 heading="Location"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading="This is the location of your facility."
                                 disabled={true}/>
                             <InputWithSideText value={latitudeLongitude}
                                 unit=""
                                 type="text"
                                 placeholder="Select location to view lattitude, longitude"
                                 heading="Lattitude, longitude"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 disabled={true} />
                         </div>
                         <div className="calculated-main">
@@ -186,14 +186,14 @@ const SolarPV = () => {
                                 heading="Electricity to be generated using PV system"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={annualElectricityGenerationSelectedLocation}
                                 unit="kWh/kWp"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual electricity generation at selected location using 1 kWp system"
                                 toFixed={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 disabled={true} />
                             <InputWithSideText value={annualSolarInsolationSelectedLocation}
                                 unit="kWh/m2"
@@ -202,13 +202,13 @@ const SolarPV = () => {
                                 heading="Annual solar insolation at selected location"
                                 toFixed={true}
                                 disabled={true}
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor" />
+                                subHeading="" />
                             <InputWithSideText value={solarModuleEfficiency}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Solar module efficiency"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 onChange={(event) => { setSolarModuleEfficiency(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
@@ -228,7 +228,7 @@ const SolarPV = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit installation cost of PV system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setUnitInstallationCostPVSystem(event.target.value) }} />
                             <InputWithSideText value={initialInvestmentPVSystem}
                                 unit="£"
@@ -236,7 +236,7 @@ const SolarPV = () => {
                                 placeholder="Enter value"
                                 heading="Initial investment for PV system (CAPEX)"
                                 toFixed={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setInitialInvestmentPVSystem(event.target.value) }} />
                             <InputWithSideText value={annualElectricityInsteadOfGrid}
                                 unit="kWh"
@@ -245,7 +245,7 @@ const SolarPV = () => {
                                 disabled={true}
                                 isFixed={true}
                                 heading="Annual electricity used from PV system instead of grid ()"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -264,7 +264,7 @@ const SolarPV = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="GHG Emissions for electricity in presence of PV system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 isFixed={true} />
                             <InputWithSideText value={annualOperationalEmissionSavings}
@@ -272,7 +272,7 @@ const SolarPV = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 disabled={true}
                                 isFixed={true} />
                             <InputWithSideText value={totalOperationalEmissionSavingsAbatementPeriod}
@@ -280,7 +280,7 @@ const SolarPV = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 disabled={true}
                                 isFixed={true} />
                         </div>

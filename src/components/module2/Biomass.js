@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../UI/Button";
 import { useNavigate } from "react-router-dom";
 import { updateBiomass } from "../../actions/module2";
-import Select from "../UI/Select";
 import InputWithSelect from "../UI/InputWithSelect";
 
 const Biomass = () => {
@@ -169,7 +168,7 @@ const Biomass = () => {
     return (
         <>
             <h2 className="form-heading">Biomass</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading"></h3>
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -181,38 +180,37 @@ const Biomass = () => {
                                 placeholder="Enter value"
                                 heading="Average Annual Gas Requirements"
                                 disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={annualHeatYouWantToGetFromBiomass}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="What % of annual heat you want to get from Biomass?"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setAnnualHeatYouWantToGetFromBiomass(event.target.value) }}
                             />
                             <InputWithSelect value={whichLoadsAreToBeSupplied}
                                 values={loads}
                                 heading="Which loads are to be supplied?"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 onChange={(event) => { setWhichLoadsAreToBeSupplied(event.target.value) }} />
                             <InputWithSelect value={biomassBoilerStrategy}
                                 values={boilerStrategy}
                                 heading="Biomass boiler strategy"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 onChange={(event) => { setBiomassBoilerStrategy(event.target.value) }} />
                             <InputWithSideText value={capacityFactor}
                                 unit="%"
                                 type="text"
-                                // to be taken as default or something else 
                                 placeholder="Enter the value"
                                 heading="Capacity factor"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setCapacityFactor(event.target.value) }} />
                             <InputWithSelect value={biomassFuel}
                                 values={biomassFuelData}
                                 placeholder="Enter the value"
                                 heading="Biomass fuel"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 onChange={(event) => { setBiomassFuel(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
@@ -229,36 +227,35 @@ const Biomass = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Existing boiler efficiency"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setExistingBoilerEfficiency(event.target.value) }} />
                             <InputWithSideText value={hoursOfHeatDemand}
                                 unit="H"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Hours of heat demand"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setHoursOfHeatDemand(event.target.value) }} />
                             <InputWithSideText value={netCalorificValueOfDryFuel}
                                 unit="kWh/kg"
                                 type="number"
                                 placeholder="Enter value"
-                                // values based on adjoining table 
                                 heading="Net Calorific Value of dry fuel"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setNetCalorificValueOfDryFuel(event.target.value) }} />
                             <InputWithSideText value={moistureContent}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Moisture Content"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setMoistureContent(event.target.value) }} />
                             <InputWithSideText value={efficiencyOfBiomassPlant}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Efficiency of biomass plant"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setEfficiencyOfBiomassPlant(event.target.value) }} />
                             <InputWithSideText value={annualDeliveredHeatDemand}
                                 unit="kWh"
@@ -267,7 +264,7 @@ const Biomass = () => {
                                 heading="Annual delivered heat demand"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                             <InputWithSideText value={averageLoad}
                                 unit="kW"
@@ -276,7 +273,7 @@ const Biomass = () => {
                                 heading="Average Load"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                             <InputWithSideText value={peakLoad}
                                 unit="kWh"
@@ -285,7 +282,7 @@ const Biomass = () => {
                                 heading="Peak load"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                             <InputWithSideText value={annualDeliveredHeatDemandUsingBiomassBoiler}
                                 unit="kWh"
@@ -294,7 +291,7 @@ const Biomass = () => {
                                 heading="Annual delivered heat demand using biomass boiler instead of grid gas"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                             <InputWithSideText value={netCVOfFuelAsReceived}
                                 unit="kW/kg"
@@ -303,7 +300,7 @@ const Biomass = () => {
                                 heading="Net CV of fuel as received"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                             <InputWithSideText value={deliveredHeatPerUnitMassOfFuel}
                                 unit="kWh/kg"
@@ -312,7 +309,7 @@ const Biomass = () => {
                                 heading="Delivered heat per unit mass of fuel"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
 
                         </div>
@@ -335,7 +332,7 @@ const Biomass = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Unit installation cost of Biomass boiler"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={initialInvestmentForBiomassSystem}
                                 unit="£"
                                 type="number"
@@ -343,7 +340,7 @@ const Biomass = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Initial investment for Biomass system (CAPEX)"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                             <InputWithSideText value={unitPriceOfFuel}
                                 unit="£/tonne"
@@ -351,7 +348,7 @@ const Biomass = () => {
                                 disabled={true}
                                 placeholder="Enter value"
                                 heading="Unit Price of fuel"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
+                                subHeading="" />
                             <InputWithSideText value={annualCostOfBiomassFuel}
                                 unit="£"
                                 type="number"
@@ -359,14 +356,14 @@ const Biomass = () => {
                                 heading="Annual cost of biomass fuel"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                             <InputWithSideText value={unitPriceOfGridGas}
                                 unit="£/kWh"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit price of grid gas"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 disabled={true}
                             />
                             <InputWithSideText value={annualCostOfGridGasInPresenceOfBiomassBoiler}
@@ -374,7 +371,7 @@ const Biomass = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual cost of grid gas in presence of biomass boiler"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true} />
                             <InputWithSideText value={annualCostOfGridGasInAbsenceOfBiomassBoile}
@@ -382,7 +379,7 @@ const Biomass = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual cost of grid gas in absence of biomass boile"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true}
                             />
@@ -404,14 +401,14 @@ const Biomass = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Emission factor of grid gas"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true} />
                             <InputWithSideText value={emissionFactorOfBiomassFuel}
                                 unit="kgCO2e/kWh"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Emission factor of biomass fuel"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={gHGEmissionsForHeatInAbsenceOfBiomassSystem}
                                 unit="kgCO2e"
                                 type="number"
@@ -419,7 +416,7 @@ const Biomass = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="GHG Emissions for heat in absence of Biomass system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={gHGEmissionsForHeatInPresenceOfBiomassSystem}
                                 unit="kgCO2e"
@@ -428,7 +425,7 @@ const Biomass = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="GHG Emissions for heat in presence of Biomass system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={annualOperationalEmissionSavings}
                                 unit="kgCO2e"
@@ -437,13 +434,13 @@ const Biomass = () => {
                                 heading="Annual operational emission savings"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true} />
                         </div>

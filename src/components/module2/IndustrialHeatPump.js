@@ -184,7 +184,7 @@ const IndustrialHeatPump = () => {
     return (
         <>
             <h2 className="form-heading">Industrial heat pump</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading"></h3>
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -195,20 +195,20 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Average annual gas requirements"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={heatLoadIsAtTemperaturesBelow100C}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="What % of heat load is at temperatures below 100°C (get from Industrial Heat Pump)?"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event)=>{setHeatLoadIsAtTemperaturesBelow100C(event.target.value)}}/>
                             <InputWithSideText value={heatLoadIsAtTemperaturesBetween100C150C}
                                 unit=""
                                 type="text"
                                 placeholder="Enter value"
                                 heading="What % of heat load is at temperatures between 100°C-150°C (get from Industrial Heat Pump)?"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 onChange={(event)=>{setHeatLoadIsAtTemperaturesBetween100C150C(event.target.value)}}/>
                         </div>
                         <div className="calculated-main">
@@ -225,14 +225,14 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Existing boiler efficiency"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setExistingBoilerEfficiency(event.target.value) }} />
                             <InputWithSideText value={hoursOfHeatDemand}
                                 unit="h"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Hours of heat demand"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setHoursOfHeatDemand(event.target.value) }} />
                             <InputWithSideText value={annualHeatLoad}
                                 unit="kW"
@@ -241,7 +241,7 @@ const IndustrialHeatPump = () => {
                                 heading="Annual heat load"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={annualGridGasSavingInPresenceOfIHP1}
                                 unit="kWh"
@@ -250,7 +250,7 @@ const IndustrialHeatPump = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Annual grid gas saving in presence of IHP1"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={ihpTypeIhp1}
                                 unit=""
@@ -258,7 +258,7 @@ const IndustrialHeatPump = () => {
                                 placeholder="Enter value"
                                 disabled={true}
                                 heading="IHP type for IHP1"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSelect value={copForIhp1}
                                 values={copValues}
@@ -266,7 +266,7 @@ const IndustrialHeatPump = () => {
                                 type="text"
                                 placeholder="Enter value"
                                 heading="COP for IHP1"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={event => setCopForIhp1(event.target.value)}
                             />
                             <InputWithSideText value={heatSourceTemperature}
@@ -274,14 +274,14 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Heat source temperature"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setHeatSourceTemperature(event.target.value) }} />
                             <InputWithSideText value={heatSinkTemperature}
                                 unit="°C"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Heat sink temperature/Process temperature"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setHeatSinkTemperature(event.target.value) }} />
                             <InputWithSideText value={temperatureLift}
                                 unit="°C"
@@ -290,21 +290,21 @@ const IndustrialHeatPump = () => {
                                 heading="Temperature lift"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={refrigerant}
                                 unit=""
                                 type="text"
                                 placeholder="Enter value"
                                 heading="Refrigerant"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setRefrigerant(event.target.value) }} />
                             <InputWithSideText value={coefficientOfPerformanceOfIHP1}
                                 unit="K"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Coefficient of performance (COP) of IHP1"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setCoefficientOfPerformanceOfIHP1(event.target.value) }} />
 
                             <InputWithSideText value={electricityInput}
@@ -314,7 +314,7 @@ const IndustrialHeatPump = () => {
                                 heading="Electricity input"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
+                                subHeading=""/>
                             <InputWithSideText value={annualGridGasSavingInPresenceOfIHP2}
                                 unit="kWh"
                                 type="number"
@@ -322,20 +322,20 @@ const IndustrialHeatPump = () => {
                                 heading="Annual grid gas saving in presence of IHP2"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={coefficientOfPerformanceOfIHP2}
                                 unit="kW"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Coefficient of performance (COP) of IHP2"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
+                                subHeading=""/>
                             <InputWithSideText value={electricityInputForIHP2}
                                 unit="kW"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Electricity input for IHP2"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true}/>
                         </div>
@@ -359,14 +359,14 @@ const IndustrialHeatPump = () => {
                                 disabled={true}
                                 placeholder="Enter value"
                                 heading="Unit installation cost of IHP"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={initialInvestmentForIHP1}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Initial investment for IHP1 (CAPEX)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true}
                             />
@@ -375,7 +375,7 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Initial investment for IHP2 (CAPEX)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true}
                             />
@@ -384,14 +384,14 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit Price of electricity"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}/>
                             <InputWithSideText value={annualCostOfElectricityForIHP1}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual cost of electricity for IHP1"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true}/>
                             <InputWithSideText value={annualCostOfElectricityForIHP2}
@@ -399,7 +399,7 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual cost of electricity for IHP2"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true} />
                             <InputWithSideText value={unitPriceOfGridGas}
@@ -407,7 +407,7 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit price of grid gas"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true} />
                             <InputWithSideText value={annualCostSavingsForGridGas}
                                 unit="£"
@@ -415,7 +415,7 @@ const IndustrialHeatPump = () => {
                                 placeholder="Enter value"
                                 disabled={true}
                                 heading="Annual cost savings for grid gas"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={annualCostOfElectricityForIHPs}
                                 unit="£"
@@ -424,7 +424,7 @@ const IndustrialHeatPump = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Annual cost of electricity for IHPs"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                         </div>
                         <div className="calculated-main">
@@ -444,7 +444,7 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Emission factor of grid gas"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                             />
                             <InputWithSideText value={emissionFactorOfElectricityUsedForIHPs}
@@ -452,7 +452,7 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Emission factor of electricity used for IHPs"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                             />
                             <InputWithSideText value={gHGEmissionsForHeatInAbsenceOfIHP}
@@ -462,7 +462,7 @@ const IndustrialHeatPump = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="GHG Emissions for heat in absence of IHP"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={gHGEmissionsForHeatInPresenceOfIHP}
                                 unit="kgCO2e"
                                 type="number"
@@ -470,21 +470,21 @@ const IndustrialHeatPump = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="GHG Emissions for heat in presence of IHP"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={annualOperationalEmissionSavings}
                                 unit="kgCO2e"
                                 type="number"
                                 disabled={true}
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
                                 disabled={true}
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">

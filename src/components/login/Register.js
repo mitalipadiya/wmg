@@ -51,7 +51,7 @@ const Register = () => {
                             <Input placeholder="" onChange={(event) => setCompany(event.target.value)}/>
                         </div>
                         <div className="designation-div">
-                            <label className="signin-label"><span>Designation<span className="compulsory">*</span></span></label>
+                            <label className="signin-label"><span>Job title<span className="compulsory">*</span></span></label>
                             <Input placeholder="" onChange={(event) => setDesignation(event.target.value)}/>
                         </div>
                     </div>

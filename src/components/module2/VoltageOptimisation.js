@@ -65,7 +65,7 @@ const Wind = () => {
     return (
         <>
             <h2 className="form-heading">Voltage optimisation</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading"></h3>
             <div className="main">
                 <h2 className="group-heading">GENERAL</h2>
                 <div className="form-div">
@@ -75,7 +75,7 @@ const Wind = () => {
                             type="number"
                             placeholder="Enter value"
                             heading="Average annual electricity consumption"
-                            subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                            subHeading=""
                             onChange={(event) => { setAverageAnnualElectricityConsumption(event.target.value) }} />
                     </div>
                     <div className="calculated-main">
@@ -91,16 +91,13 @@ const Wind = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Average electricity savings using voltage optimisation"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setAverageElectricitySavingsUsingVoltageOptimisation(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
                                 <CalculatedData heading="Annual electricity savings with voltage optimisation" unit="kWh" value={annualElectricitySavingsWithVoltageOptimisation} />
                             </div>
-                            {/* <div className="calculated-container">
-                                    <CalculatedData heading="" unit="" value={sizeOfPVSystem} />
-                                </div> */}
                         </div>
                     </div>
                 </div>
@@ -113,7 +110,7 @@ const Wind = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Initial investment for voltage optimisation (CAPEX)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setInitialInvestmentForVoltageOptimisation(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
@@ -133,14 +130,14 @@ const Wind = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setAnualOperationalEmissionSavings(event.target.value) }} />
                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setTotalOperationalEmissionSavingsAcrossAbatementPeriod(event.target.value) }} />
                         </div>
                         <div className="calculated-main">

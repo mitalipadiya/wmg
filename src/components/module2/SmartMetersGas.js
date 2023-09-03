@@ -62,8 +62,8 @@ const SmartMetersGas = () => {
 
     return (
         <>
-            <h2 className="form-heading">Smart meters - gas</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h2 className="form-heading">Smart Meters - Gas</h2>
+            <h3 className="form-subheading">Non-domestic or industrial smart meters could be installed in your facility in consultation with your energy supplier.</h3>
             <div className="main">
               
                     <h2 className="group-heading">GENERAL</h2>
@@ -75,7 +75,7 @@ const SmartMetersGas = () => {
                                 placeholder="Enter value"
                                 heading="Average annual gas consumption"
                                 disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
 
@@ -91,7 +91,7 @@ const SmartMetersGas = () => {
                                     disabled={true}
                                     placeholder="Enter value"
                                     heading="Average gas savings incentivised using smart meter"
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                    subHeading="" />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">
@@ -109,7 +109,7 @@ const SmartMetersGas = () => {
                                     type="number"
                                     placeholder="Enter value"
                                     heading="Initial investment for gas smart meter(CAPEX)"
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                    subHeading=""
                                     disabled={true} />
                             </div>
                             <div className="calculated-main">
@@ -131,7 +131,7 @@ const SmartMetersGas = () => {
                                     disabled={true}
                                     toFixed={true}
                                     heading="Annual operational emission savings"
-                                    subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                    subHeading="" />
                                 <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                     unit="kgCO2e"
                                     type="number"
@@ -139,7 +139,7 @@ const SmartMetersGas = () => {
                                     disabled={true}
                                     toFixed={true}
                                     heading="Total operational emission savings across abatement period"
-                                    subHeading="Quis enim unde. Rerum corrupti voluptatum" />
+                                    subHeading="" />
                             </div>
                             <div className="calculated-main">
                                 <div className="calculated-container">

@@ -150,7 +150,7 @@ const SolarPVBESS = () => {
     return (
         <>
             <h2 className="form-heading">Solar PV+BESS</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading">Solar photovoltaic (PV) and Battery energy storage system (BESS) is a hybrid energy system where PV generates electricity during sunshine hours and BESS stores it for usage during non-sunshine hours.</h3>
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -162,34 +162,34 @@ const SolarPVBESS = () => {
                                 placeholder="Enter value"
                                 heading="Average annual electricity requirements"
                                 disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={percentAnnualElectricityFromPVBESS}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="What % of annual electricity you want to get from PV+BESS? "
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading="As output of the PV+BESS hybrid system depends on the diurnal and seasonal changes; you can utilise share of your electricity requirements using the PV+BESS system to avoid oversizing or undersizing."
                                 onChange={(event) => { setPercentAnnualElectricityFromPVBESS(event.target.value) }} />
                             <InputWithSideText value={numberOfDaysOfOperationInAYear}
                                 unit=""
                                 type="text"
                                 placeholder="Select"
                                 heading="Number of days of operation in a year"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setNumberOfDaysOfOperationInAYear(event.target.value) }} />
                             <InputWithSideText value={location}
                                 unit=""
                                 type="text"
                                 placeholder="Select"
                                 heading="Location"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 disabled={true}/>
                             <InputWithSideText value={latitudeLongitude}
                                 unit=""
                                 type="text"
                                 placeholder="Select location to view lattitude, longitude"
                                 heading="Lattitude, longitude"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 disabled={true} />
                         </div>
                         <div className="calculated-main">
@@ -208,7 +208,7 @@ const SolarPVBESS = () => {
                                 heading="Daily electricity requirement using PV+BESS system "
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText
                                 value={dailyAverageElectricityGeneration}
                                 // calculated from renewablesninja
@@ -218,7 +218,7 @@ const SolarPVBESS = () => {
                                 toFixed={true}
                                 disabled={true}
                                 heading="Daily average electricity generation at selected location using 1 kWp system"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
+                                subHeading="" />
                             <InputWithSideText
                                 value={averageDailySolarInsolation}
                                 // calculated from renewablesninja
@@ -228,35 +228,35 @@ const SolarPVBESS = () => {
                                 toFixed={true}
                                 disabled={true}
                                 heading="Average daily solar insolation at selected location"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                             <InputWithSideText value={solarModuleEfficiency}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Solar module efficiency"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setSolarModuleEfficiency(event.target.value) }} />
                             <InputWithSideText value={batteryEfficiency}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Battery efficiency"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setBatteryEfficiency(event.target.value) }} />
                             <InputWithSideText value={depthOfDischargeOfBattery}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Depth of discharge of battery"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setDepthOfDischargeOfBattery(event.target.value) }} />
                             <InputWithSideText value={numberOfDaysOfAutonomy}
                                 unit=""
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Number of days of autonomy"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setNumberOfDaysOfAutonomy(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
@@ -277,7 +277,7 @@ const SolarPVBESS = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit installation cost of PV system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setUnitInstallationCostPVSystem(event.target.value) }} />
                             <InputWithSideText value={initialInvestmentPVSystem}
                                 unit="£"
@@ -286,20 +286,20 @@ const SolarPVBESS = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Initial investment for PV system (CAPEX)"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
+                                subHeading="" />
                             <InputWithSideText value={unitPriceOfLithiumIonBatteryPack}
                                 unit="£/kWh"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit price of Lithium ion battery pack"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setUnitPriceOfLithiumIonBatteryPack(event.target.value) }} />
                             <InputWithSideText value={initialInvestmentForBESSSystem}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Initial investment for BESS system (CAPEX)"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true} />
                             <InputWithSideText value={annualElectricityUsedFromPVBESSSystemInsteadOfGrid}
@@ -309,7 +309,7 @@ const SolarPVBESS = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Annual electricity used from PV+BESS system instead of grid"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -330,7 +330,7 @@ const SolarPVBESS = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="GHG Emissions for electricity in presence of PV system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={annualOperationalEmissionSavings}
                                 unit="kgCO2e"
@@ -339,7 +339,7 @@ const SolarPVBESS = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Annual operational emission savings"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                             <InputWithSideText value={totalOperationalEmissionSavingsAbatementPeriod}
                                 unit="kgCO2e"
@@ -348,7 +348,7 @@ const SolarPVBESS = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
 
                         </div>

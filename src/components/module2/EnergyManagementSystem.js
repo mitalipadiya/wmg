@@ -90,7 +90,7 @@ const EnergyManagementSystem = () => {
     return (
         <>
             <h2 className="form-heading">Energy management system</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading"></h3>
             <div className="main">
                 <h2 className="group-heading">GENERAL</h2>
                 <div className="form-div">
@@ -101,14 +101,14 @@ const EnergyManagementSystem = () => {
                             placeholder="Enter value"
                             heading="Average annual electricity consumption"
                             disabled={true}
-                            subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                            subHeading="" />
                         <InputWithSideText value={averageAnnualGasConsumption}
                             unit="kWh"
                             type="number"
                             placeholder="Enter value"
                             heading="Average annual gas consumption"
                             disabled={true}
-                            subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                            subHeading="" />
                     </div>
                     <div className="calculated-main">
 
@@ -124,14 +124,14 @@ const EnergyManagementSystem = () => {
                                 placeholder="Enter value"
                                 disabled={true}
                                 heading="Average electricity savings incentivised using building energy management system (BEMS)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={averageGasSavingsIncentivisedUsingBEMS}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
                                 disabled={true}
                                 heading="Average gas savings incentivised using building energy management system (BEMS)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -152,7 +152,7 @@ const EnergyManagementSystem = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Initial investment for BEMS(CAPEX)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true} />
                         </div>
                         <div className="calculated-main">
@@ -176,13 +176,13 @@ const EnergyManagementSystem = () => {
                                 heading="GHG Emissions savings for electricity with BEMS"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={gHGEmissionsSavingsForGasWithBEMS}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="GHG Emissions savings for gas with BEMS"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 toFixed={true}
                                 disabled={true} />
                             <InputWithSideText value={annualOperationalEmissionSavings}
@@ -192,13 +192,13 @@ const EnergyManagementSystem = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum" />
+                                subHeading="" />
                             <InputWithSideText value={totalOperationalEmissionSavingsAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 toFixed={true}
                                 disabled={true} />
                         </div>

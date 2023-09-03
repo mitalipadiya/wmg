@@ -266,7 +266,7 @@ const Chp = () => {
     return (
         <>
             <h2 className="form-heading">CHP</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading"></h3>
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -278,54 +278,53 @@ const Chp = () => {
                                 placeholder="Enter value"
                                 heading="Average Annual Electricity Requirements"
                                 disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                             <InputWithSideText value={numberOfHoursOfElectricityDemand}
                                 unit="h"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Number of hours of electricity demand"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading="Annual value calculated using daily electricity usage hours."
                                 onChange={(event) => { setNumberOfHoursOfElectricityDemand(event.target.value) }}
                             />
                             <InputWithSideText value={baseline?.averageAnnualGasConsumption}
                                 unit="kWh"
                                 type="text"
-                                // placeholder="Select"
                                 disabled={true}
                                 heading="Enter Your Average Annual Gas Requirements"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={numberOfHoursOfHeatDemand}
                                 unit="h"
                                 type="text"
                                 placeholder="Enter value"
                                 heading="Number of hours of heat demand"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading="Annual value calculated using daily heating requirement hours."
                                 onChange={(event) => { setNumberOfHoursOfHeatDemand(event.target.value) }} />
                             <InputWithSideText value={annualElectricityYouWantToGetFromCHPSystem}
                                 unit="%"
                                 type="text"
                                 placeholder="Enter value"
                                 heading="What % of annual electricity you want to get from CHP system?"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setAnnualElectricityYouWantToGetFromCHPSystem(event.target.value) }} />
                             <InputWithSideText value={annualHeatYouWantToGetFromCHPSystem}
                                 unit="%"
                                 type="text"
                                 placeholder="Enter value"
                                 heading="What % of annual heat you want to get from CHP system?"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setAnnualHeatYouWantToGetFromCHPSystem(event.target.value) }} />
                             <InputWithSelect value={loadsAreToBeSupplied}
                                 values={loadsSupplied}
                                 heading="Which loads are to be supplied?"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                                 onChange={(event) => { setLoadsAreToBeSupplied(event.target.value) }} />
                             <InputWithSideText value={cHPFuel}
                                 unit=""
                                 type="text"
                                 heading="CHP fuel"
-                                subHeading="Et voluptatum harum. In rerum necessitatibus quis. Inventor"
+                                subHeading=""
                             />
                         </div>
                         <div className="calculated-main">
@@ -344,7 +343,7 @@ const Chp = () => {
                                 heading="CHP System"
                                 // auto populate  based on adjoining table                                
                                 // disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setCHPSystem(event.target.value) }} />
                             <InputWithSideText value={cHPSystemPrimeMoverTechnology}
                                 unit=""
@@ -352,14 +351,14 @@ const Chp = () => {
                                 // auto populate  based on adjoining table                                
                                 placeholder="Enter value"
                                 heading="CHP System- Prime mover technology"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setCHPSystemPrimeMoverTechnology(event.target.value) }} />
                             <InputWithSideText value={averageElectricityLoad}
                                 unit="kW"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Average electricity load"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true}
                             />
@@ -368,7 +367,7 @@ const Chp = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Existing boiler efficiency"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                                 onChange={(event) => { setExistingBoilerEfficiency(event.target.value) }} />
                             <InputWithSideText value={electricalEfficiency}
                                 unit="%"
@@ -376,7 +375,7 @@ const Chp = () => {
                                 // auto populate on adjoining table
                                 placeholder="Enter value"
                                 heading="Electrical efficiency"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setElectricalEfficiency(event.target.value) }} />
                             <InputWithSideText value={thermalEfficiency}
                                 unit="%"
@@ -384,7 +383,7 @@ const Chp = () => {
                                 // auto popluate on adjoining table
                                 placeholder="Enter value"
                                 heading="Thermal efficiency"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setThermalEfficiency(event.target.value) }} />
                             <InputWithSideText value={heatToPowerRatioForSite}
                                 unit=""
@@ -393,7 +392,7 @@ const Chp = () => {
                                 heading="Heat to power ratio for site"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={averageLoadHeatDemand}
                                 unit="kWth"
@@ -402,7 +401,7 @@ const Chp = () => {
                                 heading="Average load -heat demand"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                             <InputWithSideText value={baseLoadHeatDemand}
                                 unit="kWth"
@@ -411,7 +410,7 @@ const Chp = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="Base load -head demand "
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"/>
+                                subHeading=""/>
                             <InputWithSideText value={annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas}
                                 unit="kWh"
                                 type="number"
@@ -419,7 +418,7 @@ const Chp = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Annual delivered heat demand using CHP system instead of grid gas"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                             <InputWithSideText value={annualElectricityDeliveredUsingCHPSystemInsteadOfGridGas}
                                 unit="kWh"
@@ -428,7 +427,7 @@ const Chp = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Annual electricity delivered using CHP system instead of grid gas"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
 
 
@@ -451,7 +450,7 @@ const Chp = () => {
                                 // value based on adjoining table
                                 placeholder="Enter value"
                                 heading="Unit installation cost of CHP system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setUnitInstallationCostOfCHPSystem(event.target.value) }} />
                             <InputWithSideText value={initialInvestmentForCHPSystem}
                                 unit="£"
@@ -460,7 +459,7 @@ const Chp = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="Initial investment for CHP system(CAPEX)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={unitPriceOfElectricity}
                                 unit="£/kWh"
@@ -468,7 +467,7 @@ const Chp = () => {
                                 placeholder="Enter value"
                                 disabled={true}
                                 heading="Unit Price of electricity"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={annualCostOfElectricityInAbsenceOfCHPSystem}
                                 unit="£"
@@ -476,7 +475,7 @@ const Chp = () => {
                                 disabled={true}
                                 placeholder="Enter value"
                                 heading="Annual cost of electricity in absence of CHP system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={unitPriceOfNaturalGas}
                                 unit="£/kWh"
@@ -484,7 +483,7 @@ const Chp = () => {
                                 placeholder="Enter value"
                                 disabled={true}
                                 heading="Unit Price of natural gas"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={annualCostOfGridGasInAbsenceOfCHPSystem}
                                 unit="£"
@@ -492,7 +491,7 @@ const Chp = () => {
                                 placeholder="Enter value"
                                 disabled={true}
                                 heading="Annual cost of grid gas in absence of CHP system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={annualCostOfCHPFuel}
                                 unit="£"
@@ -501,7 +500,7 @@ const Chp = () => {
                                 heading="Annual cost of CHP fuel (natural gas)"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={annualCostOfGridElectricityInPresenceOfCHPSystem}
                                 unit="£"
@@ -510,7 +509,7 @@ const Chp = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Annual cost of grid electricity in presence of CHP system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                             <InputWithSideText value={annualCostOfGridGasInPresenceOfCHPSystem}
                                 unit="£/kWh"
@@ -519,7 +518,7 @@ const Chp = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Annual cost of grid gas in presence of CHP system"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"/>
+                                subHeading=""/>
 
                         </div>
                         <div className="calculated-main">
@@ -539,28 +538,28 @@ const Chp = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Emission factor of grid gas (kgCO2e/kWh)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true} />
                             <InputWithSideText value={gHGEmissionsForHeatInAbsenceOfCHPSystem}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="GHG Emissions for heat in absence of CHP system (kgCO2e)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true} />
                             <InputWithSideText value={emissionFactorOfGridElectricity}
                                 unit="kgCO2e/kWh"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Emission factor of electricity (kgCO2e/kWh)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true} />
                             <InputWithSideText value={gHGEmissionsForElectricityInAbsenceOfCHPSystem}
                                 unit="kgCO2e"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="GHG Emissions for electricity in absence of CHP system (kgCO2e)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true}
                             />
@@ -569,7 +568,7 @@ const Chp = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="GHG Emissions for electricity and heat in presence of CHP system (kgCO2e)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true}
                             />
@@ -578,7 +577,7 @@ const Chp = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings (kgCO2e)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true} />
                             <InputWithSideText value={totalOperationalEmissionSavingsAbatementPeriod}
@@ -586,7 +585,7 @@ const Chp = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period (kgCO2e)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 disabled={true}
                                 toFixed={true}
                             />

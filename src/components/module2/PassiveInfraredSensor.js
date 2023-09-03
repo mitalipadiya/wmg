@@ -92,8 +92,8 @@ const PassiveInfraredSensor = () => {
 
     return (
         <>
-            <h2 className="form-heading">Passive infrared sensor</h2>
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h2 className="form-heading">Passive Infrared Sensor (PIR) </h2>
+            <h3 className="form-subheading">This is an energy efficiency measure used to turn of the lamps or lighting devices when not required. PIR senses if the area is occupied.</h3>
             <div className="main">
 
                 <div>
@@ -105,42 +105,42 @@ const PassiveInfraredSensor = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Number of lamps"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading="Number of lamps/lighting devices which you want to switch OFF when the area is not occupied."
                                 onChange={(event) => { setNumberOfLamps(event.target.value) }} />
                             <InputWithSideText value={wattageOfLamp}
                                 unit="W"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Wattage of lamp"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading="Average rating of the lamps/lighting devices in your facility which you want to switch OFF when the area is not occupied."
                                 onChange={(event) => { setWattageOfLamp(event.target.value) }} />
                             <InputWithSideText value={numberOfDaysInYear}
                                 unit="D"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Number of days in year"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setNumberOfDaysInYear(event.target.value) }} />
                             <InputWithSideText value={estimatedHoursONPerDay}
                                 unit="h0"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Estimated hours ON per day"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setEstimatedHoursONPerDay(event.target.value) }} />
                             <InputWithSideText value={estimatedHoursOccupiedPerDay}
                                 unit="hoc"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Estimated hours occupied per day"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setEstimatedHoursOccupiedPerDay(event.target.value) }} />
                             <InputWithSideText value={areaOfIndustrialFacility}
                                 unit="m2"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Area of industrial facility"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setAreaofIndustrialFacility(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
@@ -157,7 +157,7 @@ const PassiveInfraredSensor = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Detection range of PIR sensors"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setDetectionRangeOfPIRSensors(event.target.value) }} />
 
                             <InputWithSideText value={numberOfPIRSensors}
@@ -167,7 +167,7 @@ const PassiveInfraredSensor = () => {
                                 heading="Number of PIR sensors"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -191,7 +191,7 @@ const PassiveInfraredSensor = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Unit cost of PIR sensor"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                                 onChange={(event) => { setUnitCostOfPirSensor(event.target.value) }} />
                             <InputWithSideText value={initialInvestmentForPir}
                                 unit="£"
@@ -200,7 +200,7 @@ const PassiveInfraredSensor = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="Initial investment for PIR (CAPEX)"
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel"
+                                subHeading=""
                             />
                         </div>
                         <div className="calculated-main">
@@ -222,7 +222,7 @@ const PassiveInfraredSensor = () => {
                                 heading="Annual operational emission savings"
                                 toFixed={true}
                                 disabled={true}
-                                subHeading="Ut atque quia aut sunt. Vel quis quasi nostrum accusamus et vel" />
+                                subHeading="" />
 
                             <InputWithSideText value={totalOperationalEmissionSavingsAcrossAbatementPeriod}
                                 unit="kgCO2e"
@@ -231,7 +231,7 @@ const PassiveInfraredSensor = () => {
                                 toFixed={true}
                                 disabled={true}
                                 heading="Total operational emission savings across abatement period"
-                                subHeading="Quis enim unde. Rerum corrupti voluptatum"
+                                subHeading=""
                             />
                         </div>
                         <div className="calculated-main">
