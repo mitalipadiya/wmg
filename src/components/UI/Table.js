@@ -4,6 +4,7 @@ import "./Result.css";
 import "./Table.scss";
 import { useEffect, useState } from "react";
 import FlagsSelect from 'react-flags-select';
+import { nanoid } from "nanoid";
 
 const customLabels = {
   AU: "AUS",
@@ -53,7 +54,7 @@ const customLabels = {
 }
 const countries = ["AU", "AT", "BE", "BG", "BR", "CA", "CH", "CN", "CY", "CZ", "DE", "DK", "ES", "EE", "FI", "FR", "GB", "GR", "HR", "HU", "ID", "IN", "IE", "IT", "JP", "KR", "LT", "LU", "LV", "MX", "MT", "NL", "NO", "PL", "PT", "RO", "RU", "SK", "SI", "SE", "TR", "TW", "US", "WORLD"];
 
-const Table = ({ addEntry, tableData }) => {
+const Table = ({ addEntry, tableData, deleteEntry }) => {
   const [emissionsData, setEmissionsData] = useState([
     {
       "Sectoral embodied emissions": "A01",
@@ -2808,6 +2809,7 @@ const Table = ({ addEntry, tableData }) => {
   const [sectors, setSectors] = useState([]);
   const [subSectors, setSubSectors] = useState([]);
   const [currency, setCurrency] = useState("£");
+  const [totalEmission, setTotalEmission] = useState(0);
 
   useEffect(()=>{
     if(country && subSector && cost && currency) {
@@ -2842,8 +2844,12 @@ const Table = ({ addEntry, tableData }) => {
   }
 
   const add = () => {
-    addEntry(country, sector, subSector, cost, emission);
+    addEntry(nanoid(), country, sector, subSector, cost, emission);
+    setTotalEmission(prev => prev + parseInt(emission));
     reset();
+  }
+  const onDelete = param => event => {
+    deleteEntry(param);
   }
   return (
     <div>
@@ -2860,8 +2866,8 @@ const Table = ({ addEntry, tableData }) => {
         </thead>
         <tbody>
           {
-            tableData.length > 0 ? tableData.map(data => {
-              return <tr>
+            tableData?.length > 0 ? tableData.map(data => {
+              return <tr key={data.id}>
                 <td className="table-data table-input" >
                   <FlagsSelect
                     countries={countries}
@@ -2872,17 +2878,17 @@ const Table = ({ addEntry, tableData }) => {
                   />
                 </td>
                 <td className="table-data table-input">
-                  <Select style={{ marginTop: 0, minWidth: "209px" }} values={sectors} value={data.sector} onChange={(event) => setSector(event.target.value)} />
+                  <Input style={{ marginTop: 0, minWidth: "209px" }} value={data.sector}/>
                 </td>
                 <td className="table-data table-input">
-                  <Select style={{ marginTop: 0 }} values={subSectors} value={data.subSector} onChange={(event) => setSubSector(event.target.value)} />
+                  <Input style={{ marginTop: 0 }} value={data.subSector} />
                 </td>
                 <td className="table-data table-input">
                   <Input style={{width: "150px"}} value={currency + data.cost} onChange={(event) => setCost(event.target.value)} />
                 </td>
                 <td className="table-data input-trash">
                   <Input value={data.emission + " kgCO2"} disabled={true} onChange={(event) => setEmission(event.target.value)} />
-                  <img className="trash-img" />
+                  <span className="trash-img" onClick={onDelete(data.id)} />
                 </td>
               </tr>
             }) : null
@@ -2921,7 +2927,7 @@ const Table = ({ addEntry, tableData }) => {
         <p className="add-entry" onClick={add}><img className="add-img" />Add entry</p>
         <div className="final-calculatedvalue">
           <p>Total embodied emissions</p>
-          <Input className="result-value" />
+          <Input style={{"background" : "#FEEFD3"}} className="result-value" value={totalEmission + " kgCO2"} disabled={true} placeholder="kgCO2"/>
         </div>
       </div>
     </div>

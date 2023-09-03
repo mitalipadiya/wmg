@@ -13,6 +13,9 @@
         background: #f4f4f4;
         border-right: 1px solid #d3d3d4;
         color: #7D7D7F;
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
 
     .nav-tabs .nav-link.active {
@@ -136,4 +139,9 @@ li.nav-item.compare-portfolios {
         border-bottom: none;
         color: #F9B123;
     }
+}
+.delete-portfolio {
+    content: url("../../assets/vuesax-bold-close-circle.svg");
+    width: 16px;
+    height: 16px;
 }

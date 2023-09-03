@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Table from "../UI/Table";
 import "./EmboidedEmissions.scss";
 import ComparePortfolios from "./ComparePortfolios";
-import BarChartGoogle from "../UI/BarChartGoogle";
 import StackedBarChart from "../UI/StackedBarChart";
 const EmbodiedEmissions = () => {
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
@@ -10,6 +9,7 @@ const EmbodiedEmissions = () => {
     const [currentGraphData, setCurrentGraphData] = useState([]);
     const [comparisionData, setComparisionData] = useState([]);
     const [isCompareSelected, setIsCompareSelected] = useState(false);
+    const [portfolioDeleted, setPortfolioDeleted] = useState();
     const colorCodes = ["#DFE566", "#F7A47B", "#79D4F1", "#9092BE", "#FBD07B", "#BA80C6", "#AC9A81", "#A8A8A9", "#F4A3A0", "#B0E195"]
 
     useEffect(() => {
@@ -17,6 +17,18 @@ const EmbodiedEmissions = () => {
             setAllTabs(prev => [...prev, []]);
         }
     }, []);
+
+    useEffect(()=>{
+        if(portfolioDeleted) {
+            if(allTabs.length > 1) {
+                setCurrentTabIndex(portfolioDeleted - 1)
+            }else {
+                setCurrentTabIndex(0);
+            }
+        }else {
+            setPortfolioDeleted(false);
+        }
+    }, [portfolioDeleted]);
 
     useEffect(() => {
         if (allTabs && allTabs[currentTabIndex] && allTabs[currentTabIndex].length) {
@@ -67,8 +79,9 @@ const EmbodiedEmissions = () => {
         }
     }, [isCompareSelected])
 
-    const addEntry = (country, sector, subSector, cost, emission) => {
+    const addEntry = (id, country, sector, subSector, cost, emission) => {
         let newEntry = {
+            id: id,
             country: country,
             sector: sector,
             subSector: subSector,
@@ -81,8 +94,26 @@ const EmbodiedEmissions = () => {
         })
     }
     const addTab = () => {
+        setIsCompareSelected(false);
         setCurrentTabIndex(allTabs.length);
         setAllTabs(prev => [...prev, []]);
+    }
+
+    const deletePortfolio = param => event => {
+        setAllTabs(prev => {
+            let newPortfolios = [];
+            newPortfolios = prev.filter((data, index) => index != param);
+            setPortfolioDeleted(param);
+            return [...newPortfolios];
+        })
+    }
+    const deleteEntry = (id) => {
+        setAllTabs(prev => {
+            let currentData = prev[currentTabIndex];
+            currentData = currentData.filter(data => data.id != id);
+            prev[currentTabIndex] = [...currentData];
+            return [...prev];
+        })
     }
 
     return <div className="module3-form-main">
@@ -92,7 +123,7 @@ const EmbodiedEmissions = () => {
             <div>
                 {allTabs.map((ele, index) => {
                     return <li class="nav-item">
-                        <a class={`nav-link ${index == currentTabIndex && !isCompareSelected ? 'active' : ''}`} onClick={() => { setCurrentTabIndex(index); setIsCompareSelected(false) }}>Portfolio {index + 1}</a>
+                        <a class={`nav-link ${index == currentTabIndex && !isCompareSelected ? 'active' : ''}`} onClick={() => { setCurrentTabIndex(index); setIsCompareSelected(false) }}>Portfolio {index + 1} {index == currentTabIndex && !isCompareSelected && allTabs.length > 1 ? <span className="delete-portfolio" onClick={deletePortfolio(currentTabIndex)}></span> : null}</a>
                     </li>
                 })}
 
@@ -107,7 +138,7 @@ const EmbodiedEmissions = () => {
         </ul>
         {
             isCompareSelected ? <ComparePortfolios data={comparisionData} /> : <><div className="main-container-emboided">
-                <Table className="forms-table" addEntry={addEntry} tableData={allTabs.length ? allTabs[currentTabIndex] : []} />
+                <Table className="forms-table" addEntry={addEntry} tableData={allTabs.length ? allTabs[currentTabIndex] : []} deleteEntry={deleteEntry}/>
             </div>
                 {
                     allTabs.length && allTabs[currentTabIndex] && allTabs[currentTabIndex].length ? <div>
