@@ -122,16 +122,16 @@ const EnergyManagementSystem = () => {
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
-                                disabled={true}
                                 heading="Average electricity savings incentivised using building energy management system (BEMS)"
-                                subHeading="" />
+                                subHeading=""
+                                onChange={(event) => { setAverageElectricitySavingsIncentivisedUsingBEMS(event.target.value) }} />
                             <InputWithSideText value={averageGasSavingsIncentivisedUsingBEMS}
                                 unit="%"
                                 type="number"
                                 placeholder="Enter value"
-                                disabled={true}
                                 heading="Average gas savings incentivised using building energy management system (BEMS)"
-                                subHeading="" />
+                                subHeading=""
+                                onChange={(event) => { setAverageGasSavingsIncentivisedUsingBEMS(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -147,13 +147,13 @@ const EnergyManagementSystem = () => {
                     <h2 className="group-heading">ECONOMIC ANALYSIS</h2>
                     <div className="form-div">
                         <div className="form-input">
-                            <InputWithSideText value={5000}
+                            <InputWithSideText value={initialInvestmentForBEMS}
                                 unit="£"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Initial investment for BEMS(CAPEX)"
                                 subHeading=""
-                                disabled={true} />
+                                onChange={(event) => { setInitialInvestmentForBEMS(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -204,7 +204,7 @@ const EnergyManagementSystem = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={4}/>
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1}/>
 
                             </div>
                         </div>
@@ -212,7 +212,7 @@ const EnergyManagementSystem = () => {
                 </div>
                 <div className="calculated-main calculated-last">
                     <div className="calculated-container">
-                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} />
+                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} decimalCount={1}/>
                     </div>
                 </div>
                 <div className="btn-div">

@@ -28,6 +28,14 @@ const updateSurvey = (id, surveyData, timestamp) => {
       });
 };
 
+const updateModule2 = (id, module2) => {
+  return axios
+      .put(API_URL + `updateModule2/${id}`, module2 , { headers: authHeader() })
+      .then((response) => {
+          return response.data;
+      });
+};
+
 const updateProfile = (id, profile) => {
   return axios
       .put(API_URL + `update-profile/${id}`, profile , { headers: authHeader() })
@@ -57,5 +65,6 @@ export default {
   updateSurvey,
   updateProfile,
   resetPassword,
-  forgotPassword
+  forgotPassword,
+  updateModule2
 };

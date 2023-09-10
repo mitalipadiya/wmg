@@ -3,6 +3,7 @@ import Table from "../UI/Table";
 import "./EmboidedEmissions.scss";
 import ComparePortfolios from "./ComparePortfolios";
 import StackedBarChart from "../UI/StackedBarChart";
+import axios from "axios";
 const EmbodiedEmissions = () => {
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
     const [allTabs, setAllTabs] = useState([]);
@@ -10,12 +11,19 @@ const EmbodiedEmissions = () => {
     const [comparisionData, setComparisionData] = useState([]);
     const [isCompareSelected, setIsCompareSelected] = useState(false);
     const [portfolioDeleted, setPortfolioDeleted] = useState();
+    const [currency, setCurrency] = useState("£");
+
     const colorCodes = ["#DFE566", "#F7A47B", "#79D4F1", "#9092BE", "#FBD07B", "#BA80C6", "#AC9A81", "#A8A8A9", "#F4A3A0", "#B0E195"]
 
     useEffect(() => {
         if (allTabs.length == 0) {
             setAllTabs(prev => [...prev, []]);
         }
+        axios.get(`https://v6.exchangerate-api.com/v6/cbff060a311477c8e65035f5/latest/USD`)
+            .then((response) => {
+                const rates = response.data.conversion_rates;
+            })
+            .catch((error) => console.error('Error fetching exchange rates:', error));
     }, []);
 
     useEffect(()=>{
@@ -118,7 +126,17 @@ const EmbodiedEmissions = () => {
 
     return <div className="module3-form-main">
         <h2 className="form-heading">Embodied emissions calculator</h2>
-        <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+        <div className="emboided-subheading">
+            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <div className="conversion-main">
+                <p className="conversion-cost">Cost in</p>
+                <div className="conversion-div">
+                    <span className="pound selected">£</span>
+                    <span className="usd">$</span>
+                </div>
+            </div>
+
+        </div>
         <ul class="nav nav-tabs">
             <div>
                 {allTabs.map((ele, index) => {
@@ -138,7 +156,7 @@ const EmbodiedEmissions = () => {
         </ul>
         {
             isCompareSelected ? <ComparePortfolios data={comparisionData} /> : <><div className="main-container-emboided">
-                <Table className="forms-table" addEntry={addEntry} tableData={allTabs.length ? allTabs[currentTabIndex] : []} deleteEntry={deleteEntry}/>
+                <Table className="forms-table" addEntry={addEntry} tableData={allTabs.length ? allTabs[currentTabIndex] : []} deleteEntry={deleteEntry} currency={currency}/>
             </div>
                 {
                     allTabs.length && allTabs[currentTabIndex] && allTabs[currentTabIndex].length ? <div>

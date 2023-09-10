@@ -7,13 +7,15 @@ const GenericPdfDownloader = ({ rootElementId, downloadFileName, surveyData }) =
   async function creatPdf({
     doc,
     elements,
+    ulList
   }) {
-    let top = 20;
-    const padding = 20;
+    let top = 120;
+    const padding = 10;
 
     for (let i = 0; i < elements.length; i++) {
       const el = elements.item(i);
       const imgData = await htmlToImage.toPng(el);
+      const ulData = await htmlToImage.toPng(ulList);
 
       let elHeight = el.offsetHeight;
       let elWidth = el.offsetWidth;
@@ -28,27 +30,49 @@ const GenericPdfDownloader = ({ rootElementId, downloadFileName, surveyData }) =
 
       const pageHeight = doc.internal.pageSize.getHeight();
 
-      if (top + elHeight > pageHeight) {
-        doc.addPage();
-        top = 20;
-      }
-
-      doc.addImage(imgData, "PNG", padding, top, elWidth - 10, elHeight, `image${i}`);
-      top += elHeight;
+      doc.addImage(imgData, "PNG", padding, 120, elWidth - 10, elHeight, `image${i}`);
       doc.addFont("Manrope");
-      doc.setFontSize(22);
+      doc.setTextColor("#27272A");
+      doc.setFontSize(30);
       if (i == 0) {
-        doc.text("Overall Summary", 10, 10);
+        doc.text("Overall Summary", 10, 30, { fontWeight: "bold" });
+        doc.setFontSize(12);
+        doc.setTextColor("#7D7D7F");
+
+        doc.text("Aut quia odit quae maiores fuga delectus. Voluptates id consectetur quam fuga. Reiciendis nesciunt sunt non. Labore odit iste eius eaque numquam eaque.", 10, 40, { maxWidth: 160, fontWeight: "normal" });
+        doc.addImage(ulData, "PNG", padding, 50, 150, 60, `ul${i}`);
       }
       if (i < elements.length - 1) {
+        top += elHeight;
         top = createTable(doc, i, top);
+        doc.addPage();
+        doc.addFont("Manrope");
+        doc.setTextColor("#27272A");
+        doc.setFontSize(30);
+        doc.text(surveyData.categories[i].category, 10, 30, { fontWeight: "bold" });
+        doc.setFontSize(12);
+        doc.setTextColor("#7D7D7F");
+
+        doc.text("Aut quia odit quae maiores fuga delectus. Voluptates id consectetur quam fuga. Reiciendis nesciunt sunt non. Labore odit iste eius eaque numquam eaque.", 10, 40, { maxWidth: 160, fontWeight: "normal" });
+        doc.addImage(ulData, "PNG", padding, 50, 150, 60, `ul${i}`);
       }
     }
   }
   const createTable = (doc, index, top) => {
     doc.addPage();
+    doc.addFont("Manrope");
+    doc.setTextColor("#27272A");
+    doc.setFontSize(30);
     top = 20;
     doc.text(surveyData.categories[index].category, 10, top);
+    doc.setFontSize(12);
+    doc.setTextColor("#7D7D7F");
+    doc.text("Aut quia odit quae maiores fuga delectus. Voluptates id consectetur quam fuga. Reiciendis nesciunt sunt non. Labore odit iste eius eaque numquam eaque.", 10, 30, { maxWidth: 160, fontWeight: "normal" });
+
+    doc.setTextColor("#27272A");
+    doc.setFontSize(16);
+    doc.text("Survey selections", 10, 50, { fontWeight: "bold" });
+
     let rows = [];
     surveyData.categories[index].questions.forEach(question => {
       let rowData = [];
@@ -65,7 +89,7 @@ const GenericPdfDownloader = ({ rootElementId, downloadFileName, surveyData }) =
     })
     doc.autoTable(['Sub category', 'Level 1 (Low=1)', 'Level 2 (Medium=2)', 'Level 3 (High=3)', 'Level 4 (Maximum=4)', 'Other'], rows, {
       theme: 'grid',
-      startY: top + 10,
+      startY: 60,
       styles: {
         fontSize: 12,
         valign: 'top',
@@ -104,8 +128,9 @@ const GenericPdfDownloader = ({ rootElementId, downloadFileName, surveyData }) =
     const doc = new jsPDF(); // (1)
 
     const elements = document.getElementsByClassName(rootElementId); // (2)
+    const ulList = document.getElementById("radar-label-list");
 
-    await creatPdf({ doc, elements }); // (3-5)
+    await creatPdf({ doc, elements, ulList }); // (3-5)
 
     doc.save(downloadFileName); // (6)
   }

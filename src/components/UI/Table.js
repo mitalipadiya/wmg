@@ -54,7 +54,7 @@ const customLabels = {
 }
 const countries = ["AU", "AT", "BE", "BG", "BR", "CA", "CH", "CN", "CY", "CZ", "DE", "DK", "ES", "EE", "FI", "FR", "GB", "GR", "HR", "HU", "ID", "IN", "IE", "IT", "JP", "KR", "LT", "LU", "LV", "MX", "MT", "NL", "NO", "PL", "PT", "RO", "RU", "SK", "SI", "SE", "TR", "TW", "US", "WORLD"];
 
-const Table = ({ addEntry, tableData, deleteEntry }) => {
+const Table = ({ addEntry, tableData, deleteEntry, currency }) => {
   const [emissionsData, setEmissionsData] = useState([
     {
       "Sectoral embodied emissions": "A01",
@@ -205,7 +205,7 @@ const Table = ({ addEntry, tableData, deleteEntry }) => {
     },
     {
       "Sectoral embodied emissions": "B",
-      "sector": "NA",
+      "sector": "Other",
       "subSector": "Mining and quarrying",
       "AUS": 0.4,
       "AUT": 0.42,
@@ -1136,7 +1136,7 @@ const Table = ({ addEntry, tableData, deleteEntry }) => {
     },
     {
       "Sectoral embodied emissions": "C33",
-      "sector": "NA",
+      "sector": "Other",
       "subSector": "Repair and installation of machinery and equipment",
       "AUS": 0,
       "AUT": 0.17,
@@ -1185,7 +1185,7 @@ const Table = ({ addEntry, tableData, deleteEntry }) => {
     },
     {
       "Sectoral embodied emissions": "D35",
-      "sector": "NA",
+      "sector": "Other",
       "subSector": "Electricity, gas, steam and air conditioning supply",
       "AUS": 4.73,
       "AUT": 0.78,
@@ -1234,7 +1234,7 @@ const Table = ({ addEntry, tableData, deleteEntry }) => {
     },
     {
       "Sectoral embodied emissions": "E36",
-      "sector": "NA",
+      "sector": "Other",
       "subSector": "Water collection, treatment and supply",
       "AUS": 0.26,
       "AUT": 0.21,
@@ -1283,7 +1283,7 @@ const Table = ({ addEntry, tableData, deleteEntry }) => {
     },
     {
       "Sectoral embodied emissions": "E37-E39",
-      "sector": "NA",
+      "sector": "Other",
       "subSector": "Sewerage; waste collection, treatment and disposal activities; materials recovery; remediation activities and other waste management services",
       "AUS": 0.1,
       "AUT": 0.15,
@@ -1332,7 +1332,7 @@ const Table = ({ addEntry, tableData, deleteEntry }) => {
     },
     {
       "Sectoral embodied emissions": "F",
-      "sector": "NA",
+      "sector": "Other",
       "subSector": "Construction",
       "AUS": 0.35,
       "AUT": 0.22,
@@ -2808,7 +2808,6 @@ const Table = ({ addEntry, tableData, deleteEntry }) => {
   const [emission, setEmission] = useState("");
   const [sectors, setSectors] = useState([]);
   const [subSectors, setSubSectors] = useState([]);
-  const [currency, setCurrency] = useState("£");
   const [totalEmission, setTotalEmission] = useState(0);
 
   useEffect(()=>{

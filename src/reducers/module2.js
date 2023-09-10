@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux";
 import { GET_MODULE2, UPDATE_INDUSTRIAL_HEAT_PUMP, UPDATE_BASELINE, UPDATE_BIOMASS, UPDATE_ECONOMIC_PARAMETERS, UPDATE_ENERGY_MANAGEMENT_SYSTEM, UPDATE_LED, UPDATE_PASSIVE_INFRARED_SENSOR, UPDATE_SMART_METERS_ELECTRICITY, UPDATE_SMART_METERS_GAS, UPDATE_SOLAR_PV, UPDATE_SOLAR_PV_BESS, UPDATE_SOLAR_THERMAL, UPDATE_TECHNOLOGIES, UPDATE_VOLTAGE_OPTIMISATION, UPDATE_WIND, UPDATE_EMISSION_SAVINGS, UPDATE_MACC, UPDATE_PARETO_OPTIMISATION, UPDATE_CHP } from "../actions/types";
+import userService from "../services/user.service";
 
 const initialState = {
     baseline: {
@@ -387,6 +389,19 @@ const initialState = {
 
 };
 
+const updateModule2Data = (data) => {
+    let userData = localStorage.getItem('user');
+    if (userData) {
+        let parsedUserData = JSON.parse(userData);
+        userService.updateModule2(parsedUserData._id, data).then(data => {
+            console.log("data ==>", data);
+        },
+            (error) => {
+                console.log("error ==>", error);
+            });
+    }
+}
+
 export default function (state = initialState, action) {
     const { type, payload } = action;
 
@@ -394,100 +409,138 @@ export default function (state = initialState, action) {
         case GET_MODULE2:
             return { data: payload };
         case UPDATE_BASELINE:
-            return {
+            let baselineData = {
                 ...state,
                 baseline: payload
             }
+            // updateModule2Data(baselineData);
+            return baselineData
         case UPDATE_TECHNOLOGIES:
-            return {
+            let technologies =  {
                 ...state,
                 technologies: payload
             }
+            // updateModule2Data(technologies);
+            return technologies;
         case UPDATE_ECONOMIC_PARAMETERS:
-            return {
+            let economicParameters =  {
                 ...state,
                 economicParameters: payload
             }
+            // updateModule2Data(economicParameters);
+            return economicParameters;
         case UPDATE_SOLAR_PV:
-            return {
+            let solarPV = {
                 ...state,
                 solarPV: payload
             }
+            // updateModule2Data(solarPV);
+            return solarPV;
         case UPDATE_WIND:
-            return {
+            let wind = {
                 ...state,
                 wind: payload
             }
+            // updateModule2Data(wind);
+            return wind;
         case UPDATE_SOLAR_PV_BESS:
-            return {
+            let solarPvBess = {
                 ...state,
                 solarPvBess: payload
             }
+            // updateModule2Data(solarPvBess);
+            return solarPvBess;
         case UPDATE_BIOMASS:
-            return {
+            let biomass = {
                 ...state,
                 biomass: payload
             }
+            // updateModule2Data(biomass);
+            return biomass;
         case UPDATE_CHP:
-            return {
+            let chp = {
                 ...state,
                 chp: payload
             }
+            // updateModule2Data(chp);
+            return chp;
         case UPDATE_LED:
-            return {
+            let led = {
                 ...state,
                 led: payload
             }
+            // updateModule2Data(led);
+            return led;
         case UPDATE_PASSIVE_INFRARED_SENSOR:
-            return {
+            let passiveInfraredSensor = {
                 ...state,
                 passiveInfraredSensor: payload
             }
+            // updateModule2Data(passiveInfraredSensor);
+            return passiveInfraredSensor;
         case UPDATE_SMART_METERS_ELECTRICITY:
-            return {
+            let smartMetersElectricity =  {
                 ...state,
                 smartMetersElectricity: payload
             }
+            // updateModule2Data(smartMetersElectricity);
+            return smartMetersElectricity;
         case UPDATE_SMART_METERS_GAS:
-            return {
+            let smartMetersGas = {
                 ...state,
                 smartMetersGas: payload
             }
+            // updateModule2Data(smartMetersGas);
+            return smartMetersGas; 
         case UPDATE_VOLTAGE_OPTIMISATION:
-            return {
+            let voltageOptimisation = {
                 ...state,
                 voltageOptimisation: payload
             }
+            // updateModule2Data(voltageOptimisation);
+            return voltageOptimisation; 
         case UPDATE_ENERGY_MANAGEMENT_SYSTEM:
-            return {
+            let energyManagementSystem = {
                 ...state,
                 energyManagementSystem: payload
             }
+            // updateModule2Data(energyManagementSystem);
+            return energyManagementSystem; 
         case UPDATE_SOLAR_THERMAL:
-            return {
+            let solarThermal = {
                 ...state,
                 solarThermal: payload
             }
+            // updateModule2Data(solarThermal);
+            return solarThermal; 
         case UPDATE_INDUSTRIAL_HEAT_PUMP:
-            return {
+            let industrialHeatPump = {
                 ...state,
                 industrialHeatPump: payload
             }
+            // updateModule2Data(industrialHeatPump);
+            return industrialHeatPump; 
         case UPDATE_EMISSION_SAVINGS:
-            return {
+            let emissionSavings = {
                 ...state,
                 emissionSavings: payload
             }
+            // updateModule2Data(emissionSavings);
+            return emissionSavings; 
         case UPDATE_MACC:
-            return {
+            let macc = {
                 ...state,
                 macc: payload
             }
+            // updateModule2Data(macc);
+            return macc; 
         case UPDATE_PARETO_OPTIMISATION:
-            return {
+            let paretoOptimisation = {
                 ...state,
                 paretoOptimisation: payload
             }
+            // updateModule2Data(paretoOptimisation);
+            return paretoOptimisation; 
         default:
             return state;
     }

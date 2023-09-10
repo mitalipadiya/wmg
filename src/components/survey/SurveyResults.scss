@@ -46,7 +46,7 @@
     }
 
     button {
-        height: 48px;
+        min-height: 48px;
         background: var(--unnamed-color-f9b123) 0% 0% no-repeat padding-box;
         background: #F9B123 0% 0% no-repeat padding-box;
         padding: 13px 32px;
@@ -54,12 +54,14 @@
         font: normal normal 600 16px/22px Manrope;
     }
 }
+
 .export-label {
     font: normal normal 600 16px/22px Manrope;
     letter-spacing: 0px;
     color: #F9B123;
     cursor: pointer;
 }
+
 .export-image {
     content: url("../../assets/vuesax-bold-receive-square.svg");
     width: 20px;
@@ -67,6 +69,7 @@
     background: transparent 0% 0% no-repeat padding-box;
     cursor: pointer;
 }
+
 .survey-heading-main .export-div {
     display: flex;
     flex-direction: row;
@@ -74,7 +77,64 @@
     align-items: center;
     cursor: pointer;
 }
+
 .survey-heading-main .survey-actions {
     flex-direction: row;
     gap: 24px;
+}
+
+.radar-main {
+    display: flex;
+    border: 1px solid #D3D3D4;
+    margin-bottom: 24px;
+    padding: 48px;
+    padding-bottom: 0;
+}
+
+.radar-legends {
+    flex: 1;
+
+    h2 {
+        font: normal normal bold 24px/33px Manrope;
+        letter-spacing: 0px;
+        color: #27272A;
+    }
+
+    h3 {
+        font: normal normal normal 16px/22px Manrope;
+        letter-spacing: 0px;
+        color: #7D7D7F;
+        margin-top: 16px;
+        margin-bottom: 40px;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 0;
+    }
+
+    .radar-legend-name {
+        list-style: none;
+        font: normal normal normal 16px/22px Manrope;
+        letter-spacing: 0px;
+        color: #27272A;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        span {
+            width: 28px;
+            height: 17px;
+            transform: matrix(-1, 0, 0, -1, 0, 0);
+            background: 0% 0% no-repeat padding-box;
+            border: 1px solid #ffffff;
+            display: inline-block;
+        }
+    }
+}
+
+.radar-chart {
+    flex: 1;
 }

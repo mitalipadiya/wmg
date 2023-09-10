@@ -1,6 +1,5 @@
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import "./Module2.css"
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./EmissionSavings.css"
 import { formatValueWithTwoDecimals, formatValueWithoutDecimals } from "../../services/module2.service";

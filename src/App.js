@@ -34,6 +34,8 @@ import EmissionSavings from './components/module2/EmissionSavings';
 import Macc from './components/module2/Macc';
 import ParetoOptimisation from './components/module2/ParetoOptimisation';
 import Module3 from './components/module3/Module3';
+import Module2Intro from './components/module2/module2-intro';
+import Module3Intro from './components/module3/module3-intro';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -59,6 +61,8 @@ function App() {
         <Route path="/create-new/:token" element={<CreateNewPassword />} />
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/module1" element={<Module1 />} />
+        <Route path="/module2-intro" element={<Module2Intro/>}/>
+        <Route path="/module3-intro" element={<Module3Intro/>}/>
         <Route path="/module2" element={<Module2 />} >
           <Route exact path="baseline" element={<Baseline/>} />
           <Route path="economic-parameters" element={<EconomicParameters/>} />

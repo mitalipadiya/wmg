@@ -326,7 +326,7 @@ const SolarThermal = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Size of solar thermal system" unit="m2" value={sizeOfSolarThermalSystem} />
+                                <CalculatedData heading="Size of solar thermal system" unit="m2" value={sizeOfSolarThermalSystem} decimalCount={1} />
                             </div>
                         </div>
                     </div>
@@ -393,7 +393,7 @@ const SolarThermal = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={4}/>
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1}/>
                             </div>
                         </div>
                     </div>

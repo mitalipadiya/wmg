@@ -26,14 +26,14 @@ const Header = () => {
         <header>
             {isLoggedIn ? <div className='header-div'>
                 <div className='header-logo'>
-                    <img className="header-img" onClick={onHomeClick} />
-                    <img className="catapult-img" onClick={onHomeClick} />
+                    <a href="https://warwick.ac.uk/fac/sci/wmg/" target='_blank'><img className="header-img"/></a>
+                    <a href="https://hvm.catapult.org.uk/" target='_blank'><img className="catapult-img"/></a>
                 </div>
 
                 <nav>
-                    <Link className={selectedHeader == "module1" ? 'active' : ''} onClick={() => setSelectedHeader("module1")} to="/module1">Module 1</Link>
-                    <Link className={selectedHeader == "module2" ? 'active' : ''} onClick={() => setSelectedHeader("module2")} to="/module2">Module 2</Link>
-                    <Link className={selectedHeader == "module3" ? 'active' : ''} onClick={() => setSelectedHeader("module3")} to="/module3">Module 3</Link>
+                    <Link className={selectedHeader == "module1" ? 'active' : ''} onClick={() => setSelectedHeader("module1")} to="/intro">Module 1</Link>
+                    <Link className={selectedHeader == "module2" ? 'active' : ''} onClick={() => setSelectedHeader("module2")} to="/module2-intro">Module 2</Link>
+                    <Link className={selectedHeader == "module3" ? 'active' : ''} onClick={() => setSelectedHeader("module3")} to="/module3-intro">Module 3</Link>
                 </nav>
                 <div className='user-div'>
                     <div className='user-circle' onClick={onProfileClick}>
@@ -52,8 +52,8 @@ const Header = () => {
                     </ul>
                 </div>
             </div> : <div className='header-logo'>
-                <img className="header-img" onClick={onHomeClick} />
-                <img className="catapult-img" onClick={onHomeClick} />
+            <a href="https://warwick.ac.uk/fac/sci/wmg/" target='_blank'><img className="header-img"/></a>
+            <a href="https://hvm.catapult.org.uk/" target='_blank'><img className="catapult-img"/></a>
             </div>}
 
         </header>

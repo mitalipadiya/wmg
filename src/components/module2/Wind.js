@@ -5,6 +5,7 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateWind } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import InputWithSelect from "../UI/InputWithSelect";
 
 const Wind = () => {
     const { wind, baseline, economicParameters } = useSelector(state => state.module2);
@@ -28,6 +29,7 @@ const Wind = () => {
     const [totalOperationalEmissionSavingsAbatementPeriod, setTotalOperationalEmissionSavingsAbatementPeriod] = useState(wind?.totalOperationalEmissionSavingsAbatementPeriod);
     const [totalOperationalEmissionSavingsAbatementPeriodTon, setTotalOperationalEmissionSavingsAbatementPeriodTon] = useState(wind?.totalOperationalEmissionSavingsAbatementPeriodTon);
     const [costEffectivenessConsideringOperationalEmissionSavings, setCostEffectivenessConsideringOperationalEmissionSavings] = useState(wind?.costEffectivenessConsideringOperationalEmissionSavings);
+    const [turbineModels, setTurbineModels] = useState([]);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -58,11 +60,32 @@ const Wind = () => {
         navigate("./../solar-pv-bess")
 
     }
-    
+    useEffect(() => {
+        fetch('https://renewables.ninja/api/models').then(res => res.json()).then(data => {
+
+            console.log(data)
+            if (data && data.length) {
+                for (let windData of data) {
+                    if (windData.id == "wind") {
+                        if (windData.fields.length) {
+                            for (let fieldData of windData.fields) {
+                                if (fieldData.id == "turbine") {
+                                    console.log(fieldData.options)
+                                    let turbineValues = fieldData.options.map(entry => entry.value);
+                                    setTurbineModels(prev => [...turbineValues]);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }, [])
     useEffect(() =>{
         const latLong = latitudeLongitude.split(",");
-        if(latLong.length > 0) {
-            fetch(`https://renewables.ninja/api/data/wind?local_time=true&format=json&header=true&lat=${latLong[0]}&lon=${latLong[1]}&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&height=80&turbine=Gamesa+G128+4500&raw=true`).then(res => res.json()).then(data => {
+        if(latLong.length > 0 && height && turbineModel) {
+            fetch(`https://renewables.ninja/api/data/wind?local_time=true&format=json&header=true&lat=${latLong[0]}&lon=${latLong[1]}&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&height=${height}&turbine=${turbineModel}&raw=true`).then(res => res.json()).then(data => {
                 if (data && data.data) {
                     let allData = Object.values(data.data);
                     let totalWindSpeed = 0;
@@ -76,7 +99,7 @@ const Wind = () => {
                 }
             })
         }
-    }, [])
+    }, [height, turbineModel])
     useEffect(() => {
         setSizeOfWindSystem((averageAnnualElectricityRequirements * (percentAnnualElectricityFromWind / 100)) / (annualGenerationWindSystem * (inverterEfficiency / 100)));
     }, [averageAnnualElectricityRequirements, percentAnnualElectricityFromWind, annualGenerationWindSystem, inverterEfficiency]);
@@ -158,12 +181,10 @@ const Wind = () => {
                                 heading="Height"
                                 subHeading="Height of the wind turbine."
                                 onChange={(event) => { setHeight(event.target.value) }} />
-                            <InputWithSideText value={turbineModel}
-                                unit=""
-                                type="text"
-                                placeholder="Enter value"
+                            <InputWithSelect 
+                            value={turbineModel}
+                                values = {turbineModels}
                                 heading="Turbine model"
-                                disabled={true}
                                 subHeading=""/>
                             <InputWithSideText value={averageAnnualWindSpeed}
                                 unit="m/s"

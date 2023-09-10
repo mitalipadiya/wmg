@@ -434,8 +434,8 @@ const Chp = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Size of CHP System" unit="kWe" value={sizeOfCHPSystem} />
-                                <CalculatedData heading="Fuel usage " unit="kWh/year" value={fuelUsage} />
+                                <CalculatedData heading="Size of CHP System" unit="kWe" value={sizeOfCHPSystem} decimalCount={1}/>
+                                <CalculatedData heading="Fuel usage " unit="kWh/year" value={fuelUsage} decimalCount={0}/>
                             </div>
                         </div>
                     </div>
@@ -592,7 +592,7 @@ const Chp = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={4}/>
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1}/>
                             </div>
                         </div>
                     </div>
