@@ -89,8 +89,8 @@ const EnergyManagementSystem = () => {
 
     return (
         <>
-            <h2 className="form-heading">Energy management system</h2>
-            <h3 className="form-subheading"></h3>
+            <h2 className="form-heading">Building Energy Management System (BEMS)</h2>
+            <h3 className="form-subheading">Building Energy Management System (BEMS) involves a computer-controlled system that integrates the energy-using services and facilities in a building. It allows the facilities to be centrally managed by controlling the energy-consuming equipment to reduce energy use while maintaining a comfortable environment.</h3>
             <div className="main">
                 <h2 className="group-heading">GENERAL</h2>
                 <div className="form-div">

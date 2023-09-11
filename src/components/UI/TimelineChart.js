@@ -2,6 +2,7 @@ import React from 'react';
 import Chart from 'react-google-charts';
 
 const TimelineChart = ({chartData}) => {
+  console.log("chartData ==>", chartData);
  // Sample data for the horizontal stacked chart
   const seriesColors = ['#F7A47B', '#79D4F1', '#9092BE','#FBD07B', '#BA80C6', '#AC9A81','#A8A8A9', '#F4A3A0'];
   // Options for the horizontal stacked chart
@@ -11,7 +12,7 @@ const TimelineChart = ({chartData}) => {
     title: '',
     hAxis: { title: 'tCO2e' },
     vAxis: { title: '' },
-    legend: { position: 'bottom' },
+    legend: { position: 'bottom', alignment: 'center', maxLines: 2,},
     bars: 'horizontal', // Display bars horizontally
     isStacked: true, // Stack the bars
     animation: {

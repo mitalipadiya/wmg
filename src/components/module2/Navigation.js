@@ -91,24 +91,24 @@ const Navigation = () => {
             </div>
             <hr />
             <div>
-                <div className={selectedHeading == "system-size-cost" ? 'c-nav-item current-item' : `${isSystemSizeCostComplete ? 'c-nav-item is-complete' : 'c-nav-item'}`}>
+                <div className={selectedHeading == "system-size-cost" ? 'c-nav-item current-item' : `${isSystemSizeCostComplete ? 'c-nav-item is-complete' : 'c-nav-item'}`} onClick={onItemSelect("solar-pv")}>
                     <span className="heading-span">SYSTEM SIZE & CAPITAL COST
                         {isSystemSizeCostComplete ? <span className="item-done"></span> : null}</span>
                     <span className={selectedHeading == "system-size-cost" ? 'heading-arrow selected' : 'heading-arrow'}></span></div>
                 <div className={selectedHeading != "system-size-cost" ? "hide" : "show"}>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "solar-pv" ? 'current-subitem' : ''} ${isSolarPVComplete ? 'is-completed' : ''}`}><span></span>Solar PV</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "wind" ? 'current-subitem' : ''} ${isWindComplete ? 'is-completed' : ''}`}><span></span>Wind</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "solar-pv-bess" ? 'current-subitem' : ''} ${isSolarPvBESSComplete ? 'is-completed' : ''}`}><span></span>Solar PV+BESS</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "biomass" ? 'current-subitem' : ''} ${isBiomassComplete ? 'is-completed' : ''}`}><span></span>Biomass</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "chp" ? 'current-subitem' : ''} ${isCHPComplete ? 'is-completed' : ''}`}><span></span>CHP</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "led" ? 'current-subitem' : ''} ${isLEDComplete ? 'is-completed' : ''}`}><span></span>LED</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "passive-infrared-sensor" ? 'current-subitem' : ''} ${isPassiveInfraredSensorComplete ? 'is-completed' : ''}`}><span></span>Passive infrared sensor</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "smart-meters-electricity" ? 'current-subitem' : ''} ${isSmartMetersElectricityComplete ? 'is-completed' : ''}`}><span></span>Smart meters - electricity</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "smart-meters-gas" ? 'current-subitem' : ''} ${isSmartMetersGasComplete ? 'is-completed' : ''}`}><span></span>Smart meters - gas</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "voltage-optimisation" ? 'current-subitem' : ''} ${isVoltageOptimisationComplete ? 'is-completed' : ''}`}><span></span>Voltage optimisation</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "energy-management-system" ? 'current-subitem' : ''} ${isEnergyManagementSystemComplete ? 'is-completed' : ''}`}><span></span>Energy management system</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "solar-thermal" ? 'current-subitem' : ''} ${isSolarThermalComplete ? 'is-completed' : ''}`}><span></span>Solar thermal</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "industrial-heat-pump" ? 'current-subitem' : ''} ${isIndustrialHeatPumpComplete ? 'is-completed' : ''}`}><span></span>Industrial heat pump</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "solar-pv" ? 'current-subitem' : ''} ${isSolarPVComplete ? 'is-completed' : ''}`} onClick={onItemSelect("solar-pv")}><span></span>Solar PV</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "wind" ? 'current-subitem' : ''} ${isWindComplete ? 'is-completed' : ''}`} onClick={onItemSelect("wind")}><span></span>Wind</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "solar-pv-bess" ? 'current-subitem' : ''} ${isSolarPvBESSComplete ? 'is-completed' : ''}`} onClick={onItemSelect("solar-pv-bess")}><span></span>Solar PV+BESS</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "biomass" ? 'current-subitem' : ''} ${isBiomassComplete ? 'is-completed' : ''}`} onClick={onItemSelect("biomass")}><span></span>Biomass</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "chp" ? 'current-subitem' : ''} ${isCHPComplete ? 'is-completed' : ''}`} onClick={onItemSelect("chp")}><span></span>CHP</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "led" ? 'current-subitem' : ''} ${isLEDComplete ? 'is-completed' : ''}`} onClick={onItemSelect("led")}><span></span>LED</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "passive-infrared-sensor" ? 'current-subitem' : ''} ${isPassiveInfraredSensorComplete ? 'is-completed' : ''}`} onClick={onItemSelect("passive-infrared-sensor")}><span></span>Passive infrared sensor</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "smart-meters-electricity" ? 'current-subitem' : ''} ${isSmartMetersElectricityComplete ? 'is-completed' : ''}`} onClick={onItemSelect("smart-meters-electricity")}><span></span>Smart meters - electricity</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "smart-meters-gas" ? 'current-subitem' : ''} ${isSmartMetersGasComplete ? 'is-completed' : ''}`} onClick={onItemSelect("smart-meters-gas")}><span></span>Smart meters - gas</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "voltage-optimisation" ? 'current-subitem' : ''} ${isVoltageOptimisationComplete ? 'is-completed' : ''}`} onClick={onItemSelect("voltage-optimisation")}><span></span>Voltage optimisation</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "energy-management-system" ? 'current-subitem' : ''} ${isEnergyManagementSystemComplete ? 'is-completed' : ''}`} onClick={onItemSelect("energy-management-system")}><span></span>Energy management system</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "solar-thermal" ? 'current-subitem' : ''} ${isSolarThermalComplete ? 'is-completed' : ''}`} onClick={onItemSelect("solar-thermal")}><span></span>Solar thermal</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "industrial-heat-pump" ? 'current-subitem' : ''} ${isIndustrialHeatPumpComplete ? 'is-completed' : ''}`} onClick={onItemSelect("industrial-heat-pump")}><span></span>Industrial heat pump</div>
                 </div>
 
             </div>

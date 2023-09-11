@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import "./ComparePortfolios.scss";
 
-const ComparePortfolios = ({ data }) => {
+const ComparePortfolios = ({ data, currency }) => {
     const [chartHeight, setChartHeight] = useState(300);
     const [minEmission, setMinEmission] = useState();
     const [maxEmission, setMaxEmission] = useState();
@@ -96,12 +96,12 @@ const ComparePortfolios = ({ data }) => {
                                     </div>
                                 </div>
                                 <div className="summary-div-child">
-                                    <p className="heading comp-main">Total cost breakdown (£)</p>
+                                    <p className="heading comp-main">Total cost breakdown ({currency})</p>
                                     <div className="comp-div">
                                         <div className="heading-div">
                                             <span className="heading-span"></span>
                                             <p className="heading">{maxCost?.name}</p>
-                                            <p className="heading-data">£{maxCost?.cost}</p>
+                                            <p className="heading-data">{`${currency} ${maxCost?.cost}`}</p>
                                         </div>
                                         <p className="sub-heading">Highest total cost</p>
                                         <hr />
@@ -110,7 +110,7 @@ const ComparePortfolios = ({ data }) => {
                                         <div className="heading-div">
                                             <span className="heading-span"></span>
                                             <p className="heading">{minCost?.name}</p>
-                                            <p className="heading-data">£{minCost?.cost}</p>
+                                            <p className="heading-data">{`${currency} ${minCost?.cost}`}</p>
                                         </div>
                                         <p className="sub-heading">Lowest total cost</p>
                                         <hr />

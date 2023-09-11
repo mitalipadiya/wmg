@@ -29,7 +29,7 @@ const TwoSidedChart = ({ data }) => {
 
             // Create scales
             const xScale = d3.scaleLinear().domain([0, d3.sum(data, d => d.totalOperational)]).range([0, width]);
-            const yScale = d3.scaleLinear().domain([d3.min(data, d => d.costEffectiveness), d3.max(data, d => d.costEffectiveness)]).range([height, 0]);
+            const yScale = d3.scaleLinear().domain([d3.min(data, d => d.costEffectiveness) - 200, d3.max(data, d => d.costEffectiveness) + 200]).range([height, 0]);
 
             // Create x-axis
             svg.append('g')

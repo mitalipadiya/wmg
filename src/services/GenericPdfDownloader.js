@@ -30,7 +30,7 @@ const GenericPdfDownloader = ({ rootElementId, downloadFileName, surveyData }) =
 
       const pageHeight = doc.internal.pageSize.getHeight();
 
-      doc.addImage(imgData, "PNG", padding, 120, elWidth - 10, elHeight, `image${i}`);
+      doc.addImage(imgData, "PNG", padding, 120, elWidth - 10, elHeight, `image${i}`, 'FAST');
       doc.addFont("Manrope");
       doc.setTextColor("#27272A");
       doc.setFontSize(30);
@@ -40,7 +40,7 @@ const GenericPdfDownloader = ({ rootElementId, downloadFileName, surveyData }) =
         doc.setTextColor("#7D7D7F");
 
         doc.text("Aut quia odit quae maiores fuga delectus. Voluptates id consectetur quam fuga. Reiciendis nesciunt sunt non. Labore odit iste eius eaque numquam eaque.", 10, 40, { maxWidth: 160, fontWeight: "normal" });
-        doc.addImage(ulData, "PNG", padding, 50, 150, 60, `ul${i}`);
+        doc.addImage(ulData, "PNG", padding, 50, 150, 50, `ul${i}`, 'FAST');
       }
       if (i < elements.length - 1) {
         top += elHeight;
@@ -54,7 +54,7 @@ const GenericPdfDownloader = ({ rootElementId, downloadFileName, surveyData }) =
         doc.setTextColor("#7D7D7F");
 
         doc.text("Aut quia odit quae maiores fuga delectus. Voluptates id consectetur quam fuga. Reiciendis nesciunt sunt non. Labore odit iste eius eaque numquam eaque.", 10, 40, { maxWidth: 160, fontWeight: "normal" });
-        doc.addImage(ulData, "PNG", padding, 50, 150, 60, `ul${i}`);
+        doc.addImage(ulData, "PNG", padding, 50, 150, 50, `ul${i}`, 'FAST');
       }
     }
   }

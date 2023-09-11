@@ -172,7 +172,7 @@ const SolarThermal = () => {
     return (
         <>
             <h2 className="form-heading">Solar thermal</h2>
-            <h3 className="form-subheading"></h3>
+            <h3 className="form-subheading">The solar thermal technology transforms solar radiant energy in to heat.</h3>
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>

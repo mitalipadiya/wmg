@@ -25,7 +25,7 @@ const StackedBarChart = ({ data }) => {
                     <Bar dataKey="Transport" stackId="a" fill="#9092BE" barSize={50} />
                     <Bar dataKey="Business services" stackId="a" fill="#79D4F1" barSize={50} />
                     <Bar dataKey="Trade" stackId="a" fill="#B0E195" barSize={50} />
-                    <Bar dataKey="NA" stackId="a" fill="#AC9A81" barSize={50} />
+                    <Bar dataKey="Other" stackId="a" fill="#AC9A81" barSize={50} />
                     <Bar dataKey="Manufacturing" stackId="a" fill="#FBD07B" barSize={50}>
                         <LabelList dataKey="cost" position="right" />
                     </Bar>

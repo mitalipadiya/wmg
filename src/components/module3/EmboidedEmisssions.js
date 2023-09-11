@@ -12,6 +12,7 @@ const EmbodiedEmissions = () => {
     const [isCompareSelected, setIsCompareSelected] = useState(false);
     const [portfolioDeleted, setPortfolioDeleted] = useState();
     const [currency, setCurrency] = useState("£");
+    const [gbpRate, setGbpRate] = useState(1);
 
     const colorCodes = ["#DFE566", "#F7A47B", "#79D4F1", "#9092BE", "#FBD07B", "#BA80C6", "#AC9A81", "#A8A8A9", "#F4A3A0", "#B0E195"]
 
@@ -22,6 +23,8 @@ const EmbodiedEmissions = () => {
         axios.get(`https://v6.exchangerate-api.com/v6/cbff060a311477c8e65035f5/latest/USD`)
             .then((response) => {
                 const rates = response.data.conversion_rates;
+                setGbpRate(rates.GBP);
+                console.log("rates ==>", rates);
             })
             .catch((error) => console.error('Error fetching exchange rates:', error));
     }, []);
@@ -39,7 +42,7 @@ const EmbodiedEmissions = () => {
     }, [portfolioDeleted]);
 
     useEffect(() => {
-        if (allTabs && allTabs[currentTabIndex] && allTabs[currentTabIndex].length) {
+        if (allTabs && allTabs[currentTabIndex] && allTabs[currentTabIndex].length && (allTabs[currentTabIndex].length == 1) ) {
             const groupedData = allTabs[currentTabIndex].reduce((data, obj) => {
                 const key = obj["country"];
                 if (!data[key]) {
@@ -87,17 +90,25 @@ const EmbodiedEmissions = () => {
         }
     }, [isCompareSelected])
 
-    const addEntry = (id, country, sector, subSector, cost, emission) => {
+    const addEntry = (id, country, sector, subSector, cost, emission, countryVal) => {
         let newEntry = {
             id: id,
             country: country,
             sector: sector,
             subSector: subSector,
             cost: cost,
-            emission: emission
+            emission: emission,
+            countryVal: countryVal
         }
         setAllTabs(prev => {
             prev[currentTabIndex].push(newEntry);
+            return [...prev];
+        })
+    }
+
+    const updateTableData = (newTableData) => {
+        setAllTabs(prev => {
+            prev[currentTabIndex] = [...newTableData];
             return [...prev];
         })
     }
@@ -131,8 +142,8 @@ const EmbodiedEmissions = () => {
             <div className="conversion-main">
                 <p className="conversion-cost">Cost in</p>
                 <div className="conversion-div">
-                    <span className="pound selected">£</span>
-                    <span className="usd">$</span>
+                    <span className={`pound ${currency == "£" ? 'selected' : ''}`} onClick={()=>{setCurrency("£")}}>£</span>
+                    <span className={`usd ${currency == "$" ? 'selected' : ''}`} onClick={()=>{setCurrency("$")}}>$</span>
                 </div>
             </div>
 
@@ -155,13 +166,20 @@ const EmbodiedEmissions = () => {
             }
         </ul>
         {
-            isCompareSelected ? <ComparePortfolios data={comparisionData} /> : <><div className="main-container-emboided">
-                <Table className="forms-table" addEntry={addEntry} tableData={allTabs.length ? allTabs[currentTabIndex] : []} deleteEntry={deleteEntry} currency={currency}/>
+            isCompareSelected ? <ComparePortfolios data={comparisionData} currency={currency}/> : <><div className="main-container-emboided">
+                <Table 
+                className="forms-table" 
+                addEntry={addEntry} 
+                tableData={allTabs.length ? allTabs[currentTabIndex] : []} 
+                deleteEntry={deleteEntry} 
+                currency={currency} 
+                gbpRate={gbpRate} 
+                updateTableData={updateTableData}/>
             </div>
                 {
                     allTabs.length && allTabs[currentTabIndex] && allTabs[currentTabIndex].length ? <div>
                         <h3 className="group-heading">GRAPHICAL VIEW</h3>
-                        <StackedBarChart data={currentGraphData} />
+                        <StackedBarChart data={currentGraphData} currency={currency} />
                     </div> : null
                 }</>
         }

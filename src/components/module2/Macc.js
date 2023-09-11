@@ -86,30 +86,6 @@ const Macc = () => {
         setMaccData(data.sort( function ( a, b ) { return a.costEffectiveness - b.costEffectiveness; } ));
     }, [])
 
-    // const barData = useMemo(()=>{
-    //     const bData = [];
-    //     for (let i = 0; i < maccData.length; i++) {
-    //         let dt = [maccData[i].technologyOptions, maccData[i].costEffectiveness, maccData[i].color, maccData[i].totalOperational];
-    //         bData.push(dt);
-    //     }
-
-    //     return [
-    //         [
-    //             "Element",
-    //             "CO2 emissions savings (tCO2e)",
-    //             { role: "style" },
-    //             {
-    //                 sourceColumn: 0,
-    //                 role: "annotation",
-    //                 type: "string",
-    //                 calc: "stringify",
-    //             },
-    //         ],
-    //         ...bData.sort( function ( a, b ) { return b[1] - a[1]; } )
-
-    //     ];
-    // },[maccData]);
-
     const onSave = () => {
         dispatch(updateMacc({
             isComplete: true
@@ -118,7 +94,7 @@ const Macc = () => {
     }
     return <div>
         <h2 className="form-heading">Marginal Abatement Cost Curve (MACC)</h2>
-        <h3 className="form-subheading"></h3>
+        <h3 className="form-subheading">Marginal Abatement Cost (MAC) expressed in cost per tonne of GHG emissions saved, is the additional cost of abating an additional tonne of GHG above what would be achieved in a ‘business as usual’ context. A Marginal Abatement Cost Curve therefore is a graphical device that combines the MACs of available low carbon technology abatement options to facilitate decision making. MACCs are a useful tool to identify options which deliver the most economically efficient reductions in GHG and prioritize mitigation options based on certain criteria.</h3>
         <div className="main">
             <div>
                 <div className="group-heading">TABULAR VIEW</div>

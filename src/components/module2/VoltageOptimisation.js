@@ -65,7 +65,7 @@ const Wind = () => {
     return (
         <>
             <h2 className="form-heading">Voltage optimisation</h2>
-            <h3 className="form-subheading"></h3>
+            <h3 className="form-subheading">The principle of selecting the most appropriate operating voltage for the equipment is known as voltage optimisation (VO).</h3>
             <div className="main">
                 <h2 className="group-heading">GENERAL</h2>
                 <div className="form-div">

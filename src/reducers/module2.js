@@ -12,6 +12,7 @@ const initialState = {
         annualOperationalEmissionsForGridGas: "",
         totalBaselineEmissions: "",
         location: "Coventry",
+        country: "United Kingdom",
         latitudeLongitude: "52.4081812,-1.510477",
         isComplete: false
     },

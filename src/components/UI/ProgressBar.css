@@ -1,0 +1,27 @@
+.legend-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 30%;
+}
+.legend-color-box {
+    width: 20px;
+    height: 20px;
+    width: 28px;
+    height: 17px;
+    transform: matrix(-1, 0, 0, -1, 0, 0);
+    background: 0% 0% no-repeat padding-box;
+    border: 1px solid #FFFFFF;
+    z-index: -1;
+}
+.legend-text {
+    text-align: left;
+    font: normal normal bold 14px/19px Manrope;
+    letter-spacing: 0px;
+    color: #000000;
+}
+.custom-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}

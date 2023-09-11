@@ -9,8 +9,8 @@ import { nanoid } from "nanoid";
 const customLabels = {
   AU: "AUS",
   AT: "AUT",
-  BE: "BGR",
-  BG: "AUS",
+  BE: "BEL",
+  BG: "BGR",
   BR: "BRA",
   CA: "CAN",
   CH: "CHE",
@@ -54,7 +54,8 @@ const customLabels = {
 }
 const countries = ["AU", "AT", "BE", "BG", "BR", "CA", "CH", "CN", "CY", "CZ", "DE", "DK", "ES", "EE", "FI", "FR", "GB", "GR", "HR", "HU", "ID", "IN", "IE", "IT", "JP", "KR", "LT", "LU", "LV", "MX", "MT", "NL", "NO", "PL", "PT", "RO", "RU", "SK", "SI", "SE", "TR", "TW", "US", "WORLD"];
 
-const Table = ({ addEntry, tableData, deleteEntry, currency }) => {
+const Table = ({ addEntry, tableData, deleteEntry, currency, gbpRate, updateTableData }) => {
+  console.log("tableData ==>", tableData)
   const [emissionsData, setEmissionsData] = useState([
     {
       "Sectoral embodied emissions": "A01",
@@ -2809,6 +2810,24 @@ const Table = ({ addEntry, tableData, deleteEntry, currency }) => {
   const [sectors, setSectors] = useState([]);
   const [subSectors, setSubSectors] = useState([]);
   const [totalEmission, setTotalEmission] = useState(0);
+  const [countryVal, setCountryVal] = useState(0);
+
+  useEffect(()=>{
+    let tableDetails = tableData;
+    let total = 0;
+    if(currency != "$") {
+      tableDetails.map(data => {
+        data.emission = (Math.round(data.countryVal * data.cost  * (1/gbpRate), 2));
+        total += data.emission;
+      })
+    }else {
+      tableDetails.map(data => {
+        data.emission = (Math.round(data.countryVal * data.cost, 2));
+        total += data.emission;
+      })
+    }
+    setTotalEmission(total);
+  },[tableData])
 
   useEffect(()=>{
     if(country && subSector && cost && currency) {
@@ -2816,11 +2835,34 @@ const Table = ({ addEntry, tableData, deleteEntry, currency }) => {
       if(currentData.length) {
         let countryVal = currentData[0][customLabels[country]];
         if(countryVal!= null || countryVal != undefined) {
-          setEmission(Math.round(countryVal * cost, 2));
+          setCountryVal(countryVal);
+          if(currency == "$") {
+            setEmission(Math.round(countryVal * cost, 2));
+          }else {
+            setEmission(Math.round(countryVal * cost * (1/gbpRate), 2));
+          }
         }
       }
     }
   },[country, subSector, cost, currency]);
+
+  useEffect(()=>{
+    let tableDetails = tableData;
+    let total = 0;
+    if(currency != "$") {
+      tableDetails.map(data => {
+        data.emission = (Math.round(data.countryVal * data.cost  * (1/gbpRate), 2));
+        total += data.emission;
+      })
+    }else {
+      tableDetails.map(data => {
+        data.emission = (Math.round(data.countryVal * data.cost, 2));
+        total += data.emission;
+      })
+    }
+    setTotalEmission(total);
+    updateTableData(tableDetails);
+  },[currency])
 
   useEffect(()=>{
     if(sector) {
@@ -2843,7 +2885,7 @@ const Table = ({ addEntry, tableData, deleteEntry, currency }) => {
   }
 
   const add = () => {
-    addEntry(nanoid(), country, sector, subSector, cost, emission);
+    addEntry(nanoid(), country, sector, subSector, cost, emission, countryVal);
     setTotalEmission(prev => prev + parseInt(emission));
     reset();
   }

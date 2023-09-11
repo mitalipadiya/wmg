@@ -5,6 +5,7 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBaseline } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Baseline = () => {
     const { baseline } = useSelector(state => state.module2);
@@ -18,6 +19,9 @@ const Baseline = () => {
     const [totalBaselineEmissions, setTotalBaselineEmissions] = useState(baseline?.totalBaselineEmissions);
     const [location, setLocation] = useState(baseline?.location);
     const [latitudeLongitude, setLatitudeLongitude] = useState(baseline?.latitudeLongitude);
+    const [countries, setCountries] = useState([]);
+    const [cities, setCities] = useState([]);
+    const [country, setCountry] = useState(baseline?.country);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -58,6 +62,36 @@ const Baseline = () => {
         }
     }, [location]);
 
+    useEffect(()=>{
+        axios.get("https://countriesnow.space/api/v0.1/countries").then(data =>{
+            if(data && data.data && data.data.data) {
+                setCountries(prev => {
+                    if(country) {
+                        data.data.data.forEach(data => {
+                            if(data.country == country) {
+                                setCities(prev => [...data.cities]);
+                                return;
+                            }
+                        })
+                    }
+                    return [...data.data.data];
+                })
+            }
+        });
+    }, []);
+
+    const onCountryChange = (country) => {
+        countries.forEach(data => {
+            if(data.country == country) {
+                setCities(prev => [...data.cities]);
+                setLocation(data.cities[0]);
+                return;
+            }
+        })
+        setCountry(prev => country);
+        
+    }
+
     return (
         <>
             <h2 className="form-heading">Baseline scenario</h2>
@@ -71,14 +105,14 @@ const Baseline = () => {
                             type="number"
                             placeholder="Enter value"
                             heading="Average annual electricity consumption"
-                            subHeading="This is a consolidated value of your electricity bills for the last one year or can be derived as an average of the annual electricity consumption for number of years in the past decade. (Information indicated by 'i' and above comment visible on hovering on 'i')"
+                            subHeading="This is a consolidated value of your electricity bills for the last one year or can be derived as an average of the annual electricity consumption for number of years in the past decade."
                             onChange={(event) => { setAverageAnnualElectricityConsumption(event.target.value) }} />
                         <InputWithSideText value={averageAnnualGasConsumption}
                             unit="kWh"
                             type="number"
                             placeholder="Enter value"
                             heading="Average annual gas consumption"
-                            subHeading="This is a consolidated value of your gas bills for the last one year or can be derived as an average of the annual gas consumption for number of years in the past decade. (Information indicated by 'i' and above comment visible on hovering on 'i')"
+                            subHeading="This is a consolidated value of your gas bills for the last one year or can be derived as an average of the annual gas consumption for number of years in the past decade."
                             onChange={(event) => { setAverageAnnualGasConsumption(event.target.value) }} />
                         <InputWithSideText value={emissionFactorGridElectricity}
                             unit="kgCO2e/kWh"
@@ -94,20 +128,31 @@ const Baseline = () => {
                             heading="Emission factor for grid gas"
                             subHeading="Indicates GHG emissions associated with natural gas combusted at your facility. If not known, you may want to refer to the conversion factor available for primary fuel sources at https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2022"
                             onChange={(event) => { setEmissionFactorForGridGas(event.target.value) }} />
-                        <InputWithSideText value={location}
-                                unit=""
-                                type="text"
-                                placeholder="Select"
-                                heading="Location"
-                                subHeading="This is the location of your facility."
-                                onChange={(event) => { setLocation(event.target.value) }} />
+                        <div className="country-div baseline-div">
+                            <label className="company-label baseline-label">Country</label>
+                            <select className="select" onChange={event => onCountryChange(event.target.value)} value={country}>
+                                <option value="" disabled selected>Select</option>
+                                {countries.length ? countries.map((data) => {
+                                    return <option value={data.country}>{data.country}</option>
+                                }) : null}
+                            </select>
+                        </div>
+                        <div className="city-div baseline-div">
+                            <label className="company-label baseline-label">City</label>
+                            <select className="select" onChange={event => setLocation(event.target.value)} value={location}>
+                                <option value="" disabled selected>Select</option>
+                                {cities.length ? cities.map((data) => {
+                                    return <option value={data}>{data}</option>
+                                }) : null}
+                            </select>
+                        </div>
                         <InputWithSideText value={latitudeLongitude}
-                                unit=""
-                                type="text"
-                                placeholder="Select location to view lattitude, longitude"
-                                heading="Lattitude, longitude"
-                                disabled={true}
-                                subHeading=""/>
+                            unit=""
+                            type="text"
+                            placeholder="Select location to view lattitude, longitude"
+                            heading="Lattitude, longitude"
+                            disabled={true}
+                            subHeading="" />
                     </div>
 
 

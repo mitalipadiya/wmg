@@ -184,7 +184,7 @@ const IndustrialHeatPump = () => {
     return (
         <>
             <h2 className="form-heading">Industrial heat pump</h2>
-            <h3 className="form-subheading"></h3>
+            <h3 className="form-subheading">Heat pump transfers available heat from a colder place (heat source) to a warmer place (heat sink) by compressing a refrigerant (or working fluid) to increase the temperature to a more useful level, typically by using electrical energy.</h3>
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -290,7 +290,7 @@ const IndustrialHeatPump = () => {
                                 heading="Temperature lift"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading=""
+                                subHeading="It is a difference between the heat source temperature and the heat sink temperature."
                             />
                             <InputWithSideText value={refrigerant}
                                 unit=""
@@ -304,7 +304,7 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Coefficient of performance (COP) of IHP1"
-                                subHeading=""
+                                subHeading="Coefficient of performance (COP) describes efficiency of heat pump i.e. the ratio of output thermal energy to input electrical energy."
                                 onChange={(event) => { setCoefficientOfPerformanceOfIHP1(event.target.value) }} />
 
                             <InputWithSideText value={electricityInput}
