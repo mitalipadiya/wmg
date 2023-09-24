@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSolarThermal } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 import InputWithSelect from "../UI/InputWithSelect";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const SolarThermal = () => {
     const { baseline, economicParameters, solarThermal } = useSelector(state => state.module2);
@@ -171,8 +173,14 @@ const SolarThermal = () => {
 
     return (
         <>
-            <h2 className="form-heading">Solar thermal</h2>
-            <h3 className="form-subheading">The solar thermal technology transforms solar radiant energy in to heat.</h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">Solar thermal</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">The solar thermal technology transforms solar radiant energy in to heat.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            {/* <h2 className="form-heading">Solar thermal</h2>
+            <h3 className="form-subheading">The solar thermal technology transforms solar radiant energy in to heat.</h3> */}
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -228,15 +236,16 @@ const SolarThermal = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Incident solar irradiation"
-                                subHeading=""                                toFixed={true}
-                                disabled={true} />
+                                subHeading=""   
+                                onChange={(event) => { setIncidentSolarIrradiation(event.target.value) }}                           
+                                toFixed={true} />
                             <InputWithSideText value={annualSolarIrradiation}
                                 unit="kWh/m2"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual Solar irradiation"                                
                                 toFixed={true}
-                                disabled={true}
+                                onChange={(event) => { setAnnualSolarIrradiation(event.target.value) }}                           
                                 subHeading=""
                             />
                             <InputWithSelect heading="Solar thermal system type"
@@ -273,7 +282,7 @@ const SolarThermal = () => {
                                 placeholder="Enter value"
                                 heading="Ambient temperature"
                                 toFixed={true}
-                                disabled={true}
+                                onChange={(event) => { setAmbientTemperature(event.target.value) }}
                                 subHeading=""/>
                             <InputWithSideText value={inletTemperature}
                                 unit="K"
@@ -360,8 +369,8 @@ const SolarThermal = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
+                                <CalculatedData heading="Annual operational cost savings" isStart={true} unit="£" value={annualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>

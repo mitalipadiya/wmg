@@ -5,6 +5,8 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePassiveInfraredSensor } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const PassiveInfraredSensor = () => {
     const { baseline, economicParameters, passiveInfraredSensor } = useSelector(state => state.module2);
@@ -92,8 +94,14 @@ const PassiveInfraredSensor = () => {
 
     return (
         <>
-            <h2 className="form-heading">Passive Infrared Sensor (PIR) </h2>
-            <h3 className="form-subheading">This is an energy efficiency measure used to turn of the lamps or lighting devices when not required. PIR senses if the area is occupied.</h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">Passive Infrared Sensor (PIR)</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">This is an energy efficiency measure used to turn of the lamps or lighting devices when not required. PIR senses if the area is occupied.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            {/* <h2 className="form-heading">Passive Infrared Sensor (PIR) </h2>
+            <h3 className="form-subheading">This is an energy efficiency measure used to turn of the lamps or lighting devices when not required. PIR senses if the area is occupied.</h3> */}
             <div className="main">
 
                 <div>
@@ -205,8 +213,8 @@ const PassiveInfraredSensor = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSaings} />
+                                <CalculatedData heading="Annual operational cost savings" isStart={true} unit="£" value={annualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOfOperationalEnergyCostSaings} />
                             </div>
                         </div>
                     </div>

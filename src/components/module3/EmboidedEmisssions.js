@@ -42,7 +42,7 @@ const EmbodiedEmissions = () => {
     }, [portfolioDeleted]);
 
     useEffect(() => {
-        if (allTabs && allTabs[currentTabIndex] && allTabs[currentTabIndex].length && (allTabs[currentTabIndex].length == 1) ) {
+        if (allTabs && allTabs[currentTabIndex] && allTabs[currentTabIndex].length ) {
             const groupedData = allTabs[currentTabIndex].reduce((data, obj) => {
                 const key = obj["country"];
                 if (!data[key]) {
@@ -136,9 +136,10 @@ const EmbodiedEmissions = () => {
     }
 
     return <div className="module3-form-main">
-        <h2 className="form-heading">Embodied emissions calculator</h2>
+        <h2 className="form-heading">Comparative Supply Chain Emission Assessment
+</h2>
         <div className="emboided-subheading">
-            <h3 className="form-subheading">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore.</h3>
+            <h3 className="form-subheading">This tool allows you to compare different portfolios of supply chain emissions across different countries captured within the tool.</h3>
             <div className="conversion-main">
                 <p className="conversion-cost">Cost in</p>
                 <div className="conversion-div">

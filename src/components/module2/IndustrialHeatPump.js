@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateIndustrialHeatPump } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 import InputWithSelect from "../UI/InputWithSelect";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const IndustrialHeatPump = () => {
     const { baseline, economicParameters, industrialHeatPump } = useSelector(state => state.module2);
@@ -59,19 +61,19 @@ const IndustrialHeatPump = () => {
         setAnnualHeatLoad(averageAnnualGasRequirements / hoursOfHeatDemand);
     }, [averageAnnualGasRequirements, hoursOfHeatDemand])
     useEffect(() => {
-        setSizeOfIndustrialHeatPump1(annualHeatLoad * (heatLoadIsAtTemperaturesBelow100C/100));
+        setSizeOfIndustrialHeatPump1(annualHeatLoad * (heatLoadIsAtTemperaturesBelow100C / 100));
     }, [annualHeatLoad, heatLoadIsAtTemperaturesBelow100C])
     useEffect(() => {
-        setAnnualGridGasSavingInPresenceOfIHP1(averageAnnualGasRequirements * (heatLoadIsAtTemperaturesBelow100C/100));
+        setAnnualGridGasSavingInPresenceOfIHP1(averageAnnualGasRequirements * (heatLoadIsAtTemperaturesBelow100C / 100));
     }, [averageAnnualGasRequirements, heatLoadIsAtTemperaturesBelow100C])
     useEffect(() => {
         setTemperatureLift(heatSinkTemperature - heatSourceTemperature);
     }, [heatSinkTemperature, heatSourceTemperature])
     useEffect(() => {
-        setAnnualGridGasSavingInPresenceOfIHP2(averageAnnualGasRequirements * (heatLoadIsAtTemperaturesBetween100C150C/100));
+        setAnnualGridGasSavingInPresenceOfIHP2(averageAnnualGasRequirements * (heatLoadIsAtTemperaturesBetween100C150C / 100));
     }, [averageAnnualGasRequirements, heatLoadIsAtTemperaturesBetween100C150C])
     useEffect(() => {
-        setSizeOfIndustrialHeatPump2(sizeOfIndustrialHeatPump1 * (heatLoadIsAtTemperaturesBetween100C150C/100));
+        setSizeOfIndustrialHeatPump2(sizeOfIndustrialHeatPump1 * (heatLoadIsAtTemperaturesBetween100C150C / 100));
     }, [sizeOfIndustrialHeatPump1, heatLoadIsAtTemperaturesBetween100C150C])
     useEffect(() => {
         setUnitInstallationCostOfIHP(1950 * 0.11);
@@ -89,7 +91,7 @@ const IndustrialHeatPump = () => {
         setAnnualCostOfElectricityForIHP2(unitPriceOfElectricity * annualElectricityInputToIHP2);
     }, [unitPriceOfElectricity, annualElectricityInputToIHP2])
     useEffect(() => {
-        setAnnualCostSavingsForGridGas((averageAnnualGasRequirements * ((heatLoadIsAtTemperaturesBelow100C/100) + (heatLoadIsAtTemperaturesBetween100C150C/100))) * unitPriceOfGridGas);
+        setAnnualCostSavingsForGridGas((averageAnnualGasRequirements * ((heatLoadIsAtTemperaturesBelow100C / 100) + (heatLoadIsAtTemperaturesBetween100C150C / 100))) * unitPriceOfGridGas);
     }, [averageAnnualGasRequirements, heatLoadIsAtTemperaturesBelow100C, heatLoadIsAtTemperaturesBetween100C150C, unitPriceOfGridGas])
     useEffect(() => {
         setAnnualCostOfElectricityForIHPs(annualCostOfElectricityForIHP1 + annualCostOfElectricityForIHP2);
@@ -98,42 +100,42 @@ const IndustrialHeatPump = () => {
         setAnnualOperationalCostSavings(annualCostSavingsForGridGas - annualCostOfElectricityForIHPs);
     }, [annualCostSavingsForGridGas, annualCostOfElectricityForIHPs])
     useEffect(() => {
-        setGHGEmissionsForHeatInAbsenceOfIHP(averageAnnualGasRequirements*emissionFactorOfGridGas);
+        setGHGEmissionsForHeatInAbsenceOfIHP(averageAnnualGasRequirements * emissionFactorOfGridGas);
     }, [averageAnnualGasRequirements, emissionFactorOfGridGas])
     useEffect(() => {
-        setGHGEmissionsForHeatInPresenceOfIHP((averageAnnualGasRequirements*(1-((heatLoadIsAtTemperaturesBelow100C/100)+(heatLoadIsAtTemperaturesBetween100C150C/100)))*emissionFactorOfGridGas)+((annualElectricityInputToIHP1+annualElectricityInputToIHP2)*emissionFactorOfElectricityUsedForIHPs));
-    }, [averageAnnualGasRequirements,heatLoadIsAtTemperaturesBelow100C,heatLoadIsAtTemperaturesBetween100C150C,emissionFactorOfGridGas,annualElectricityInputToIHP1,annualElectricityInputToIHP2,emissionFactorOfElectricityUsedForIHPs])
+        setGHGEmissionsForHeatInPresenceOfIHP((averageAnnualGasRequirements * (1 - ((heatLoadIsAtTemperaturesBelow100C / 100) + (heatLoadIsAtTemperaturesBetween100C150C / 100))) * emissionFactorOfGridGas) + ((annualElectricityInputToIHP1 + annualElectricityInputToIHP2) * emissionFactorOfElectricityUsedForIHPs));
+    }, [averageAnnualGasRequirements, heatLoadIsAtTemperaturesBelow100C, heatLoadIsAtTemperaturesBetween100C150C, emissionFactorOfGridGas, annualElectricityInputToIHP1, annualElectricityInputToIHP2, emissionFactorOfElectricityUsedForIHPs])
     useEffect(() => {
         setAnnualOperationalEmissionSavings(gHGEmissionsForHeatInAbsenceOfIHP - gHGEmissionsForHeatInPresenceOfIHP);
     }, [gHGEmissionsForHeatInAbsenceOfIHP, gHGEmissionsForHeatInPresenceOfIHP])
     useEffect(() => {
-        setTotalOperationalEmissionSavingsAcrossAbatementPeriod(annualOperationalEmissionSavings*economicParameters.yearsOfAbatement);
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriod(annualOperationalEmissionSavings * economicParameters.yearsOfAbatement);
     }, [annualOperationalEmissionSavings])
     useEffect(() => {
-        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod/1000);
+        setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod / 1000);
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod])
-    useEffect(()=>{
-        setElectricityInput(sizeOfIndustrialHeatPump1/coefficientOfPerformanceOfIHP1);
-    },[sizeOfIndustrialHeatPump1, coefficientOfPerformanceOfIHP1]);
-    useEffect(()=>{
+    useEffect(() => {
+        setElectricityInput(sizeOfIndustrialHeatPump1 / coefficientOfPerformanceOfIHP1);
+    }, [sizeOfIndustrialHeatPump1, coefficientOfPerformanceOfIHP1]);
+    useEffect(() => {
         setAnnualElectricityInputToIHP1(electricityInput * hoursOfHeatDemand);
     }, [electricityInput, hoursOfHeatDemand]);
-    useEffect(()=>{
-        setCoefficientOfPerformanceOfIHP2((heatSinkTemperature/temperatureLift)*0.45);
-    },[heatSinkTemperature, temperatureLift]);
-    useEffect(()=>{
-        setElectricityInputForIHP2(sizeOfIndustrialHeatPump2/coefficientOfPerformanceOfIHP2);
-    },[sizeOfIndustrialHeatPump2, coefficientOfPerformanceOfIHP2]);
-    useEffect(()=>{
+    useEffect(() => {
+        setCoefficientOfPerformanceOfIHP2((heatSinkTemperature / temperatureLift) * 0.45);
+    }, [heatSinkTemperature, temperatureLift]);
+    useEffect(() => {
+        setElectricityInputForIHP2(sizeOfIndustrialHeatPump2 / coefficientOfPerformanceOfIHP2);
+    }, [sizeOfIndustrialHeatPump2, coefficientOfPerformanceOfIHP2]);
+    useEffect(() => {
         setAnnualElectricityInputToIHP2(electricityInputForIHP2 * hoursOfHeatDemand);
-    },[electricityInputForIHP2, hoursOfHeatDemand]);
+    }, [electricityInputForIHP2, hoursOfHeatDemand]);
     useEffect(() => {
         setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
     }, [annualOperationalCostSavings]);
-    useEffect(()=>{
-        setCostEffectivenessConsideringOperationalEmissionSavingsOnly(((initialInvestmentForIHP1 + initialInvestmentForIHP2)-netPresentValueOfOperationalEnergyCostSavings)/totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
-    },[initialInvestmentForIHP1,initialInvestmentForIHP2 ,netPresentValueOfOperationalEnergyCostSavings,totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
-    
+    useEffect(() => {
+        setCostEffectivenessConsideringOperationalEmissionSavingsOnly(((initialInvestmentForIHP1 + initialInvestmentForIHP2) - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+    }, [initialInvestmentForIHP1, initialInvestmentForIHP2, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
+
     const onSave = () => {
         dispatch(updateIndustrialHeatPump({
             averageAnnualGasRequirements,
@@ -183,8 +185,14 @@ const IndustrialHeatPump = () => {
     }
     return (
         <>
-            <h2 className="form-heading">Industrial heat pump</h2>
-            <h3 className="form-subheading">Heat pump transfers available heat from a colder place (heat source) to a warmer place (heat sink) by compressing a refrigerant (or working fluid) to increase the temperature to a more useful level, typically by using electrical energy.</h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">Industrial heat pump</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">Heat pump transfers available heat from a colder place (heat source) to a warmer place (heat sink) by compressing a refrigerant (or working fluid) to increase the temperature to a more useful level, typically by using electrical energy.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            {/* <h2 className="form-heading">Industrial heat pump</h2>
+            <h3 className="form-subheading">Heat pump transfers available heat from a colder place (heat source) to a warmer place (heat sink) by compressing a refrigerant (or working fluid) to increase the temperature to a more useful level, typically by using electrical energy.</h3> */}
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -202,14 +210,14 @@ const IndustrialHeatPump = () => {
                                 placeholder="Enter value"
                                 heading="What % of heat load is at temperatures below 100°C (get from Industrial Heat Pump)?"
                                 subHeading=""
-                                onChange={(event)=>{setHeatLoadIsAtTemperaturesBelow100C(event.target.value)}}/>
+                                onChange={(event) => { setHeatLoadIsAtTemperaturesBelow100C(event.target.value) }} />
                             <InputWithSideText value={heatLoadIsAtTemperaturesBetween100C150C}
                                 unit=""
                                 type="text"
                                 placeholder="Enter value"
                                 heading="What % of heat load is at temperatures between 100°C-150°C (get from Industrial Heat Pump)?"
                                 subHeading=""
-                                onChange={(event)=>{setHeatLoadIsAtTemperaturesBetween100C150C(event.target.value)}}/>
+                                onChange={(event) => { setHeatLoadIsAtTemperaturesBetween100C150C(event.target.value) }} />
                         </div>
                         <div className="calculated-main">
 
@@ -314,7 +322,7 @@ const IndustrialHeatPump = () => {
                                 heading="Electricity input"
                                 disabled={true}
                                 toFixed={true}
-                                subHeading=""/>
+                                subHeading="" />
                             <InputWithSideText value={annualGridGasSavingInPresenceOfIHP2}
                                 unit="kWh"
                                 type="number"
@@ -329,7 +337,7 @@ const IndustrialHeatPump = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Coefficient of performance (COP) of IHP2"
-                                subHeading=""/>
+                                subHeading="" />
                             <InputWithSideText value={electricityInputForIHP2}
                                 unit="kW"
                                 type="number"
@@ -337,7 +345,7 @@ const IndustrialHeatPump = () => {
                                 heading="Electricity input for IHP2"
                                 subHeading=""
                                 disabled={true}
-                                toFixed={true}/>
+                                toFixed={true} />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -385,7 +393,7 @@ const IndustrialHeatPump = () => {
                                 placeholder="Enter value"
                                 heading="Unit Price of electricity"
                                 subHeading=""
-                                disabled={true}/>
+                                disabled={true} />
                             <InputWithSideText value={annualCostOfElectricityForIHP1}
                                 unit="£"
                                 type="number"
@@ -393,7 +401,7 @@ const IndustrialHeatPump = () => {
                                 heading="Annual cost of electricity for IHP1"
                                 subHeading=""
                                 disabled={true}
-                                toFixed={true}/>
+                                toFixed={true} />
                             <InputWithSideText value={annualCostOfElectricityForIHP2}
                                 unit="£"
                                 type="number"
@@ -429,8 +437,8 @@ const IndustrialHeatPump = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
+                                <CalculatedData heading="Annual operational cost savings" isStart={true} unit="£" value={annualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>
@@ -488,7 +496,7 @@ const IndustrialHeatPump = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1}/>
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1} />
                             </div>
                         </div>
                     </div>
@@ -499,7 +507,7 @@ const IndustrialHeatPump = () => {
                     </div>
                 </div>
                 <div className="btn-div">
-                    <Button value="Next" onClick={onSave}/>
+                    <Button value="Next" onClick={onSave} />
                 </div>
             </div >
         </>

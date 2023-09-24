@@ -5,6 +5,8 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVoltageOptimisation } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const Wind = () => {
     const { baseline, economicParameters, voltageOptimisation } = useSelector(state => state.module2);
@@ -64,8 +66,14 @@ const Wind = () => {
 
     return (
         <>
-            <h2 className="form-heading">Voltage optimisation</h2>
-            <h3 className="form-subheading">The principle of selecting the most appropriate operating voltage for the equipment is known as voltage optimisation (VO).</h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">Voltage optimisation</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">The principle of selecting the most appropriate operating voltage for the equipment is known as voltage optimisation (VO).</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            {/* <h2 className="form-heading">Voltage optimisation</h2>
+            <h3 className="form-subheading">The principle of selecting the most appropriate operating voltage for the equipment is known as voltage optimisation (VO).</h3> */}
             <div className="main">
                 <h2 className="group-heading">GENERAL</h2>
                 <div className="form-div">
@@ -115,8 +123,8 @@ const Wind = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
+                                <CalculatedData heading="Annual operational cost savings" unit="£" isStart={true} value={annualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>
@@ -142,7 +150,7 @@ const Wind = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1}/>
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1} />
 
                             </div>
                         </div>

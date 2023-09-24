@@ -9,12 +9,11 @@ const Module2Intro = () => {
     }
     return <div className='intro-main'>
         <div className='intro-container'>
-            <h3 className='top-heading'>Title about an intro to the survey</h3>
+            <h3 className='top-heading'>Decision Support System (DSS) Tool</h3>
             <p className='top-paragraph intro-p'>
-                Provident et aut veniam quia dolor dicta laboriosam pariatur nam
-                quibusdam dicta beatae quas dolore inventore expedita ab sit.
+            DSS is based on a techno-economic-environmental analysis for low carbon technology options for generation of electricity and heat as well as energy efficiency. It integrates economic (cost) and operational emissions cost or benefit parameters within optimisation scheme.
             </p>
-            <Button value="Start the survey" onClick={onSurveyStart}/>
+            <Button value="Start" onClick={onSurveyStart}/>
         </div>
     </div>
 

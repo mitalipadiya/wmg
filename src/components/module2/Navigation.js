@@ -83,9 +83,9 @@ const Navigation = () => {
                     <span className={selectedHeading == "general" ? 'heading-arrow selected' : 'heading-arrow'}></span>
                 </div>
                 <div className={selectedHeading != "general" ? "hide" : "show"}>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "baseline" ? 'current-subitem' : ''} ${isBaselineComplete ? 'is-completed' : ''}`}><span></span>Baseline</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "technologies" ? 'current-subitem' : ''} ${isTechnologiesComplete ? 'is-completed' : ''}`}><span></span>Technologies</div>
-                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "economic-parameters" ? 'current-subitem' : ''} ${isEconomicParametersComplete ? 'is-completed' : ''}`}><span></span>Economic parameters</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "baseline" ? 'current-subitem' : ''} ${isBaselineComplete ? 'is-completed' : ''}`} onClick={onItemSelect("baseline")}><span></span>Baseline</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "technologies" ? 'current-subitem' : ''} ${isTechnologiesComplete ? 'is-completed' : ''}`} onClick={onItemSelect("technologies")}><span></span>Technologies</div>
+                    <div className={`c-nav-item c-nav-subitem ${currentSelection == "economic-parameters" ? 'current-subitem' : ''} ${isEconomicParametersComplete ? 'is-completed' : ''}`} onClick={onItemSelect("economic-parameters")}><span></span>Economic parameters</div>
                 </div>
 
             </div>

@@ -386,8 +386,8 @@ const Biomass = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
+                                <CalculatedData heading="Annual operational cost savings" isStart={true} unit="£" value={annualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>

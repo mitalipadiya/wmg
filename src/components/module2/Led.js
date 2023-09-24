@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateLed } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 import InputWithSelect from "../UI/InputWithSelect";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const Led = () => {
     const { baseline, economicParameters, led } = useSelector(state => state.module2);
@@ -145,8 +147,14 @@ const Led = () => {
 
     return (
         <>
-            <h2 className="form-heading">LED</h2>
-            <h3 className="form-subheading">Light Emitting diode is energy efficient technology alternative for lighting.</h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">LED</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">Light Emitting diode is energy efficient technology alternative for lighting.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            {/* <h2 className="form-heading">LED</h2>
+            <h3 className="form-subheading">Light Emitting diode is energy efficient technology alternative for lighting.</h3> */}
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -261,8 +269,8 @@ const Led = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
+                                <CalculatedData heading="Annual operational cost savings" isStart={true} unit="£" value={annualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>
@@ -290,7 +298,7 @@ const Led = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1}/>
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1} />
 
                             </div>
                         </div>

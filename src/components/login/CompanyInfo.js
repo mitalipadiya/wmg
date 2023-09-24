@@ -63,7 +63,7 @@ const CompanyInfo = (props) => {
             company_turnover: totalTurnover,
             customer_nature: natureOfCustomer
         }
-        userService.updateProfile(user._id).then(data => {
+        userService.updateProfile(user._id, companyProfile).then(data => {
             props.nextClick();
             let userData = localStorage.getItem('user');
             if(userData) {

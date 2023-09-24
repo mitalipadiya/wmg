@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
 import BarChartGoogle from "../UI/BarChartGoogle";
 import TwoSidedChart from "../UI/TwoSidedChart";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const Macc = () => {
     const [maccData, setMaccData] = useState([]);
@@ -21,7 +23,7 @@ const Macc = () => {
             technologyOptions: "Light Emitting Diodes (LED)",
             annualOperations: formatValueWithTwoDecimals(led?.annualOperationalCostSavings, 1),
             netPresent: formatValueWithTwoDecimals(led?.netPresentValueOfOperationalEnergyCostSavings, 1),
-            totalOperational: formatValueWithTwoDecimals(led?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon,1),
+            totalOperational: formatValueWithTwoDecimals(led?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 1),
             costEffectiveness: formatValueWithTwoDecimals(led?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
             color: '#9092BE'
         },
@@ -83,7 +85,7 @@ const Macc = () => {
         }
         ]
 
-        setMaccData(data.sort( function ( a, b ) { return a.costEffectiveness - b.costEffectiveness; } ));
+        setMaccData(data.sort(function (a, b) { return a.costEffectiveness - b.costEffectiveness; }));
     }, [])
 
     const onSave = () => {
@@ -93,8 +95,14 @@ const Macc = () => {
         navigate("./../pareto-optimisation")
     }
     return <div>
-        <h2 className="form-heading">Marginal Abatement Cost Curve (MACC)</h2>
-        <h3 className="form-subheading">Marginal Abatement Cost (MAC) expressed in cost per tonne of GHG emissions saved, is the additional cost of abating an additional tonne of GHG above what would be achieved in a ‘business as usual’ context. A Marginal Abatement Cost Curve therefore is a graphical device that combines the MACs of available low carbon technology abatement options to facilitate decision making. MACCs are a useful tool to identify options which deliver the most economically efficient reductions in GHG and prioritize mitigation options based on certain criteria.</h3>
+        <div className="tooltip-heading">
+            <h2 className="form-heading">Marginal Abatement Cost Curve (MACC)</h2>
+            <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">Marginal Abatement Cost (MAC) expressed in cost per tonne of GHG emissions saved, is the additional cost of abating an additional tonne of GHG above what would be achieved in a ‘business as usual’ context. A Marginal Abatement Cost Curve therefore is a graphical device that combines the MACs of available low carbon technology abatement options to facilitate decision making. MACCs are a useful tool to identify options which deliver the most economically efficient reductions in GHG and prioritize mitigation options based on certain criteria.</Tooltip>}>
+                <div className="heading-info">i</div>
+            </OverlayTrigger>
+        </div>
+        {/* <h2 className="form-heading">Marginal Abatement Cost Curve (MACC)</h2>
+        <h3 className="form-subheading">Marginal Abatement Cost (MAC) expressed in cost per tonne of GHG emissions saved, is the additional cost of abating an additional tonne of GHG above what would be achieved in a ‘business as usual’ context. A Marginal Abatement Cost Curve therefore is a graphical device that combines the MACs of available low carbon technology abatement options to facilitate decision making. MACCs are a useful tool to identify options which deliver the most economically efficient reductions in GHG and prioritize mitigation options based on certain criteria.</h3> */}
         <div className="main">
             <div>
                 <div className="group-heading">TABULAR VIEW</div>
@@ -129,7 +137,7 @@ const Macc = () => {
                 {/* <ColumnChartGoogle chartData={chartData} hAxisTitle="% Savings with reference to Baseline" vAxisTitle="kgCO2e"/> */}
                 {/* <ColumnRecharts data={maccData}/> */}
                 {/* <BarChartGoogle barData={barData} hAxisTitle="£/tCO2e" vAxisTitle=" " /> */}
-                <TwoSidedChart data={maccData}/>
+                <TwoSidedChart data={maccData} />
 
             </div>
         </div>

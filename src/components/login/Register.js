@@ -32,7 +32,7 @@ const Register = () => {
         <div className="signin-main">
             <div className="signin-container">
                 <h3 className="top-heading">Get started</h3>
-                <p className="top-paragraph">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore inventore expedita ab sit.</p>
+                <p className="top-paragraph">Enter your details for registration before proceeding to use the tool.</p>
                 <div className="signin-form register-form">
                     <div>
                         <label className="signin-label"><span>Your name<span className="compulsory">*</span></span> </label>

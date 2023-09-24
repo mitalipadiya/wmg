@@ -34,7 +34,7 @@ const SignIn = () => {
         <div className="signin-main">
             <div className="signin-container">
                 <h3 className="top-heading">Welcome back</h3>
-                <p className="top-paragraph">Provident et aut veniam quia dolor dicta laboriosam pariatur nam quibusdam dicta beatae quas dolore inventore expedita ab sit.</p>
+                <p className="top-paragraph">This is an integrated Decision Support Platform to aid your Net-Zero Decarbonization Strategy</p>
                 <form className="signin-form">
                     <label className="signin-label"><span>Email<span className="compulsory">*</span></span>
                         <Input type="email" placeholder="example@email.com" onChange={event => setEmail(event.target.value)} />

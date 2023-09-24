@@ -9,12 +9,11 @@ const Module3Intro = () => {
     }
     return <div className='intro-main'>
         <div className='intro-container'>
-            <h3 className='top-heading'>Title about an intro to the survey</h3>
+            <h3 className='top-heading'>Supply Chain Assessment Tool</h3>
             <p className='top-paragraph intro-p'>
-                Provident et aut veniam quia dolor dicta laboriosam pariatur nam
-                quibusdam dicta beatae quas dolore inventore expedita ab sit.
+                This tool allows you to make supply chain decisions based on sectoral emission profiles from different countries across the world.
             </p>
-            <Button value="Start the survey" onClick={onSurveyStart}/>
+            <Button value="Start" onClick={onSurveyStart} />
         </div>
     </div>
 

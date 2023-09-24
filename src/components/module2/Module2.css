@@ -38,6 +38,9 @@
     font: normal normal bold 24px/33px Manrope;
     letter-spacing: 0px;
     color: #27272A;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 .form-subheading {
     font: normal normal normal 16px/22px Manrope;
@@ -72,3 +75,25 @@
 .baseline-div {
     margin-bottom: 24px;
 }
+.heading-info {
+    width: 20px;
+    height: 20px;
+    background: #a8a8a9;
+    color: #fff;
+    line-height: 18px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    transform: matrix(-1, 0, 0, -1, 0, 0);
+    border-radius: 100px;
+    cursor: pointer;
+}
+.tooltip-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+.mytooltip > .tooltip-inner {
+    max-width: 500px;
+  }

@@ -5,6 +5,9 @@ import { useState } from "react";
 import Button from "../UI/Button";
 import { useNavigate } from "react-router-dom";
 import { updateTechnologies } from "../../actions/module2";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
+
 const Technologies = () => {
 
     const [solarPVSelected, setSolarPVSelected] = useState(useSelector(state => state?.module2?.technologies?.solarPV));
@@ -23,7 +26,7 @@ const Technologies = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const onSave = () =>{
+    const onSave = () => {
         dispatch(updateTechnologies({
             solarPV: solarPVSelected,
             wind: windSelected,
@@ -44,8 +47,14 @@ const Technologies = () => {
     }
 
     return <div>
-        <h2 className="form-heading">Select low carbon technology options</h2>
-        <h3 className="form-subheading">Click the boxes for the technologies you wish to implement at your facility.</h3>
+        <div className="tooltip-heading">
+            <h2 className="form-heading">Select low carbon technology options</h2>
+            <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">Click the boxes for the technologies you wish to implement at your facility.</Tooltip>}>
+                <div className="heading-info">i</div>
+            </OverlayTrigger>
+        </div>
+        {/* <h2 className="form-heading">Select low carbon technology options</h2>
+        <h3 className="form-subheading">Click the boxes for the technologies you wish to implement at your facility.</h3> */}
         <div className="all-list">
             <div className="technologies-list">
                 <h4>Electricity related options</h4>

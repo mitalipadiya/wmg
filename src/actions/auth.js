@@ -26,10 +26,10 @@ import {
         return Promise.resolve();
       },
       (error) => {
+        console.log(error)
         const message =
           (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
+            error.response.data) ||
           error.message ||
           error.toString();
   

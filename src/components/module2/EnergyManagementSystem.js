@@ -5,6 +5,8 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateEnergyManagementSystem } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const EnergyManagementSystem = () => {
     const { baseline, economicParameters, energyManagementSystem } = useSelector(state => state.module2);
@@ -89,8 +91,14 @@ const EnergyManagementSystem = () => {
 
     return (
         <>
-            <h2 className="form-heading">Building Energy Management System (BEMS)</h2>
-            <h3 className="form-subheading">Building Energy Management System (BEMS) involves a computer-controlled system that integrates the energy-using services and facilities in a building. It allows the facilities to be centrally managed by controlling the energy-consuming equipment to reduce energy use while maintaining a comfortable environment.</h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">Building Energy Management System (BEMS)</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">Building Energy Management System (BEMS) involves a computer-controlled system that integrates the energy-using services and facilities in a building. It allows the facilities to be centrally managed by controlling the energy-consuming equipment to reduce energy use while maintaining a comfortable environment.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            {/* <h2 className="form-heading">Building Energy Management System (BEMS)</h2>
+            <h3 className="form-subheading">Building Energy Management System (BEMS) involves a computer-controlled system that integrates the energy-using services and facilities in a building. It allows the facilities to be centrally managed by controlling the energy-consuming equipment to reduce energy use while maintaining a comfortable environment.</h3> */}
             <div className="main">
                 <h2 className="group-heading">GENERAL</h2>
                 <div className="form-div">
@@ -157,10 +165,10 @@ const EnergyManagementSystem = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational electricity cost savings" unit="£" value={annualOperationalElectricityCostSavings} />
-                                <CalculatedData heading="Annual operational gas cost savings" unit="£" value={annualOperationalGasCostSavings} />
-                                <CalculatedData heading="Total annual operational cost savings" unit="£" value={totalAnnualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
+                                <CalculatedData heading="Annual operational electricity cost savings" isStart={true} unit="£" value={annualOperationalElectricityCostSavings} />
+                                <CalculatedData heading="Annual operational gas cost savings" isStart={true} unit="£" value={annualOperationalGasCostSavings} />
+                                <CalculatedData heading="Total annual operational cost savings" isStart={true} unit="£" value={totalAnnualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>
@@ -204,7 +212,7 @@ const EnergyManagementSystem = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1}/>
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1} />
 
                             </div>
                         </div>
@@ -212,7 +220,7 @@ const EnergyManagementSystem = () => {
                 </div>
                 <div className="calculated-main calculated-last">
                     <div className="calculated-container">
-                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} decimalCount={1}/>
+                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} decimalCount={1} />
                     </div>
                 </div>
                 <div className="btn-div">

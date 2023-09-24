@@ -5,6 +5,8 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBaseline, updateSolarPvBess } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const SolarPVBESS = () => {
     const { solarPvBess, baseline, economicParameters } = useSelector(state => state.module2);
@@ -40,7 +42,7 @@ const SolarPVBESS = () => {
 
     useEffect(() => {
         const latLong = latitudeLongitude.split(",");
-        if(latLong.length > 1) {
+        if (latLong.length > 1) {
             fetch(`https://renewables.ninja/api/data/pv?local_time=true&format=json&header=true&lat=${latLong[0]}&lon=${latLong[1]}&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&system_loss=0.1&tracking=0&tilt=35&azim=180&raw=true`).then(res => res.json()).then(data => {
                 if (data && data.data) {
                     let allData = Object.values(data.data);
@@ -149,8 +151,14 @@ const SolarPVBESS = () => {
 
     return (
         <>
-            <h2 className="form-heading">Solar PV+BESS</h2>
-            <h3 className="form-subheading">Solar photovoltaic (PV) and Battery energy storage system (BESS) is a hybrid energy system where PV generates electricity during sunshine hours and BESS stores it for usage during non-sunshine hours.</h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">Solar PV+BESS</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">Solar photovoltaic (PV) and Battery energy storage system (BESS) is a hybrid energy system where PV generates electricity during sunshine hours and BESS stores it for usage during non-sunshine hours.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            {/* <h2 className="form-heading">Solar PV+BESS</h2>
+            <h3 className="form-subheading">Solar photovoltaic (PV) and Battery energy storage system (BESS) is a hybrid energy system where PV generates electricity during sunshine hours and BESS stores it for usage during non-sunshine hours.</h3> */}
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -183,7 +191,7 @@ const SolarPVBESS = () => {
                                 placeholder="Select"
                                 heading="Location"
                                 subHeading=""
-                                disabled={true}/>
+                                disabled={true} />
                             <InputWithSideText value={latitudeLongitude}
                                 unit=""
                                 type="text"
@@ -216,7 +224,7 @@ const SolarPVBESS = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 toFixed={true}
-                                disabled={true}
+                                onChange={(event) => { setDailyAverageElectricityGeneration(event.target.value) }}
                                 heading="Daily average electricity generation at selected location using 1 kWp system"
                                 subHeading="" />
                             <InputWithSideText
@@ -226,7 +234,7 @@ const SolarPVBESS = () => {
                                 type="number"
                                 placeholder="Enter value"
                                 toFixed={true}
-                                disabled={true}
+                                onChange={(event) => { setAverageDailySolarInsolation(event.target.value) }}
                                 heading="Average daily solar insolation at selected location"
                                 subHeading=""
                             />
@@ -313,8 +321,8 @@ const SolarPVBESS = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
+                                <CalculatedData heading="Annual operational cost savings" unit="£" isStart={true} value={annualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>
@@ -354,7 +362,7 @@ const SolarPVBESS = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAbatementPeriodTon} decimalCount={4}/>
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAbatementPeriodTon} decimalCount={4} />
 
                             </div>
                         </div>

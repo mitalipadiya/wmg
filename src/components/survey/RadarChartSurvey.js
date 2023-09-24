@@ -65,21 +65,6 @@ const truncateLabel = (label, maxLength) => {
   return label;
 };
 
-const CustomTick = (props) => {
-  const { x, y, payload } = props;
-  const truncatedLabels = truncateLabel(payload.value, 20).split('\n'); // Adjust maxLength as needed
-
-  return (
-    <g transform={`translate(${x},${y})`}>
-      <text fill="#666">
-        {truncatedLabels.map((value, index) => <tspan key={index} textAnchor="middle" x="0" dy={index * 15}>
-          {value}
-        </tspan>)}        
-      </text>
-    </g>
-  );
-};
-
 const RadarChartSurvey = ({ data, isOverall }) => {
   const [chartData, setChartData] = useState([]);
 
@@ -131,10 +116,10 @@ const RadarChartSurvey = ({ data, isOverall }) => {
   return (
     <>
       {
-        chartData?.length ? <RadarChart width={1000} height={500} data={chartData}>
+        chartData?.length ? <RadarChart width={1000} height={450} data={chartData}>
           <PolarGrid />
           <PolarAngleAxis dataKey="category"  axisLine={false} tickLine={false} orientation="outer" tick={{ fontSize: 16, fontFamily: "Manrope", fontWeight: 'bold', color: "#A8A8A9"}}/>
-          <PolarRadiusAxis angle={0} axisLine={false} />
+          <PolarRadiusAxis angle={90} axisLine={false} tick={{ fill: "#000", fontSize: 16 }}        />
           <Radar name="Company readiness level (CRL)" dataKey="crl" stroke="#27272A" strokeWidth="2" fill="#27272A" fillOpacity={0} dot={{ fill: "#27272A", r: 2 }} />
           <Radar name="Industry average readiness level (IARL)" dataKey="iarl" stroke="#79D4F1" strokeWidth="2" fill="#79D4F1" fillOpacity={0} dot={{ fill: "#79D4F1", r: 2 }} />
           <Radar name="Maximum readiness level (MRL)" dataKey="mrl" stroke="#CAD401" strokeWidth="2" fill="#CAD401" fillOpacity={0} dot={{ fill: "#CAD401", r: 2 }} />

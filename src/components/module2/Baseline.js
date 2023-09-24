@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateBaseline } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const Baseline = () => {
     const { baseline } = useSelector(state => state.module2);
@@ -35,6 +37,7 @@ const Baseline = () => {
             annualOperationalEmissionsForGridGas,
             totalBaselineEmissions,
             location,
+            country,
             latitudeLongitude,
             isComplete: true
         }));
@@ -62,13 +65,13 @@ const Baseline = () => {
         }
     }, [location]);
 
-    useEffect(()=>{
-        axios.get("https://countriesnow.space/api/v0.1/countries").then(data =>{
-            if(data && data.data && data.data.data) {
+    useEffect(() => {
+        axios.get("https://countriesnow.space/api/v0.1/countries").then(data => {
+            if (data && data.data && data.data.data) {
                 setCountries(prev => {
-                    if(country) {
+                    if (country) {
                         data.data.data.forEach(data => {
-                            if(data.country == country) {
+                            if (data.country == country) {
                                 setCities(prev => [...data.cities]);
                                 return;
                             }
@@ -82,20 +85,25 @@ const Baseline = () => {
 
     const onCountryChange = (country) => {
         countries.forEach(data => {
-            if(data.country == country) {
+            if (data.country == country) {
                 setCities(prev => [...data.cities]);
                 setLocation(data.cities[0]);
                 return;
             }
         })
         setCountry(prev => country);
-        
+
     }
 
     return (
         <>
-            <h2 className="form-heading">Baseline scenario</h2>
-            <h3 className="form-subheading">Calculates the Greenhouse gas (GHG) emissions associated with your current electricity and gas consumption.</h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">Baseline scenario</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">Calculates the Greenhouse gas (GHG) emissions associated with your current electricity and gas consumption.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            <h3 className="form-subheading"></h3>
             <div className="main">
                 <div className="form-div">
 

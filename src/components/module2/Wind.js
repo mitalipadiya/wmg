@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateWind } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 import InputWithSelect from "../UI/InputWithSelect";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const Wind = () => {
     const { wind, baseline, economicParameters } = useSelector(state => state.module2);
@@ -82,9 +84,9 @@ const Wind = () => {
             }
         });
     }, [])
-    useEffect(() =>{
+    useEffect(() => {
         const latLong = latitudeLongitude.split(",");
-        if(latLong.length > 0 && height && turbineModel) {
+        if (latLong.length > 0 && height && turbineModel) {
             fetch(`https://renewables.ninja/api/data/wind?local_time=true&format=json&header=true&lat=${latLong[0]}&lon=${latLong[1]}&date_from=2019-01-01&date_to=2019-12-31&dataset=merra2&capacity=1&height=${height}&turbine=${turbineModel}&raw=true`).then(res => res.json()).then(data => {
                 if (data && data.data) {
                     let allData = Object.values(data.data);
@@ -95,7 +97,7 @@ const Wind = () => {
                         totalWindSpeed += allData[i].wind_speed;
                     }
                     setAnnualGenerationWindSystem(totalElectricity);
-                    setAverageAnnualWindSpeed(totalWindSpeed/allData.length);
+                    setAverageAnnualWindSpeed(totalWindSpeed / allData.length);
                 }
             })
         }
@@ -121,17 +123,23 @@ const Wind = () => {
     useEffect(() => {
         setTotalOperationalEmissionSavingsAbatementPeriod(annualOperationalEmissionSavings * economicParameters.yearsOfAbatement);
     }, [annualOperationalEmissionSavings]);
-    useEffect(()=>{
+    useEffect(() => {
         setTotalOperationalEmissionSavingsAbatementPeriodTon(totalOperationalEmissionSavingsAbatementPeriod / 1000);
-    },[totalOperationalEmissionSavingsAbatementPeriod]);
-    useEffect(()=>{
-        setCostEffectivenessConsideringOperationalEmissionSavings((initialInvestmentWindSystem - netPresentValueOperationalEnergyCostSavings)/totalOperationalEmissionSavingsAbatementPeriodTon);
-    },[initialInvestmentWindSystem, netPresentValueOperationalEnergyCostSavings, totalOperationalEmissionSavingsAbatementPeriodTon]);
+    }, [totalOperationalEmissionSavingsAbatementPeriod]);
+    useEffect(() => {
+        setCostEffectivenessConsideringOperationalEmissionSavings((initialInvestmentWindSystem - netPresentValueOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAbatementPeriodTon);
+    }, [initialInvestmentWindSystem, netPresentValueOperationalEnergyCostSavings, totalOperationalEmissionSavingsAbatementPeriodTon]);
 
     return (
         <>
-            <h2 className="form-heading">Wind</h2>
-            <h3 className="form-subheading">The wind energy system generates electricity using kinetic energy of wind.</h3>
+            {/* <h2 className="form-heading">Wind</h2>
+            <h3 className="form-subheading">The wind energy system generates electricity using kinetic energy of wind.</h3> */}
+            <div className="tooltip-heading">
+                <h2 className="form-heading">Wind</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">The wind energy system generates electricity using kinetic energy of wind.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -181,27 +189,27 @@ const Wind = () => {
                                 heading="Height"
                                 subHeading="Height of the wind turbine."
                                 onChange={(event) => { setHeight(event.target.value) }} />
-                            <InputWithSelect 
-                            value={turbineModel}
-                                values = {turbineModels}
+                            <InputWithSelect
+                                value={turbineModel}
+                                values={turbineModels}
                                 heading="Turbine model"
-                                subHeading=""/>
+                                subHeading="" />
                             <InputWithSideText value={averageAnnualWindSpeed}
                                 unit="m/s"
                                 type="number"
                                 placeholder="Enter value"
-                                disabled={true}
                                 toFixed={true}
                                 heading="Average annual wind speed"
-                                subHeading=""/>
+                                subHeading=""
+                                onChange={(event) => { setAverageAnnualWindSpeed(event.target.value) }} />
                             <InputWithSideText value={annualGenerationWindSystem}
                                 unit="kWh"
                                 type="number"
                                 placeholder="Enter value"
-                                disabled={true}
                                 toFixed={true}
                                 heading="Annual generation per 1kW wind system"
-                                subHeading=""/>
+                                onChange={(event) => { setAnnualGenerationWindSystem(event.target.value) }}
+                                subHeading="" />
                             <InputWithSideText value={inverterEfficiency}
                                 unit="%"
                                 type="number"
@@ -228,7 +236,7 @@ const Wind = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Electricity used from wind system instead of grid"
-                                subHeading=""/>
+                                subHeading="" />
                             <InputWithSideText value={unitInstallationCost}
                                 unit="£/kW"
                                 type="number"
@@ -243,12 +251,12 @@ const Wind = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Initial investment for Wind system (CAPEX)"
-                                subHeading=""/>
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCost} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOperationalEnergyCostSavings} />
+                                <CalculatedData heading="Annual operational cost savings" unit="£" isStart={true} value={annualOperationalCost} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>
@@ -264,7 +272,7 @@ const Wind = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="Annual operational emission savings"
-                                subHeading=""/>
+                                subHeading="" />
                             <InputWithSideText value={totalOperationalEmissionSavingsAbatementPeriod}
                                 unit="kgCO2e"
                                 type="number"
@@ -272,7 +280,7 @@ const Wind = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="Total operational emission savings across abatement period"
-                                subHeading=""/>
+                                subHeading="" />
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
@@ -283,7 +291,7 @@ const Wind = () => {
                 </div>
                 <div className="calculated-main calculated-last">
                     <div className="calculated-container">
-                    <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavings} decimalCount={4}/>
+                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavings} decimalCount={4} />
                     </div>
                 </div>
                 <div className="btn-div">

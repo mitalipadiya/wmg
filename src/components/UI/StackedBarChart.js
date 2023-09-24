@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList } from 'recharts';
 
 const StackedBarChart = ({ data }) => {
+    console.log("data ==>", data)
     const [chartHeight, setChartHeight] = useState(300);
 
     useEffect(() => {

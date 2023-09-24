@@ -6,6 +6,8 @@ import "./EmissionSavings.css"
 import { formatValueWithTwoDecimals, formatValueWithoutDecimals } from "../../services/module2.service";
 import TimelineChart from "../UI/TimelineChart";
 import ProgressBar from "../UI/ProgressBar";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const ParetoOptimisation = () => {
     const [maccData, setMaccData] = useState([]);
@@ -162,8 +164,14 @@ const ParetoOptimisation = () => {
         setMaccData(data);
     }, [])
     return <div>
-        <h2 className="form-heading">Pareto optimisation</h2>
-        <h3 className="form-subheading">It is also called Pareto efficiency or Pareto optimality and is named after Vilfredo Pareto. The concept is a state of allocation of resources in which it is impossible to make any one individual better off without making at least one individual worse off. It is employed when a solution is required in the midst of conflicting objectives where solutions are chosen such that there are reasonable trade-offs among different objectives. With the Pareto Optimisation scheme, rather than generating a single optimal solution, a myriad of solutions are generated that satisfy Pareto Optimality criterion. The criterion is such that a solution point P is accepted only if there are no solutions better than P with respect to all the objectives.</h3>
+        <div className="tooltip-heading">
+            <h2 className="form-heading">Pareto optimisation</h2>
+            <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">It is also called Pareto efficiency or Pareto optimality and is named after Vilfredo Pareto. The concept is a state of allocation of resources in which it is impossible to make any one individual better off without making at least one individual worse off. It is employed when a solution is required in the midst of conflicting objectives where solutions are chosen such that there are reasonable trade-offs among different objectives. With the Pareto Optimisation scheme, rather than generating a single optimal solution, a myriad of solutions are generated that satisfy Pareto Optimality criterion. The criterion is such that a solution point P is accepted only if there are no solutions better than P with respect to all the objectives.</Tooltip>}>
+                <div className="heading-info">i</div>
+            </OverlayTrigger>
+        </div>
+        {/* <h2 className="form-heading">Pareto optimisation</h2>
+        <h3 className="form-subheading">It is also called Pareto efficiency or Pareto optimality and is named after Vilfredo Pareto. The concept is a state of allocation of resources in which it is impossible to make any one individual better off without making at least one individual worse off. It is employed when a solution is required in the midst of conflicting objectives where solutions are chosen such that there are reasonable trade-offs among different objectives. With the Pareto Optimisation scheme, rather than generating a single optimal solution, a myriad of solutions are generated that satisfy Pareto Optimality criterion. The criterion is such that a solution point P is accepted only if there are no solutions better than P with respect to all the objectives.</h3> */}
         <div className="main">
             <div>
                 <div className="group-heading">TABULAR VIEW</div>

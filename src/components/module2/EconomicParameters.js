@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateEconomicParameters } from "../../actions/module2";
 import Button from "../UI/Button";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const EconomicParameters = () => {
     const { economicParameters, baseline } = useSelector(state => state.module2);
@@ -40,8 +42,14 @@ const EconomicParameters = () => {
     return (
 
         <>
-            <h2 className="form-heading">Economic parameters</h2>
-            <h3 className="form-subheading">Ensure you enter the latest/most relevant values.</h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">Economic parameters</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">Ensure you enter the latest/most relevant values.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            {/* <h2 className="form-heading">Economic parameters</h2>
+            <h3 className="form-subheading">Ensure you enter the latest/most relevant values.</h3> */}
             <div className="main">
                 <div className="form-div">
 
@@ -79,8 +87,8 @@ const EconomicParameters = () => {
 
                     <div className="calculated-main">
                         <div className="calculated-container">
-                            <CalculatedData heading="Annual operational cost of electricity" unit="£" value={annualOperationalCostOfElectricity} />
-                            <CalculatedData heading="Annual operational cost of heat" unit="£" value={annualOperationalCostOfHeat} />
+                            <CalculatedData heading="Annual operational cost of electricity" unit="£" isStart={true} value={annualOperationalCostOfElectricity} />
+                            <CalculatedData heading="Annual operational cost of heat" unit="£" isStart={true} value={annualOperationalCostOfHeat} />
                         </div>
                     </div>
                 </div>

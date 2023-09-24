@@ -5,6 +5,8 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSolarPV } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const SolarPV = () => {
     const { baseline, solarPV, economicParameters } = useSelector(state => state.module2);
@@ -135,8 +137,14 @@ const SolarPV = () => {
 
     return (
         <>
-            <h2 className="form-heading">Solar PV</h2>
-            <h3 className="form-subheading">The solar photovoltaic (PV) technology utilises sunlight to generate electricity.</h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">Solar PV</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">The solar photovoltaic (PV) technology utilises sunlight to generate electricity.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            {/* <h2 className="form-heading">Solar PV</h2>
+            <h3 className="form-subheading">The solar photovoltaic (PV) technology utilises sunlight to generate electricity.</h3> */}
             <div className="main">
                 <div>
                     <h2 className="group-heading">General</h2>
@@ -194,14 +202,15 @@ const SolarPV = () => {
                                 heading="Annual electricity generation at selected location using 1 kWp system"
                                 toFixed={true}
                                 subHeading=""
-                                disabled={true} />
+                                onChange={(event) => { setAnnualElectricityGenerationSelectedLocation(event.target.value) }}
+                                 />
                             <InputWithSideText value={annualSolarInsolationSelectedLocation}
                                 unit="kWh/m2"
                                 type="number"
                                 placeholder="Enter value"
                                 heading="Annual solar insolation at selected location"
                                 toFixed={true}
-                                disabled={true}
+                                onChange={(event) => { setAnnualSolarInsolationSelectedLocation(event.target.value) }}
                                 subHeading="" />
                             <InputWithSideText value={solarModuleEfficiency}
                                 unit="%"
@@ -249,8 +258,8 @@ const SolarPV = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOperationalEnergy} />
+                                <CalculatedData heading="Annual operational cost savings" isStart={true} unit="£" value={annualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOperationalEnergy} />
                             </div>
                         </div>
                     </div>

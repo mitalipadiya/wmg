@@ -58,7 +58,7 @@ const ProfileInfo = (props) => {
                     </div>
                 </div>
                 <div className="designation-div">
-                    <label className="profile-label">Designation</label>
+                    <label className="profile-label">Job title</label>
                     <Input placeholder="Your Designation" value={designation} onChange={(event)=>setDesignation(event.target.value)} />
                 </div>
                 <div className="select-div">

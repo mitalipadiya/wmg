@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateBaseline, updateChp } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
 import InputWithSelect from "../UI/InputWithSelect";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const Chp = () => {
     const { chp, baseline, economicParameters } = useSelector(state => state.module2);
@@ -60,13 +62,13 @@ const Chp = () => {
     const loadsSupplied = ["Hot water only", "Process heat-Medium pressure steam", "Process heat-high temp heat"];
 
     useEffect(() => {
-        setAverageElectricityLoad((averageAnnualElectricityRequirements * (annualElectricityYouWantToGetFromCHPSystem/100)) / numberOfHoursOfElectricityDemand);
+        setAverageElectricityLoad((averageAnnualElectricityRequirements * (annualElectricityYouWantToGetFromCHPSystem / 100)) / numberOfHoursOfElectricityDemand);
     }, [averageAnnualElectricityRequirements, annualElectricityYouWantToGetFromCHPSystem, numberOfHoursOfElectricityDemand]);
     useEffect(() => {
-        setHeatToPowerRatioForSite((averageAnnualGasRequirements * (annualHeatYouWantToGetFromCHPSystem/100) * (existingBoilerEfficiency/100)) / (averageAnnualElectricityRequirements * (annualElectricityYouWantToGetFromCHPSystem/100)));
+        setHeatToPowerRatioForSite((averageAnnualGasRequirements * (annualHeatYouWantToGetFromCHPSystem / 100) * (existingBoilerEfficiency / 100)) / (averageAnnualElectricityRequirements * (annualElectricityYouWantToGetFromCHPSystem / 100)));
     }, [averageAnnualGasRequirements, annualHeatYouWantToGetFromCHPSystem, existingBoilerEfficiency, averageAnnualElectricityRequirements, annualElectricityYouWantToGetFromCHPSystem]);
     useEffect(() => {
-        setAverageLoadHeatDemand((averageAnnualGasRequirements * (existingBoilerEfficiency/100) * (annualHeatYouWantToGetFromCHPSystem/100)) / numberOfHoursOfHeatDemand);
+        setAverageLoadHeatDemand((averageAnnualGasRequirements * (existingBoilerEfficiency / 100) * (annualHeatYouWantToGetFromCHPSystem / 100)) / numberOfHoursOfHeatDemand);
     }, [averageAnnualGasRequirements, existingBoilerEfficiency, annualHeatYouWantToGetFromCHPSystem, numberOfHoursOfHeatDemand]);
     useEffect(() => {
         setBaseLoadHeatDemand(0.6 * averageLoadHeatDemand)
@@ -81,7 +83,7 @@ const Chp = () => {
         setSizeOfCHPSystem(baseLoadHeatDemand / headToPowerRatioForCalculation)
     }, [baseLoadHeatDemand, electricalEfficiency]);
     useEffect(() => {
-        setFuelUsage((annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas / (thermalEfficiency/100)) + (annualElectricityDeliveredUsingCHPSystemInsteadOfGridGas / (electricalEfficiency/100)))
+        setFuelUsage((annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas / (thermalEfficiency / 100)) + (annualElectricityDeliveredUsingCHPSystemInsteadOfGridGas / (electricalEfficiency / 100)))
     }, [annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas, thermalEfficiency, annualElectricityDeliveredUsingCHPSystemInsteadOfGridGas, electricalEfficiency]);
     useEffect(() => {
         setInitialInvestmentForCHPSystem(unitInstallationCostOfCHPSystem * sizeOfCHPSystem)
@@ -96,7 +98,7 @@ const Chp = () => {
         setAnnualCostOfCHPFuel(unitPriceOfNaturalGas * fuelUsage)
     }, [unitPriceOfNaturalGas, fuelUsage]);
     useEffect(() => {
-        setAnnualCostOfGridGasInPresenceOfCHPSystem(((averageAnnualGasRequirements - (annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas / (existingBoilerEfficiency/100))) * unitPriceOfNaturalGas) + annualCostOfCHPFuel)
+        setAnnualCostOfGridGasInPresenceOfCHPSystem(((averageAnnualGasRequirements - (annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas / (existingBoilerEfficiency / 100))) * unitPriceOfNaturalGas) + annualCostOfCHPFuel)
     }, [averageAnnualElectricityRequirements, annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas, existingBoilerEfficiency, unitPriceOfNaturalGas, annualCostOfCHPFuel]);
     useEffect(() => {
         setAnnualOperationalCostSavings((annualCostOfElectricityInAbsenceOfCHPSystem + annualCostOfGridGasInAbsenceOfCHPSystem) - (annualCostOfGridElectricityInPresenceOfCHPSystem + annualCostOfGridGasInPresenceOfCHPSystem))
@@ -119,103 +121,103 @@ const Chp = () => {
     useEffect(() => {
         setTotalOperationalEmissionSavingsAbatementPeriodTon(totalOperationalEmissionSavingsAbatementPeriod / 1000)
     }, [totalOperationalEmissionSavingsAbatementPeriod]);
-    useEffect(()=>{
-        setAnnualCostOfGridElectricityInPresenceOfCHPSystem((averageAnnualElectricityRequirements - annualElectricityDeliveredUsingCHPSystemInsteadOfGridGas)* unitPriceOfElectricity);
-    },[averageAnnualElectricityRequirements, annualElectricityDeliveredUsingCHPSystemInsteadOfGridGas, unitPriceOfElectricity])
+    useEffect(() => {
+        setAnnualCostOfGridElectricityInPresenceOfCHPSystem((averageAnnualElectricityRequirements - annualElectricityDeliveredUsingCHPSystemInsteadOfGridGas) * unitPriceOfElectricity);
+    }, [averageAnnualElectricityRequirements, annualElectricityDeliveredUsingCHPSystemInsteadOfGridGas, unitPriceOfElectricity])
     useEffect(() => {
         setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
     }, [annualOperationalCostSavings]);
-    useEffect(()=>{
-        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForCHPSystem - netPresentValueOfOperationalEnergyCostSavings)/totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
-    },[initialInvestmentForCHPSystem,netPresentValueOfOperationalEnergyCostSavings,totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
+    useEffect(() => {
+        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForCHPSystem - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+    }, [initialInvestmentForCHPSystem, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
 
-    useEffect(()=>{
-        if(loadsAreToBeSupplied == "Hot water only") {
+    useEffect(() => {
+        if (loadsAreToBeSupplied == "Hot water only") {
             setCHPSystem("Reciprocating engine");
             setCHPSystemPrimeMoverTechnology("Reciprocating engine");
-            if(averageElectricityLoad <= 100) {
+            if (averageElectricityLoad <= 100) {
                 setElectricalEfficiency(29.6);
                 setThermalEfficiency(53.2);
                 setHeadToPowerRatioForCalculation(1.79);
                 setInstallationCost(2900);
-            }else if(averageElectricityLoad > 100 && averageElectricityLoad <= 633) {
+            } else if (averageElectricityLoad > 100 && averageElectricityLoad <= 633) {
                 setElectricalEfficiency(34.5);
                 setThermalEfficiency(45.3);
                 setHeadToPowerRatioForCalculation(1.32);
                 setInstallationCost(2840);
-            }else if(averageElectricityLoad > 633 && averageElectricityLoad <= 1141){
+            } else if (averageElectricityLoad > 633 && averageElectricityLoad <= 1141) {
                 setElectricalEfficiency(37.6);
                 setThermalEfficiency(43.0);
                 setHeadToPowerRatioForCalculation(1.15);
                 setInstallationCost(2370);
-            }else if(averageElectricityLoad > 1141 && averageElectricityLoad <= 3325){
+            } else if (averageElectricityLoad > 1141 && averageElectricityLoad <= 3325) {
                 setElectricalEfficiency(40.9);
                 setThermalEfficiency(38.6);
                 setHeadToPowerRatioForCalculation(0.94);
                 setInstallationCost(1800);
-            }else if(averageElectricityLoad > 3325 && averageElectricityLoad <= 9341){
+            } else if (averageElectricityLoad > 3325 && averageElectricityLoad <= 9341) {
                 setElectricalEfficiency(41.9);
                 setThermalEfficiency(35.0);
                 setHeadToPowerRatioForCalculation(0.83);
                 setInstallationCost(1430);
             }
-        }else if(loadsAreToBeSupplied == "Process heat-Medium pressure steam") {
+        } else if (loadsAreToBeSupplied == "Process heat-Medium pressure steam") {
             setCHPSystem("Pass out steam turbine");
             setCHPSystemPrimeMoverTechnology("Steam turbine");
-            if(averageElectricityLoad <= 500) {
+            if (averageElectricityLoad <= 500) {
                 setElectricalEfficiency(6.30);
                 setThermalEfficiency(73.30);
                 setHeadToPowerRatioForCalculation(11.6);
                 setInstallationCost(1136);
-            }else if(averageElectricityLoad > 500 && averageElectricityLoad <= 3000) {
+            } else if (averageElectricityLoad > 500 && averageElectricityLoad <= 3000) {
                 setElectricalEfficiency(4.90);
                 setThermalEfficiency(74.80);
                 setHeadToPowerRatioForCalculation(15.2);
                 setInstallationCost(682);
-            }else if(averageElectricityLoad > 3000 && averageElectricityLoad <= 15000){
+            } else if (averageElectricityLoad > 3000 && averageElectricityLoad <= 15000) {
                 setElectricalEfficiency(7.30);
                 setThermalEfficiency(72.40);
                 setHeadToPowerRatioForCalculation(9.9);
                 setInstallationCost(666);
             }
-        }else {
+        } else {
             setCHPSystem("Gas turbine");
             setCHPSystemPrimeMoverTechnology("Gas turbine");
-            if(averageElectricityLoad <= 3515) {
+            if (averageElectricityLoad <= 3515) {
                 setElectricalEfficiency(23.7);
                 setThermalEfficiency(41.1);
                 setHeadToPowerRatioForCalculation(1.72);
                 setInstallationCost(3320);
-            }else if(averageElectricityLoad > 3515 && averageElectricityLoad <= 4600) {
+            } else if (averageElectricityLoad > 3515 && averageElectricityLoad <= 4600) {
                 setElectricalEfficiency(25.0);
                 setThermalEfficiency(42.7);
                 setHeadToPowerRatioForCalculation(1.72);
                 setInstallationCost(2817);
-            }else if(averageElectricityLoad > 4600 && averageElectricityLoad <= 7965){
+            } else if (averageElectricityLoad > 4600 && averageElectricityLoad <= 7965) {
                 setElectricalEfficiency(29.2);
                 setThermalEfficiency(41.4);
                 setHeadToPowerRatioForCalculation(1.43);
                 setInstallationCost(2017);
-            }else if(averageElectricityLoad > 7965 && averageElectricityLoad <= 11350){
+            } else if (averageElectricityLoad > 7965 && averageElectricityLoad <= 11350) {
                 setElectricalEfficiency(28.0);
                 setThermalEfficiency(40.2);
                 setHeadToPowerRatioForCalculation(1.43);
                 setInstallationCost(1798);
-            }else if(averageElectricityLoad > 11350 && averageElectricityLoad <= 21745){
+            } else if (averageElectricityLoad > 11350 && averageElectricityLoad <= 21745) {
                 setElectricalEfficiency(33.1);
                 setThermalEfficiency(36.7);
                 setHeadToPowerRatioForCalculation(1.11);
                 setInstallationCost(1474);
-            }else if(averageElectricityLoad > 21745 && averageElectricityLoad <= 43069){
+            } else if (averageElectricityLoad > 21745 && averageElectricityLoad <= 43069) {
                 setElectricalEfficiency(35.5);
                 setThermalEfficiency(34.4);
                 setHeadToPowerRatioForCalculation(0.97);
                 setInstallationCost(1276);
             }
         }
-    },[loadsAreToBeSupplied]);
+    }, [loadsAreToBeSupplied]);
 
-    const onSave = () =>{
+    const onSave = () => {
         dispatch(updateChp({
             averageAnnualElectricityRequirements,
             numberOfHoursOfElectricityDemand,
@@ -265,8 +267,14 @@ const Chp = () => {
 
     return (
         <>
-            <h2 className="form-heading">CHP</h2>
-            <h3 className="form-subheading"></h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">CHP</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">Combined heat and power (CHP) is the simultaneous generation of heat and power in a single process. It is also known as 'Cogeneration' in Europe and sometimes as a 'Total power' in the United States.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            {/* <h2 className="form-heading">CHP</h2>
+            <h3 className="form-subheading"></h3> */}
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -410,7 +418,7 @@ const Chp = () => {
                                 toFixed={true}
                                 placeholder="Enter value"
                                 heading="Base load -head demand "
-                                subHeading=""/>
+                                subHeading="" />
                             <InputWithSideText value={annualDeliveredHeatDemandUsingCHPSystemInsteadOfGridGas}
                                 unit="kWh"
                                 type="number"
@@ -434,8 +442,8 @@ const Chp = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Size of CHP System" unit="kWe" value={sizeOfCHPSystem} decimalCount={1}/>
-                                <CalculatedData heading="Fuel usage " unit="kWh/year" value={fuelUsage} decimalCount={0}/>
+                                <CalculatedData heading="Size of CHP System" unit="kWe" value={sizeOfCHPSystem} decimalCount={1} />
+                                <CalculatedData heading="Fuel usage " unit="kWh/year" value={fuelUsage} decimalCount={0} />
                             </div>
                         </div>
                     </div>
@@ -518,13 +526,13 @@ const Chp = () => {
                                 disabled={true}
                                 toFixed={true}
                                 heading="Annual cost of grid gas in presence of CHP system"
-                                subHeading=""/>
+                                subHeading="" />
 
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
+                                <CalculatedData heading="Annual operational cost savings" isStart={true} unit="£" value={annualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>
@@ -592,7 +600,7 @@ const Chp = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1}/>
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1} />
                             </div>
                         </div>
                     </div>
@@ -603,7 +611,7 @@ const Chp = () => {
                     </div>
                 </div>
                 <div className="btn-div">
-                    <Button value="Next" onClick={onSave}/>
+                    <Button value="Next" onClick={onSave} />
                 </div>
             </div >
         </>

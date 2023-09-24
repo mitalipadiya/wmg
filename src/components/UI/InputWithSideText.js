@@ -2,16 +2,18 @@ import React from "react";
 import "./InputWithSideText.css";
 import Input from "./Input";
 import { formatValueWithTwoDecimals } from "../../services/module2.service";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const InputWithSideText = (props) => {
   return (
     <div className="input-main">
-      <h3 className="input-heading">
-        {props.heading}{!props.disabled ? <span className="compulsory">*</span> : null}
-      </h3>
-      <p className="input-para">
-        {props.subHeading}
-      </p>
+      <div className="tooltip-heading tooltip-input">
+        <h3 className="input-heading">{props.heading}{!props.disabled ? <span className="compulsory">*</span> : null}</h3>
+        {props.subHeading ? <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">{props.subHeading}</Tooltip>}>
+          <div className="heading-info">i</div>
+        </OverlayTrigger> : null}
+      </div>
       <div className="image_input">
         <p>{props.unit}</p>
         <Input

@@ -39,7 +39,7 @@ const GenericPdfDownloader = ({ rootElementId, downloadFileName, surveyData }) =
         doc.setFontSize(12);
         doc.setTextColor("#7D7D7F");
 
-        doc.text("Aut quia odit quae maiores fuga delectus. Voluptates id consectetur quam fuga. Reiciendis nesciunt sunt non. Labore odit iste eius eaque numquam eaque.", 10, 40, { maxWidth: 160, fontWeight: "normal" });
+        doc.text("", 10, 40, { maxWidth: 160, fontWeight: "normal" });
         doc.addImage(ulData, "PNG", padding, 50, 150, 50, `ul${i}`, 'FAST');
       }
       if (i < elements.length - 1) {
@@ -53,7 +53,7 @@ const GenericPdfDownloader = ({ rootElementId, downloadFileName, surveyData }) =
         doc.setFontSize(12);
         doc.setTextColor("#7D7D7F");
 
-        doc.text("Aut quia odit quae maiores fuga delectus. Voluptates id consectetur quam fuga. Reiciendis nesciunt sunt non. Labore odit iste eius eaque numquam eaque.", 10, 40, { maxWidth: 160, fontWeight: "normal" });
+        doc.text("", 10, 40, { maxWidth: 160, fontWeight: "normal" });
         doc.addImage(ulData, "PNG", padding, 50, 150, 50, `ul${i}`, 'FAST');
       }
     }
@@ -67,11 +67,11 @@ const GenericPdfDownloader = ({ rootElementId, downloadFileName, surveyData }) =
     doc.text(surveyData.categories[index].category, 10, top);
     doc.setFontSize(12);
     doc.setTextColor("#7D7D7F");
-    doc.text("Aut quia odit quae maiores fuga delectus. Voluptates id consectetur quam fuga. Reiciendis nesciunt sunt non. Labore odit iste eius eaque numquam eaque.", 10, 30, { maxWidth: 160, fontWeight: "normal" });
+    // doc.text("", 10, 30, { maxWidth: 160, fontWeight: "normal" });
 
     doc.setTextColor("#27272A");
     doc.setFontSize(16);
-    doc.text("Survey selections", 10, 50, { fontWeight: "bold" });
+    doc.text("Survey selections", 10, 30, { fontWeight: "bold" });
 
     let rows = [];
     surveyData.categories[index].questions.forEach(question => {
@@ -89,7 +89,7 @@ const GenericPdfDownloader = ({ rootElementId, downloadFileName, surveyData }) =
     })
     doc.autoTable(['Sub category', 'Level 1 (Low=1)', 'Level 2 (Medium=2)', 'Level 3 (High=3)', 'Level 4 (Maximum=4)', 'Other'], rows, {
       theme: 'grid',
-      startY: 60,
+      startY: 40,
       styles: {
         fontSize: 12,
         valign: 'top',

@@ -5,7 +5,6 @@ import Moment from "react-moment";
 import { useNavigate } from "react-router-dom";
 import userService from "../../services/user.service";
 import RadarChartSurvey from "./RadarChartSurvey";
-import SurveyRadarChart from "./SurveyRadarChart";
 
 const SurveyResults = () => {
     const { surveyData } = useSelector(state => state.auth);
@@ -59,7 +58,7 @@ const SurveyResults = () => {
         <div className="radar-main">
             <div className="radar-legends">
                 <h2>Overall Summary</h2>
-                <h3>Aut quia odit quae maiores fuga delectus. Voluptates id consectetur quam fuga. Reiciendis nesciunt sunt non. Labore odit iste eius eaque numquam eaque.</h3>
+                <h3></h3>
                 <ul className="radar-ul" id="radar-label-list">
                     <li className="radar-legend-name"><span style={{backgroundColor: "#27272A"}}></span>Company readiness level (CRL)</li>
                     <li className="radar-legend-name"><span style={{backgroundColor: "#79D4F1"}}></span>Industry average readiness level (IARL)</li>

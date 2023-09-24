@@ -11,84 +11,145 @@ import Button from "../UI/Button";
 const EmissionSavings = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { solarPV, baseline, led, wind, smartMetersElectricity, smartMetersGas, passiveInfraredSensor, voltageOptimisation, energyManagementSystem } = useSelector(state => state.module2);
+    const { solarPV, baseline, led, wind, smartMetersElectricity, smartMetersGas, passiveInfraredSensor, voltageOptimisation, energyManagementSystem, technologies, solarPvBess,biomass, solarThermal, industrialHeatPump, chp } = useSelector(state => state.module2);
 
     const emissionData = useMemo(()=>{
-        const data = [{
-            technologyOptions: "Solar Photovoltaics (PV)",
-            emissionSavings: formatValueWithTwoDecimals(solarPV?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((solarPV?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
-            color: "#79D4F1"
-        },
-        {
-            technologyOptions: "Wind",
-            emissionSavings: formatValueWithTwoDecimals(wind?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((wind?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
-            color: "#FBD07B"
-        },
-        {
-            technologyOptions: "Light Emitting Diodes (LED)",
-            emissionSavings: formatValueWithTwoDecimals(led?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((led?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
-            color: "#9092BE"
-        },
-        {
-            technologyOptions: "Smart meter for electricity",
-            emissionSavings: formatValueWithTwoDecimals(smartMetersElectricity?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((smartMetersElectricity?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
-            color: "#F4A3A0"
-        },
-        {
-            technologyOptions: "Smart meter for gas",
-            emissionSavings: formatValueWithTwoDecimals(smartMetersGas?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((smartMetersGas?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
-            color: "#A8A8A9"
-        },
-        {
-            technologyOptions: "Passive Infrared Sensors",
-            emissionSavings: formatValueWithTwoDecimals(passiveInfraredSensor?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((passiveInfraredSensor?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
-            color: "#AC9A81"
-        },
-        {
-            technologyOptions: "Voltage optimisation",
-            emissionSavings: formatValueWithTwoDecimals(voltageOptimisation?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((voltageOptimisation?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
-            color: "#BA80C6"
-        },
-        {
-            technologyOptions: "Building energy management system",
-            emissionSavings: formatValueWithTwoDecimals(energyManagementSystem?.annualOperationalEmissionSavings),
-            percentSavings: formatValueWithoutDecimals((energyManagementSystem?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
-            color: "#F7A47B"
+        let data = [];
+        if(technologies) {
+            if(technologies.solarPV) {
+                data.push({
+                    technologyOptions: "Solar Photovoltaics (PV)",
+                    emissionSavings: formatValueWithTwoDecimals(solarPV?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((solarPV?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#79D4F1"
+                })
+            }
+            if(technologies.wind) {
+                data.push({
+                    technologyOptions: "Wind",
+                    emissionSavings: formatValueWithTwoDecimals(wind?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((wind?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#FBD07B"
+                })
+            }
+            if(technologies.solarPvBess) {
+                data.push({
+                    technologyOptions: "Solar photovoltaics (PV) & battery energy storage system (BESS)",
+                    emissionSavings: formatValueWithTwoDecimals(solarPvBess?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((solarPvBess?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#DFE566"
+                })
+            }
+            if(technologies.led) {
+                data.push({
+                    technologyOptions: "Light Emitting Diodes (LED)",
+                    emissionSavings: formatValueWithTwoDecimals(led?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((led?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#9092BE"
+                })
+            }
+            if(technologies.smartMetersElectricity) {
+                data.push({
+                    technologyOptions: "Smart meters for electricity",
+                    emissionSavings: formatValueWithTwoDecimals(smartMetersElectricity?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((smartMetersElectricity?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#F4A3A0"
+                })
+            }
+            if(technologies.passiveInfraredSensor) {
+                data.push({
+                    technologyOptions: "Passive infrared sensors",
+                    emissionSavings: formatValueWithTwoDecimals(passiveInfraredSensor?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((passiveInfraredSensor?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#AC9A81"
+                })
+            }
+            if(technologies.voltageOptimisation) {
+                data.push({
+                    technologyOptions: "Voltage optimisation",
+                    emissionSavings: formatValueWithTwoDecimals(voltageOptimisation?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((voltageOptimisation?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#95E1D2"
+                })
+            }
+            if(technologies.biomass) {
+                data.push({
+                    technologyOptions: "Biomass",
+                    emissionSavings: formatValueWithTwoDecimals(biomass?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((biomass?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#B0E195"
+                })
+            }
+            if(technologies.solarThermal) {
+                data.push({
+                    technologyOptions: "Solar thermal",
+                    emissionSavings: formatValueWithTwoDecimals(solarThermal?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((solarThermal?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#95B2E1"
+                })
+            }
+            if(technologies.industrialHeatPump) {
+                data.push({
+                    technologyOptions: "Industrial heat pump",
+                    emissionSavings: formatValueWithTwoDecimals(industrialHeatPump?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((industrialHeatPump?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#E1BE95"
+                })
+            }
+            if(technologies.smartMetersGas) {
+                data.push({
+                    technologyOptions: "Smart meter for gas",
+                    emissionSavings: formatValueWithTwoDecimals(smartMetersGas?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((smartMetersGas?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#A8A8A9"
+                })
+            }
+            if(technologies.energyManagementSystem) {
+                data.push({
+                    technologyOptions: "Building energy management system for electricity & gas",
+                    emissionSavings: formatValueWithTwoDecimals(energyManagementSystem?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((energyManagementSystem?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#F7A47B"
+                })
+            }
+            if(technologies.chp) {
+                data.push({
+                    technologyOptions: "Combined heat and power (CHP)",
+                    emissionSavings: formatValueWithTwoDecimals(chp?.annualOperationalEmissionSavings),
+                    percentSavings: formatValueWithoutDecimals((chp?.annualOperationalEmissionSavings / baseline?.totalBaselineEmissions) * 100),
+                    color: "#E195DE"
+                })
+            }
         }
-
-        ]
         return [...data];
-    },[])
+    },[technologies])
 
     const barData = useMemo(()=>{
         const bData = [];
-        for (let i = 0; i < emissionData.length; i++) {
-            let dt = [emissionData[i].technologyOptions, emissionData[i].percentSavings, emissionData[i].color, emissionData[i].emissionSavings];
-            bData.push(dt);
+        if(emissionData.length) {
+            for (let i = 0; i < emissionData.length; i++) {
+                let dt = [emissionData[i].technologyOptions, emissionData[i].percentSavings, emissionData[i].color, emissionData[i].emissionSavings];
+                bData.push(dt);
+            }
+    
+            return [
+                [
+                    "Element",
+                    "% Savings with reference to Baseline",
+                    { role: "style" },
+                    {
+                        sourceColumn: 0,
+                        role: "annotation",
+                        type: "string",
+                        calc: "stringify",
+                    },
+                ],
+                ...bData.sort( function ( a, b ) { return b[3] - a[3]; } )
+    
+            ];
+        }else {
+            return [];
         }
-
-        return [
-            [
-                "Element",
-                "% Savings with reference to Baseline",
-                { role: "style" },
-                {
-                    sourceColumn: 0,
-                    role: "annotation",
-                    type: "string",
-                    calc: "stringify",
-                },
-            ],
-            ...bData.sort( function ( a, b ) { return b[3] - a[3]; } )
-
-        ];
     },[emissionData]);
 
     const onSave = () => {

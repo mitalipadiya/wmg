@@ -5,6 +5,8 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSmartMetersElectricity } from "../../actions/module2";
 import { useNavigate } from "react-router-dom";
+import { OverlayTrigger } from "react-bootstrap";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const SmartMetersElectricity = () => {
     const { baseline, economicParameters, smartMetersElectricity } = useSelector(state => state.module2);
@@ -61,8 +63,14 @@ const SmartMetersElectricity = () => {
 
     return (
         <>
-            <h2 className="form-heading">Smart Meters - Electricity</h2>
-            <h3 className="form-subheading">Non-domestic or industrial smart meters could be installed in your facility in consultation with your energy supplier.</h3>
+            <div className="tooltip-heading">
+                <h2 className="form-heading">Smart Meters - Electricity</h2>
+                <OverlayTrigger placement="right" overlay={<Tooltip className="mytooltip">Non-domestic or industrial smart meters could be installed in your facility in consultation with your energy supplier.</Tooltip>}>
+                    <div className="heading-info">i</div>
+                </OverlayTrigger>
+            </div>
+            {/* <h2 className="form-heading">Smart Meters - Electricity</h2>
+            <h3 className="form-subheading">Non-domestic or industrial smart meters could be installed in your facility in consultation with your energy supplier.</h3> */}
             <div className="main">
                 <div>
                     <h2 className="group-heading">GENERAL</h2>
@@ -116,8 +124,8 @@ const SmartMetersElectricity = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Annual operational cost savings" unit="£" value={annualOperationalCostSavings} />
-                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
+                                <CalculatedData heading="Annual operational cost savings" isStart={true} unit="£" value={annualOperationalCostSavings} />
+                                <CalculatedData heading="Net Present Value of operational energy cost savings (NPV)" isStart={true} unit="£" value={netPresentValueOfOperationalEnergyCostSavings} />
                             </div>
                         </div>
                     </div>
@@ -145,7 +153,7 @@ const SmartMetersElectricity = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1}/>
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={1} />
 
                             </div>
                         </div>
@@ -153,7 +161,7 @@ const SmartMetersElectricity = () => {
                 </div>
                 <div className="calculated-main calculated-last">
                     <div className="calculated-container">
-                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} decimalCount={1}/>
+                        <CalculatedData heading="Cost effectiveness considering operational emission savings only (i.e. without embodied emissions)" unit="tCO2e" value={costEffectivenessConsideringOperationalEmissionSavingsOnly} decimalCount={1} />
                     </div>
                 </div>
                 <div className="btn-div">
