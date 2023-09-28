@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
-import { GET_MODULE2, UPDATE_INDUSTRIAL_HEAT_PUMP, UPDATE_BASELINE, UPDATE_BIOMASS, UPDATE_ECONOMIC_PARAMETERS, UPDATE_ENERGY_MANAGEMENT_SYSTEM, UPDATE_LED, UPDATE_PASSIVE_INFRARED_SENSOR, UPDATE_SMART_METERS_ELECTRICITY, UPDATE_SMART_METERS_GAS, UPDATE_SOLAR_PV, UPDATE_SOLAR_PV_BESS, UPDATE_SOLAR_THERMAL, UPDATE_TECHNOLOGIES, UPDATE_VOLTAGE_OPTIMISATION, UPDATE_WIND, UPDATE_EMISSION_SAVINGS, UPDATE_MACC, UPDATE_PARETO_OPTIMISATION, UPDATE_CHP } from "../actions/types";
+import { GET_MODULE2, UPDATE_INDUSTRIAL_HEAT_PUMP, UPDATE_BASELINE, UPDATE_BIOMASS, UPDATE_ECONOMIC_PARAMETERS, UPDATE_ENERGY_MANAGEMENT_SYSTEM, UPDATE_LED, UPDATE_PASSIVE_INFRARED_SENSOR, UPDATE_SMART_METERS_ELECTRICITY, UPDATE_SMART_METERS_GAS, UPDATE_SOLAR_PV, UPDATE_SOLAR_PV_BESS, UPDATE_SOLAR_THERMAL, UPDATE_TECHNOLOGIES, UPDATE_VOLTAGE_OPTIMISATION, UPDATE_WIND, UPDATE_EMISSION_SAVINGS, UPDATE_MACC, UPDATE_PARETO_OPTIMISATION, UPDATE_CHP, UPDATE_NAVIGATION } from "../actions/types";
 import userService from "../services/user.service";
 
 const initialState = {
+    navigation: [],
     baseline: {
         averageAnnualElectricityConsumption: "10000",
         averageAnnualGasConsumption: "140000",
@@ -20,16 +20,16 @@ const initialState = {
         solarPV: false,
         wind: false,
         solarPvBess: false,
-        led: false,
-        smartMetersElectricity: false,
-        passiveInfraredSensor: false,
-        voltageOptimisation: false,
         biomass: false,
+        chp: false,
+        led: false,
+        passiveInfraredSensor: false,
+        smartMetersElectricity: false,
+        smartMetersGas: false,
+        voltageOptimisation: false,
+        energyManagementSystem: false,
         solarThermal: false,
         industrialHeatPump: false,
-        smartMetersGas: false,
-        energyManagementSystem: false,
-        chp: false,
         isComplete: false
     },
     economicParameters: {
@@ -62,7 +62,8 @@ const initialState = {
         netPresentValueOperationalEnergy: "",
         totalOperationalEmissionSavingsAbatementPeriodInTon: "",
         costEffectivenessOperationalEmission: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     wind: {
         averageAnnualElectricityRequirements: "",
@@ -84,7 +85,8 @@ const initialState = {
         totalOperationalEmissionSavingsAbatementPeriod: "",
         totalOperationalEmissionSavingsAbatementPeriodTon: "",
         costEffectivenessConsideringOperationalEmissionSavings: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     solarPvBess: {
         averageAnnualElectricityRequirements: "",
@@ -113,7 +115,9 @@ const initialState = {
         annualOperationalEmissionSavings: "",
         totalOperationalEmissionSavingsAbatementPeriod: "",
         totalOperationalEmissionSavingsAbatementPeriodTon: "",
-        costEffectivenessConsideringOperationalEmissionSavingsOnly: ""
+        costEffectivenessConsideringOperationalEmissionSavingsOnly: "",
+        isComplete: false,
+        isSelected: false
     },
     biomass: {
         averageAnnualGasRequirements: "",
@@ -152,7 +156,8 @@ const initialState = {
         totalOperationalEmissionSavingsAcrossAbatementPeriod: "",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon: "",
         costEffectivenessConsideringOperationalEmissionSavingsOnly: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     chp: {
         averageAnnualElectricityRequirements: "",
@@ -196,7 +201,8 @@ const initialState = {
         totalOperationalEmissionSavingsAbatementPeriod: "",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon: "",
         costEffectivenessConsideringOperationalEmissionSavingsOnly: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     led: {
         currentTypeOfLighting: "Incandescent Bulb",
@@ -219,7 +225,8 @@ const initialState = {
         netPresentValueOfOperationalEnergyCostSavings: "",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon: "",
         costEffectivenessConsideringOperationalEmissionSavingsOnly: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     passiveInfraredSensor: {
         numberOfLamps: "50",
@@ -241,7 +248,8 @@ const initialState = {
         totalOperationalEmissionSavingsAcrossAbatementPeriod: "",
         costEffectivenessConsideringOperationalEmissionSavingsOnly: "",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     smartMetersElectricity: {
         averageAnnualElectricityConsumption: "",
@@ -254,7 +262,8 @@ const initialState = {
         totalOperationalEmissionSavingsAcrossAbatementPeriod: "",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon: "",
         costEffectivenessConsideringOperationalEmissionSavingsOnly: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     smartMetersGas: {
         averageAnnualGasConsumption: "",
@@ -267,7 +276,8 @@ const initialState = {
         totalOperationalEmissionSavingsAcrossAbatementPeriod: "",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon: "",
         costEffectivenessConsideringOperationalEmissionSavingsOnly: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     voltageOptimisation: {
         averageAnnualElectricityConsumption: "",
@@ -280,7 +290,8 @@ const initialState = {
         totalOperationalEmissionSavingsAcrossAbatementPeriod: "",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon: "",
         costEffectivenessConsideringOperationalEmissionSavingsOnly: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     energyManagementSystem: {
         averageAnnualElectricityConsumption: "",
@@ -300,7 +311,8 @@ const initialState = {
         annualOperationalEmissionSavings: "",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon: "",
         costEffectivenessConsideringOperationalEmissionSavingsOnly: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     solarThermal: {
         averageAnnualGasRequirements: "",
@@ -332,7 +344,8 @@ const initialState = {
         totalOperationalEmissionSavingsAcrossAbatementPeriod: "",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon: "",
         costEffectivenessConsideringOperationalEmissionSavingsOnly: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     industrialHeatPump: {
         averageAnnualGasRequirements: "",
@@ -376,7 +389,8 @@ const initialState = {
         totalOperationalEmissionSavingsAcrossAbatementPeriod: "",
         totalOperationalEmissionSavingsAcrossAbatementPeriodTon: "",
         costEffectivenessConsideringOperationalEmissionSavingsOnly: "",
-        isComplete: false
+        isComplete: false,
+        isSelected: false
     },
     emissionSavings: {
         isComplete: false
@@ -542,6 +556,12 @@ export default function (state = initialState, action) {
             }
             // updateModule2Data(paretoOptimisation);
             return paretoOptimisation; 
+        case UPDATE_NAVIGATION:
+            let navigation = {
+                ...state,
+                navigation: [...payload]
+            }
+            return navigation
         default:
             return state;
     }

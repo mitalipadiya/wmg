@@ -1,7 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Header.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { logout } from "../../actions/auth";
 
 const Header = () => {
@@ -11,12 +11,22 @@ const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
     const onProfileClick = () => {
         navigate("/profile");
     }
     const onHomeClick = () => {
         navigate("/");
     }
+
+    useEffect(() => {
+        if (location.pathname.startsWith("/module2")) {
+            setSelectedHeader("module2")
+        }else if(location.pathname.startsWith("/module3")) {
+            setSelectedHeader("module3")
+        }
+    }, [location.pathname]);
+
     const onLogout = () => {
         localStorage.clear();
         setIsOpen(false);

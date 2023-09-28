@@ -10,6 +10,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 
 const EconomicParameters = () => {
     const { economicParameters, baseline } = useSelector(state => state.module2);
+    const { navigation } = useSelector(state => state.module2);
     const [unitPriceOfElectricity, setUnitPriceOfElectricity] = useState(economicParameters?.unitPriceOfElectricity);
     const [unitPriceOfGas, setUnitPriceOfGas] = useState(economicParameters?.unitPriceOfGas);
     const [yearsOfAbatement, setYearsOfAbatement] = useState(economicParameters?.yearsOfAbatement);
@@ -36,7 +37,9 @@ const EconomicParameters = () => {
             annualOperationalCostOfHeat,
             isComplete: true
         }));
-        navigate("./../solar-pv")
+        if(navigation.length) {
+            navigate(`./../${navigation[0]}`);
+        }
     }
 
     return (

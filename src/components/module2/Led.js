@@ -4,15 +4,17 @@ import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLed } from "../../actions/module2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import InputWithSelect from "../UI/InputWithSelect";
 import { OverlayTrigger } from "react-bootstrap";
 import Tooltip from "react-bootstrap/Tooltip";
 
 const Led = () => {
     const { baseline, economicParameters, led } = useSelector(state => state.module2);
+    const { navigation } = useSelector(state => state.module2);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const wLocation = useLocation();
 
     const [currentTypeOfLighting, setCurrentTypeOfLighting] = useState(led?.currentTypeOfLighting);
     const [currentLightingPowerRating, setCurrentLightingPowerRating] = useState(led?.currentLightingPowerRating);
@@ -72,7 +74,9 @@ const Led = () => {
         setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod / 1000);
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod])
     useEffect(() => {
-        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForLEDs - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+        if(totalOperationalEmissionSavingsAcrossAbatementPeriodTon) {
+            setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForLEDs - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+        }
     }, [initialInvestmentForLEDs, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
     useEffect(() => {
         if (currentTypeOfLighting == "Incandescent Bulb") {
@@ -115,7 +119,9 @@ const Led = () => {
     }, [currentTypeOfLighting]);
 
     useEffect(() => {
-        setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        if(economicParameters?.discountRate) {
+            setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        }
     }, [annualOperationalCostSavings]);
 
     const onSave = () => {
@@ -142,7 +148,17 @@ const Led = () => {
             costEffectivenessConsideringOperationalEmissionSavingsOnly,
             isComplete: true
         }));
-        navigate("./../passive-infrared-sensor")
+        if (wLocation.pathname.startsWith("/module2/")) {
+            let routes = wLocation.pathname.split("/");
+            if (routes.length == 3) {
+                const index = navigation.indexOf(routes[2]);
+                if (index < navigation.length - 1) {
+                    navigate(`./../${navigation[index + 1]}`);
+                } else {
+                    navigate("./../emission-savings");
+                }
+            }
+        }
     }
 
     return (

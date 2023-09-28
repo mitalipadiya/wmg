@@ -3,14 +3,16 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../UI/Button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { updateBiomass } from "../../actions/module2";
 import InputWithSelect from "../UI/InputWithSelect";
 
 const Biomass = () => {
     const { biomass, baseline, economicParameters } = useSelector(state => state.module2);
+    const { navigation } = useSelector(state => state.module2);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const wLocation = useLocation();
 
     const [averageAnnualGasRequirements] = useState(baseline?.averageAnnualGasConsumption);
     const [annualHeatYouWantToGetFromBiomass, setAnnualHeatYouWantToGetFromBiomass] = useState(biomass?.annualHeatYouWantToGetFromBiomass);
@@ -56,10 +58,14 @@ const Biomass = () => {
         setAnnualDeliveredHeatDemand(averageAnnualGasRequirements * (existingBoilerEfficiency / 100));
     }, [averageAnnualGasRequirements, existingBoilerEfficiency]);
     useEffect(() => {
-        setAverageLoad(annualDeliveredHeatDemand / hoursOfHeatDemand);
+        if (hoursOfHeatDemand) {
+            setAverageLoad(annualDeliveredHeatDemand / hoursOfHeatDemand);
+        }
     }, [annualDeliveredHeatDemand, hoursOfHeatDemand]);
     useEffect(() => {
-        setPeakLoad(averageLoad / (capacityFactor / 100));
+        if (capacityFactor) {
+            setPeakLoad(averageLoad / (capacityFactor / 100));
+        }
     }, [averageLoad, capacityFactor])
     useEffect(() => {
         setAnnualDeliveredHeatDemandUsingBiomassBoiler(annualDeliveredHeatDemand * (annualHeatYouWantToGetFromBiomass / 100));
@@ -71,7 +77,9 @@ const Biomass = () => {
         setDeliveredHeatPerUnitMassOfFuel(netCVOfFuelAsReceived * (efficiencyOfBiomassPlant / 100));
     }, [netCVOfFuelAsReceived, efficiencyOfBiomassPlant])
     useEffect(() => {
-        setFuelUsage((annualDeliveredHeatDemandUsingBiomassBoiler / deliveredHeatPerUnitMassOfFuel) / 2000);
+        if (deliveredHeatPerUnitMassOfFuel) {
+            setFuelUsage((annualDeliveredHeatDemandUsingBiomassBoiler / deliveredHeatPerUnitMassOfFuel) / 2000);
+        }
     }, [annualDeliveredHeatDemandUsingBiomassBoiler, deliveredHeatPerUnitMassOfFuel])
     useEffect(() => {
         setSizeOfBiomassBoiler(peakLoad);
@@ -108,24 +116,28 @@ const Biomass = () => {
         setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod / 1000);
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod])
     useEffect(() => {
-        setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        if (economicParameters?.discountRate) {
+            setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        }
     }, [annualOperationalCostSavings]);
-    useEffect(()=>{
-        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForBiomassSystem-netPresentValueOfOperationalEnergyCostSavings)/totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
-    },[initialInvestmentForBiomassSystem,netPresentValueOfOperationalEnergyCostSavings,totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
-    useEffect(()=>{
+    useEffect(() => {
+        if (totalOperationalEmissionSavingsAcrossAbatementPeriodTon) {
+            setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForBiomassSystem - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+        }
+    }, [initialInvestmentForBiomassSystem, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
+    useEffect(() => {
         setNetCalorificValueOfDryFuel(5.25);
-        if(biomassFuel == "Wood chip") {
+        if (biomassFuel == "Wood chip") {
             setMoistureContent(35);
-        }else {
+        } else {
             setMoistureContent(8);
         }
-    },[biomassFuel])
+    }, [biomassFuel])
 
     const onSave = () => {
         dispatch(updateBiomass({
             averageAnnualGasRequirements,
-            annualHeatYouWantToGetFromBiomass, 
+            annualHeatYouWantToGetFromBiomass,
             whichLoadsAreToBeSupplied,
             biomassBoilerStrategy,
             capacityFactor,
@@ -162,7 +174,17 @@ const Biomass = () => {
             costEffectivenessConsideringOperationalEmissionSavingsOnly,
             isComplete: true
         }));
-        navigate("./../chp")
+        if (wLocation.pathname.startsWith("/module2/")) {
+            let routes = wLocation.pathname.split("/");
+            if (routes.length == 3) {
+                const index = navigation.indexOf(routes[2]);
+                if (index < navigation.length - 1) {
+                    navigate(`./../${navigation[index + 1]}`);
+                } else {
+                    navigate("./../emission-savings");
+                }
+            }
+        }
     }
 
     return (
@@ -446,7 +468,7 @@ const Biomass = () => {
                         </div>
                         <div className="calculated-main">
                             <div className="calculated-container">
-                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={4}/>
+                                <CalculatedData heading="Total operational emission savings across abatement period" unit="tCO2e" value={totalOperationalEmissionSavingsAcrossAbatementPeriodTon} decimalCount={4} />
 
                             </div>
                         </div>
@@ -458,7 +480,7 @@ const Biomass = () => {
                     </div>
                 </div>
                 <div className="btn-div">
-                    <Button value="Next" onClick={onSave}/>
+                    <Button value="Next" onClick={onSave} />
                 </div>
             </div >
         </>

@@ -4,13 +4,15 @@ import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateWind } from "../../actions/module2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import InputWithSelect from "../UI/InputWithSelect";
 import { OverlayTrigger } from "react-bootstrap";
 import Tooltip from "react-bootstrap/Tooltip";
 
 const Wind = () => {
     const { wind, baseline, economicParameters } = useSelector(state => state.module2);
+    const { navigation } = useSelector(state => state.module2);
+    const wLocation = useLocation();
 
     const [averageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
     const [percentAnnualElectricityFromWind, setPercentAnnualElectricityFromWind] = useState(wind?.percentAnnualElectricityFromWind);
@@ -59,20 +61,28 @@ const Wind = () => {
             costEffectivenessConsideringOperationalEmissionSavings,
             isComplete: true
         }));
-        navigate("./../solar-pv-bess")
+        if (wLocation.pathname.startsWith("/module2/")) {
+            let routes = wLocation.pathname.split("/");
+            if (routes.length == 3) {
+                const index = navigation.indexOf(routes[2]);
+                if (index < navigation.length - 1) {
+                    navigate(`./../${navigation[index + 1]}`);
+                } else {
+                    navigate("./../emission-savings");
+                }
+            }
+        }
 
     }
     useEffect(() => {
         fetch('https://renewables.ninja/api/models').then(res => res.json()).then(data => {
 
-            console.log(data)
             if (data && data.length) {
                 for (let windData of data) {
                     if (windData.id == "wind") {
                         if (windData.fields.length) {
                             for (let fieldData of windData.fields) {
                                 if (fieldData.id == "turbine") {
-                                    console.log(fieldData.options)
                                     let turbineValues = fieldData.options.map(entry => entry.value);
                                     setTurbineModels(prev => [...turbineValues]);
                                     return;
@@ -97,13 +107,17 @@ const Wind = () => {
                         totalWindSpeed += allData[i].wind_speed;
                     }
                     setAnnualGenerationWindSystem(totalElectricity);
-                    setAverageAnnualWindSpeed(totalWindSpeed / allData.length);
+                    if(allData.length) {
+                        setAverageAnnualWindSpeed(totalWindSpeed / allData.length);
+                    }
                 }
             })
         }
     }, [height, turbineModel])
     useEffect(() => {
-        setSizeOfWindSystem((averageAnnualElectricityRequirements * (percentAnnualElectricityFromWind / 100)) / (annualGenerationWindSystem * (inverterEfficiency / 100)));
+        if(annualGenerationWindSystem) {
+            setSizeOfWindSystem((averageAnnualElectricityRequirements * (percentAnnualElectricityFromWind / 100)) / (annualGenerationWindSystem * (inverterEfficiency / 100)));
+        }
     }, [averageAnnualElectricityRequirements, percentAnnualElectricityFromWind, annualGenerationWindSystem, inverterEfficiency]);
     useEffect(() => {
         setElectricityUsedFromWindSystemInsteadGrid(averageAnnualElectricityRequirements * (percentAnnualElectricityFromWind / 100));
@@ -115,7 +129,9 @@ const Wind = () => {
         setAnnualOperationalCost(electricityUsedFromWindSystemInsteadGrid * economicParameters?.unitPriceOfElectricity);
     }, [electricityUsedFromWindSystemInsteadGrid]);
     useEffect(() => {
-        setNetPresentValueOperationalEnergyCostSavings(((1 - (Math.pow((1 + (economicParameters.discountRate / 100)), -economicParameters.yearsOfAbatement))) / (economicParameters.discountRate / 100)) * annualOperationalCost);
+        if(economicParameters.discountRate) {
+            setNetPresentValueOperationalEnergyCostSavings(((1 - (Math.pow((1 + (economicParameters.discountRate / 100)), -economicParameters.yearsOfAbatement))) / (economicParameters.discountRate / 100)) * annualOperationalCost);
+        }
     }, [annualOperationalCost]);
     useEffect(() => {
         setAnnualOperationalEmissionSavings(electricityUsedFromWindSystemInsteadGrid * baseline.emissionFactorGridElectricity);
@@ -127,7 +143,9 @@ const Wind = () => {
         setTotalOperationalEmissionSavingsAbatementPeriodTon(totalOperationalEmissionSavingsAbatementPeriod / 1000);
     }, [totalOperationalEmissionSavingsAbatementPeriod]);
     useEffect(() => {
-        setCostEffectivenessConsideringOperationalEmissionSavings((initialInvestmentWindSystem - netPresentValueOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAbatementPeriodTon);
+        if(totalOperationalEmissionSavingsAbatementPeriodTon) {
+            setCostEffectivenessConsideringOperationalEmissionSavings((initialInvestmentWindSystem - netPresentValueOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAbatementPeriodTon);
+        }
     }, [initialInvestmentWindSystem, netPresentValueOperationalEnergyCostSavings, totalOperationalEmissionSavingsAbatementPeriodTon]);
 
     return (

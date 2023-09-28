@@ -3,13 +3,14 @@ import CalculatedData from "../UI/CalculatedData";
 import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { updateSmartMetersGas } from "../../actions/module2";
 import { OverlayTrigger } from "react-bootstrap";
 import Tooltip from "react-bootstrap/Tooltip";
 
 const SmartMetersGas = () => {
     const { baseline, economicParameters, smartMetersGas } = useSelector(state => state.module2);
+    const { navigation } = useSelector(state => state.module2);
     const [averageAnnualGasConsumption] = useState(baseline?.averageAnnualGasConsumption);
     const [averageGasSavingsIncentivisedUsingSmartMeter] = useState(smartMetersGas?.averageGasSavingsIncentivisedUsingSmartMeter);
     const [annualGasConsumptionWithSmartMeters, setAnnualGasConsumptionWithSmartMeters] = useState(smartMetersGas?.annualGasConsumptionWithSmartMeters);
@@ -23,6 +24,7 @@ const SmartMetersGas = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const wLocation = useLocation();
     useEffect(() => {
         setAnnualGasConsumptionWithSmartMeters(averageAnnualGasConsumption * (100 - averageGasSavingsIncentivisedUsingSmartMeter) / 100)
     }, [averageAnnualGasConsumption, averageGasSavingsIncentivisedUsingSmartMeter]);
@@ -39,10 +41,14 @@ const SmartMetersGas = () => {
         setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod / 1000)
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod]);
     useEffect(() => {
-        setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        if(economicParameters?.discountRate) {
+            setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        }
     }, [annualOperationalCostSavings]);
     useEffect(() => {
-        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForGasSmartMeter - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+        if(totalOperationalEmissionSavingsAcrossAbatementPeriodTon) {
+            setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForGasSmartMeter - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+        }
     }, [initialInvestmentForGasSmartMeter, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
 
     const onSave = () => {
@@ -59,7 +65,17 @@ const SmartMetersGas = () => {
             costEffectivenessConsideringOperationalEmissionSavingsOnly,
             isComplete: true
         }));
-        navigate("./../voltage-optimisation")
+        if (wLocation.pathname.startsWith("/module2/")) {
+            let routes = wLocation.pathname.split("/");
+            if (routes.length == 3) {
+                const index = navigation.indexOf(routes[2]);
+                if (index < navigation.length - 1) {
+                    navigate(`./../${navigation[index + 1]}`);
+                } else {
+                    navigate("./../emission-savings");
+                }
+            }
+        }
     }
 
     return (

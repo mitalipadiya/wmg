@@ -4,14 +4,17 @@ import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBaseline, updateSolarPvBess } from "../../actions/module2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { OverlayTrigger } from "react-bootstrap";
 import Tooltip from "react-bootstrap/Tooltip";
 
 const SolarPVBESS = () => {
     const { solarPvBess, baseline, economicParameters } = useSelector(state => state.module2);
+    const { navigation } = useSelector(state => state.module2);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const wLocation = useLocation();
+
     const [averageAnnualElectricityRequirements, setAverageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
     const [percentAnnualElectricityFromPVBESS, setPercentAnnualElectricityFromPVBESS] = useState(solarPvBess?.percentAnnualElectricityFromPVBESS);
     const [numberOfDaysOfOperationInAYear, setNumberOfDaysOfOperationInAYear] = useState(solarPvBess?.numberOfDaysOfOperationInAYear);
@@ -54,8 +57,10 @@ const SolarPVBESS = () => {
                         totalDirectIrradiance += allData[i].irradiance_direct;
                         totalDiffuseIrradiance += allData[i].irradiance_diffuse;
                     }
-                    setDailyAverageElectricityGeneration(totalElectricity / allData.length);
-                    setAverageDailySolarInsolation((totalDirectIrradiance + totalDiffuseIrradiance) / allData.length);
+                    if (allData.length) {
+                        setDailyAverageElectricityGeneration(totalElectricity / allData.length);
+                        setAverageDailySolarInsolation((totalDirectIrradiance + totalDiffuseIrradiance) / allData.length);
+                    }
                 }
             })
         }
@@ -65,13 +70,19 @@ const SolarPVBESS = () => {
         setDailyElectricityRequirementUsingPVBESSSystem(averageAnnualElectricityRequirements * (percentAnnualElectricityFromPVBESS / 100) / 300);
     }, [averageAnnualElectricityRequirements, percentAnnualElectricityFromPVBESS]);
     useEffect(() => {
-        setSizeOfPVSystem(dailyElectricityRequirementUsingPVBESSSystem / dailyAverageElectricityGeneration);
+        if (dailyAverageElectricityGeneration) {
+            setSizeOfPVSystem(dailyElectricityRequirementUsingPVBESSSystem / dailyAverageElectricityGeneration);
+        }
     }, [dailyElectricityRequirementUsingPVBESSSystem, dailyAverageElectricityGeneration])
     useEffect(() => {
-        setAreaOfPVSystem(dailyElectricityRequirementUsingPVBESSSystem / (averageDailySolarInsolation * (solarModuleEfficiency / 100)));
+        if (averageDailySolarInsolation && solarModuleEfficiency) {
+            setAreaOfPVSystem(dailyElectricityRequirementUsingPVBESSSystem / (averageDailySolarInsolation * (solarModuleEfficiency / 100)));
+        }
     }, [dailyElectricityRequirementUsingPVBESSSystem, averageDailySolarInsolation, solarModuleEfficiency]);
     useEffect(() => {
-        setBatterySize((dailyElectricityRequirementUsingPVBESSSystem / ((batteryEfficiency * depthOfDischargeOfBattery) / 10000)) * (1 + parseInt(numberOfDaysOfAutonomy)));
+        if (batteryEfficiency && depthOfDischargeOfBattery) {
+            setBatterySize((dailyElectricityRequirementUsingPVBESSSystem / ((batteryEfficiency * depthOfDischargeOfBattery) / 10000)) * (1 + parseInt(numberOfDaysOfAutonomy)));
+        }
     }, [dailyElectricityRequirementUsingPVBESSSystem, batteryEfficiency, depthOfDischargeOfBattery, numberOfDaysOfAutonomy])
     useEffect(() => {
         setInitialInvestmentPVSystem(sizeOfPVSystem * unitInstallationCostPVSystem);
@@ -98,10 +109,14 @@ const SolarPVBESS = () => {
         setTotalOperationalEmissionSavingsAbatementPeriodTon(totalOperationalEmissionSavingsAbatementPeriod / 1000);
     }, [totalOperationalEmissionSavingsAbatementPeriod])
     useEffect(() => {
-        setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        if (economicParameters?.discountRate) {
+            setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        }
     }, [annualOperationalCostSavings]);
     useEffect(() => {
-        setCostEffectivenessConsideringOperationalEmissionSavingsOnly(((initialInvestmentPVSystem + initialInvestmentForBESSSystem) - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAbatementPeriodTon);
+        if (totalOperationalEmissionSavingsAbatementPeriodTon) {
+            setCostEffectivenessConsideringOperationalEmissionSavingsOnly(((initialInvestmentPVSystem + initialInvestmentForBESSSystem) - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAbatementPeriodTon);
+        }
     }, [initialInvestmentPVSystem, initialInvestmentForBESSSystem, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAbatementPeriodTon])
 
     const onSave = () => {
@@ -135,7 +150,17 @@ const SolarPVBESS = () => {
             costEffectivenessConsideringOperationalEmissionSavingsOnly,
             isComplete: true
         }));
-        navigate("./../biomass")
+        if (wLocation.pathname.startsWith("/module2/")) {
+            let routes = wLocation.pathname.split("/");
+            if (routes.length == 3) {
+                const index = navigation.indexOf(routes[2]);
+                if (index < navigation.length - 1) {
+                    navigate(`./../${navigation[index + 1]}`);
+                } else {
+                    navigate("./../emission-savings");
+                }
+            }
+        }
     }
     useEffect(() => {
         let defaultValue = '';

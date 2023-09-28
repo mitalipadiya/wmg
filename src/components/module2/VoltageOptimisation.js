@@ -4,15 +4,17 @@ import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVoltageOptimisation } from "../../actions/module2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { OverlayTrigger } from "react-bootstrap";
 import Tooltip from "react-bootstrap/Tooltip";
 
 const Wind = () => {
     const { baseline, economicParameters, voltageOptimisation } = useSelector(state => state.module2);
+    const { navigation } = useSelector(state => state.module2);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const wLocation = useLocation();
 
     const [averageAnnualElectricityConsumption, setAverageAnnualElectricityConsumption] = useState(baseline?.averageAnnualElectricityConsumption);
     const [averageElectricitySavingsUsingVoltageOptimisation, setAverageElectricitySavingsUsingVoltageOptimisation] = useState(voltageOptimisation?.averageElectricitySavingsUsingVoltageOptimisation);
@@ -41,10 +43,14 @@ const Wind = () => {
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod]);
 
     useEffect(() => {
-        setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        if(economicParameters?.discountRate) {
+            setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        }
     }, [annualOperationalCostSavings]);
     useEffect(() => {
-        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForVoltageOptimisation - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+        if(totalOperationalEmissionSavingsAcrossAbatementPeriodTon) {
+            setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForVoltageOptimisation - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+        }
     }, [initialInvestmentForVoltageOptimisation, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon]);
 
     const onSave = () => {
@@ -61,7 +67,17 @@ const Wind = () => {
             costEffectivenessConsideringOperationalEmissionSavingsOnly,
             isComplete: true
         }));
-        navigate("./../energy-management-system")
+        if (wLocation.pathname.startsWith("/module2/")) {
+            let routes = wLocation.pathname.split("/");
+            if (routes.length == 3) {
+                const index = navigation.indexOf(routes[2]);
+                if (index < navigation.length - 1) {
+                    navigate(`./../${navigation[index + 1]}`);
+                } else {
+                    navigate("./../emission-savings");
+                }
+            }
+        }
     }
 
     return (

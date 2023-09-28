@@ -4,12 +4,13 @@ import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSolarPV } from "../../actions/module2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { OverlayTrigger } from "react-bootstrap";
 import Tooltip from "react-bootstrap/Tooltip";
 
 const SolarPV = () => {
     const { baseline, solarPV, economicParameters } = useSelector(state => state.module2);
+    const { navigation } = useSelector(state => state.module2);
 
     const [averageAnnualElectricityRequirements] = useState(baseline?.averageAnnualElectricityConsumption);
     const [percentAnnualElectricityFromPV, setPercentAnnualElectricityFromPV] = useState(solarPV?.percentAnnualElectricityFromPV);
@@ -34,6 +35,7 @@ const SolarPV = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const wLocation = useLocation();
 
     const onSave = () => {
         dispatch(updateSolarPV({
@@ -59,7 +61,18 @@ const SolarPV = () => {
             costEffectivenessOperationalEmission,
             isComplete: true
         }));
-        navigate("./../wind")
+        
+        if (wLocation.pathname.startsWith("/module2/")) {
+            let routes = wLocation.pathname.split("/");
+            if (routes.length == 3) {
+                const index = navigation.indexOf(routes[2]);
+                if (index < navigation.length - 1) {
+                    navigate(`./../${navigation[index + 1]}`);
+                } else {
+                    navigate("./../emission-savings");
+                }
+            }
+        }
 
     }
 
@@ -109,7 +122,9 @@ const SolarPV = () => {
         setAnnualOperationalEmissionSavings(annualElectricityInsteadOfGrid * baseline?.emissionFactorGridElectricity);
     }, [annualElectricityInsteadOfGrid]);
     useEffect(() => {
-        setNetPresentValueOperationalEnergy(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        if(economicParameters?.discountRate) {
+            setNetPresentValueOperationalEnergy(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        }
     }, [annualOperationalCostSavings]);
     useEffect(() => {
         setgHGEmissionsElectricityPVSystem((averageAnnualElectricityRequirements - annualElectricityInsteadOfGrid) * baseline?.emissionFactorGridElectricity);
@@ -121,7 +136,9 @@ const SolarPV = () => {
         setTotalOperationalEmissionSavingsAbatementPeriodInTon(totalOperationalEmissionSavingsAbatementPeriod / 1000);
     }, [totalOperationalEmissionSavingsAbatementPeriod]);
     useEffect(() => {
-        setCostEffectivenessOperationalEmission((initialInvestmentPVSystem - netPresentValueOperationalEnergy) / totalOperationalEmissionSavingsAbatementPeriodInTon);
+        if(totalOperationalEmissionSavingsAbatementPeriodInTon) {
+            setCostEffectivenessOperationalEmission((initialInvestmentPVSystem - netPresentValueOperationalEnergy) / totalOperationalEmissionSavingsAbatementPeriodInTon);
+        }
     }, [initialInvestmentPVSystem, netPresentValueOperationalEnergy, totalOperationalEmissionSavingsAbatementPeriodInTon])
     useEffect(() => {
         let defaultValue = '';

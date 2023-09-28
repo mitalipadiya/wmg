@@ -4,12 +4,14 @@ import "./Technologies.css"
 import { useState } from "react";
 import Button from "../UI/Button";
 import { useNavigate } from "react-router-dom";
-import { updateTechnologies } from "../../actions/module2";
+import { updateBiomass, updateChp, updateEnergyManagementSystem, updateIndustrialHeatPump, updateLed, updateNavigation, updatePassiveInfraredSensor, updateSmartMetersElectricity, updateSmartMetersGas, updateSolarPV, updateSolarPvBess, updateSolarThermal, updateTechnologies, updateVoltageOptimisation, updateWind } from "../../actions/module2";
 import { OverlayTrigger } from "react-bootstrap";
 import Tooltip from "react-bootstrap/Tooltip";
 
 const Technologies = () => {
+    const {module2} = useSelector(state => state);
 
+    const { navigation } = useSelector(state => state?.module2);
     const [solarPVSelected, setSolarPVSelected] = useState(useSelector(state => state?.module2?.technologies?.solarPV));
     const [windSelected, setWindSelected] = useState(useSelector(state => state?.module2?.technologies?.wind));
     const [solarPvBessSelected, setSolarPvBessSelected] = useState(useSelector(state => state?.module2?.technologies?.solarPvBess));
@@ -43,6 +45,61 @@ const Technologies = () => {
             chp: chpSelected,
             isComplete: true
         }))
+        let navigationItems = [];
+        if (solarPVSelected) {
+            dispatch(updateSolarPV({ ...module2?.solarPV, isSelected: true }));
+            navigationItems.push("solar-pv")
+        }
+        if (windSelected) {
+            dispatch(updateWind({ ...module2?.wind, isSelected: true }));
+            navigationItems.push("wind")
+        }
+        if (solarPvBessSelected) {
+            dispatch(updateSolarPvBess({ ...module2?.solarPvBess, isSelected: true }));
+            navigationItems.push("solar-pv-bess")
+        }
+        if (biomassSelected) {
+            dispatch(updateBiomass({ ...module2?.biomass, isSelected: true }));
+            navigationItems.push("biomass")
+        }
+        if (chpSelected) {
+            dispatch(updateChp({ ...module2?.chp, isSelected: true }));
+            navigationItems.push("chp")
+        }
+        if (ledSelected) {
+            dispatch(updateLed({ ...module2?.led, isSelected: true }));
+            navigationItems.push("led")
+        }
+        if (passiveInfraredSensorSelected) {
+            dispatch(updatePassiveInfraredSensor({ ...module2?.passiveInfraredSensor, isSelected: true }));
+            navigationItems.push("passive-infrared-sensor")
+        }
+        if (smartMetersElectricitySelected) {
+            dispatch(updateSmartMetersElectricity({ ...module2?.smartMetersElectricity, isSelected: true }));
+            navigationItems.push("smart-meters-electricity")
+        }
+        if (smartMetersGasSelected) {
+            dispatch(updateSmartMetersGas({ ...module2?.smartMetersGas, isSelected: true }));
+            navigationItems.push("smart-meters-gas")
+        }
+        if (voltageOptimisationSelected) {
+            dispatch(updateVoltageOptimisation({ ...module2?.voltageOptimisation, isSelected: true }));
+            navigationItems.push("voltage-optimisation")
+        }
+        if (energyManagementSystemSelected) {
+            dispatch(updateEnergyManagementSystem({ ...module2?.energyManagementSystem, isSelected: true }));
+            navigationItems.push("energy-management-system")
+        }
+        if (solarThermalSelected) {
+            dispatch(updateSolarThermal({ ...module2?.solarThermal, isSelected: true }));
+            navigationItems.push("solar-thermal")
+        }
+        if (industrialHeatPumpSelected) {
+            dispatch(updateIndustrialHeatPump({ ...module2?.industrialHeatPump, isSelected: true }));
+            navigationItems.push("industrial-heat-pump")
+        }
+
+        dispatch(updateNavigation(navigationItems));
         navigate("./../economic-parameters")
     }
 
@@ -87,7 +144,7 @@ const Technologies = () => {
             </div>
         </div>
         <div className="btn-div">
-            <Button value="Next" onClick={onSave} />
+            <Button disabled={!(solarPVSelected || windSelected || solarPvBessSelected || ledSelected || smartMetersElectricitySelected || passiveInfraredSensorSelected || voltageOptimisationSelected || biomassSelected || solarThermalSelected || industrialHeatPumpSelected || smartMetersGasSelected || energyManagementSystemSelected || chpSelected)} value="Next" onClick={onSave} />
         </div>
     </div>
 }

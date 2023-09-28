@@ -4,15 +4,17 @@ import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSolarThermal } from "../../actions/module2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import InputWithSelect from "../UI/InputWithSelect";
 import { OverlayTrigger } from "react-bootstrap";
 import Tooltip from "react-bootstrap/Tooltip";
 
 const SolarThermal = () => {
     const { baseline, economicParameters, solarThermal } = useSelector(state => state.module2);
+    const { navigation } = useSelector(state => state.module2);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const wLocation = useLocation();
 
     const [averageAnnualGasRequirements, setAverageAnnualGasRequirements] = useState(baseline?.averageAnnualGasConsumption);
     const [heatDemandToBeTakenFromSolarThermalSystem, setHeatDemandToBeTakenFromSolarThermalSystem] = useState(solarThermal?.heatDemandToBeTakenFromSolarThermalSystem);
@@ -65,7 +67,9 @@ const SolarThermal = () => {
                             maxIrradianceSum = irradianceSum;
                         }
                     }
-                    setAmbientTemperature(totalTemperature/allData.length);
+                    if(allData.length) {
+                        setAmbientTemperature(totalTemperature/allData.length);
+                    }
                     setAnnualSolarIrradiation(totalDirectIrradiance + totalDiffuseIrradiance);
                     setIncidentSolarIrradiation(maxIrradianceSum);
                 }
@@ -77,10 +81,14 @@ const SolarThermal = () => {
         setCollectorTemperature(outletTemperature - inletTemperature);
     }, [outletTemperature, inletTemperature])
     useEffect(() => {
-        setEfficiencyOfSolarThermalSystem((opticalEfficiency - ((firstOrderEfficiencyCoefficient / incidentSolarIrradiation) * collectorTemperature) - ((secondOrderEfficiencyCoefficient / incidentSolarIrradiation) * ((collectorTemperature) * (collectorTemperature)))) * 100);
+        if(incidentSolarIrradiation) {
+            setEfficiencyOfSolarThermalSystem((opticalEfficiency - ((firstOrderEfficiencyCoefficient / incidentSolarIrradiation) * collectorTemperature) - ((secondOrderEfficiencyCoefficient / incidentSolarIrradiation) * ((collectorTemperature) * (collectorTemperature)))) * 100);
+        }
     }, [opticalEfficiency, firstOrderEfficiencyCoefficient, incidentSolarIrradiation, collectorTemperature, secondOrderEfficiencyCoefficient])
     useEffect(() => {
-        setSizeOfSolarThermalSystem((averageAnnualGasRequirements * (heatDemandToBeTakenFromSolarThermalSystem / 100) * (existingBoilerEfficiency / 100)) / ((efficiencyOfSolarThermalSystem / 100) * annualSolarIrradiation));
+        if(efficiencyOfSolarThermalSystem && annualSolarIrradiation) {
+            setSizeOfSolarThermalSystem((averageAnnualGasRequirements * (heatDemandToBeTakenFromSolarThermalSystem / 100) * (existingBoilerEfficiency / 100)) / ((efficiencyOfSolarThermalSystem / 100) * annualSolarIrradiation));
+        }
     }, [averageAnnualGasRequirements, heatDemandToBeTakenFromSolarThermalSystem, existingBoilerEfficiency, efficiencyOfSolarThermalSystem, annualSolarIrradiation])
     useEffect(() => {
         setCapacityOfSolarThermalSystem(0.7 * sizeOfSolarThermalSystem);
@@ -105,10 +113,14 @@ const SolarThermal = () => {
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod])
 
     useEffect(() => {
-        setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        if(economicParameters?.discountRate) {
+            setNetPresentValueOfOperationalEnergyCostSavings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        }
     }, [annualOperationalCostSavings]);
     useEffect(() => {
-        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForSolarThermalSystem - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+        if(totalOperationalEmissionSavingsAcrossAbatementPeriodTon) {
+            setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForSolarThermalSystem - netPresentValueOfOperationalEnergyCostSavings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+        }
     }, [initialInvestmentForSolarThermalSystem, netPresentValueOfOperationalEnergyCostSavings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
     useEffect(()=>{
         switch(solarThermalSystemType) {
@@ -168,7 +180,17 @@ const SolarThermal = () => {
             costEffectivenessConsideringOperationalEmissionSavingsOnly,
             isComplete: true
         }));
-        navigate("./../industrial-heat-pump")
+        if (wLocation.pathname.startsWith("/module2/")) {
+            let routes = wLocation.pathname.split("/");
+            if (routes.length == 3) {
+                const index = navigation.indexOf(routes[2]);
+                if (index < navigation.length - 1) {
+                    navigate(`./../${navigation[index + 1]}`);
+                } else {
+                    navigate("./../emission-savings");
+                }
+            }
+        }
     }
 
     return (

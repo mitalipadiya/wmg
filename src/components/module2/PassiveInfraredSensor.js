@@ -4,14 +4,16 @@ import InputWithSideText from "../UI/InputWithSideText";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePassiveInfraredSensor } from "../../actions/module2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { OverlayTrigger } from "react-bootstrap";
 import Tooltip from "react-bootstrap/Tooltip";
 
 const PassiveInfraredSensor = () => {
     const { baseline, economicParameters, passiveInfraredSensor } = useSelector(state => state.module2);
+    const { navigation } = useSelector(state => state.module2);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const wLocation = useLocation();
     const [numberOfLamps, setNumberOfLamps] = useState(passiveInfraredSensor?.numberOfLamps);
     const [wattageOfLamp, setWattageOfLamp] = useState(passiveInfraredSensor?.wattageOfLamp);
     const [numberOfDaysInYear, setNumberOfDaysInYear] = useState(passiveInfraredSensor?.numberOfDaysInYear);
@@ -33,7 +35,9 @@ const PassiveInfraredSensor = () => {
     const [totalOperationalEmissionSavingsAcrossAbatementPeriodTon, setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon] = useState(passiveInfraredSensor?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
 
     useEffect(() => {
-        setNumberOfPIRSensors(areaOfIndustrialFacility / detectionRangeOfPIRSensors)
+        if(detectionRangeOfPIRSensors) {
+            setNumberOfPIRSensors(areaOfIndustrialFacility / detectionRangeOfPIRSensors)
+        }
     }, [areaOfIndustrialFacility, detectionRangeOfPIRSensors]);
     useEffect(() => {
         setAnnualElectricityConsumptionWithoutPirSensor(numberOfLamps * wattageOfLamp * numberOfDaysInYear * estimatedHoursONPerDay / 1000)
@@ -60,10 +64,14 @@ const PassiveInfraredSensor = () => {
         setTotalOperationalEmissionSavingsAcrossAbatementPeriodTon(totalOperationalEmissionSavingsAcrossAbatementPeriod / 1000)
     }, [totalOperationalEmissionSavingsAcrossAbatementPeriod]);
     useEffect(() => {
-        setNetPresentValueOfOperationalEnergyCostSaings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        if(economicParameters?.discountRate) {
+            setNetPresentValueOfOperationalEnergyCostSaings(((1 - Math.pow(1 + (economicParameters?.discountRate / 100), -economicParameters?.yearsOfAbatement)) / (economicParameters?.discountRate / 100)) * annualOperationalCostSavings);
+        }
     }, [annualOperationalCostSavings]);
     useEffect(() => {
-        setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForPir - netPresentValueOfOperationalEnergyCostSaings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+        if(totalOperationalEmissionSavingsAcrossAbatementPeriodTon) {
+            setCostEffectivenessConsideringOperationalEmissionSavingsOnly((initialInvestmentForPir - netPresentValueOfOperationalEnergyCostSaings) / totalOperationalEmissionSavingsAcrossAbatementPeriodTon);
+        }
     }, [initialInvestmentForPir, netPresentValueOfOperationalEnergyCostSaings, totalOperationalEmissionSavingsAcrossAbatementPeriodTon])
 
     const onSave = () => {
@@ -89,7 +97,17 @@ const PassiveInfraredSensor = () => {
             totalOperationalEmissionSavingsAcrossAbatementPeriodTon,
             isComplete: true
         }));
-        navigate("./../smart-meters-electricity")
+        if (wLocation.pathname.startsWith("/module2/")) {
+            let routes = wLocation.pathname.split("/");
+            if (routes.length == 3) {
+                const index = navigation.indexOf(routes[2]);
+                if (index < navigation.length - 1) {
+                    navigate(`./../${navigation[index + 1]}`);
+                } else {
+                    navigate("./../emission-savings");
+                }
+            }
+        }
     }
 
     return (

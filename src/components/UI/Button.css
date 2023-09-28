@@ -9,3 +9,6 @@
     cursor: pointer;
     padding: 0 32px;
 }
+.btn:disabled {
+    background: #F9B123 0% 0% no-repeat padding-box;
+}
