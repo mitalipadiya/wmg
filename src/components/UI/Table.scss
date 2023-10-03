@@ -99,6 +99,19 @@
   letter-spacing: 0px;
   color: #27272A;
 }
+
 .div-controls {
   display: flex;
+}
+
+.save-img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.td-save {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

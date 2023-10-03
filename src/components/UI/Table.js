@@ -5,6 +5,8 @@ import "./Table.scss";
 import { useEffect, useState } from "react";
 import FlagsSelect from 'react-flags-select';
 import { nanoid } from "nanoid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave } from "@fortawesome/fontawesome-free-solid";
 
 const customLabels = {
   AU: "AUS",
@@ -2811,6 +2813,7 @@ const Table = ({ addEntry, tableData, deleteEntry, currency, gbpRate, updateTabl
   const [subSectors, setSubSectors] = useState([]);
   const [totalEmission, setTotalEmission] = useState(0);
   const [countryVal, setCountryVal] = useState(0);
+  const [isAddClicked, setIsAddClicked] = useState(false);
 
   useEffect(()=>{
     let tableDetails = tableData;
@@ -2885,6 +2888,7 @@ const Table = ({ addEntry, tableData, deleteEntry, currency, gbpRate, updateTabl
   }
 
   const add = () => {
+    setIsAddClicked(prev =>  false);
     addEntry(nanoid(), country, sector, subSector, cost, emission, countryVal);
     setTotalEmission(prev => prev + parseInt(emission));
     reset();
@@ -2934,7 +2938,7 @@ const Table = ({ addEntry, tableData, deleteEntry, currency, gbpRate, updateTabl
               </tr>
             }) : null
           }
-          <tr>
+          {(isAddClicked || !tableData.length) && <tr>
             <td className="table-data" >
               <FlagsSelect
                 countries={countries} // Add more country codes here
@@ -2958,14 +2962,15 @@ const Table = ({ addEntry, tableData, deleteEntry, currency, gbpRate, updateTabl
 
               </div>
             </td>
-            <td className="table-data">
+            <td className="table-data td-save">
               <Input style={{width: "150px"}} disabled={true} value={emission} onChange={(event) => setEmission(event.target.value)} placeholder="kgCO2" />
+              <FontAwesomeIcon onClick={add} className="save-img" icon={faSave} style={{color: "#1f5129"}} />
             </td>
-          </tr>
+          </tr>}
         </tbody>
       </table>
       <div className="finalresult-line">
-        <p className="add-entry" onClick={add}><img className="add-img" />Add entry</p>
+        <p className="add-entry" onClick={()=>setIsAddClicked(prev => true)}><img className="add-img" />Add entry</p>
         <div className="final-calculatedvalue">
           <p>Total embodied emissions</p>
           <Input style={{"background" : "#FEEFD3"}} className="result-value" value={totalEmission + " kgCO2"} disabled={true} placeholder="kgCO2"/>
