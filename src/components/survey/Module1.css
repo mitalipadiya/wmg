@@ -103,3 +103,42 @@ button.btn-nav:disabled, button.btn-nav[disabled] {
     background: #FEEFD3 0% 0% no-repeat padding-box;
     border: 1px solid #F9B123;
 }
+.module1-result-btn-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.slide-left {
+    --visible: 0;
+    --hidden: 100%;
+    animation: 4s slide-right-animation ease-in;
+}
+
+@keyframes slide-right-animation {
+    0% {
+        transform: translateX(var(--hidden));
+        opacity: 0;
+    }
+
+    6.66%,
+    26.64% {
+        transform: translateX(var(--visible));
+        opacity: 1;
+    }
+}
+
+.fade-in-out {
+    opacity: 1;
+}
+/* 
+.fade-out {
+    transition: all 1.5s ease-in-out;
+    transform-origin: left right;
+    transform: scaleY(0);
+}
+
+.fade-in {
+    transition: all 1.5s ease-in-out;
+    transform-origin: left right;
+    transform: scaleY(1);
+} */

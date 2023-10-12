@@ -73,14 +73,16 @@ const RadarChartSurvey = ({ data, isOverall }) => {
       if (!isOverall) {
         let categoryData = [];
         for (let i = 0; i < data.questions.length; i++) {
-          let temp = {
-            category: data.questions[i].heading,
-            mrl: data.questions[i].mrl ? data.questions[i].mrl : 4,
-            lrl: data.questions[i].lrl ? data.questions[i].lrl : 1,
-            iarl: data.questions[i].iarl ? data.questions[i].iarl : 3,
-            crl: data.questions[i].selectedOption < 4 ? data.questions[i].selectedOption + 1 : 0
+          if(data.questions[i].selectedOption < 4) {
+            let temp = {
+              category: data.questions[i].heading,
+              mrl: data.questions[i].mrl ? data.questions[i].mrl : 4,
+              lrl: data.questions[i].lrl ? data.questions[i].lrl : 1,
+              iarl: data.questions[i].iarl ? data.questions[i].iarl : 3,
+              crl: data.questions[i].selectedOption < 4 ? data.questions[i].selectedOption + 1 : 0
+            }
+            categoryData.push(temp);
           }
-          categoryData.push(temp);
         }
         setChartData(prev => [...categoryData]);
       } else {
@@ -118,13 +120,12 @@ const RadarChartSurvey = ({ data, isOverall }) => {
       {
         chartData?.length ? <RadarChart width={1000} height={450} data={chartData}>
           <PolarGrid />
-          <PolarAngleAxis dataKey="category"  axisLine={false} tickLine={false} orientation="outer" tick={{ fontSize: 16, fontFamily: "Manrope", fontWeight: 'bold', color: "#A8A8A9"}}/>
-          <PolarRadiusAxis angle={90} axisLine={false} tick={{ fill: "#000", fontSize: 16 }}        />
-          <Radar name="Company readiness level (CRL)" dataKey="crl" stroke="#27272A" strokeWidth="2" fill="#27272A" fillOpacity={0} dot={{ fill: "#27272A", r: 2 }} />
+          <PolarAngleAxis dataKey="category"  axisLine={true} tickLine={true} orientation="outer" tick={{ fontSize: 16, fontFamily: "Manrope", fontWeight: 'bold', color: "#A8A8A9"}}/>
+          <PolarRadiusAxis angle={82} axisLine={false} tick={{ fill: "#000", fontSize: 16 }}/>
           <Radar name="Industry average readiness level (IARL)" dataKey="iarl" stroke="#79D4F1" strokeWidth="2" fill="#79D4F1" fillOpacity={0} dot={{ fill: "#79D4F1", r: 2 }} />
           <Radar name="Maximum readiness level (MRL)" dataKey="mrl" stroke="#CAD401" strokeWidth="2" fill="#CAD401" fillOpacity={0} dot={{ fill: "#CAD401", r: 2 }} />
           <Radar name="Lowest readiness level (LRL)" dataKey="lrl" stroke="#F9B123" strokeWidth="2" fill="#F9B123" fillOpacity={0} dot={{ fill: "#F9B123", r: 2 }} />
-          {/* <Legend align="left" verticalAlign="middle" layout="vertical" /> */}
+          <Radar name="Company readiness level (CRL)" dataKey="crl" stroke="#27272A" strokeWidth="2" fill="#27272A" fillOpacity={0} dot={{ fill: "#27272A", r: 2 }} />
         </RadarChart> : null
       }
     </>

@@ -166,9 +166,9 @@ const Baseline = () => {
 
                     <div className="calculated-main">
                         <div className="calculated-container">
-                            <CalculatedData heading="Annual operational emissions for grid electricity (kgCO2e)" unit="kgCO2e" value={annualOperationalEmissionsForGridElectricity} />
-                            <CalculatedData heading="Annual operational emissions for grid gas (kgCO2e)" unit="kgCO2e" value={annualOperationalEmissionsForGridGas} />
-                            <CalculatedData heading="Total baseline emissions (kgCO2e)" unit="kgCO2e" value={totalBaselineEmissions} />
+                            <CalculatedData heading="Annual operational emissions for grid electricity" unit="tCO2e" value={annualOperationalEmissionsForGridElectricity/1000} />
+                            <CalculatedData heading="Annual operational emissions for grid gas" unit="tCO2e" value={annualOperationalEmissionsForGridGas/1000} />
+                            <CalculatedData heading="Total baseline emissions" unit="tCO2e" value={totalBaselineEmissions/1000} />
 
                         </div>
                     </div>

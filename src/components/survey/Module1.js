@@ -4,9 +4,10 @@ import SurveyOptions from './SurveyOptions';
 import Summary from './Summary';
 import { useSelector } from 'react-redux';
 import userService from '../../services/user.service';
+import { useNavigate } from 'react-router-dom';
 
 const Module1 = () => {
-    const {surveyData, user} = useSelector(state => state.auth);
+    const { surveyData, user } = useSelector(state => state.auth);
     const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
     const [selectedCategory, setSelectedCategory] = useState("");
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -14,6 +15,9 @@ const Module1 = () => {
     const [currentQuestion, setCurrentQuestion] = useState();
     const [showSummary, setShowSummary] = useState(false);
     const [showSurveyResults, setShowSurveyResults] = useState(false);
+    const [animationClass, setAnimationClass] = useState('');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setSelectedCategoryIndex(0);
@@ -25,6 +29,10 @@ const Module1 = () => {
         });
         setCurrentQuestionIndex(0);
     }, []);
+
+    // useEffect(() => {
+    //     setAnimationClass('slide-left');
+    // }, [currentQuestion]);
 
     const onPrevClick = () => {
         if (currentQuestionIndex == 0 && selectedCategoryIndex != 0) {
@@ -71,11 +79,15 @@ const Module1 = () => {
             }
             setShowSummary(true);
         } else {
-            setCurrentQuestionIndex(prev => {
-                let index = prev + 1;
-                setCurrentQuestion(prev => questions[index]);
-                return index;
-            })
+            setAnimationClass('');
+            setTimeout(() => {
+                setCurrentQuestionIndex(prev => {
+                    let index = prev + 1;
+                    setCurrentQuestion(prev => questions[index]);
+                    return index;
+                })
+                setAnimationClass('slide-left');
+            }, 1000);
         }
     }
     const onOptionSelected = (param) => (event) => {
@@ -84,15 +96,15 @@ const Module1 = () => {
             prevData['selectedOption'] = param;
             return { ...prevData };
         })
-        
+
         let timestamp = Date.now();
         userService.updateSurvey(user._id, surveyData, timestamp).then(data => {
             updateLocalSurveyData(timestamp);
             onNextClick();
-        }, 
-        (error)=> {
-            console.log("error ==>", error);
-        });
+        },
+            (error) => {
+                console.log("error ==>", error);
+            });
     }
     const onSummaryOptionSelected = (index, option) => {
         setQuestions(prev => {
@@ -103,18 +115,21 @@ const Module1 = () => {
         let timestamp = Date.now();
         userService.updateSurvey(user._id, surveyData, timestamp).then(data => {
             updateLocalSurveyData(timestamp);
-        }, 
-        (error)=> {
-            console.log("error ==>", error);
-        });
+        },
+            (error) => {
+                console.log("error ==>", error);
+            });
     }
     const updateLocalSurveyData = (timestamp) => {
         let userData = localStorage.getItem('user');
-        if(userData) {
+        if (userData) {
             let parsedUserData = JSON.parse(userData);
-            parsedUserData.survey_data = {...surveyData, ...{lastUpdated: timestamp}};
+            parsedUserData.survey_data = { ...surveyData, ...{ lastUpdated: timestamp } };
             localStorage.setItem('user', JSON.stringify(parsedUserData));
         }
+    }
+    const onSurveyResults = () => {
+        navigate("/survey-results")
     }
 
     return <div className='survey-parent-div'>
@@ -128,27 +143,38 @@ const Module1 = () => {
                     return <hr className={`survey-hr ${selectedCategoryIndex == index ? 'selected-cat' : ''}`}></hr>
                 }) : null}
             </div>
-            <>
-                <h3 className='survey-heading-3'>{showSummary ? `Here's a summary of what you chose for ${selectedCategory} (category ${selectedCategoryIndex + 1}/${surveyData?.categories?.length})` : currentQuestion?.heading}</h3>
-                <p className='survey-para-2'>{showSummary ? 'Click on the button "Change" if you want to change what you chose' : currentQuestion?.subHeading}</p>
-            </>
         </div>
-        <>
-            {showSummary ? <Summary onSummaryOptionSelected={onSummaryOptionSelected} questions={questions} onNextCategory={onNextCategory} showSurveyResults={showSurveyResults}/> : <div className='survey-ques-div'>
+        <div className={`${animationClass}`}>
+            <div className='module1-result-btn-div'>
                 <div>
-                    <div className='survey-questions-options'>
-                        {currentQuestion?.options?.length ? currentQuestion?.options.map((ele, index) => {
-                            return <SurveyOptions option={ele} isSelected={currentQuestion.selectedOption == index} onOptionSelected={onOptionSelected(index)} optionIndex={index} />
-                        }) : null}
-                    </div>
+                    <h3 className='survey-heading-3'>{showSummary ? `Here's a summary of what you chose for ${selectedCategory} (category ${selectedCategoryIndex + 1}/${surveyData?.categories?.length})` : currentQuestion?.heading}</h3>
+                    <p className='survey-para-2'>{showSummary ? 'Click on the button "Change" if you want to change what you chose' : currentQuestion?.subHeading}</p>
                 </div>
-                <div className='btn-nav-div'>
-                    <button disabled={currentQuestionIndex == 0 && selectedCategoryIndex == 0} className='btn-nav' onClick={onPrevClick}>Previous</button>
-                    {/* <button disabled={currentQuestionIndex == questions.length - 1 && selectedCategoryIndex == surveyData.categories.length -1} className={`btn-nav`} onClick={onNextClick}>Next</button> */}
+                <div>
+                    {showSummary ? <>  {showSurveyResults ?
+                        <button className='btn-nav' onClick={onSurveyResults}>See survey results</button> : <button className='btn-nav' onClick={onNextCategory}>Next category</button>
+                    }</> : null}
+
                 </div>
             </div>
-            }
-        </>
+            <div>
+                {showSummary ? <Summary onSummaryOptionSelected={onSummaryOptionSelected} questions={questions} onNextCategory={onNextCategory} showSurveyResults={showSurveyResults} /> : <div className='survey-ques-div'>
+                    <div>
+                        <div className='survey-questions-options'>
+                            {currentQuestion?.options?.length ? currentQuestion?.options.map((ele, index) => {
+                                return <SurveyOptions option={ele} isSelected={currentQuestion.selectedOption == index} onOptionSelected={onOptionSelected(index)} optionIndex={index} />
+                            }) : null}
+                        </div>
+                    </div>
+                    <div className='btn-nav-div'>
+                        <button disabled={currentQuestionIndex == 0 && selectedCategoryIndex == 0} className='btn-nav' onClick={onPrevClick}>Previous</button>
+                        {/* <button disabled={currentQuestionIndex == questions.length - 1 && selectedCategoryIndex == surveyData.categories.length -1} className={`btn-nav`} onClick={onNextClick}>Next</button> */}
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
 
     </div>
 

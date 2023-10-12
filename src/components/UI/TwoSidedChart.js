@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
+import "./TwoSidedChart.css";
 
 const TwoSidedChart = ({ data }) => {
     const chartRef = useRef(null);
@@ -28,25 +29,14 @@ const TwoSidedChart = ({ data }) => {
                 .attr('transform', `translate(${margin.left},${margin.top})`);
 
             // Create scales
-            const xScale = d3.scaleLinear().domain([0, d3.sum(data, d => d.totalOperational)]).range([0, width]);
+            const xScale = d3.scaleLinear().domain([0, d3.sum(data, d => d.totalOperational) + 20]).range([0, width]);
             const yScale = d3.scaleLinear().domain([d3.min(data, d => d.costEffectiveness) - 200, d3.max(data, d => d.costEffectiveness) + 200]).range([height, 0]);
 
-            // Create x-axis
-            svg.append('g')
-                .attr('transform', `translate(0,${yScale(0)})`)
-                .call(d3.axisBottom(xScale));
-
-            // Create x-axis label
-            svg.append('text')
-                .attr('class', 'axis-label')
-                .attr('x', width / 2)
-                .attr('y', height + margin.bottom - 10)
-                .attr('text-anchor', 'middle')
-                .text('CO2 emissions savings (tCO2e)');
 
 
             // Create y-axis
             svg.append('g')
+                .attr('class', 'axis-scales')
                 .call(d3.axisLeft(yScale));
 
             // Create y-axis label
@@ -78,6 +68,20 @@ const TwoSidedChart = ({ data }) => {
 
                 // .attr('height', d => height - yScale(d.costEffectiveness))
                 .attr('fill', d => d.color);
+
+            // Create x-axis
+            svg.append('g')
+                .attr('class', 'axis-scales')
+                .attr('transform', `translate(0,${yScale(0)})`)
+                .call(d3.axisBottom(xScale));
+
+            // Create x-axis label
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('x', width / 2)
+                .attr('y', height + margin.bottom - 10)
+                .attr('text-anchor', 'middle')
+                .text('CO2 emissions savings (tCO2e)');
 
             // Create legend
             const legend = svg.append('g')

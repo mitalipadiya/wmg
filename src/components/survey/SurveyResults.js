@@ -88,13 +88,6 @@ const SurveyResults = () => {
                 <RadarChartSurvey data={data} isOverall={false} />
             </div>
         </div>
-            
-            
-            // <div>
-            //     {/* <SurveyRadarChart chartData={data} isOverall={false}/> */}
-            //     <RadarChartSurvey data={data} isOverall={false} />
-
-            // </div>
 
         })}
     </div>

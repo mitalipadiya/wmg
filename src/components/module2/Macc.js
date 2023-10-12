@@ -24,130 +24,130 @@ const Macc = () => {
             if(technologies.solarPV) {
                 data.push({
                     technologyOptions: "Solar PhotoVoltaics(PV)",
-                    annualOperations: formatValueWithTwoDecimals(solarPV?.annualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(solarPV?.netPresentValueOperationalEnergy, 1),
-                    totalOperational: formatValueWithTwoDecimals(solarPV?.totalOperationalEmissionSavingsAbatementPeriodInTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(solarPV?.costEffectivenessOperationalEmission, 1),
+                    annualOperations: formatValueWithTwoDecimals(solarPV?.annualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(solarPV?.netPresentValueOperationalEnergy, 0),
+                    totalOperational: formatValueWithTwoDecimals(solarPV?.totalOperationalEmissionSavingsAbatementPeriodInTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(solarPV?.costEffectivenessOperationalEmission, 0),
                     color: '#79D4F1'
                 })
             }
             if(technologies.wind) {
                 data.push({
                     technologyOptions: "Wind",
-                    annualOperations: formatValueWithTwoDecimals(wind?.annualOperationalCost, 1),
-                    netPresent: formatValueWithTwoDecimals(wind?.netPresentValueOperationalEnergyCostSavings, 1),
-                    totalOperational: formatValueWithTwoDecimals(wind?.totalOperationalEmissionSavingsAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(wind?.costEffectivenessConsideringOperationalEmissionSavings, 1),
+                    annualOperations: formatValueWithTwoDecimals(wind?.annualOperationalCost, 0),
+                    netPresent: formatValueWithTwoDecimals(wind?.netPresentValueOperationalEnergyCostSavings, 0),
+                    totalOperational: formatValueWithTwoDecimals(wind?.totalOperationalEmissionSavingsAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(wind?.costEffectivenessConsideringOperationalEmissionSavings, 0),
                     color: '#FBD07B'
                 })
             }
             if(technologies.solarPvBess) {
                 data.push({
                     technologyOptions: "Solar PV+BESS",
-                    annualOperations: formatValueWithTwoDecimals(solarPvBess?.annualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(solarPvBess?.netPresentValueOfOperationalEnergyCostSavings, 1),
-                    totalOperational: formatValueWithTwoDecimals(solarPvBess?.totalOperationalEmissionSavingsAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(solarPvBess?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
+                    annualOperations: formatValueWithTwoDecimals(solarPvBess?.annualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(solarPvBess?.netPresentValueOfOperationalEnergyCostSavings, 0),
+                    totalOperational: formatValueWithTwoDecimals(solarPvBess?.totalOperationalEmissionSavingsAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(solarPvBess?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 0),
                     color: '#DFE566'
                 })
             }
             if(technologies.led) {
                 data.push({
                     technologyOptions: "Light Emitting Diodes (LED)",
-                    annualOperations: formatValueWithTwoDecimals(led?.annualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(led?.netPresentValueOfOperationalEnergyCostSavings, 1),
-                    totalOperational: formatValueWithTwoDecimals(led?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(led?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
+                    annualOperations: formatValueWithTwoDecimals(led?.annualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(led?.netPresentValueOfOperationalEnergyCostSavings, 0),
+                    totalOperational: formatValueWithTwoDecimals(led?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(led?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 0),
                     color: '#9092BE'
                 })
             }
             if(technologies.smartMetersElectricity) {
                 data.push({
                     technologyOptions: "Smart meter for electricity",
-                    annualOperations: formatValueWithTwoDecimals(smartMetersElectricity?.annualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(smartMetersElectricity?.netPresentValueOfOperationalEnergyCostSavings, 1),
-                    totalOperational: formatValueWithTwoDecimals(smartMetersElectricity?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(smartMetersElectricity?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
+                    annualOperations: formatValueWithTwoDecimals(smartMetersElectricity?.annualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(smartMetersElectricity?.netPresentValueOfOperationalEnergyCostSavings, 0),
+                    totalOperational: formatValueWithTwoDecimals(smartMetersElectricity?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(smartMetersElectricity?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 0),
                     color: '#F4A3A0'
                 })
             }
             if(technologies.passiveInfraredSensor) {
                 data.push({
                     technologyOptions: "Passive Infrared Sensors",
-                    annualOperations: formatValueWithTwoDecimals(passiveInfraredSensor?.annualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(passiveInfraredSensor?.netPresentValueOfOperationalEnergyCostSaings, 1),
-                    totalOperational: formatValueWithTwoDecimals(passiveInfraredSensor?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(passiveInfraredSensor?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
+                    annualOperations: formatValueWithTwoDecimals(passiveInfraredSensor?.annualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(passiveInfraredSensor?.netPresentValueOfOperationalEnergyCostSaings, 0),
+                    totalOperational: formatValueWithTwoDecimals(passiveInfraredSensor?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(passiveInfraredSensor?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 0),
                     color: '#AC9A81'
                 })
             }
             if(technologies.voltageOptimisation) {
                 data.push({
                     technologyOptions: "Voltage Optimisation",
-                    annualOperations: formatValueWithTwoDecimals(voltageOptimisation?.annualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(voltageOptimisation?.netPresentValueOfOperationalEnergyCostSavings, 1),
-                    totalOperational: formatValueWithTwoDecimals(voltageOptimisation?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(voltageOptimisation?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
+                    annualOperations: formatValueWithTwoDecimals(voltageOptimisation?.annualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(voltageOptimisation?.netPresentValueOfOperationalEnergyCostSavings, 0),
+                    totalOperational: formatValueWithTwoDecimals(voltageOptimisation?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(voltageOptimisation?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 0),
                     color: '#BA80C6'
                 })
             }
             if(technologies.biomass) {
                 data.push({
                     technologyOptions: "Biomass",
-                    annualOperations: formatValueWithTwoDecimals(biomass?.annualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(biomass?.netPresentValueOfOperationalEnergyCostSavings, 1),
-                    totalOperational: formatValueWithTwoDecimals(biomass?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(biomass?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
+                    annualOperations: formatValueWithTwoDecimals(biomass?.annualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(biomass?.netPresentValueOfOperationalEnergyCostSavings, 0),
+                    totalOperational: formatValueWithTwoDecimals(biomass?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(biomass?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 0),
                     color: '#B0E195'
                 })
             }
             if(technologies.solarThermal) {
                 data.push({
                     technologyOptions: "Solar thermal",
-                    annualOperations: formatValueWithTwoDecimals(solarThermal?.annualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(solarThermal?.netPresentValueOfOperationalEnergyCostSavings, 1),
-                    totalOperational: formatValueWithTwoDecimals(solarThermal?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(solarThermal?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
+                    annualOperations: formatValueWithTwoDecimals(solarThermal?.annualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(solarThermal?.netPresentValueOfOperationalEnergyCostSavings, 0),
+                    totalOperational: formatValueWithTwoDecimals(solarThermal?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(solarThermal?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 0),
                     color: '#95B2E1'
                 })
             }
             if(technologies.industrialHeatPump) {
                 data.push({
                     technologyOptions: "Industrial heat pump",
-                    annualOperations: formatValueWithTwoDecimals(industrialHeatPump?.annualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(industrialHeatPump?.netPresentValueOfOperationalEnergyCostSavings, 1),
-                    totalOperational: formatValueWithTwoDecimals(industrialHeatPump?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(industrialHeatPump?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
+                    annualOperations: formatValueWithTwoDecimals(industrialHeatPump?.annualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(industrialHeatPump?.netPresentValueOfOperationalEnergyCostSavings, 0),
+                    totalOperational: formatValueWithTwoDecimals(industrialHeatPump?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(industrialHeatPump?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 0),
                     color: '#E1BE95'
                 })
             }
             if(technologies.smartMetersGas) {
                 data.push({
                     technologyOptions: "Smart Meters for Gas",
-                    annualOperations: formatValueWithTwoDecimals(smartMetersGas?.annualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(smartMetersGas?.netPresentValueOfOperationalEnergyCostSavings, 1),
-                    totalOperational: formatValueWithTwoDecimals(smartMetersGas?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(smartMetersGas?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
+                    annualOperations: formatValueWithTwoDecimals(smartMetersGas?.annualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(smartMetersGas?.netPresentValueOfOperationalEnergyCostSavings, 0),
+                    totalOperational: formatValueWithTwoDecimals(smartMetersGas?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(smartMetersGas?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 0),
                     color: '#A8A8A9'
                 })
             }
             if(technologies.energyManagementSystem) {
                 data.push({
                     technologyOptions: "Building energy management system",
-                    annualOperations: formatValueWithTwoDecimals(energyManagementSystem?.totalAnnualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(energyManagementSystem?.netPresentValueOfOperationalEnergyCostSavings, 1),
-                    totalOperational: formatValueWithTwoDecimals(energyManagementSystem?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(energyManagementSystem?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
+                    annualOperations: formatValueWithTwoDecimals(energyManagementSystem?.totalAnnualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(energyManagementSystem?.netPresentValueOfOperationalEnergyCostSavings, 0),
+                    totalOperational: formatValueWithTwoDecimals(energyManagementSystem?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(energyManagementSystem?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 0),
                     color: '#F7A47B'
                 })
             }
             if(technologies.chp) {
                 data.push({
                     technologyOptions: "CHP",
-                    annualOperations: formatValueWithTwoDecimals(chp?.annualOperationalCostSavings, 1),
-                    netPresent: formatValueWithTwoDecimals(chp?.netPresentValueOfOperationalEnergyCostSavings, 1),
-                    totalOperational: formatValueWithTwoDecimals(chp?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 1),
-                    costEffectiveness: formatValueWithTwoDecimals(chp?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 1),
+                    annualOperations: formatValueWithTwoDecimals(chp?.annualOperationalCostSavings, 0),
+                    netPresent: formatValueWithTwoDecimals(chp?.netPresentValueOfOperationalEnergyCostSavings, 0),
+                    totalOperational: formatValueWithTwoDecimals(chp?.totalOperationalEmissionSavingsAcrossAbatementPeriodTon, 0),
+                    costEffectiveness: formatValueWithTwoDecimals(chp?.costEffectivenessConsideringOperationalEmissionSavingsOnly, 0),
                     color: '#E195DE'
                 })
             }
