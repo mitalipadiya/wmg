@@ -36,6 +36,7 @@ header {
 .user-div {
   display: flex;
   align-items: center;
+  margin-left: 20px;
 }
 
 .user-circle {
@@ -97,4 +98,25 @@ nav {
   text-align: left;
   padding: 8px 10px 8px 10px;
   cursor: pointer;
+}
+.header-div{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.header-logo {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+.logo-center {
+  justify-content: center;
+}
+.header-btn {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.header-custom-btn{
+  height: 32px !important;
 }

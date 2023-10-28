@@ -36,6 +36,7 @@ import ParetoOptimisation from './components/module2/ParetoOptimisation';
 import Module3 from './components/module3/Module3';
 import Module2Intro from './components/module2/module2-intro';
 import Module3Intro from './components/module3/module3-intro';
+import LandingPage from './components/login/LandingPage';
 
 function App() {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -55,8 +56,9 @@ function App() {
       <Snackbar />
       <Header />
       <Routes>
-        <Route path="/" element={<SignIn />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/intro" element={<Intro />} />
+        <Route path="/login" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/create-new/:token" element={<CreateNewPassword />} />
         <Route path="/reset" element={<ResetPassword />} />

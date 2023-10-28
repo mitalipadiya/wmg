@@ -17,7 +17,7 @@ const SignIn = () => {
 
     useEffect(()=> {
         if(isLoggedIn) {
-            navigate("/intro");
+            navigate("/");
         }
     }, [isLoggedIn])
 
@@ -25,7 +25,7 @@ const SignIn = () => {
 
         dispatch(login(email, password))
             .then(() => {
-                navigate("/intro");
+                navigate("/");
             })
             .catch(() => {
             });

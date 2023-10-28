@@ -87,7 +87,7 @@ const Module1 = () => {
                     return index;
                 })
                 setAnimationClass('slide-left');
-            }, 1000);
+            }, 100);
         }
     }
     const onOptionSelected = (param) => (event) => {
@@ -158,7 +158,7 @@ const Module1 = () => {
                 </div>
             </div>
             <div>
-                {showSummary ? <Summary onSummaryOptionSelected={onSummaryOptionSelected} questions={questions} onNextCategory={onNextCategory} showSurveyResults={showSurveyResults} /> : <div className='survey-ques-div'>
+                {showSummary ? <Summary onSummaryOptionSelected={onSummaryOptionSelected} questions={questions} onNextCategory={onNextCategory} showSurveyResults={showSurveyResults} onSurveyResults={onSurveyResults} /> : <div className='survey-ques-div'>
                     <div>
                         <div className='survey-questions-options'>
                             {currentQuestion?.options?.length ? currentQuestion?.options.map((ele, index) => {

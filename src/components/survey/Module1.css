@@ -98,6 +98,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 67px;
+    margin-top: 24px;
 }
 button.btn-nav:disabled, button.btn-nav[disabled] {
     background: #FEEFD3 0% 0% no-repeat padding-box;
@@ -111,7 +112,7 @@ button.btn-nav:disabled, button.btn-nav[disabled] {
 .slide-left {
     --visible: 0;
     --hidden: 100%;
-    animation: 4s slide-right-animation ease-in;
+    animation: 2s slide-right-animation ease-in;
 }
 
 @keyframes slide-right-animation {
@@ -129,6 +130,10 @@ button.btn-nav:disabled, button.btn-nav[disabled] {
 
 .fade-in-out {
     opacity: 1;
+}
+
+.prev-summary {
+    margin-top: 40px;
 }
 /* 
 .fade-out {
